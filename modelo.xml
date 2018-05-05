@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<objeto titulo="Florencio">
+	<objeto titulo="Parametros">
+		SELECT ID || CHAVE || VALOR FROM
+		TB_PARAMETROS_SIPROQUIM
+	</objeto>
+
+	<objeto titulo="Pessoas">
+		SELECT NOME, ID FROM TB_PESSOA_SPQM
+
+		<objeto titulo="Endereços" manterVazio="true">
+			<![CDATA[SELECT LOGRADOURO, ID FROM TB_ENDERECO WHERE ID_PESSOA_SPQM = ?]]>
+
+			<objeto titulo="Telefones" manterVazio="true">
+				<![CDATA[SELECT NUMERO FROM TB_TELEFONE WHERE ID_ENDERECO = ? ORDER BY NUMERO]]>
+			</objeto>
+		</objeto>
+
+		<objeto titulo="Pessoas Física">
+			<![CDATA[SELECT NUMERO_CPF FROM TB_PESSOA_FISICA WHERE ID_PESSOA_FISICA = ?]]>
+		</objeto>
+
+		<objeto titulo="Pessoas Jurídica">
+			<![CDATA[SEU SQL AQUI]]>
+		</objeto>
+	</objeto>
+</objeto>
