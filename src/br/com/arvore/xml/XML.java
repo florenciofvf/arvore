@@ -69,13 +69,16 @@ class XMLHandler extends DefaultHandler {
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		String string = sb.toString();
+		if (Constantes.OBJETO.equals(qName)) {
+			String string = sb.toString();
 
-		if (!Util.estaVazio(string)) {
-			selecionado.setConsulta(string);
+			if (!Util.estaVazio(string)) {
+				selecionado.setConsulta(string);
+			}
+
+			selecionado = selecionado.getPai();
+			limpar();
 		}
-
-		selecionado = selecionado.getPai();
 	}
 
 	@Override

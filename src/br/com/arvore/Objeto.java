@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
@@ -13,9 +14,9 @@ public class Objeto {
 	private final String titulo;
 	private String nomeIcone;
 	private String consulta;
-	private Long parametro;
-	private Objeto pai;
 	private Icon icone;
+	private Objeto pai;
+	private Arg[] args;
 
 	public Objeto(String titulo) {
 		Util.checarVazio(titulo, "erro.titulo_vazio");
@@ -25,7 +26,9 @@ public class Objeto {
 
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
+		clone.nomeIcone = nomeIcone;
 		clone.consulta = consulta;
+		clone.icone = icone;
 
 		for (Objeto obj : objetos) {
 			clone.add(obj.clonar());
@@ -34,18 +37,31 @@ public class Objeto {
 		return clone;
 	}
 
-	public Objeto clone() {
-		Objeto clone = new Objeto(titulo);
-		clone.consulta = consulta;
+	public void inflar() throws Exception {
+		if (Util.estaVazio(consulta)) {
+			for (Objeto obj : objetos) {
+				obj.inflar();
+			}
+		} else {
+			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-		return clone;
+			List<Objeto> tmp = new ArrayList<>(objetos);
+			objetos.clear();
+
+			for (Objeto obj : listagem) {
+				add(obj);
+
+				for (Objeto o : tmp) {
+					obj.add(o);
+				}
+
+				obj.inflar();
+			}
+		}
 	}
 
 	public Objeto getPai() {
 		return pai;
-	}
-
-	public void inflar() throws Exception {
 	}
 
 	public Icon getIcone() {
@@ -95,14 +111,6 @@ public class Objeto {
 		return titulo;
 	}
 
-	public Long getParametro() {
-		return parametro;
-	}
-
-	public void setParametro(Long parametro) {
-		this.parametro = parametro;
-	}
-
 	public int getIndice(Objeto objeto) {
 		return objetos.indexOf(objeto);
 	}
@@ -116,12 +124,24 @@ public class Objeto {
 	}
 
 	public void setConsulta(String consulta) {
+		if (consulta != null) {
+			consulta = consulta.trim();
+		}
+
 		this.consulta = consulta;
 	}
 
 	@Override
 	public int hashCode() {
 		return titulo.hashCode();
+	}
+
+	public Arg[] getArgs() {
+		return args;
+	}
+
+	public void setArgs(Arg[] args) {
+		this.args = args;
 	}
 
 	@Override
