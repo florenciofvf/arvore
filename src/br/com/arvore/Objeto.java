@@ -11,6 +11,7 @@ import br.com.arvore.util.Util;
 public class Objeto {
 	private final List<Objeto> objetos;
 	private final String titulo;
+	private String nomeIcone;
 	private String consulta;
 	private Long parametro;
 	private Objeto pai;
@@ -24,10 +25,18 @@ public class Objeto {
 
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
+		clone.consulta = consulta;
 
 		for (Objeto obj : objetos) {
 			clone.add(obj.clonar());
 		}
+
+		return clone;
+	}
+
+	public Objeto clone() {
+		Objeto clone = new Objeto(titulo);
+		clone.consulta = consulta;
 
 		return clone;
 	}
@@ -44,17 +53,20 @@ public class Objeto {
 	}
 
 	public void setIcone(Icon icone) {
-		if (icone != null) {
-			this.icone = icone;
-		}
+		this.icone = icone;
 	}
 
-	public void setIcone(String icone) {
-		if (Util.estaVazio(icone)) {
-			this.icone = Icones.getIcon("um_pixel");
-		} else {
-			this.icone = Icones.getIcon(icone);
+	public void setNomeIcone(String nomeIcone) {
+		if (Util.estaVazio(nomeIcone)) {
+			nomeIcone = "um_pixel";
 		}
+
+		this.nomeIcone = nomeIcone;
+		this.icone = Icones.getIcon(nomeIcone);
+	}
+
+	public String getNomeIcone() {
+		return nomeIcone;
 	}
 
 	public List<Objeto> getObjetos() {

@@ -53,7 +53,7 @@ class XMLHandler extends DefaultHandler {
 			String icone = attributes.getValue(Constantes.ICONE);
 
 			Objeto objeto = new Objeto(titulo);
-			objeto.setIcone(icone);
+			objeto.setNomeIcone(icone);
 
 			if (raiz == null) {
 				raiz = objeto;
