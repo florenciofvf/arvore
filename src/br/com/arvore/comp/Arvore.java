@@ -9,6 +9,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.util.TreeCellRD;
 
 public class Arvore extends JTree {
 	private static final long serialVersionUID = 1L;
@@ -18,8 +19,11 @@ public class Arvore extends JTree {
 		super(newModel);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		putClientProperty("JTree.lineStyle", "Horizontal");
-		this.arvoreListener = arvoreListener;
 		addMouseListener(new OuvinteArvore());
+		this.arvoreListener = arvoreListener;
+		setCellRenderer(new TreeCellRD());
+		setShowsRootHandles(true);
+		setRootVisible(true);
 	}
 
 	private class OuvinteArvore extends MouseAdapter {
