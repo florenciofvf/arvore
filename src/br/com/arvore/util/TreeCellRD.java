@@ -21,9 +21,7 @@ public class TreeCellRD extends DefaultTreeCellRenderer {
 		if (value instanceof Objeto) {
 			Objeto obj = (Objeto) value;
 
-			if (obj.getIcone() != null) {
-				setIcon(obj.getIcone());
-			}
+			setIcon(obj.getIcone());
 		}
 
 		return this;
