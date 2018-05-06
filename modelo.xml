@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<objeto titulo="Eleição de Teste">
+<objeto titulo="Eleição de Teste" icone="bola_verde">
 
-	<objeto titulo="Eleições">
+	<objeto titulo="Eleições" icone="diamante">
 		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
 
 		<objeto titulo="Candidatos" icone="pessoas">
@@ -14,4 +14,7 @@
 		</objeto>
 	</objeto>
 
+	<objeto titulo="Endereços" icone="home">
+		<sql>SELECT concat(id, "-", logradouro, "-", id_candidato), id as inteiro FROM endereco</sql>
+	</objeto>
 </objeto>
