@@ -14,6 +14,14 @@ public abstract class Arg {
 			return new ArgInt();
 		}
 
+		if ("longo".equals(tipo)) {
+			return new ArgLong();
+		}
+
+		if ("texto".equals(tipo)) {
+			return new ArgString();
+		}
+
 		return new ArgString();
 	}
 }

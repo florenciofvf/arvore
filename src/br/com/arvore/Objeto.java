@@ -1,7 +1,6 @@
 package br.com.arvore;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -46,38 +45,22 @@ public class Objeto {
 		} else {
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-			List<Objeto> tmp = new ArrayList<>(objetos);
+			List<Objeto> nativos = new ArrayList<>(objetos);
 			objetos.clear();
 
 			for (Objeto obj : listagem) {
 				add(obj);
 
-				for (Objeto o : tmp) {
-					obj.add(o.clonar());
+				for (Objeto o : nativos) {
+					Objeto nativo = o.clonar();
+					obj.add(nativo);
+					nativo.inflar();
+
+					if (nativo.estaVazio()) {
+						obj.excluir(nativo);
+					}
 				}
-
-				obj.inflar();
 			}
-		}
-	}
-
-	public void limpar() {
-		for (Objeto obj : objetos) {
-			obj.limpar();
-		}
-
-		Iterator<Objeto> it = objetos.iterator();
-
-		while (it.hasNext()) {
-			Objeto obj = it.next();
-
-			if (obj.estaVazio()) {
-				it.remove();
-			}
-		}
-
-		for (Objeto obj : objetos) {
-			obj.limpar();
 		}
 	}
 
