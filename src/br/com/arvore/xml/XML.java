@@ -62,7 +62,7 @@ class XMLHandler extends DefaultHandler {
 			}
 
 			selecionado = objeto;
-
+		} else if (Constantes.SQL.equals(qName)) {
 			limpar();
 		}
 	}
@@ -70,13 +70,15 @@ class XMLHandler extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (Constantes.OBJETO.equals(qName)) {
+			selecionado = selecionado.getPai();
+
+		} else if (Constantes.SQL.equals(qName)) {
 			String string = sb.toString();
 
 			if (!Util.estaVazio(string)) {
-				selecionado.setConsulta(string);
+				selecionado.setConsulta(string.trim());
 			}
 
-			selecionado = selecionado.getPai();
 			limpar();
 		}
 	}

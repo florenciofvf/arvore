@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <objeto titulo="Florencio">
+
 	<objeto titulo="Eleições">
-		SELECT concat(id, "-", descricao), id as inteiro FROM eleicao
+		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
+
+		<objeto titulo="Candidatos">
+			<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
+		</objeto>
 	</objeto>
 
-	<objeto titulo="Candidatos">
-		SELECT concat(id, "-", nome), id as inteiro FROM condidato where eleicao_id = ?
-	</objeto>
 </objeto>

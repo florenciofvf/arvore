@@ -22,6 +22,7 @@ public class Formulario extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		raiz = XML.processar(file);
 		raiz.inflar();
+		raiz.limpar();
 		arvore = new Arvore(new ModeloArvore(raiz), null);
 		setSize(500, 500);
 		montarLayout();

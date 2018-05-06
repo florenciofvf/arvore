@@ -49,7 +49,7 @@ public class Persistencia {
 			Arg[] args = new Arg[colunas - 1];
 
 			for (int i = 2; i <= colunas; i++) {
-				Arg arg = Arg.criar(rsmd.getColumnName(i));
+				Arg arg = Arg.criar(rsmd.getColumnLabel(i));
 				arg.get(rs, i);
 				args[i - 2] = arg;
 			}

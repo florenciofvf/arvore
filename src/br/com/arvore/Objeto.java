@@ -1,6 +1,7 @@
 package br.com.arvore;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -52,11 +53,31 @@ public class Objeto {
 				add(obj);
 
 				for (Objeto o : tmp) {
-					obj.add(o);
+					obj.add(o.clonar());
 				}
 
 				obj.inflar();
 			}
+		}
+	}
+
+	public void limpar() {
+		for (Objeto obj : objetos) {
+			obj.limpar();
+		}
+
+		Iterator<Objeto> it = objetos.iterator();
+
+		while (it.hasNext()) {
+			Objeto obj = it.next();
+
+			if (obj.estaVazio()) {
+				it.remove();
+			}
+		}
+
+		for (Objeto obj : objetos) {
+			obj.limpar();
 		}
 	}
 
@@ -94,6 +115,13 @@ public class Objeto {
 		objetos.add(objeto);
 	}
 
+	public void excluir(Objeto obj) {
+		if (obj.pai == this) {
+			obj.pai = null;
+			objetos.remove(obj);
+		}
+	}
+
 	public boolean estaVazio() {
 		return objetos.isEmpty();
 	}
@@ -124,10 +152,6 @@ public class Objeto {
 	}
 
 	public void setConsulta(String consulta) {
-		if (consulta != null) {
-			consulta = consulta.trim();
-		}
-
 		this.consulta = consulta;
 	}
 

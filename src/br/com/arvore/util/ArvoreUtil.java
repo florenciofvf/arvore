@@ -10,7 +10,6 @@ public class ArvoreUtil {
 	}
 
 	public static List<Objeto> getObjetos(Objeto objeto) throws Exception {
-		System.out.println(objeto.getConsulta());
 		return Persistencia.getObjetos(objeto);
 	}
 }
