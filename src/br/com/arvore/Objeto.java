@@ -15,8 +15,8 @@ public class Objeto {
 	private String nomeIcone;
 	private String consulta;
 	private Icon icone;
-	private Objeto pai;
 	private Arg[] args;
+	private Objeto pai;
 
 	public Objeto(String titulo) {
 		Util.checarVazio(titulo, "erro.titulo_vazio");
@@ -94,6 +94,10 @@ public class Objeto {
 	}
 
 	public void add(Objeto objeto) {
+		if (objeto.pai != null) {
+			objeto.pai.excluir(objeto);
+		}
+
 		objeto.pai = this;
 		objetos.add(objeto);
 	}

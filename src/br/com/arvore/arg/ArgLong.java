@@ -1,7 +1,9 @@
-package br.com.arvore;
+package br.com.arvore.arg;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import br.com.arvore.Arg;
 
 public class ArgLong extends Arg {
 	private long valor;

@@ -32,7 +32,7 @@ public class XML {
 }
 
 class XMLHandler extends DefaultHandler {
-	private final StringBuilder sb = new StringBuilder();
+	private final StringBuilder builder = new StringBuilder();
 	private Objeto selecionado;
 	private Objeto raiz;
 
@@ -41,8 +41,8 @@ class XMLHandler extends DefaultHandler {
 	}
 
 	private void limpar() {
-		if (sb.length() > 0) {
-			sb.delete(0, sb.length());
+		if (builder.length() > 0) {
+			builder.delete(0, builder.length());
 		}
 	}
 
@@ -73,7 +73,7 @@ class XMLHandler extends DefaultHandler {
 			selecionado = selecionado.getPai();
 
 		} else if (Constantes.SQL.equals(qName)) {
-			String string = sb.toString();
+			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
 				selecionado.setConsulta(string.trim());
@@ -85,6 +85,6 @@ class XMLHandler extends DefaultHandler {
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		sb.append(new String(ch, start, length));
+		builder.append(new String(ch, start, length));
 	}
 }

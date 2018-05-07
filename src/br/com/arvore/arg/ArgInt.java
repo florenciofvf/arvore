@@ -1,23 +1,25 @@
-package br.com.arvore;
+package br.com.arvore.arg;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class ArgString extends Arg {
-	private String valor;
+import br.com.arvore.Arg;
+
+public class ArgInt extends Arg {
+	private int valor;
 
 	@Override
 	public void set(PreparedStatement psmt, int indice) throws Exception {
-		psmt.setString(indice, valor);
+		psmt.setInt(indice, valor);
 	}
 
 	@Override
 	public void get(ResultSet rs, int indice) throws Exception {
-		valor = rs.getString(indice);
+		valor = rs.getInt(indice);
 	}
 
 	@Override
 	public String toString() {
-		return valor;
+		return "" + valor;
 	}
 }
