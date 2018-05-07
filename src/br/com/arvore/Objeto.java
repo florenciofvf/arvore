@@ -123,7 +123,7 @@ public class Objeto {
 
 	@Override
 	public String toString() {
-		return titulo;
+		return titulo + (objetos.size() > 1 ? "(" + objetos.size() + ")" : "");
 	}
 
 	public int getIndice(Objeto objeto) {

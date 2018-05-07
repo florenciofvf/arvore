@@ -2,12 +2,15 @@ package br.com.arvore.view;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.lang.reflect.Method;
 
 import javax.swing.JFrame;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.banco.Conexao;
 import br.com.arvore.comp.Arvore;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.TabbedPane;
@@ -35,6 +38,7 @@ public class Formulario extends JFrame {
 		setSize(500, 500);
 		montarLayout();
 		configuracoes();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 
@@ -49,6 +53,16 @@ public class Formulario extends JFrame {
 				Util.mensagem(this, msg);
 			}
 		}
+
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				try {
+					Conexao.close();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			};
+		});
 	}
 
 	private void montarLayout() {
