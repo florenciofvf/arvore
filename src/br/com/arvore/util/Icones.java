@@ -11,6 +11,7 @@ public class Icones {
 	private static final Map<String, Icon> MAPA_ICONES = new HashMap<>();
 
 	public static final Icon ATUALIZAR = criarImagem("atualizar");
+	public static final Icon TABELA = criarImagem("tabela");
 
 	private static ImageIcon criarImagem(String nome) {
 		try {

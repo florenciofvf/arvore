@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.arvore.Arg;
 import br.com.arvore.Objeto;
+import br.com.arvore.modelo.ModeloRegistro;
 
 public class Persistencia {
 
@@ -59,5 +60,44 @@ public class Persistencia {
 		}
 
 		return objetos;
+	}
+
+	public static ModeloRegistro criarModeloRegistro(Objeto objeto) throws Exception {
+		Connection conn = Conexao.getConnection();
+		PreparedStatement psmt = conn.prepareStatement(objeto.getPesquisa());
+		setParametros(objeto.getPai(), psmt);
+
+		ResultSet rs = psmt.executeQuery();
+		ModeloRegistro modelo = criarModelo(rs);
+
+		rs.close();
+		psmt.close();
+
+		return modelo;
+	}
+
+	private static ModeloRegistro criarModelo(ResultSet rs) throws Exception {
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int qtdColunas = rsmd.getColumnCount();
+
+		List<String> colunas = new ArrayList<>();
+
+		for (int i = 1; i <= qtdColunas; i++) {
+			colunas.add(rsmd.getColumnName(i));
+		}
+
+		List<List<String>> registros = new ArrayList<>();
+
+		while (rs.next()) {
+			List<String> registro = new ArrayList<>();
+
+			for (int i = 1; i <= qtdColunas; i++) {
+				registro.add("" + rs.getString(i));
+			}
+
+			registros.add(registro);
+		}
+
+		return new ModeloRegistro(colunas, registros);
 	}
 }

@@ -17,6 +17,7 @@ public class Objeto {
 	private String nomeSubIcone;
 	private String nomeIcone;
 	private String consulta;
+	private String pesquisa;
 	private Icon subIcone;
 	private Icon icone;
 	private Arg[] args;
@@ -34,6 +35,7 @@ public class Objeto {
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.nomeIcone = nomeIcone;
 		clone.consulta = consulta;
+		clone.pesquisa = pesquisa;
 		clone.subIcone = subIcone;
 		clone.icone = icone;
 
@@ -183,6 +185,14 @@ public class Objeto {
 
 	public void setConsulta(String consulta) {
 		this.consulta = consulta;
+	}
+
+	public String getPesquisa() {
+		return pesquisa;
+	}
+
+	public void setPesquisa(String pesquisa) {
+		this.pesquisa = pesquisa;
 	}
 
 	@Override

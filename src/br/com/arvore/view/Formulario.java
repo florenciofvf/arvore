@@ -17,6 +17,7 @@ import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.modelo.ModeloArvore;
+import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
@@ -25,6 +26,7 @@ import br.com.arvore.xml.XML;
 public class Formulario extends JFrame implements ArvoreListener {
 	private static final long serialVersionUID = 1L;
 	private final TabbedPane fichario = new TabbedPane();
+	private final PainelRegistro painelRegistro;
 	private final Popup popup = new Popup();
 	private final Arvore arvoreInflados;
 	private final Arvore arvoreObjetos;
@@ -40,6 +42,7 @@ public class Formulario extends JFrame implements ArvoreListener {
 		raizInflados.inflar();
 		arvoreInflados = new Arvore(new ModeloArvore(raizInflados), this);
 		arvoreObjetos = new Arvore(new ModeloArvore(raizObjetos), null);
+		painelRegistro = new PainelRegistro(arvoreInflados);
 		setSize(700, 700);
 		montarLayout();
 		configuracoes();
@@ -78,12 +81,27 @@ public class Formulario extends JFrame implements ArvoreListener {
 				Util.mensagem(this, msg);
 			}
 		});
+
+		popup.itemRegistros.addActionListener(e -> {
+			try {
+				if (Util.estaVazio(selecionadoPopup.getPesquisa())) {
+					Util.mensagem(this, Mensagens.getString("msg.nenhuma_pesquisa_registrada"));
+					return;
+				}
+
+				ModeloRegistro modelo = ModeloRegistro.criarModelo(selecionadoPopup);
+				painelRegistro.setModeloRegistro(modelo);
+			} catch (Exception ex) {
+				String msg = Util.getStackTrace("REGISTROS", ex);
+				Util.mensagem(this, msg);
+			}
+		});
 	}
 
 	private void montarLayout() {
 		setLayout(new BorderLayout());
 		add(BorderLayout.CENTER, fichario);
-		fichario.addTab("label.inflados", new ScrollPane(arvoreInflados));
+		fichario.addTab("label.inflados", painelRegistro);
 		fichario.addTab("label.objetos", new ScrollPane(arvoreObjetos));
 	}
 

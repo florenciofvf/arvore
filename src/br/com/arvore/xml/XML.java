@@ -66,6 +66,8 @@ class XMLHandler extends DefaultHandler {
 			selecionado = objeto;
 		} else if (Constantes.SQL.equals(qName)) {
 			limpar();
+		} else if (Constantes.SEL.equals(qName)) {
+			limpar();
 		}
 	}
 
@@ -79,6 +81,14 @@ class XMLHandler extends DefaultHandler {
 
 			if (!Util.estaVazio(string)) {
 				selecionado.setConsulta(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.SEL.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setPesquisa(string.trim());
 			}
 
 			limpar();
