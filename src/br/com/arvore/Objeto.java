@@ -11,6 +11,8 @@ import br.com.arvore.util.Util;
 
 public class Objeto {
 	private final List<Objeto> objetos;
+	private final List<Objeto> nativos;
+	private boolean nativoArmazenados;
 	private final String titulo;
 	private String nomeIcone;
 	private String consulta;
@@ -21,6 +23,7 @@ public class Objeto {
 	public Objeto(String titulo) {
 		Util.checarVazio(titulo, "erro.titulo_vazio");
 		objetos = new ArrayList<>();
+		nativos = new ArrayList<>();
 		this.titulo = titulo;
 	}
 
@@ -43,10 +46,17 @@ public class Objeto {
 				obj.inflar();
 			}
 		} else {
+			if (!nativoArmazenados) {
+				for (Objeto obj : objetos) {
+					nativos.add(obj.clonar());
+				}
+
+				nativoArmazenados = true;
+			}
+
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-			List<Objeto> nativos = new ArrayList<>(objetos);
-			objetos.clear();
+			limpar();
 
 			for (Objeto obj : listagem) {
 				add(obj);
@@ -106,6 +116,13 @@ public class Objeto {
 		if (obj.pai == this) {
 			obj.pai = null;
 			objetos.remove(obj);
+		}
+	}
+
+	public void limpar() {
+		while (!estaVazio()) {
+			Objeto obj = objetos.get(0);
+			excluir(obj);
 		}
 	}
 

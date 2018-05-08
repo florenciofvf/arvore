@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 public class Icones {
 	private static final Map<String, Icon> MAPA_ICONES = new HashMap<>();
 
+	public static final Icon ATUALIZAR = criarImagem("atualizar");
+
 	private static ImageIcon criarImagem(String nome) {
 		try {
 			URL url = Icones.class.getResource("/resources/" + nome + ".png");

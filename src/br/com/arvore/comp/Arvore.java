@@ -37,13 +37,40 @@ public class Arvore extends JTree {
 				return;
 			}
 
-			if (path.getLastPathComponent() instanceof Objeto) {
+			if (path.getLastPathComponent() instanceof Objeto && arvoreListener != null) {
 				Objeto selecionado = (Objeto) path.getLastPathComponent();
 
-				if (ultimoSelecionado != selecionado && arvoreListener != null) {
+				if (ultimoSelecionado != selecionado) {
 					ultimoSelecionado = selecionado;
-					arvoreListener.selecionado(selecionado);
+					arvoreListener.clicado(selecionado);
 				}
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			processar(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			processar(e);
+		}
+
+		private void processar(MouseEvent e) {
+			if (!e.isPopupTrigger()) {
+				return;
+			}
+
+			TreePath path = getSelectionPath();
+
+			if (path == null) {
+				return;
+			}
+
+			if (path.getLastPathComponent() instanceof Objeto && arvoreListener != null) {
+				Objeto selecionado = (Objeto) path.getLastPathComponent();
+				arvoreListener.exibirPopup(Arvore.this, selecionado, e);
 			}
 		}
 	}
