@@ -23,6 +23,6 @@ public class ArgDate extends Arg {
 
 	@Override
 	public String toString() {
-		return "" + valor;
+		return "Date=" + valor;
 	}
 }

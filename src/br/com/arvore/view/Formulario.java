@@ -40,7 +40,7 @@ public class Formulario extends JFrame implements ArvoreListener {
 		raizInflados.inflar();
 		arvoreInflados = new Arvore(new ModeloArvore(raizInflados), this);
 		arvoreObjetos = new Arvore(new ModeloArvore(raizObjetos), null);
-		setSize(500, 500);
+		setSize(700, 700);
 		montarLayout();
 		configuracoes();
 		setLocationRelativeTo(null);

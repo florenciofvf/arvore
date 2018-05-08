@@ -20,6 +20,6 @@ public class ArgString extends Arg {
 
 	@Override
 	public String toString() {
-		return valor;
+		return "String=" + valor;
 	}
 }

@@ -14,7 +14,7 @@
 		</objeto>
 	</objeto>
 
-	<objeto titulo="Endereços" icone="home">
+	<objeto titulo="Endereços" icone="home" sub-icone="diamante">
 		<sql>SELECT concat(id, "-", logradouro, "-", id_candidato), id as inteiro FROM endereco</sql>
 	</objeto>
 </objeto>

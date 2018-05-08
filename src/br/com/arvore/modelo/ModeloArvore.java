@@ -55,7 +55,7 @@ public class ModeloArvore implements TreeModel {
 		listenerList.remove(TreeModelListener.class, l);
 	}
 
-	public void treeNodesChanged(TreeModelEvent event) {
+	public void treeStructureChanged(TreeModelEvent event) {
 		Object[] listeners = listenerList.getListenerList();
 
 		for (int i = listeners.length - 2; i >= 0; i -= 2) {

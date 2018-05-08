@@ -32,6 +32,6 @@ public class ArvoreUtil {
 
 		TreePath path = new TreePath(caminho.toArray(new Object[] {}));
 		TreeModelEvent event = new TreeModelEvent(objeto, path);
-		modelo.treeNodesChanged(event);
+		modelo.treeStructureChanged(event);
 	}
 }

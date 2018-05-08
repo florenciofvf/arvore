@@ -14,8 +14,10 @@ public class Objeto {
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
 	private final String titulo;
+	private String nomeSubIcone;
 	private String nomeIcone;
 	private String consulta;
+	private Icon subIcone;
 	private Icon icone;
 	private Arg[] args;
 	private Objeto pai;
@@ -29,8 +31,10 @@ public class Objeto {
 
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
+		clone.nomeSubIcone = nomeSubIcone;
 		clone.nomeIcone = nomeIcone;
 		clone.consulta = consulta;
+		clone.subIcone = subIcone;
 		clone.icone = icone;
 
 		for (Objeto obj : objetos) {
@@ -59,6 +63,7 @@ public class Objeto {
 			limpar();
 
 			for (Objeto obj : listagem) {
+				obj.setIcone(getSubIcone());
 				add(obj);
 
 				for (Objeto o : nativos) {
@@ -82,8 +87,16 @@ public class Objeto {
 		return icone;
 	}
 
+	public Icon getSubIcone() {
+		return subIcone;
+	}
+
 	public void setIcone(Icon icone) {
 		this.icone = icone;
+	}
+
+	public void setSubIcone(Icon subIcone) {
+		this.subIcone = subIcone;
 	}
 
 	public void setNomeIcone(String nomeIcone) {
@@ -95,8 +108,21 @@ public class Objeto {
 		this.icone = Icones.getIcon(nomeIcone);
 	}
 
+	public void setNomeSubIcone(String nomeSubIcone) {
+		if (Util.estaVazio(nomeSubIcone)) {
+			nomeSubIcone = "um_pixel";
+		}
+
+		this.nomeSubIcone = nomeSubIcone;
+		this.subIcone = Icones.getIcon(nomeSubIcone);
+	}
+
 	public String getNomeIcone() {
 		return nomeIcone;
+	}
+
+	public String getNomeSubIcone() {
+		return nomeSubIcone;
 	}
 
 	public List<Objeto> getObjetos() {

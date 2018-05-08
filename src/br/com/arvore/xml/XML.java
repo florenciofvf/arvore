@@ -49,10 +49,12 @@ class XMLHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (Constantes.OBJETO.equals(qName)) {
+			String subIcone = attributes.getValue(Constantes.SUB_ICONE);
 			String titulo = attributes.getValue(Constantes.TITULO);
 			String icone = attributes.getValue(Constantes.ICONE);
 
 			Objeto objeto = new Objeto(titulo);
+			objeto.setNomeSubIcone(subIcone);
 			objeto.setNomeIcone(icone);
 
 			if (raiz == null) {

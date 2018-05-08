@@ -26,6 +26,7 @@ public class Main {
 			try {
 				new Formulario(file);
 			} catch (Exception ex) {
+				Conexao.close();
 				String msg = Util.getStackTrace("Formulario()", ex);
 				Util.mensagem(null, msg);
 				throw new Exception();
