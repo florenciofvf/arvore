@@ -2,10 +2,10 @@
 
 <objeto titulo="Eleição de Teste" icone="bola_verde">
 
-	<objeto titulo="Eleições" icone="diamante">
+	<objeto titulo="Eleições" sub-icone="diamante">
 		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
 
-		<objeto titulo="Candidatos" icone="pessoas">
+		<objeto titulo="Candidatos" sub-icone="pessoas">
 			<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
 
 			<objeto titulo="Endereços" icone="home">
