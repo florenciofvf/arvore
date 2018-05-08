@@ -15,25 +15,25 @@ public abstract class Arg {
 
 	public abstract void get(ResultSet rs, int indice) throws Exception;
 
-	public static Arg criar(String tipo) {
-		if ("inteiro".equals(tipo)) {
+	public static Arg criar(String tipo, String outro) {
+		if ("inteiro".equals(tipo) || "inteiro".equals(outro)) {
 			return new ArgInt();
 		}
 
-		if ("longo".equals(tipo)) {
+		if ("objeto".equals(tipo) || "objeto".equals(outro)) {
+			return new ArgObject();
+		}
+
+		if ("longo".equals(tipo) || "longo".equals(outro)) {
 			return new ArgLong();
 		}
 
-		if ("texto".equals(tipo)) {
+		if ("texto".equals(tipo) || "texto".equals(outro)) {
 			return new ArgString();
 		}
 
-		if ("data".equals(tipo)) {
+		if ("data".equals(tipo) || "data".equals(outro)) {
 			return new ArgDate();
-		}
-
-		if ("objeto".equals(tipo)) {
-			return new ArgObject();
 		}
 
 		return new ArgString();
