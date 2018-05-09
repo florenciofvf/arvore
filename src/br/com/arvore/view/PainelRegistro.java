@@ -20,6 +20,7 @@ public class PainelRegistro extends PanelBorder {
 		add(BorderLayout.CENTER, splitPane);
 		splitPane.setLeftComponent(new ScrollPane(arvore));
 		splitPane.setRightComponent(new ScrollPane(table));
+		splitPane.setDividerLocation(400);
 	}
 
 	public void setModeloRegistro(ModeloRegistro modelo) {

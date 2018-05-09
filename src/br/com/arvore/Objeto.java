@@ -13,6 +13,7 @@ public class Objeto {
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
+	private boolean desabilitado;
 	private final String titulo;
 	private String nomeSubIcone;
 	private String nomeIcone;
@@ -32,6 +33,7 @@ public class Objeto {
 
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
+		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.nomeIcone = nomeIcone;
 		clone.consulta = consulta;
@@ -47,28 +49,46 @@ public class Objeto {
 	}
 
 	public void inflar() throws Exception {
-		if (Util.estaVazio(consulta)) {
+		if (!nativoArmazenados) {
 			for (Objeto obj : objetos) {
-				obj.inflar();
+				nativos.add(obj.clonar());
 			}
-		} else {
-			if (!nativoArmazenados) {
-				for (Objeto obj : objetos) {
-					nativos.add(obj.clonar());
+
+			nativoArmazenados = true;
+		}
+
+		limpar();
+
+		if (Util.estaVazio(consulta)) {
+			for (Objeto obj : nativos) {
+				if (obj.isDesabilitado()) {
+					continue;
 				}
 
-				nativoArmazenados = true;
-			}
+				Objeto nativo = obj.clonar();
+				add(nativo);
+				nativo.inflar();
 
+				if (nativo.estaVazio()) {
+					excluir(nativo);
+				}
+			}
+		} else {
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-			limpar();
-
 			for (Objeto obj : listagem) {
+				if (obj.isDesabilitado()) {
+					continue;
+				}
+
 				obj.setIcone(getSubIcone());
 				add(obj);
 
 				for (Objeto o : nativos) {
+					if (o.isDesabilitado()) {
+						continue;
+					}
+
 					Objeto nativo = o.clonar();
 					obj.add(nativo);
 					nativo.inflar();
@@ -193,6 +213,14 @@ public class Objeto {
 
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
+	}
+
+	public boolean isDesabilitado() {
+		return desabilitado;
+	}
+
+	public void setDesabilitado(boolean desabilitado) {
+		this.desabilitado = desabilitado;
 	}
 
 	@Override
