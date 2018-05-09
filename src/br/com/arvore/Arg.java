@@ -16,23 +16,23 @@ public abstract class Arg {
 	public abstract void get(ResultSet rs, int indice) throws Exception;
 
 	public static Arg criar(String tipo, String outro) {
-		if ("inteiro".equals(tipo) || "inteiro".equals(outro)) {
+		if ("inteiro".equalsIgnoreCase(tipo) || "inteiro".equalsIgnoreCase(outro)) {
 			return new ArgInt();
 		}
 
-		if ("objeto".equals(tipo) || "objeto".equals(outro)) {
+		if ("objeto".equalsIgnoreCase(tipo) || "objeto".equalsIgnoreCase(outro)) {
 			return new ArgObject();
 		}
 
-		if ("longo".equals(tipo) || "longo".equals(outro)) {
+		if ("longo".equalsIgnoreCase(tipo) || "longo".equalsIgnoreCase(outro)) {
 			return new ArgLong();
 		}
 
-		if ("texto".equals(tipo) || "texto".equals(outro)) {
+		if ("texto".equalsIgnoreCase(tipo) || "texto".equalsIgnoreCase(outro)) {
 			return new ArgString();
 		}
 
-		if ("data".equals(tipo) || "data".equals(outro)) {
+		if ("data".equalsIgnoreCase(tipo) || "data".equalsIgnoreCase(outro)) {
 			return new ArgDate();
 		}
 
