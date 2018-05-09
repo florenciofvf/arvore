@@ -92,7 +92,7 @@ public class Persistencia {
 			List<String> registro = new ArrayList<>();
 
 			for (int i = 1; i <= qtdColunas; i++) {
-				registro.add("" + rs.getString(i));
+				registro.add(rs.getString(i) == null ? "" : rs.getString(i));
 			}
 
 			registros.add(registro);

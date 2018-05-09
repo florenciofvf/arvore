@@ -107,6 +107,7 @@ public class Formulario extends JFrame implements ArvoreListener {
 
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
+		popup.setHabilitarRegistros(!Util.estaVazio(selecionado.getPesquisa()));
 		selecionadoPopup = selecionado;
 		popup.show(arvore, e.getX(), e.getY());
 	}

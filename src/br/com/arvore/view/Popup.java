@@ -15,4 +15,8 @@ public class Popup extends JPopupMenu {
 		addSeparator();
 		add(itemAtualizar);
 	}
+
+	public void setHabilitarRegistros(boolean b) {
+		itemRegistros.setEnabled(b);
+	}
 }
