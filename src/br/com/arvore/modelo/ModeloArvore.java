@@ -7,6 +7,8 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Util;
 
 public class ModeloArvore implements TreeModel {
 	private final EventListenerList listenerList = new EventListenerList();
@@ -33,6 +35,15 @@ public class ModeloArvore implements TreeModel {
 
 	@Override
 	public boolean isLeaf(Object parent) {
+		if (!Constantes.INFLAR_ANTECIPADO) {
+			try {
+				((Objeto) parent).inflarParcial();
+			} catch (Exception ex) {
+				String msg = Util.getStackTrace("ModeloArvore.isLeaf()", ex);
+				Util.mensagem(null, msg);
+			}
+		}
+
 		return ((Objeto) parent).estaVazio();
 	}
 

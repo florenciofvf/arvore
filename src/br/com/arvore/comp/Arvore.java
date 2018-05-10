@@ -19,14 +19,14 @@ public class Arvore extends JTree {
 		super(newModel);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		putClientProperty("JTree.lineStyle", "Horizontal");
-		addMouseListener(new OuvinteArvore());
 		this.arvoreListener = arvoreListener;
 		setCellRenderer(new TreeCellRD());
+		addMouseListener(new Listener());
 		setShowsRootHandles(true);
 		setRootVisible(true);
 	}
 
-	private class OuvinteArvore extends MouseAdapter {
+	private class Listener extends MouseAdapter {
 		Objeto ultimoSelecionado;
 
 		@Override

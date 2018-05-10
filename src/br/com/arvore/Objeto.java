@@ -101,6 +101,54 @@ public class Objeto {
 		}
 	}
 
+	public void inflarParcial() throws Exception {
+		if (!nativoArmazenados) {
+			for (Objeto obj : objetos) {
+				nativos.add(obj.clonar());
+			}
+
+			nativoArmazenados = true;
+
+			limpar();
+
+			if (Util.estaVazio(consulta)) {
+				for (Objeto obj : nativos) {
+					if (obj.isDesabilitado()) {
+						continue;
+					}
+
+					Objeto nativo = obj.clonar();
+					add(nativo);
+					nativo.inflarParcial();
+
+					if (nativo.estaVazio()) {
+						excluir(nativo);
+					}
+				}
+			} else {
+				List<Objeto> listagem = ArvoreUtil.getObjetos(this);
+
+				for (Objeto obj : listagem) {
+					if (obj.isDesabilitado()) {
+						continue;
+					}
+
+					obj.setIcone(getSubIcone());
+					add(obj);
+
+					for (Objeto o : nativos) {
+						if (o.isDesabilitado()) {
+							continue;
+						}
+
+						Objeto nativo = o.clonar();
+						obj.add(nativo);
+					}
+				}
+			}
+		}
+	}
+
 	public Objeto getPai() {
 		return pai;
 	}

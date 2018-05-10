@@ -20,6 +20,7 @@ import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.util.ArvoreUtil;
+import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 import br.com.arvore.xml.XML;
@@ -38,12 +39,18 @@ public class Formulario extends JFrame implements ArvoreListener {
 	public Formulario(File file) throws Exception {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 		raizObjetos = XML.processar(file);
 		raizInflados = raizObjetos.clonar();
-		raizInflados.inflar();
+
+		if (Constantes.INFLAR_ANTECIPADO) {
+			raizInflados.inflar();
+		}
+
 		arvoreInflados = new Arvore(new ModeloArvore(raizInflados), this);
 		arvoreObjetos = new Arvore(new ModeloArvore(raizObjetos), null);
 		painelRegistro = new PainelRegistro(arvoreInflados);
+
 		setSize(700, 700);
 		montarLayout();
 		configuracoes();
