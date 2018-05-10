@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.arvore.Arg;
 import br.com.arvore.Objeto;
@@ -77,6 +79,19 @@ public class Persistencia {
 	}
 
 	private static ModeloRegistro criarModelo(ResultSet rs) throws Exception {
+		Map<String, Boolean> mapa = new HashMap<>();
+		mapa.put("java.math.BigDecimal", Boolean.TRUE);
+		mapa.put("java.math.BigInteger", Boolean.TRUE);
+		mapa.put("java.lang.Character", Boolean.FALSE);
+		mapa.put("java.lang.Boolean", Boolean.FALSE);
+		mapa.put("java.lang.Integer", Boolean.TRUE);
+		mapa.put("java.lang.String", Boolean.FALSE);
+		mapa.put("java.lang.Double", Boolean.TRUE);
+		mapa.put("java.lang.Float", Boolean.TRUE);
+		mapa.put("java.lang.Short", Boolean.TRUE);
+		mapa.put("java.lang.Long", Boolean.TRUE);
+		mapa.put("java.lang.Byte", Boolean.TRUE);
+
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int qtdColunas = rsmd.getColumnCount();
 
@@ -84,6 +99,13 @@ public class Persistencia {
 
 		for (int i = 1; i <= qtdColunas; i++) {
 			colunas.add(rsmd.getColumnName(i));
+		}
+
+		boolean[] colunasNumero = new boolean[qtdColunas];
+
+		for (int i = 1; i <= qtdColunas; i++) {
+			String classe = rsmd.getColumnClassName(i);
+			colunasNumero[i - 1] = mapa.get(classe) == null ? Boolean.FALSE : mapa.get(classe);
 		}
 
 		List<List<String>> registros = new ArrayList<>();
@@ -98,6 +120,9 @@ public class Persistencia {
 			registros.add(registro);
 		}
 
-		return new ModeloRegistro(colunas, registros);
+		ModeloRegistro modelo = new ModeloRegistro(colunas, registros);
+		modelo.setColunasNumero(colunasNumero);
+
+		return modelo;
 	}
 }

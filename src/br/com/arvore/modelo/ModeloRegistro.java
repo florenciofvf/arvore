@@ -11,10 +11,19 @@ import br.com.arvore.banco.Persistencia;
 public class ModeloRegistro implements TableModel {
 	private final List<List<String>> REGISTROS;
 	private final List<String> COLUNAS;
+	private boolean[] colunasNumero;
 
 	public ModeloRegistro(List<String> colunas, List<List<String>> registros) {
 		REGISTROS = registros;
 		COLUNAS = colunas;
+	}
+
+	public boolean[] getColunasNumero() {
+		return colunasNumero;
+	}
+
+	public void setColunasNumero(boolean[] colunasNumero) {
+		this.colunasNumero = colunasNumero;
 	}
 
 	@Override

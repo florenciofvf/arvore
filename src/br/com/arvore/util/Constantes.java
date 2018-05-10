@@ -9,6 +9,7 @@ public class Constantes {
 	public static final String ICONE = "icone";
 	public static final String SQL = "sql";
 	public static final String SEL = "sel";
+	public static int DOIS = 2;
 
 	private Constantes() {
 	}

@@ -17,6 +17,7 @@ import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.modelo.ModeloArvore;
+import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Mensagens;
@@ -89,8 +90,11 @@ public class Formulario extends JFrame implements ArvoreListener {
 					return;
 				}
 
-				ModeloRegistro modelo = ModeloRegistro.criarModelo(selecionadoPopup);
-				painelRegistro.setModeloRegistro(modelo);
+				ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(selecionadoPopup);
+				ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro,
+						modeloRegistro.getColunasNumero());
+
+				painelRegistro.setModeloOrdenacao(modeloOrdenacao, modeloOrdenacao);
 			} catch (Exception ex) {
 				String msg = Util.getStackTrace("REGISTROS", ex);
 				Util.mensagem(this, msg);
