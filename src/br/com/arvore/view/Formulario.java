@@ -82,7 +82,11 @@ public class Formulario extends JFrame implements ArvoreListener {
 
 		popup.itemAtualizar.addActionListener(e -> {
 			try {
-				selecionadoPopup.inflar();
+				if(Constantes.INFLAR_ANTECIPADO) {
+					selecionadoPopup.inflar();
+				} else {
+					selecionadoPopup.inflarParcial2();
+				}
 				ArvoreUtil.atualizar(arvoreInflados, selecionadoPopup);
 			} catch (Exception ex) {
 				String msg = Util.getStackTrace("ATUALIZAR", ex);

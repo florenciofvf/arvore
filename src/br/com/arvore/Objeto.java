@@ -108,42 +108,49 @@ public class Objeto {
 			}
 
 			nativoArmazenados = true;
+			inflarParcial2();
+		}
+	}
 
-			limpar();
+	public void inflarParcial2() throws Exception {
+		if (!nativoArmazenados) {
+			return;
+		}
 
-			if (Util.estaVazio(consulta)) {
-				for (Objeto obj : nativos) {
-					if (obj.isDesabilitado()) {
-						continue;
-					}
+		limpar();
 
-					Objeto nativo = obj.clonar();
-					add(nativo);
-					nativo.inflarParcial();
-
-					if (nativo.estaVazio()) {
-						excluir(nativo);
-					}
+		if (Util.estaVazio(consulta)) {
+			for (Objeto obj : nativos) {
+				if (obj.isDesabilitado()) {
+					continue;
 				}
-			} else {
-				List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-				for (Objeto obj : listagem) {
-					if (obj.isDesabilitado()) {
+				Objeto nativo = obj.clonar();
+				add(nativo);
+				nativo.inflarParcial();
+
+				if (nativo.estaVazio()) {
+					excluir(nativo);
+				}
+			}
+		} else {
+			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
+
+			for (Objeto obj : listagem) {
+				if (obj.isDesabilitado()) {
+					continue;
+				}
+
+				obj.setIcone(getSubIcone());
+				add(obj);
+
+				for (Objeto o : nativos) {
+					if (o.isDesabilitado()) {
 						continue;
 					}
 
-					obj.setIcone(getSubIcone());
-					add(obj);
-
-					for (Objeto o : nativos) {
-						if (o.isDesabilitado()) {
-							continue;
-						}
-
-						Objeto nativo = o.clonar();
-						obj.add(nativo);
-					}
+					Objeto nativo = o.clonar();
+					obj.add(nativo);
 				}
 			}
 		}
