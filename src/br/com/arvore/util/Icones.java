@@ -17,6 +17,7 @@ public class Icones {
 	public static final Icon ATUALIZAR = criarImagem("atualizar");
 	public static final Icon LOCALIZAR = criarImagem("localizar");
 	public static final Icon TABELA = criarImagem("tabela");
+	public static final Icon FILTRO = criarImagem("filtro");
 
 	private static ImageIcon criarImagem(String nome) {
 		try {

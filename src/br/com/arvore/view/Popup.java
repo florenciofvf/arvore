@@ -8,8 +8,8 @@ import br.com.arvore.util.Icones;
 public class Popup extends JPopupMenu {
 	private static final long serialVersionUID = 1L;
 	final MenuItem itemAtualizar = new MenuItem("label.atualizar", Icones.ATUALIZAR);
-	final MenuItem itemConsulta = new MenuItem("label.registros", Icones.LOCALIZAR);
 	final MenuItem itemRegistros = new MenuItem("label.registros", Icones.TABELA);
+	final MenuItem itemConsulta = new MenuItem("label.filtro", Icones.FILTRO);
 
 	public Popup() {
 		add(itemRegistros);
