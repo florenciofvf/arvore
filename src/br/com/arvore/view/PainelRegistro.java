@@ -13,14 +13,14 @@ import br.com.arvore.util.Util;
 
 public class PainelRegistro extends PanelBorder {
 	private static final long serialVersionUID = 1L;
-	private final SplitPane splitPane = new SplitPane();
+	private final SplitPane split = new SplitPane();
 	private final Table table = new Table();
 
 	public PainelRegistro(Arvore arvore) {
-		add(BorderLayout.CENTER, splitPane);
-		splitPane.setLeftComponent(new ScrollPane(arvore));
-		splitPane.setRightComponent(new ScrollPane(table));
-		splitPane.setDividerLocation(400);
+		add(BorderLayout.CENTER, split);
+		split.setLeftComponent(new ScrollPane(arvore));
+		split.setRightComponent(new ScrollPane(table));
+		split.setDividerLocation(400);
 	}
 
 	public void setModeloOrdenacao(ModeloOrdenacao modelo, TableListener tableListener) {
