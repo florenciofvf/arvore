@@ -97,7 +97,7 @@ public class Formulario extends JFrame implements ArvoreListener {
 
 		popup.itemConsulta.addActionListener(e -> {
 			try {
-				String consulta = Util.getSQL(arvoreInflados, selecionadoPopup);
+				String consulta = Util.getSQL(this, selecionadoPopup);
 				if (consulta == null) {
 					return;
 				}
