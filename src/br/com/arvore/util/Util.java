@@ -84,8 +84,8 @@ public class Util {
 	}
 
 	public static String getSQL(Component componente, Objeto objeto) {
-		TextArea textArea = new TextArea(objeto.getConsulta());
-		textArea.setPreferredSize(new Dimension(500, 300));
+		TextArea textArea = new TextArea(normalizar(objeto.getConsulta()));
+		textArea.setPreferredSize(new Dimension(1000, 300));
 
 		JOptionPane pane = new JOptionPane(Mensagens.getString("label.consulta"), JOptionPane.PLAIN_MESSAGE,
 				JOptionPane.OK_OPTION);
@@ -112,5 +112,29 @@ public class Util {
 		}
 
 		return consulta;
+	}
+
+	private static String normalizar(String s) {
+		if (s == null) {
+			return "";
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		char anterior = ' ';
+
+		for (char c : s.toCharArray()) {
+			if (c == '\t') {
+				if (anterior != '\t') {
+					sb.append("   ");
+				}
+			} else {
+				sb.append(c);
+			}
+
+			anterior = c;
+		}
+
+		return sb.toString();
 	}
 }
