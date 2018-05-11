@@ -90,7 +90,7 @@ public class Util {
 				JOptionPane.OK_OPTION);
 		pane.setMessage(textArea);
 
-		JDialog dialog = pane.createDialog(componente, "Consulta");
+		JDialog dialog = pane.createDialog(componente, objeto.toString());
 		dialog.setVisible(true);
 		dialog.dispose();
 
