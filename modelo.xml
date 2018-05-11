@@ -5,8 +5,8 @@
 	<objeto titulo="Eleições" sub-icone="diamante">
 		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
 
-		<objeto titulo="Candidatos" sub-icone="pessoas">
-			<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
+		<objeto titulo="Candidatos" sub-icone="pessoas" manter-vazio="true">
+			<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = -1</sql>
 			<sel>SELECT * FROM candidato WHERE eleicao_id = ?</sel>
 
 			<objeto titulo="Endereços" icone="home">

@@ -50,12 +50,14 @@ class XMLHandler extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (Constantes.OBJETO.equals(qName)) {
 			String desabilitado = attributes.getValue(Constantes.DESABILITADO);
+			String manterVazio = attributes.getValue(Constantes.MANTER_VAZIO);
 			String subIcone = attributes.getValue(Constantes.SUB_ICONE);
 			String titulo = attributes.getValue(Constantes.TITULO);
 			String icone = attributes.getValue(Constantes.ICONE);
 
 			Objeto objeto = new Objeto(titulo);
 			objeto.setDesabilitado(Boolean.parseBoolean(desabilitado));
+			objeto.setManterVazio(Boolean.parseBoolean(manterVazio));
 			objeto.setNomeSubIcone(subIcone);
 			objeto.setNomeIcone(icone);
 

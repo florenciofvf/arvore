@@ -14,6 +14,7 @@ public class Objeto {
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
 	private boolean desabilitado;
+	private boolean manterVazio;
 	private final String titulo;
 	private String nomeSubIcone;
 	private String nomeIcone;
@@ -35,6 +36,7 @@ public class Objeto {
 		Objeto clone = new Objeto(titulo);
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
+		clone.manterVazio = manterVazio;
 		clone.nomeIcone = nomeIcone;
 		clone.consulta = consulta;
 		clone.pesquisa = pesquisa;
@@ -69,7 +71,7 @@ public class Objeto {
 				add(nativo);
 				nativo.inflar();
 
-				if (nativo.estaVazio()) {
+				if (nativo.estaVazio() && !nativo.isManterVazio()) {
 					excluir(nativo);
 				}
 			}
@@ -93,7 +95,7 @@ public class Objeto {
 					obj.add(nativo);
 					nativo.inflar();
 
-					if (nativo.estaVazio()) {
+					if (nativo.estaVazio() && !nativo.isManterVazio()) {
 						obj.excluir(nativo);
 					}
 				}
@@ -129,7 +131,7 @@ public class Objeto {
 				add(nativo);
 				nativo.inflarParcial();
 
-				if (nativo.estaVazio()) {
+				if (nativo.estaVazio() && !nativo.isManterVazio()) {
 					excluir(nativo);
 				}
 			}
@@ -276,6 +278,14 @@ public class Objeto {
 
 	public void setDesabilitado(boolean desabilitado) {
 		this.desabilitado = desabilitado;
+	}
+
+	public boolean isManterVazio() {
+		return manterVazio;
+	}
+
+	public void setManterVazio(boolean manterVazio) {
+		this.manterVazio = manterVazio;
 	}
 
 	@Override
