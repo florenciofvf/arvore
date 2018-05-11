@@ -82,11 +82,34 @@ public class Formulario extends JFrame implements ArvoreListener {
 
 		popup.itemAtualizar.addActionListener(e -> {
 			try {
-				if(Constantes.INFLAR_ANTECIPADO) {
+				if (Constantes.INFLAR_ANTECIPADO) {
 					selecionadoPopup.inflar();
 				} else {
 					selecionadoPopup.inflarParcial2();
 				}
+
+				ArvoreUtil.atualizar(arvoreInflados, selecionadoPopup);
+			} catch (Exception ex) {
+				String msg = Util.getStackTrace("ATUALIZAR", ex);
+				Util.mensagem(this, msg);
+			}
+		});
+
+		popup.itemConsulta.addActionListener(e -> {
+			try {
+				String consulta = Util.getSQL(arvoreInflados, selecionadoPopup);
+				if (consulta == null) {
+					return;
+				}
+
+				selecionadoPopup.setConsulta(consulta);
+
+				if (Constantes.INFLAR_ANTECIPADO) {
+					selecionadoPopup.inflar();
+				} else {
+					selecionadoPopup.inflarParcial2();
+				}
+
 				ArvoreUtil.atualizar(arvoreInflados, selecionadoPopup);
 			} catch (Exception ex) {
 				String msg = Util.getStackTrace("ATUALIZAR", ex);
@@ -123,6 +146,7 @@ public class Formulario extends JFrame implements ArvoreListener {
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
 		popup.setHabilitarRegistros(!Util.estaVazio(selecionado.getPesquisa()));
+		popup.setHabilitarConsulta(!Util.estaVazio(selecionado.getConsulta()));
 		selecionadoPopup = selecionado;
 		popup.show(arvore, e.getX(), e.getY());
 	}

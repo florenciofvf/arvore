@@ -7,12 +7,14 @@ import java.awt.Graphics;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import br.com.arvore.Objeto;
 import br.com.arvore.comp.TextArea;
 
 public class Util {
@@ -78,5 +80,36 @@ public class Util {
 			TableColumn column = columnModel.getColumn(col);
 			column.setPreferredWidth(largura + ajuste);
 		}
+	}
+
+	public static String getSQL(Component componente, Objeto objeto) {
+		TextArea textArea = new TextArea(objeto.getConsulta());
+		textArea.setPreferredSize(new Dimension(500, 300));
+
+		JOptionPane pane = new JOptionPane(Mensagens.getString("label.consulta"), JOptionPane.PLAIN_MESSAGE,
+				JOptionPane.OK_OPTION);
+		pane.setMessage(textArea);
+
+		JDialog dialog = pane.createDialog(componente, "Consulta");
+		dialog.setVisible(true);
+		dialog.dispose();
+
+		Object opcao = pane.getValue();
+
+		if (opcao == null || !(opcao instanceof Integer)) {
+			return null;
+		}
+
+		if (((Integer) opcao).intValue() != JOptionPane.YES_OPTION) {
+			return null;
+		}
+
+		String consulta = textArea.getText();
+
+		if (Util.estaVazio(consulta)) {
+			return null;
+		}
+
+		return consulta;
 	}
 }
