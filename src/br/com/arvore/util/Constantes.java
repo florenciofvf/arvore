@@ -1,6 +1,7 @@
 package br.com.arvore.util;
 
 public class Constantes {
+	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
 	public static final boolean INFLAR_ANTECIPADO = false;

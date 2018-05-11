@@ -13,6 +13,7 @@ public class Objeto {
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
+	private boolean pesquisaPopup;
 	private boolean desabilitado;
 	private boolean manterVazio;
 	private final String titulo;
@@ -34,6 +35,7 @@ public class Objeto {
 
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
+		clone.pesquisaPopup = pesquisaPopup;
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.manterVazio = manterVazio;
@@ -286,6 +288,14 @@ public class Objeto {
 
 	public void setManterVazio(boolean manterVazio) {
 		this.manterVazio = manterVazio;
+	}
+
+	public boolean isPesquisaPopup() {
+		return pesquisaPopup;
+	}
+
+	public void setPesquisaPopup(boolean pesquisaPopup) {
+		this.pesquisaPopup = pesquisaPopup;
 	}
 
 	@Override

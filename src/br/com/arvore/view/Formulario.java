@@ -118,12 +118,12 @@ public class Formulario extends JFrame implements ArvoreListener {
 		});
 
 		popup.itemRegistros.addActionListener(e -> {
-			try {
-				if (Util.estaVazio(selecionadoPopup.getPesquisa())) {
-					Util.mensagem(this, Mensagens.getString("msg.nenhuma_pesquisa_registrada"));
-					return;
-				}
+			if (Util.estaVazio(selecionadoPopup.getPesquisa())) {
+				Util.mensagem(this, Mensagens.getString("msg.nenhuma_pesquisa_registrada"));
+				return;
+			}
 
+			try {
 				ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(selecionadoPopup);
 				ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro,
 						modeloRegistro.getColunasNumero());
@@ -153,5 +153,23 @@ public class Formulario extends JFrame implements ArvoreListener {
 
 	@Override
 	public void clicado(Objeto objeto) {
+		if(objeto.isPesquisaPopup()) {
+			return;
+		}
+
+		if (Util.estaVazio(objeto.getPesquisa())) {
+			return;
+		}
+
+		try {
+			ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
+			ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro,
+					modeloRegistro.getColunasNumero());
+
+			painelRegistro.setModeloOrdenacao(modeloOrdenacao, modeloOrdenacao);
+		} catch (Exception ex) {
+			String msg = Util.getStackTrace("REGISTROS", ex);
+			Util.mensagem(this, msg);
+		}
 	}
 }
