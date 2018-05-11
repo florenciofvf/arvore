@@ -36,6 +36,7 @@ public class Util {
 	public static void mensagem(Component componente, String string) {
 		TextArea textArea = new TextArea(string);
 		textArea.setPreferredSize(new Dimension(500, 300));
+
 		JOptionPane.showMessageDialog(componente, textArea, Mensagens.getString("label.atencao"),
 				JOptionPane.PLAIN_MESSAGE);
 	}

@@ -11,7 +11,7 @@ import javax.swing.table.TableColumnModel;
 
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.util.Constantes;
-import br.com.arvore.util.OrdemRD;
+import br.com.arvore.util.OrdemCellRD;
 
 public class Table extends JTable {
 	private static final long serialVersionUID = 1L;
@@ -48,7 +48,7 @@ public class Table extends JTable {
 				TableColumn tableColumn = columnModel.getColumn(tableColuna);
 				TableCellRenderer headerRenderer = tableColumn.getHeaderRenderer();
 
-				if (!(headerRenderer instanceof OrdemRD)) {
+				if (!(headerRenderer instanceof OrdemCellRD)) {
 					int largura = tableColumn.getPreferredWidth() + Constantes.LARGURA_ICONE_ORDENAR;
 					tableColumn.setPreferredWidth(largura);
 				}

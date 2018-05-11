@@ -7,7 +7,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import br.com.arvore.comp.TableListener;
-import br.com.arvore.util.OrdemRD;
+import br.com.arvore.util.OrdemCellRD;
 import br.com.arvore.util.Util;
 
 public class ModeloOrdenacao extends AbstractTableModel implements TableListener {
@@ -42,7 +42,7 @@ public class ModeloOrdenacao extends AbstractTableModel implements TableListener
 	@Override
 	public void ordenarColuna(TableColumn tableColumn, boolean descendente, int modelColuna) {
 		ordenarNumero = colunasNumero[modelColuna];
-		tableColumn.setHeaderRenderer(new OrdemRD(descendente, ordenarNumero));
+		tableColumn.setHeaderRenderer(new OrdemCellRD(descendente, ordenarNumero));
 		this.descendente = descendente;
 		ordenar(modelColuna);
 	}

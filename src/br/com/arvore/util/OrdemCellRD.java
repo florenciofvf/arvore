@@ -7,12 +7,12 @@ import javax.swing.table.TableCellRenderer;
 
 import br.com.arvore.comp.Label;
 
-public class OrdemRD extends Label implements TableCellRenderer {
+public class OrdemCellRD extends Label implements TableCellRenderer {
 	private static final long serialVersionUID = 1L;
 	private final boolean descendente;
 	private final boolean numero;
 
-	public OrdemRD(boolean descendente, boolean numero) {
+	public OrdemCellRD(boolean descendente, boolean numero) {
 		this.descendente = !descendente;
 		this.numero = numero;
 	}
