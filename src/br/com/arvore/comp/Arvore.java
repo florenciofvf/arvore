@@ -13,17 +13,20 @@ import br.com.arvore.util.TreeCellRD;
 
 public class Arvore extends JTree {
 	private static final long serialVersionUID = 1L;
-	private final ArvoreListener arvoreListener;
+	private ArvoreListener arvoreListener;
 
-	public Arvore(TreeModel newModel, ArvoreListener arvoreListener) {
+	public Arvore(TreeModel newModel) {
 		super(newModel);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		putClientProperty("JTree.lineStyle", "Horizontal");
-		this.arvoreListener = arvoreListener;
 		setCellRenderer(new TreeCellRD());
 		addMouseListener(new Listener());
 		setShowsRootHandles(true);
 		setRootVisible(true);
+	}
+
+	public void setArvoreListener(ArvoreListener arvoreListener) {
+		this.arvoreListener = arvoreListener;
 	}
 
 	private class Listener extends MouseAdapter {

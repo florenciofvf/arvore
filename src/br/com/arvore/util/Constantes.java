@@ -10,6 +10,7 @@ public class Constantes {
 	public static final String OBJETO = "objeto";
 	public static final String TITULO = "titulo";
 	public static final String ICONE = "icone";
+	public static final int LAR_SPLIT = 400;
 	public static final String SQL = "sql";
 	public static final String SEL = "sel";
 	public static int DOIS = 2;

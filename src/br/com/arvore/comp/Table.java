@@ -8,6 +8,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.util.Constantes;
@@ -19,23 +20,26 @@ public class Table extends JTable {
 	private boolean descendente;
 
 	public Table() {
-		this(new ModeloOrdenacao(), null);
+		this(new ModeloOrdenacao());
 	}
 
-	public Table(ModeloOrdenacao dm, TableListener tableListener) {
+	public Table(ModeloOrdenacao dm) {
 		super(dm);
-		this.tableListener = tableListener;
 		setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JTableHeader tableHeader = getTableHeader();
 		tableHeader.addMouseListener(new Listener());
 	}
 
-	public void setTableListener(TableListener tableListener) {
-		this.tableListener = tableListener;
+	@Override
+	public void setModel(TableModel dataModel) {
+		super.setModel(dataModel);
+
+		if (dataModel instanceof TableListener) {
+			tableListener = (TableListener) dataModel;
+		}
 	}
 
 	private class Listener extends MouseAdapter {
-
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() >= Constantes.DOIS && tableListener != null) {

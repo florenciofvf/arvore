@@ -2,7 +2,6 @@ package br.com.arvore.view;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -10,55 +9,24 @@ import java.lang.reflect.Method;
 
 import javax.swing.JFrame;
 
-import br.com.arvore.Objeto;
 import br.com.arvore.banco.Conexao;
-import br.com.arvore.comp.Arvore;
-import br.com.arvore.comp.ArvoreListener;
-import br.com.arvore.comp.ScrollPane;
-import br.com.arvore.comp.TabbedPane;
-import br.com.arvore.modelo.ModeloArvore;
-import br.com.arvore.modelo.ModeloOrdenacao;
-import br.com.arvore.modelo.ModeloRegistro;
-import br.com.arvore.util.ArvoreUtil;
-import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
-import br.com.arvore.xml.XML;
 
-public class Formulario extends JFrame implements ArvoreListener {
+public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private final TabbedPane fichario = new TabbedPane();
-	private final PainelRegistro painelRegistro;
-	private final Popup popup = new Popup();
-	private final Arvore arvoreInflados;
-	private final Arvore arvoreObjetos;
-	private final Objeto raizInflados;
-	private final Objeto raizObjetos;
-	private Objeto selecionadoPopup;
+	private final Fichario fichario;
 
 	public Formulario(File file) throws Exception {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		raizObjetos = XML.processar(file);
-		raizInflados = raizObjetos.clonar();
-
-		if (Constantes.INFLAR_ANTECIPADO) {
-			raizInflados.inflar();
-		}
-
-		arvoreInflados = new Arvore(new ModeloArvore(raizInflados), this);
-		arvoreObjetos = new Arvore(new ModeloArvore(raizObjetos), null);
-		painelRegistro = new PainelRegistro(arvoreInflados);
-
+		fichario = new Fichario(file);
 		setSize(700, 700);
 		montarLayout();
-		configuracoes();
-		setLocationRelativeTo(null);
-		setVisible(true);
+		configurar();
 	}
 
-	private void configuracoes() {
+	private void configurar() {
 		if (System.getProperty("os.name").startsWith("Mac OS")) {
 			try {
 				Class<?> classe = Class.forName("com.apple.eawt.FullScreenUtilities");
@@ -79,97 +47,10 @@ public class Formulario extends JFrame implements ArvoreListener {
 				}
 			};
 		});
-
-		popup.itemAtualizar.addActionListener(e -> {
-			try {
-				if (Constantes.INFLAR_ANTECIPADO) {
-					selecionadoPopup.inflar();
-				} else {
-					selecionadoPopup.inflarParcial2();
-				}
-
-				ArvoreUtil.atualizar(arvoreInflados, selecionadoPopup);
-			} catch (Exception ex) {
-				String msg = Util.getStackTrace("ATUALIZAR", ex);
-				Util.mensagem(this, msg);
-			}
-		});
-
-		popup.itemConsulta.addActionListener(e -> {
-			try {
-				String consulta = Util.getSQL(this, selecionadoPopup);
-				if (consulta == null) {
-					return;
-				}
-
-				selecionadoPopup.setConsulta(consulta);
-
-				if (Constantes.INFLAR_ANTECIPADO) {
-					selecionadoPopup.inflar();
-				} else {
-					selecionadoPopup.inflarParcial2();
-				}
-
-				ArvoreUtil.atualizar(arvoreInflados, selecionadoPopup);
-			} catch (Exception ex) {
-				String msg = Util.getStackTrace("ATUALIZAR", ex);
-				Util.mensagem(this, msg);
-			}
-		});
-
-		popup.itemRegistros.addActionListener(e -> {
-			if (Util.estaVazio(selecionadoPopup.getPesquisa())) {
-				Util.mensagem(this, Mensagens.getString("msg.nenhuma_pesquisa_registrada"));
-				return;
-			}
-
-			try {
-				ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(selecionadoPopup);
-				ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro,
-						modeloRegistro.getColunasNumero());
-
-				painelRegistro.setModeloOrdenacao(modeloOrdenacao, modeloOrdenacao);
-			} catch (Exception ex) {
-				String msg = Util.getStackTrace("REGISTROS", ex);
-				Util.mensagem(this, msg);
-			}
-		});
 	}
 
 	private void montarLayout() {
 		setLayout(new BorderLayout());
 		add(BorderLayout.CENTER, fichario);
-		fichario.addTab("label.inflados", painelRegistro);
-		fichario.addTab("label.objetos", new ScrollPane(arvoreObjetos));
-	}
-
-	@Override
-	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-		popup.setHabilitarRegistros(!Util.estaVazio(selecionado.getPesquisa()));
-		popup.setHabilitarConsulta(!Util.estaVazio(selecionado.getConsulta()));
-		selecionadoPopup = selecionado;
-		popup.show(arvore, e.getX(), e.getY());
-	}
-
-	@Override
-	public void clicado(Objeto objeto) {
-		if(objeto.isPesquisaPopup()) {
-			return;
-		}
-
-		if (Util.estaVazio(objeto.getPesquisa())) {
-			return;
-		}
-
-		try {
-			ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
-			ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro,
-					modeloRegistro.getColunasNumero());
-
-			painelRegistro.setModeloOrdenacao(modeloOrdenacao, modeloOrdenacao);
-		} catch (Exception ex) {
-			String msg = Util.getStackTrace("REGISTROS", ex);
-			Util.mensagem(this, msg);
-		}
 	}
 }

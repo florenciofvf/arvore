@@ -41,6 +41,12 @@ public class Util {
 				JOptionPane.PLAIN_MESSAGE);
 	}
 
+	public static void stackTraceMessageAndException(String tipo, Exception ex) throws Exception {
+		String msg = getStackTrace(tipo, ex);
+		mensagem(null, msg);
+		throw new Exception();
+	}
+
 	public static String getStackTrace(String info, Exception ex) {
 		StringWriter sw = new StringWriter();
 		sw.append(info + "\r\n\r\n");
@@ -120,8 +126,7 @@ public class Util {
 		}
 
 		StringBuilder sb = new StringBuilder();
-
-		char anterior = ' ';
+		char anterior = '\0';
 
 		for (char c : s.toCharArray()) {
 			if (c == '\t') {
@@ -131,7 +136,6 @@ public class Util {
 			} else {
 				sb.append(c);
 			}
-
 			anterior = c;
 		}
 
