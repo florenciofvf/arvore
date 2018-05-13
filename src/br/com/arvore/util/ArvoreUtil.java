@@ -19,7 +19,7 @@ public class ArvoreUtil {
 		return Persistencia.getObjetos(objeto);
 	}
 
-	public static void atualizar(Arvore arvore, Objeto objeto) {
+	public static void atualizarEstrutura(Arvore arvore, Objeto objeto) {
 		ModeloArvore modelo = (ModeloArvore) arvore.getModel();
 		List<Objeto> caminho = new ArrayList<>();
 

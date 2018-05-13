@@ -37,15 +37,15 @@ public class FicharioTitulo extends JPanel {
 		Objects.requireNonNull(tabbedPane);
 		this.tabbedPane = tabbedPane;
 		this.clonar = clonar;
+		add(new Rotulo());
 		setOpaque(false);
-		add(new Title());
 		add(new Ctrl());
 	}
 
-	private class Title extends Label {
+	private class Rotulo extends Label {
 		private static final long serialVersionUID = 1L;
 
-		Title() {
+		Rotulo() {
 			setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
 		}
 

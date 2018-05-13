@@ -62,10 +62,9 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 			} else {
 				objeto.inflarParcial2();
 			}
-			ArvoreUtil.atualizar(arvore, objeto);
+			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			String msg = Util.getStackTrace(tipo, ex);
-			Util.mensagem(this, msg);
+			Util.stackTraceAndMessage(tipo, ex, this);
 		}
 	}
 
@@ -77,8 +76,7 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 			table.setModel(modeloOrdenacao);
 			Util.ajustar(table, getGraphics());
 		} catch (Exception ex) {
-			String msg = Util.getStackTrace("REGISTROS", ex);
-			Util.mensagem(this, msg);
+			Util.stackTraceAndMessage("REGISTROS", ex, this);
 		}
 	}
 

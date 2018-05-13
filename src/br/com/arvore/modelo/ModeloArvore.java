@@ -39,8 +39,7 @@ public class ModeloArvore implements TreeModel {
 			try {
 				((Objeto) parent).inflarParcial();
 			} catch (Exception ex) {
-				String msg = Util.getStackTrace("ModeloArvore.isLeaf()", ex);
-				Util.mensagem(null, msg);
+				Util.stackTraceAndMessage("ModeloArvore.isLeaf()", ex, null);
 			}
 		}
 

@@ -24,8 +24,7 @@ public class XML {
 			parser.parse(file, handler);
 			return handler.getRaiz();
 		} catch (Exception ex) {
-			String msg = Util.getStackTrace("XML.processar()", ex);
-			Util.mensagem(null, msg);
+			Util.stackTraceAndMessage("XML.processar()", ex, null);
 			throw new IllegalStateException();
 		}
 	}

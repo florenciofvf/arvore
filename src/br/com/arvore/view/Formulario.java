@@ -32,9 +32,8 @@ public class Formulario extends JFrame {
 				Class<?> classe = Class.forName("com.apple.eawt.FullScreenUtilities");
 				Method method = classe.getMethod("setWindowCanFullScreen", Window.class, Boolean.TYPE);
 				method.invoke(classe, this, true);
-			} catch (Exception e) {
-				String msg = Util.getStackTrace(getClass().getName() + ".setWindowCanFullScreen()", e);
-				Util.mensagem(this, msg);
+			} catch (Exception ex) {
+				Util.stackTraceAndMessage(getClass().getName() + ".setWindowCanFullScreen()", ex, this);
 			}
 		}
 

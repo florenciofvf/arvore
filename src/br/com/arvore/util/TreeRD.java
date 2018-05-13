@@ -7,10 +7,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import br.com.arvore.Objeto;
 
-public class TreeCellRD extends DefaultTreeCellRenderer {
+public class TreeRD extends DefaultTreeCellRenderer {
 	private static final long serialVersionUID = 1L;
 
-	public TreeCellRD() {
+	public TreeRD() {
 	}
 
 	@Override
@@ -21,7 +21,11 @@ public class TreeCellRD extends DefaultTreeCellRenderer {
 		if (value instanceof Objeto) {
 			Objeto obj = (Objeto) value;
 
-			setIcon(obj.getIcone());
+			if (obj.estaVazio() && obj.isManterVazio()) {
+				setIcon(Icones.FILTRO);
+			} else {
+				setIcon(obj.getIcone());
+			}
 		}
 
 		return this;

@@ -47,7 +47,12 @@ public class Util {
 		throw new Exception();
 	}
 
-	public static String getStackTrace(String info, Exception ex) {
+	public static void stackTraceAndMessage(String tipo, Exception ex, Component componente) {
+		String msg = getStackTrace(tipo, ex);
+		mensagem(componente, msg);
+	}
+
+	private static String getStackTrace(String info, Exception ex) {
 		StringWriter sw = new StringWriter();
 		sw.append(info + "\r\n\r\n");
 
@@ -95,6 +100,7 @@ public class Util {
 
 		JOptionPane pane = new JOptionPane(Mensagens.getString("label.consulta"), JOptionPane.PLAIN_MESSAGE,
 				JOptionPane.OK_OPTION);
+
 		pane.setMessage(textArea);
 
 		JDialog dialog = pane.createDialog(componente, objeto.toString());
