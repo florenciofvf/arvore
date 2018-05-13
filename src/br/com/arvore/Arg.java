@@ -2,6 +2,10 @@ package br.com.arvore;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import br.com.arvore.arg.ArgDate;
 import br.com.arvore.arg.ArgInt;
@@ -16,34 +20,25 @@ public abstract class Arg {
 	public abstract void get(ResultSet rs, int indice) throws Exception;
 
 	public static Arg criar(String tipo, String outro) {
-		final String inteiro = "inteiro";
+		outro = outro == null ? "" : outro.toLowerCase();
+		tipo = tipo == null ? "" : tipo.toLowerCase();
 
-		if (inteiro.equalsIgnoreCase(tipo) || inteiro.equalsIgnoreCase(outro)) {
-			return new ArgInt();
-		}
+		Map<String, Arg> map = new HashMap<>();
+		map.put("objeto", new ArgObject());
+		map.put("texto", new ArgString());
+		map.put("inteiro", new ArgInt());
+		map.put("longo", new ArgLong());
+		map.put("data", new ArgDate());
 
-		final String objeto = "objeto";
+		Iterator<Map.Entry<String, Arg>> it = map.entrySet().iterator();
 
-		if (objeto.equalsIgnoreCase(tipo) || objeto.equalsIgnoreCase(outro)) {
-			return new ArgObject();
-		}
+		while (it.hasNext()) {
+			Entry<String, Arg> entry = it.next();
+			String chave = entry.getKey();
 
-		final String longo = "longo";
-
-		if (longo.equalsIgnoreCase(tipo) || longo.equalsIgnoreCase(outro)) {
-			return new ArgLong();
-		}
-
-		final String texto = "texto";
-
-		if (texto.equalsIgnoreCase(tipo) || texto.equalsIgnoreCase(outro)) {
-			return new ArgString();
-		}
-
-		final String data = "data";
-
-		if (data.equalsIgnoreCase(tipo) || data.equalsIgnoreCase(outro)) {
-			return new ArgDate();
+			if (chave.equals(tipo) || chave.equals(outro)) {
+				return entry.getValue();
+			}
 		}
 
 		return new ArgString();
