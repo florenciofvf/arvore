@@ -2,19 +2,26 @@ package br.com.arvore.banco;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Conexao {
-	public static ResourceBundle bundle = ResourceBundle.getBundle("conexao");
+	private static Map<String, String> mapa = new HashMap<>();
 	private static Connection conn;
 
-	public static Connection getConnection() throws Exception {
-		if (conn == null || conn.isClosed()) {
-			Class.forName(getString("driver"));
+	public static synchronized Connection getConnection() throws Exception {
+		if (mapa.isEmpty()) {
+			inicializar();
+		}
 
-			String url = getString("url");
-			String usr = getString("login");
-			String psw = getString("senha");
+		if (conn == null || conn.isClosed()) {
+			Class.forName(getValor("driver"));
+
+			String url = getValor("url");
+			String usr = getValor("login");
+			String psw = getValor("senha");
 
 			conn = DriverManager.getConnection(url, usr, psw);
 		}
@@ -28,7 +35,28 @@ public class Conexao {
 		}
 	}
 
-	public static String getString(String chave) {
-		return bundle.getString(chave);
+	public static String getValor(String chave) {
+		return mapa.get(chave);
+	}
+
+	public static void setValor(String chave, String valor) {
+		if (chave == null) {
+			return;
+		}
+
+		mapa.put(chave, valor);
+	}
+
+	private static void inicializar() {
+		ResourceBundle bundle = ResourceBundle.getBundle("conexao");
+
+		Enumeration<String> enumeration = bundle.getKeys();
+
+		while (enumeration.hasMoreElements()) {
+			String chave = enumeration.nextElement();
+			String valor = bundle.getString(chave);
+
+			mapa.put(chave, valor);
+		}
 	}
 }
