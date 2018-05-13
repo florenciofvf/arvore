@@ -7,14 +7,27 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.lang.reflect.Method;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import br.com.arvore.banco.Conexao;
+import br.com.arvore.comp.Menu;
+import br.com.arvore.comp.MenuItem;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private final MenuItem itemConexao = new MenuItem("label.conexao");
+	private final MenuItem itemFechar = new MenuItem("label.fechar");
+	private final Menu menuAparencia = new Menu("label.aparencia");
+	private final Menu menuArquivo = new Menu("label.arquivo");
+	private final JMenuBar menuBar = new JMenuBar();
 	private final Fichario fichario;
 
 	public Formulario(File file) throws Exception {
@@ -37,6 +50,8 @@ public class Formulario extends JFrame {
 			}
 		}
 
+		itemConexao.addActionListener(e -> new ConnDialog(this));
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				try {
@@ -46,10 +61,57 @@ public class Formulario extends JFrame {
 				}
 			};
 		});
+
+		itemFechar.addActionListener(e -> {
+			try {
+				Conexao.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			System.exit(0);
+		});
 	}
 
 	private void montarLayout() {
 		setLayout(new BorderLayout());
 		add(BorderLayout.CENTER, fichario);
+
+		menuArquivo.add(itemConexao);
+		menuArquivo.addSeparator();
+		menuArquivo.add(itemFechar);
+		menuBar.add(menuArquivo);
+		menuBar.add(menuAparencia);
+		configMenuAparencia();
+		setJMenuBar(menuBar);
+	}
+
+	private void configMenuAparencia() {
+		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
+		ButtonGroup grupo = new ButtonGroup();
+
+		for (LookAndFeelInfo lookAndFeelInfo : installedLookAndFeels) {
+			ItemMenu itemMenu = new ItemMenu(lookAndFeelInfo);
+			menuAparencia.add(itemMenu);
+			grupo.add(itemMenu);
+		}
+	}
+
+	private class ItemMenu extends JRadioButtonMenuItem {
+		private static final long serialVersionUID = 1L;
+		private final String classe;
+
+		public ItemMenu(LookAndFeelInfo info) {
+			super(info.getName());
+			classe = info.getClassName();
+
+			addActionListener(e -> {
+				try {
+					UIManager.setLookAndFeel(classe);
+					SwingUtilities.updateComponentTreeUI(Formulario.this);
+				} catch (Exception ex) {
+					Util.stackTraceAndMessage(getClass().getName() + ".ItemMenu()", ex, Formulario.this);
+				}
+			});
+		}
 	}
 }

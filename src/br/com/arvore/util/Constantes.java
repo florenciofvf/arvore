@@ -10,10 +10,14 @@ public class Constantes {
 	public static final String NUM_LINHA = "Linha";
 	public static final String OBJETO = "objeto";
 	public static final String TITULO = "titulo";
+	public static final String DRIVER = "driver";
 	public static final String ICONE = "icone";
+	public static final String LOGIN = "login";
+	public static final String SENHA = "senha";
 	public static final int LAR_SPLIT = 400;
 	public static final String SQL = "sql";
 	public static final String SEL = "sel";
+	public static final String URL = "url";
 	public static int DOIS = 2;
 
 	private Constantes() {

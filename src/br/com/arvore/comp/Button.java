@@ -11,6 +11,10 @@ public class Button extends JButton {
 	public Button() {
 	}
 
+	public Button(String chaveRotulo) {
+		super(Mensagens.getString(chaveRotulo));
+	}
+
 	public Button(String chaveRotulo, Icon icon) {
 		super(icon);
 		setToolTipText(Mensagens.getString(chaveRotulo));

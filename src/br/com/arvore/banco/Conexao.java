@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import br.com.arvore.util.Constantes;
+
 public class Conexao {
 	private static Map<String, String> mapa = new HashMap<>();
 	private static Connection conn;
@@ -17,11 +19,11 @@ public class Conexao {
 		}
 
 		if (conn == null || conn.isClosed()) {
-			Class.forName(getValor("driver"));
+			Class.forName(getValor(Constantes.DRIVER));
 
-			String url = getValor("url");
-			String usr = getValor("login");
-			String psw = getValor("senha");
+			String url = getValor(Constantes.URL);
+			String usr = getValor(Constantes.LOGIN);
+			String psw = getValor(Constantes.SENHA);
 
 			conn = DriverManager.getConnection(url, usr, psw);
 		}
