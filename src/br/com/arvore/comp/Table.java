@@ -11,6 +11,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import br.com.arvore.modelo.ModeloOrdenacao;
+import br.com.arvore.util.CellRD;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.HeaderRD;
 
@@ -37,6 +38,17 @@ public class Table extends JTable {
 		if (dataModel instanceof TableListener) {
 			tableListener = (TableListener) dataModel;
 		}
+
+		configurar(this);
+	}
+
+	private void configurar(Table table) {
+		TableColumnModel columnModel = table.getColumnModel();
+
+		if (columnModel.getColumnCount() > 0) {
+			TableColumn column = columnModel.getColumn(0);
+			column.setCellRenderer(new CellRD());
+		}
 	}
 
 	private class Listener extends MouseAdapter {
@@ -45,6 +57,10 @@ public class Table extends JTable {
 			if (e.getClickCount() >= Constantes.DOIS && tableListener != null) {
 				int tableColuna = columnAtPoint(e.getPoint());
 				int modelColuna = convertColumnIndexToModel(tableColuna);
+
+				if (modelColuna == 0) {
+					return;
+				}
 
 				descendente = !descendente;
 

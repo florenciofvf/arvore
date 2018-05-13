@@ -13,6 +13,7 @@ import java.util.Map;
 import br.com.arvore.Arg;
 import br.com.arvore.Objeto;
 import br.com.arvore.modelo.ModeloRegistro;
+import br.com.arvore.util.Constantes;
 
 public class Persistencia {
 
@@ -96,22 +97,27 @@ public class Persistencia {
 		int qtdColunas = rsmd.getColumnCount();
 
 		List<String> colunas = new ArrayList<>();
+		colunas.add(Constantes.NUM_LINHA);
 
 		for (int i = 1; i <= qtdColunas; i++) {
 			colunas.add(rsmd.getColumnName(i));
 		}
 
-		boolean[] colunasNumero = new boolean[qtdColunas];
+		boolean[] colunasNumero = new boolean[qtdColunas + 1];
+		colunasNumero[0] = mapa.get("java.lang.Integer");
 
 		for (int i = 1; i <= qtdColunas; i++) {
 			String classe = rsmd.getColumnClassName(i);
-			colunasNumero[i - 1] = mapa.get(classe) == null ? Boolean.FALSE : mapa.get(classe);
+			colunasNumero[i] = mapa.get(classe) == null ? Boolean.FALSE : mapa.get(classe);
 		}
 
 		List<List<String>> registros = new ArrayList<>();
+		int linha = 1;
 
 		while (rs.next()) {
 			List<String> registro = new ArrayList<>();
+			registro.add("" + linha);
+			linha++;
 
 			for (int i = 1; i <= qtdColunas; i++) {
 				registro.add(rs.getString(i) == null ? "" : rs.getString(i));

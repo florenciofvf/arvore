@@ -36,15 +36,26 @@ public class ModeloOrdenacao extends AbstractTableModel implements TableListener
 	private void ordenar(int coluna) {
 		colunaOrdenacao = coluna;
 		Arrays.sort(linhas);
+
+		if (model instanceof ModeloRegistro) {
+			int qtdLinhas = getRowCount();
+
+			for (int rowIndex = 0; rowIndex < qtdLinhas; rowIndex++) {
+				((ModeloRegistro) model).configNumLinha(linhas[rowIndex].indice, rowIndex + 1);
+			}
+		}
+
 		fireTableDataChanged();
 	}
 
 	@Override
 	public void ordenarColuna(TableColumn tableColumn, boolean descendente, int modelColuna) {
-		ordenarNumero = colunasNumero[modelColuna];
-		tableColumn.setHeaderRenderer(new HeaderRD(descendente, ordenarNumero));
-		this.descendente = descendente;
-		ordenar(modelColuna);
+		if (modelColuna > 0) {
+			ordenarNumero = colunasNumero[modelColuna];
+			tableColumn.setHeaderRenderer(new HeaderRD(descendente, ordenarNumero));
+			this.descendente = descendente;
+			ordenar(modelColuna);
+		}
 	}
 
 	@Override

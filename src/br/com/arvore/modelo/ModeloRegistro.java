@@ -26,6 +26,16 @@ public class ModeloRegistro implements TableModel {
 		this.colunasNumero = colunasNumero;
 	}
 
+	void configNumLinha(int linha, int valor) {
+		if (linha < REGISTROS.size()) {
+			List<String> registro = REGISTROS.get(linha);
+
+			if (registro.size() > 0) {
+				registro.set(0, "" + valor);
+			}
+		}
+	}
+
 	@Override
 	public int getRowCount() {
 		return REGISTROS.size();
