@@ -33,10 +33,10 @@ public class Main {
 			}
 
 		} else if (!file.exists()) {
-			Util.mensagem(null, Mensagens.getString("erro.arquivo.inexistente") + file.getAbsolutePath());
+			Util.mensagem(null, Mensagens.getString("erro.arquivo.inexistente") + "\n\n\n" + file.getAbsolutePath());
 
 		} else if (!file.canRead()) {
-			Util.mensagem(null, Mensagens.getString("erro.arquivo.leitura") + file.getAbsolutePath());
+			Util.mensagem(null, Mensagens.getString("erro.arquivo.leitura") + "\n\n\n" + file.getAbsolutePath());
 
 		} else {
 			Util.mensagem(null, "Erro!");

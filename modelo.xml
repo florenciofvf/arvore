@@ -2,7 +2,7 @@
 
 <objeto titulo="Eleição de Teste" icone="bola_verde">
 
-	<objeto titulo="Eleições" sub-icone="diamante" pesquisa-por-popup="true">
+	<objeto titulo="Eleições" sub-icone="diamante" pesquisa-por-popup="false">
 		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
 		<sel>SELECT * FROM eleicao</sel>
 
