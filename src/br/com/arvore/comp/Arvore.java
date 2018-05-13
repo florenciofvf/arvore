@@ -19,8 +19,8 @@ public class Arvore extends JTree {
 		super(newModel);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		putClientProperty("JTree.lineStyle", "Horizontal");
-		setCellRenderer(new TreeRD());
 		addMouseListener(new Listener());
+		setCellRenderer(new TreeRD());
 		setShowsRootHandles(true);
 		setRootVisible(true);
 	}
