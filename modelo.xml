@@ -12,6 +12,7 @@
 
 			<objeto titulo="Endereços" icone="home">
 				<sql>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</sql>
+				<sel>SELECT * FROM endereco WHERE id_candidato = ?</sel>
 			</objeto>
 		</objeto>
 	</objeto>
