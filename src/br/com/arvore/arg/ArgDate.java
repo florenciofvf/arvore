@@ -22,6 +22,11 @@ public class ArgDate extends Arg {
 	}
 
 	@Override
+	public void set(StringBuilder sb) {
+		sb.append(valor);
+	}
+
+	@Override
 	public String toString() {
 		return "Date=" + valor;
 	}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<objeto titulo="Eleição de Teste" icone="bola_verde">
+<objeto titulo="Eleição de Teste" icone="bola_verde" estrategia-parametro="PSMT_SET">
 
 	<objeto titulo="Eleições" sub-icone="diamante" pesquisa-por-popup="false">
 		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>

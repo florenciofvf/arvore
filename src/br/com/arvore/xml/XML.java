@@ -17,6 +17,9 @@ public class XML {
 
 	public static Objeto processar(File file) throws Exception {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setXIncludeAware(true);
+
 		SAXParser parser = factory.newSAXParser();
 
 		try {
@@ -63,6 +66,9 @@ class XMLHandler extends DefaultHandler {
 			objeto.setNomeIcone(icone);
 
 			if (raiz == null) {
+				String estrategia = attributes.getValue(Constantes.ESTRATEGIA_PARAMETRO);
+				Constantes.setEstrategia(estrategia);
+
 				raiz = objeto;
 			} else {
 				selecionado.add(objeto);

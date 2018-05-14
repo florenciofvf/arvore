@@ -247,7 +247,7 @@ public class Objeto {
 
 	@Override
 	public String toString() {
-		return titulo + (objetos.size() > 1 ? "(" + objetos.size() + ")" : "");
+		return (objetos.size() > 1 ? "[" + objetos.size() + "] " : "") + titulo;
 	}
 
 	public int getIndice(Objeto objeto) {

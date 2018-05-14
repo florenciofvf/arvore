@@ -19,6 +19,8 @@ public abstract class Arg {
 
 	public abstract void get(ResultSet rs, int indice) throws Exception;
 
+	public abstract void set(StringBuilder sb);
+
 	public static Arg criar(String tipo, String outro) {
 		outro = outro == null ? "" : outro.toLowerCase();
 		tipo = tipo == null ? "" : tipo.toLowerCase();
