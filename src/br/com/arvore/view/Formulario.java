@@ -18,13 +18,14 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import br.com.arvore.banco.Conexao;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
+import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private final MenuItem itemConexao = new MenuItem("label.conexao");
-	private final MenuItem itemFechar = new MenuItem("label.fechar");
+	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
+	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final JMenuBar menuBar = new JMenuBar();
