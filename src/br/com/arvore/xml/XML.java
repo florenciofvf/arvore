@@ -51,6 +51,7 @@ class XMLHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (Constantes.OBJETO.equals(qName)) {
+			String iconeManterVazio = attributes.getValue(Constantes.ICONE_MANTER_VAZIO);
 			String pesquisaPopup = attributes.getValue(Constantes.PESQUISA_POPUP);
 			String desabilitado = attributes.getValue(Constantes.DESABILITADO);
 			String manterVazio = attributes.getValue(Constantes.MANTER_VAZIO);
@@ -62,6 +63,7 @@ class XMLHandler extends DefaultHandler {
 			objeto.setPesquisaPopup(Boolean.parseBoolean(pesquisaPopup));
 			objeto.setDesabilitado(Boolean.parseBoolean(desabilitado));
 			objeto.setManterVazio(Boolean.parseBoolean(manterVazio));
+			objeto.setNomeIconeManterVazio(iconeManterVazio);
 			objeto.setNomeSubIcone(subIcone);
 			objeto.setNomeIcone(icone);
 
@@ -75,11 +77,13 @@ class XMLHandler extends DefaultHandler {
 			}
 
 			selecionado = objeto;
-		} else if (Constantes.SQL.equals(qName)) {
+		} else if (Constantes.INST_ARVORE.equals(qName)) {
 			limpar();
-		} else if (Constantes.SEL.equals(qName)) {
+		} else if (Constantes.INST_TABELA.equals(qName)) {
 			limpar();
-		} else if (Constantes.DEL.equals(qName)) {
+		} else if (Constantes.INST_UPDATE.equals(qName)) {
+			limpar();
+		} else if (Constantes.INST_DELETE.equals(qName)) {
 			limpar();
 		}
 	}
@@ -89,7 +93,7 @@ class XMLHandler extends DefaultHandler {
 		if (Constantes.OBJETO.equals(qName)) {
 			selecionado = selecionado.getPai();
 
-		} else if (Constantes.SQL.equals(qName)) {
+		} else if (Constantes.INST_ARVORE.equals(qName)) {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
@@ -97,7 +101,7 @@ class XMLHandler extends DefaultHandler {
 			}
 
 			limpar();
-		} else if (Constantes.SEL.equals(qName)) {
+		} else if (Constantes.INST_TABELA.equals(qName)) {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
@@ -105,7 +109,15 @@ class XMLHandler extends DefaultHandler {
 			}
 
 			limpar();
-		} else if (Constantes.DEL.equals(qName)) {
+		} else if (Constantes.INST_UPDATE.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setDeletar(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.INST_DELETE.equals(qName)) {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {

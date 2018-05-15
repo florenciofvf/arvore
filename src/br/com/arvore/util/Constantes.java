@@ -2,9 +2,14 @@ package br.com.arvore.util;
 
 public class Constantes {
 	public static final String ESTRATEGIA_PARAMETRO = "estrategia-parametro";
+	public static final String ICONE_MANTER_VAZIO = "icone-manter-vazio";
 	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
+	public static final String INST_ARVORE = "arvore";
+	public static final String INST_TABELA = "tabela";
+	public static final String INST_UPDATE = "update";
+	public static final String INST_DELETE = "delete";
 	public static final String SUB_ICONE = "sub-icone";
 	public static final String PSMT_META = "PSMT_META";
 	public static final String PSMT_SET = "PSMT_SET";
@@ -15,9 +20,6 @@ public class Constantes {
 	public static final String LOGIN = "login";
 	public static final String ICONE = "icone";
 	public static final String SENHA = "senha";
-	public static final String SQL = "sql";
-	public static final String SEL = "sel";
-	public static final String DEL = "del";
 	public static final String URL = "url";
 
 	public static final boolean INFLAR_ANTECIPADO = false;

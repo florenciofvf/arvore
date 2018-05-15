@@ -22,7 +22,7 @@ public class TreeRD extends DefaultTreeCellRenderer {
 			Objeto obj = (Objeto) value;
 
 			if (obj.estaVazio() && obj.isManterVazio()) {
-				setIcon(Icones.FILTRO);
+				setIcon(obj.getIconeManterVazio());
 			} else {
 				setIcon(obj.getIcone());
 			}

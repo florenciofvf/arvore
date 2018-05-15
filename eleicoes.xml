@@ -4,7 +4,7 @@
 	<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
 	<sel>SELECT * FROM eleicao</sel>
 
-	<objeto titulo="Candidatos" sub-icone="pessoas">
+	<objeto titulo="Candidatos" sub-icone="pessoas" manter-vazio="true">
 		<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
 		<sel>SELECT * FROM candidato WHERE eleicao_id = ?</sel>
 		<del>DELETE FROM candidato WHERE eleicao_id = ?</del>

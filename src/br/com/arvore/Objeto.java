@@ -10,9 +10,11 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
 public class Objeto {
+	private String nomeIconeManterVazio;
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
+	private Icon iconeManterVazio;
 	private boolean pesquisaPopup;
 	private boolean desabilitado;
 	private boolean manterVazio;
@@ -36,6 +38,9 @@ public class Objeto {
 
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
+
+		clone.nomeIconeManterVazio = nomeIconeManterVazio;
+		clone.iconeManterVazio = iconeManterVazio;
 		clone.pesquisaPopup = pesquisaPopup;
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
@@ -172,12 +177,20 @@ public class Objeto {
 		return icone;
 	}
 
+	public Icon getIconeManterVazio() {
+		return iconeManterVazio;
+	}
+
 	public Icon getSubIcone() {
 		return subIcone;
 	}
 
 	public void setIcone(Icon icone) {
 		this.icone = icone;
+	}
+
+	public void setIconeManterVazio(Icon iconeManterVazio) {
+		this.iconeManterVazio = iconeManterVazio;
 	}
 
 	public void setSubIcone(Icon subIcone) {
@@ -202,8 +215,21 @@ public class Objeto {
 		this.subIcone = Icones.getIcon(nomeSubIcone);
 	}
 
+	public void setNomeIconeManterVazio(String nomeIconeManterVazio) {
+		if (Util.estaVazio(nomeIconeManterVazio)) {
+			nomeIconeManterVazio = "um_pixel";
+		}
+
+		this.nomeIconeManterVazio = nomeIconeManterVazio;
+		this.iconeManterVazio = Icones.getIcon(nomeIconeManterVazio);
+	}
+
 	public String getNomeIcone() {
 		return nomeIcone;
+	}
+
+	public String getNomeIconeManterVazio() {
+		return nomeIconeManterVazio;
 	}
 
 	public String getNomeSubIcone() {
