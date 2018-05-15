@@ -27,10 +27,12 @@ public class ConnDialog extends JDialog {
 	public ConnDialog(Formulario formulario) {
 		super(formulario, true);
 		setTitle(Mensagens.getString("label.conexao"));
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(700, 140);
 		montarLayout();
 		configurar();
 		setLocationRelativeTo(formulario);
+		Util.setActionESC(this);
 		setVisible(true);
 		SwingUtilities.invokeLater(() -> toFront());
 	}

@@ -2,14 +2,25 @@ package br.com.arvore.util;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -21,6 +32,27 @@ public class Util {
 	private static final boolean LOG_CONSOLE = false;
 
 	private Util() {
+	}
+
+	public static void setActionESC(JDialog dialog) {
+		JComponent component = (JComponent) dialog.getContentPane();
+
+		InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "esc");
+
+		Action action = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				WindowEvent event = new WindowEvent(dialog, WindowEvent.WINDOW_CLOSING);
+				EventQueue systemEventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+				systemEventQueue.postEvent(event);
+			}
+		};
+
+		ActionMap actionMap = component.getActionMap();
+		actionMap.put("esc", action);
 	}
 
 	public static void checarVazio(String s, String chave) {
