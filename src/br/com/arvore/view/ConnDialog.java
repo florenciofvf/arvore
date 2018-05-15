@@ -64,6 +64,7 @@ public class ConnDialog extends JDialog {
 
 		Label label = new Label(chaveRotulo);
 		label.setPreferredSize(new Dimension(70, 0));
+		label.setMinimumSize(new Dimension(70, 0));
 
 		box.add(label);
 		box.add(componente);

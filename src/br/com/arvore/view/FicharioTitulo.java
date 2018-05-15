@@ -140,8 +140,8 @@ public class FicharioTitulo extends JPanel {
 				g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight() - delta - 1);
 				g2.drawLine(delta, getHeight() - delta - 1, getWidth() - delta - 1, delta);
 			} else {
-				g2.drawLine(delta - middle, deltaY, getWidth() - middle - 1, deltaY);
-				g2.drawLine(deltaX, delta - 1, deltaX, getHeight() - middle - 1);
+				g2.drawLine(delta - middle + 2, deltaY - 1, getWidth() - middle - 3, deltaY - 1);
+				g2.drawLine(deltaX, delta - 1, deltaX, getHeight() - middle - 3);
 			}
 
 			g2.dispose();
