@@ -19,6 +19,10 @@ public class ArvoreUtil {
 		return Persistencia.getObjetos(objeto);
 	}
 
+	public static void excluirObjetos(Objeto objeto) throws Exception {
+		Persistencia.excluirObjetos(objeto);
+	}
+
 	public static void atualizarEstrutura(Arvore arvore, Objeto objeto) {
 		ModeloArvore modelo = (ModeloArvore) arvore.getModel();
 		List<Objeto> caminho = new ArrayList<>();

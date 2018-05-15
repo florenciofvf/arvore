@@ -17,6 +17,7 @@ public class Constantes {
 	public static final String SENHA = "senha";
 	public static final String SQL = "sql";
 	public static final String SEL = "sel";
+	public static final String DEL = "del";
 	public static final String URL = "url";
 
 	public static final boolean INFLAR_ANTECIPADO = false;

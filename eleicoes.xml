@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<objeto titulo="Eleições" sub-icone="diamante" pesquisa-por-popup="false">
+	<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
+	<sel>SELECT * FROM eleicao</sel>
+
+	<objeto titulo="Candidatos" sub-icone="pessoas">
+		<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
+		<sel>SELECT * FROM candidato WHERE eleicao_id = ?</sel>
+		<del>DELETE FROM candidato WHERE eleicao_id = ?</del>
+
+		<objeto titulo="Endereços" icone="home">
+			<sql>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</sql>
+			<sel>SELECT * FROM endereco WHERE id_candidato = ?</sel>
+			<del>DELETE FROM endereco WHERE id_candidato = ?</del>
+		</objeto>
+	</objeto>
+</objeto>

@@ -43,6 +43,8 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 
 		popup.itemRegistros.addActionListener(e -> criarModeloRegistro(selecionado));
 
+		popup.itemExcluir.addActionListener(e -> excluir(selecionado));
+
 		popup.itemFiltro.addActionListener(e -> {
 			String consulta = Util.getSQL(this, selecionado);
 
@@ -68,6 +70,24 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 		}
 	}
 
+	private void excluir(Objeto objeto) {
+		if (!Util.confirmaExclusao(this)) {
+			return;
+		}
+
+		try {
+			ArvoreUtil.excluirObjetos(objeto);
+			if (Constantes.INFLAR_ANTECIPADO) {
+				objeto.inflar();
+			} else {
+				objeto.inflarParcial2();
+			}
+			ArvoreUtil.atualizarEstrutura(arvore, objeto);
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("Excluir", ex, this);
+		}
+	}
+
 	private void criarModeloRegistro(Objeto objeto) {
 		try {
 			ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
@@ -83,6 +103,7 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
 		popup.setHabilitarRegistros(!Util.estaVazio(selecionado.getPesquisa()));
+		popup.setHabilitarExcluir(!Util.estaVazio(selecionado.getDeletar()));
 		popup.setHabilitarFiltro(!Util.estaVazio(selecionado.getConsulta()));
 		this.selecionado = selecionado;
 		popup.show(arvore, e.getX(), e.getY());

@@ -21,6 +21,7 @@ public class Objeto {
 	private String nomeIcone;
 	private String consulta;
 	private String pesquisa;
+	private String deletar;
 	private Icon subIcone;
 	private Icon icone;
 	private Arg[] args;
@@ -43,6 +44,7 @@ public class Objeto {
 		clone.consulta = consulta;
 		clone.pesquisa = pesquisa;
 		clone.subIcone = subIcone;
+		clone.deletar = deletar;
 		clone.icone = icone;
 
 		for (Objeto obj : objetos) {
@@ -85,6 +87,7 @@ public class Objeto {
 					continue;
 				}
 
+				obj.setDeletar(getDeletar());
 				obj.setIcone(getSubIcone());
 				add(obj);
 
@@ -145,6 +148,7 @@ public class Objeto {
 					continue;
 				}
 
+				obj.setDeletar(getDeletar());
 				obj.setIcone(getSubIcone());
 				add(obj);
 
@@ -272,6 +276,14 @@ public class Objeto {
 
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
+	}
+
+	public String getDeletar() {
+		return deletar;
+	}
+
+	public void setDeletar(String deletar) {
+		this.deletar = deletar;
 	}
 
 	public boolean isDesabilitado() {

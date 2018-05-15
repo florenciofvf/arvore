@@ -41,6 +41,11 @@ public class Util {
 				JOptionPane.PLAIN_MESSAGE);
 	}
 
+	public static boolean confirmaExclusao(Component componente) {
+		return JOptionPane.showConfirmDialog(componente, Mensagens.getString("msg.confirma_exclusao"),
+				Mensagens.getString("label.atencao"), JOptionPane.YES_OPTION) == JOptionPane.OK_OPTION;
+	}
+
 	public static void stackTraceMessageAndException(String tipo, Exception ex) throws Exception {
 		String msg = getStackTrace(tipo, ex);
 		mensagem(null, msg);

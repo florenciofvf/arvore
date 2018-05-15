@@ -79,6 +79,8 @@ class XMLHandler extends DefaultHandler {
 			limpar();
 		} else if (Constantes.SEL.equals(qName)) {
 			limpar();
+		} else if (Constantes.DEL.equals(qName)) {
+			limpar();
 		}
 	}
 
@@ -100,6 +102,14 @@ class XMLHandler extends DefaultHandler {
 
 			if (!Util.estaVazio(string)) {
 				selecionado.setPesquisa(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.DEL.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setDeletar(string.trim());
 			}
 
 			limpar();

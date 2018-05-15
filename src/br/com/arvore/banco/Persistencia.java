@@ -18,9 +18,18 @@ import br.com.arvore.util.ParametroUtil;
 
 public class Persistencia {
 
+	public static void excluirObjetos(Objeto objeto) throws Exception {
+		Connection conn = Conexao.getConnection();
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getDeletar());
+
+		psmt.executeUpdate();
+
+		psmt.close();
+	}
+
 	public static List<Objeto> getObjetos(Objeto objeto) throws Exception {
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, null);
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getConsulta());
 
 		ResultSet rs = psmt.executeQuery();
 		List<Objeto> objetos = coletar(rs);
@@ -31,21 +40,20 @@ public class Persistencia {
 		return objetos;
 	}
 
-	private static PreparedStatement criarPreparedStatement(Connection conn, Objeto objeto, String consulta)
+	private static PreparedStatement criarPreparedStatement(Connection conn, Objeto objeto, String instrucao)
 			throws Exception {
 		PreparedStatement psmt = null;
 
 		if (Constantes.ESTRATEGIA_PARAMS == Constantes.ESTRATEGIA_PSMT_META) {
-			psmt = conn.prepareStatement(consulta == null ? objeto.getConsulta() : consulta);
+			psmt = conn.prepareStatement(instrucao);
 			parametrosMeta(objeto.getPai(), psmt);
 
 		} else if (Constantes.ESTRATEGIA_PARAMS == Constantes.ESTRATEGIA_PSMT_SET) {
-			psmt = conn.prepareStatement(consulta == null ? objeto.getConsulta() : consulta);
-			parametrosSet(consulta == null ? objeto.getConsulta() : consulta, objeto.getPai(), psmt);
+			psmt = conn.prepareStatement(instrucao);
+			parametrosSet(instrucao, objeto.getPai(), psmt);
 
 		} else if (Constantes.ESTRATEGIA_PARAMS == Constantes.ESTRATEGIA_SUBSTITUIR) {
-			psmt = conn
-					.prepareStatement(substituir(consulta == null ? objeto.getConsulta() : consulta, objeto.getPai()));
+			psmt = conn.prepareStatement(substituir(instrucao, objeto.getPai()));
 
 		}
 
@@ -63,8 +71,8 @@ public class Persistencia {
 		}
 	}
 
-	private static void parametrosSet(String consulta, Objeto objetoArgs, PreparedStatement psmt) throws Exception {
-		int[] parametros = ParametroUtil.getIndiceParametros(consulta);
+	private static void parametrosSet(String instrucao, Objeto objetoArgs, PreparedStatement psmt) throws Exception {
+		int[] parametros = ParametroUtil.getIndiceParametros(instrucao);
 
 		for (int i = 1; i <= parametros.length; i++) {
 			Arg arg = objetoArgs.getArgs()[i - 1];
@@ -72,8 +80,8 @@ public class Persistencia {
 		}
 	}
 
-	private static String substituir(String consulta, Objeto objetoArgs) {
-		int[] parametros = ParametroUtil.getIndiceParametros(consulta);
+	private static String substituir(String instrucao, Objeto objetoArgs) {
+		int[] parametros = ParametroUtil.getIndiceParametros(instrucao);
 
 		StringBuilder builder = new StringBuilder();
 
@@ -83,14 +91,14 @@ public class Persistencia {
 			Arg arg = objetoArgs.getArgs()[i];
 			int indice = parametros[i];
 
-			builder.append(consulta.substring(proximo, indice));
+			builder.append(instrucao.substring(proximo, indice));
 			arg.set(builder);
 
 			proximo = indice + 1;
 		}
 
-		if (proximo < consulta.length()) {
-			builder.append(consulta.substring(proximo));
+		if (proximo < instrucao.length()) {
+			builder.append(instrucao.substring(proximo));
 		}
 
 		return builder.toString();

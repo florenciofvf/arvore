@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<objeto titulo="Eleição de Teste" icone="bola_verde" estrategia-parametro="PSMT_SET">
-
-	<objeto titulo="Eleições" sub-icone="diamante" pesquisa-por-popup="false">
-		<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
-		<sel>SELECT * FROM eleicao</sel>
-
-		<objeto titulo="Candidatos" sub-icone="pessoas">
-			<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
-			<sel>SELECT * FROM candidato WHERE eleicao_id = ?</sel>
-
-			<objeto titulo="Endereços" icone="home">
-				<sql>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</sql>
-				<sel>SELECT * FROM endereco WHERE id_candidato = ?</sel>
-			</objeto>
-		</objeto>
-	</objeto>
+<objeto titulo="Eleição de Teste" icone="bola_verde" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<xi:include href="eleicoes.xml" />
 
 	<objeto titulo="Endereços" icone="home" sub-icone="diamante">
 		<sql>SELECT concat(id, "-", logradouro, "-", id_candidato), id as inteiro FROM endereco</sql>
