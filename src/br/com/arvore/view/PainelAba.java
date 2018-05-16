@@ -12,6 +12,7 @@ import br.com.arvore.comp.SplitPane;
 import br.com.arvore.comp.Table;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
+import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 
@@ -41,6 +42,7 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 
 	private void configurar() {
 		popup.itemPropriedades.addActionListener(e -> new ObjetoDialogo(formulario, this, arvore, selecionado));
+		popup.itemAtualizar.addActionListener(e -> atualizarArvore(selecionado));
 	}
 
 	void criarModeloRegistro(Objeto objeto) {
@@ -55,6 +57,20 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 		}
 	}
 
+	void atualizarArvore(Objeto objeto) {
+		try {
+			if (Constantes.INFLAR_ANTECIPADO) {
+				objeto.inflar();
+			} else {
+				objeto.inflarParcial2();
+			}
+
+			ArvoreUtil.atualizarEstrutura(arvore, objeto);
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("ARVORE", ex, this);
+		}
+	}
+
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
 		boolean instrucaoArvore = !Util.estaVazio(selecionado.getInstrucaoArvore());
@@ -62,10 +78,10 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 		boolean instrucaoUpdate = !Util.estaVazio(selecionado.getInstrucaoUpdate());
 		boolean instrucaoDelete = !Util.estaVazio(selecionado.getInstrucaoDelete());
 
-		if (instrucaoArvore || instrucaoTabela || instrucaoUpdate || instrucaoDelete) {
-			this.selecionado = selecionado;
-			popup.show(arvore, e.getX(), e.getY());
-		}
+		popup.itemPropriedades.setEnabled(instrucaoArvore || instrucaoTabela || instrucaoUpdate || instrucaoDelete);
+
+		this.selecionado = selecionado;
+		popup.show(arvore, e.getX(), e.getY());
 	}
 
 	@Override

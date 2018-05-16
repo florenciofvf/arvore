@@ -59,7 +59,8 @@ public class ObjetoDialogo extends Dialogo {
 				objeto.setInstrucaoArvore(textAreaArvore.getText());
 			}
 
-			atualizarArvore(objeto);
+			painelAba.atualizarArvore(objeto);
+			dispose();
 
 		} else if (TABELA == fichario.getSelectedIndex()) {
 
@@ -92,21 +93,6 @@ public class ObjetoDialogo extends Dialogo {
 			objeto.setInstrucaoDelete(textAreaDelete.getText());
 			excluir(objeto);
 
-		}
-	}
-
-	private void atualizarArvore(Objeto objeto) {
-		try {
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-
-			ArvoreUtil.atualizarEstrutura(arvore, objeto);
-			dispose();
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("ARVORE", ex, this);
 		}
 	}
 
