@@ -19,8 +19,12 @@ public class ArvoreUtil {
 		return Persistencia.getObjetos(objeto);
 	}
 
-	public static void excluirObjetos(Objeto objeto) throws Exception {
-		Persistencia.excluirObjetos(objeto);
+	public static int excluirObjetos(Objeto objeto) throws Exception {
+		return Persistencia.excluirObjetos(objeto);
+	}
+
+	public static int atualizarObjetos(Objeto objeto) throws Exception {
+		return Persistencia.atualizarObjetos(objeto);
 	}
 
 	public static void atualizarEstrutura(Arvore arvore, Objeto objeto) {

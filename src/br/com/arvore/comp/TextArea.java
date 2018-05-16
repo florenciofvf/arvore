@@ -3,6 +3,8 @@ package br.com.arvore.comp;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import br.com.arvore.util.Util;
+
 public class TextArea extends JScrollPane {
 	private static final long serialVersionUID = 1L;
 	private final JTextArea textArea;
@@ -23,5 +25,9 @@ public class TextArea extends JScrollPane {
 
 	public void setText(String string) {
 		textArea.setText(string);
+	}
+
+	public boolean estaVazio() {
+		return Util.estaVazio(getText());
 	}
 }

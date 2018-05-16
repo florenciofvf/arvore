@@ -25,7 +25,6 @@ import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-import br.com.arvore.Objeto;
 import br.com.arvore.comp.TextArea;
 
 public class Util {
@@ -75,6 +74,11 @@ public class Util {
 
 	public static boolean confirmaExclusao(Component componente) {
 		return JOptionPane.showConfirmDialog(componente, Mensagens.getString("msg.confirma_exclusao"),
+				Mensagens.getString("label.atencao"), JOptionPane.YES_OPTION) == JOptionPane.OK_OPTION;
+	}
+
+	public static boolean confirmaAtualizacao(Component componente) {
+		return JOptionPane.showConfirmDialog(componente, Mensagens.getString("msg.confirma_atualizacao"),
 				Mensagens.getString("label.atencao"), JOptionPane.YES_OPTION) == JOptionPane.OK_OPTION;
 	}
 
@@ -131,39 +135,7 @@ public class Util {
 		}
 	}
 
-	public static String getSQL(Component componente, Objeto objeto) {
-		TextArea textArea = new TextArea(normalizar(objeto.getConsulta()));
-		textArea.setPreferredSize(new Dimension(1000, 300));
-
-		JOptionPane pane = new JOptionPane(Mensagens.getString("label.consulta"), JOptionPane.PLAIN_MESSAGE,
-				JOptionPane.OK_OPTION);
-
-		pane.setMessage(textArea);
-
-		JDialog dialog = pane.createDialog(componente, objeto.toString());
-		dialog.setVisible(true);
-		dialog.dispose();
-
-		Object opcao = pane.getValue();
-
-		if (opcao == null || !(opcao instanceof Integer)) {
-			return null;
-		}
-
-		if (((Integer) opcao).intValue() != JOptionPane.YES_OPTION) {
-			return null;
-		}
-
-		String consulta = textArea.getText();
-
-		if (Util.estaVazio(consulta)) {
-			return null;
-		}
-
-		return consulta;
-	}
-
-	private static String normalizar(String s) {
+	public static String normalizar(String s) {
 		if (s == null) {
 			return "";
 		}

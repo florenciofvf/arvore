@@ -4,6 +4,6 @@
 	<xi:include href="eleicoes.xml" />
 
 	<objeto titulo="Endereços" icone="home" sub-icone="diamante" manter-vazio="true" icone-manter-vazio="home">
-		<sql>SELECT concat(id, "-", logradouro, "-", id_candidato), id as inteiro FROM endereco</sql>
+		<arvore>SELECT concat(id, "-", logradouro, "-", id_candidato), id as inteiro FROM endereco</arvore>
 	</objeto>
 </objeto>

@@ -6,12 +6,12 @@ public class Constantes {
 	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
+	public static final String SUB_ICONE = "sub-icone";
+	public static final String PSMT_META = "PSMT_META";
 	public static final String INST_ARVORE = "arvore";
 	public static final String INST_TABELA = "tabela";
 	public static final String INST_UPDATE = "update";
 	public static final String INST_DELETE = "delete";
-	public static final String SUB_ICONE = "sub-icone";
-	public static final String PSMT_META = "PSMT_META";
 	public static final String PSMT_SET = "PSMT_SET";
 	public static final String OBJETO = "objeto";
 	public static final String DRIVER = "driver";
@@ -34,7 +34,7 @@ public class Constantes {
 	private Constantes() {
 	}
 
-	public static void setEstrategia(String s) {
+	public static void configEstrategiaParametros(String s) {
 		if (PSMT_SET.equalsIgnoreCase(s)) {
 			ESTRATEGIA_PARAMS = ESTRATEGIA_PSMT_SET;
 

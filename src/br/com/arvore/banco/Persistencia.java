@@ -18,18 +18,27 @@ import br.com.arvore.util.ParametroUtil;
 
 public class Persistencia {
 
-	public static void excluirObjetos(Objeto objeto) throws Exception {
+	public static int excluirObjetos(Objeto objeto) throws Exception {
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getDeletar());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoDelete());
 
-		psmt.executeUpdate();
-
+		int i = psmt.executeUpdate();
 		psmt.close();
+		return i;
+	}
+
+	public static int atualizarObjetos(Objeto objeto) throws Exception {
+		Connection conn = Conexao.getConnection();
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoUpdate());
+
+		int i = psmt.executeUpdate();
+		psmt.close();
+		return i;
 	}
 
 	public static List<Objeto> getObjetos(Objeto objeto) throws Exception {
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getConsulta());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoArvore());
 
 		ResultSet rs = psmt.executeQuery();
 		List<Objeto> objetos = coletar(rs);
@@ -129,7 +138,7 @@ public class Persistencia {
 
 	public static ModeloRegistro criarModeloRegistro(Objeto objeto) throws Exception {
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getPesquisa());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoTabela());
 
 		ResultSet rs = psmt.executeQuery();
 		ModeloRegistro modelo = criarModelo(rs);

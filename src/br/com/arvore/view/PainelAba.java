@@ -12,7 +12,6 @@ import br.com.arvore.comp.SplitPane;
 import br.com.arvore.comp.Table;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
-import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 
@@ -21,11 +20,13 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	private final SplitPane split = new SplitPane();
 	private final Table table = new Table();
 	private final Popup popup = new Popup();
+	private final Formulario formulario;
 	private final Arvore arvore;
 	private Objeto selecionado;
 
-	public PainelAba(Arvore arvore) {
+	public PainelAba(Formulario formulario, Arvore arvore) {
 		arvore.setArvoreListener(this);
+		this.formulario = formulario;
 		this.arvore = arvore;
 		montarLayout();
 		configurar();
@@ -39,56 +40,10 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	}
 
 	private void configurar() {
-		popup.itemAtualizar.addActionListener(e -> inflar(selecionado, "ATUALIZAR"));
-
-		popup.itemRegistros.addActionListener(e -> criarModeloRegistro(selecionado));
-
-		popup.itemExcluir.addActionListener(e -> excluir(selecionado));
-
-		popup.itemFiltro.addActionListener(e -> {
-			String consulta = Util.getSQL(this, selecionado);
-
-			if (consulta == null) {
-				return;
-			}
-
-			selecionado.setConsulta(consulta);
-			inflar(selecionado, "FILTRO");
-		});
+		popup.itemPropriedades.addActionListener(e -> new ObjetoDialogo(formulario, this, arvore, selecionado));
 	}
 
-	private void inflar(Objeto objeto, String tipo) {
-		try {
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-			ArvoreUtil.atualizarEstrutura(arvore, objeto);
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage(tipo, ex, this);
-		}
-	}
-
-	private void excluir(Objeto objeto) {
-		if (!Util.confirmaExclusao(this)) {
-			return;
-		}
-
-		try {
-			ArvoreUtil.excluirObjetos(objeto);
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-			ArvoreUtil.atualizarEstrutura(arvore, objeto);
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, this);
-		}
-	}
-
-	private void criarModeloRegistro(Objeto objeto) {
+	void criarModeloRegistro(Objeto objeto) {
 		try {
 			ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
 			ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro, modeloRegistro.getColunasNumero());
@@ -102,16 +57,20 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-		popup.setHabilitarRegistros(!Util.estaVazio(selecionado.getPesquisa()));
-		popup.setHabilitarExcluir(!Util.estaVazio(selecionado.getDeletar()));
-		popup.setHabilitarFiltro(!Util.estaVazio(selecionado.getConsulta()));
-		this.selecionado = selecionado;
-		popup.show(arvore, e.getX(), e.getY());
+		boolean instrucaoArvore = !Util.estaVazio(selecionado.getInstrucaoArvore());
+		boolean instrucaoTabela = !Util.estaVazio(selecionado.getInstrucaoTabela());
+		boolean instrucaoUpdate = !Util.estaVazio(selecionado.getInstrucaoUpdate());
+		boolean instrucaoDelete = !Util.estaVazio(selecionado.getInstrucaoDelete());
+
+		if (instrucaoArvore || instrucaoTabela || instrucaoUpdate || instrucaoDelete) {
+			this.selecionado = selecionado;
+			popup.show(arvore, e.getX(), e.getY());
+		}
 	}
 
 	@Override
 	public void clicado(Objeto objeto) {
-		if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getPesquisa())) {
+		if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
 			return;
 		}
 

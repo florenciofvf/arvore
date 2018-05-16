@@ -14,6 +14,10 @@ public class Objeto {
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
+	private String instrucaoArvore;
+	private String instrucaoTabela;
+	private String instrucaoUpdate;
+	private String instrucaoDelete;
 	private Icon iconeManterVazio;
 	private boolean pesquisaPopup;
 	private boolean desabilitado;
@@ -21,9 +25,6 @@ public class Objeto {
 	private final String titulo;
 	private String nomeSubIcone;
 	private String nomeIcone;
-	private String consulta;
-	private String pesquisa;
-	private String deletar;
 	private Icon subIcone;
 	private Icon icone;
 	private Arg[] args;
@@ -41,15 +42,16 @@ public class Objeto {
 
 		clone.nomeIconeManterVazio = nomeIconeManterVazio;
 		clone.iconeManterVazio = iconeManterVazio;
+		clone.instrucaoArvore = instrucaoArvore;
+		clone.instrucaoTabela = instrucaoTabela;
+		clone.instrucaoUpdate = instrucaoUpdate;
+		clone.instrucaoDelete = instrucaoDelete;
 		clone.pesquisaPopup = pesquisaPopup;
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.manterVazio = manterVazio;
 		clone.nomeIcone = nomeIcone;
-		clone.consulta = consulta;
-		clone.pesquisa = pesquisa;
 		clone.subIcone = subIcone;
-		clone.deletar = deletar;
 		clone.icone = icone;
 
 		for (Objeto obj : objetos) {
@@ -70,7 +72,7 @@ public class Objeto {
 
 		limpar();
 
-		if (Util.estaVazio(consulta)) {
+		if (Util.estaVazio(instrucaoArvore)) {
 			for (Objeto obj : nativos) {
 				if (obj.isDesabilitado()) {
 					continue;
@@ -92,7 +94,6 @@ public class Objeto {
 					continue;
 				}
 
-				obj.setDeletar(getDeletar());
 				obj.setIcone(getSubIcone());
 				add(obj);
 
@@ -131,7 +132,7 @@ public class Objeto {
 
 		limpar();
 
-		if (Util.estaVazio(consulta)) {
+		if (Util.estaVazio(instrucaoArvore)) {
 			for (Objeto obj : nativos) {
 				if (obj.isDesabilitado()) {
 					continue;
@@ -153,7 +154,6 @@ public class Objeto {
 					continue;
 				}
 
-				obj.setDeletar(getDeletar());
 				obj.setIcone(getSubIcone());
 				add(obj);
 
@@ -288,28 +288,36 @@ public class Objeto {
 		return objetos.get(indice);
 	}
 
-	public String getConsulta() {
-		return consulta;
+	public String getInstrucaoArvore() {
+		return instrucaoArvore;
 	}
 
-	public void setConsulta(String consulta) {
-		this.consulta = consulta;
+	public void setInstrucaoArvore(String instrucaoArvore) {
+		this.instrucaoArvore = instrucaoArvore;
 	}
 
-	public String getPesquisa() {
-		return pesquisa;
+	public String getInstrucaoTabela() {
+		return instrucaoTabela;
 	}
 
-	public void setPesquisa(String pesquisa) {
-		this.pesquisa = pesquisa;
+	public void setInstrucaoTabela(String instrucaoTabela) {
+		this.instrucaoTabela = instrucaoTabela;
 	}
 
-	public String getDeletar() {
-		return deletar;
+	public String getInstrucaoDelete() {
+		return instrucaoDelete;
 	}
 
-	public void setDeletar(String deletar) {
-		this.deletar = deletar;
+	public void setInstrucaoDelete(String instrucaoDelete) {
+		this.instrucaoDelete = instrucaoDelete;
+	}
+
+	public String getInstrucaoUpdate() {
+		return instrucaoUpdate;
+	}
+
+	public void setInstrucaoUpdate(String instrucaoUpdate) {
+		this.instrucaoUpdate = instrucaoUpdate;
 	}
 
 	public boolean isDesabilitado() {

@@ -14,10 +14,12 @@ import br.com.arvore.xml.XML;
 
 public class Fichario extends JTabbedPane implements FicharioTituloListener {
 	private static final long serialVersionUID = 1L;
+	private final Formulario formulario;
 	private Objeto raiz;
 
-	public Fichario(File file) throws Exception {
+	public Fichario(Formulario formulario, File file) throws Exception {
 		raiz = XML.processar(file);
+		this.formulario = formulario;
 		addAba("label.objetos", raiz, true);
 	}
 
@@ -29,7 +31,7 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		}
 
 		Arvore arvore = new Arvore(new ModeloArvore(objeto));
-		PainelAba painelAba = new PainelAba(arvore);
+		PainelAba painelAba = new PainelAba(formulario, arvore);
 		addTab(Mensagens.getString(chaveTitulo), painelAba);
 
 		FicharioTitulo titulo = new FicharioTitulo(this, clonar, this);

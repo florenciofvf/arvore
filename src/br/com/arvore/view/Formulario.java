@@ -34,7 +34,7 @@ public class Formulario extends JFrame {
 	public Formulario(File file) throws Exception {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		fichario = new Fichario(file);
+		fichario = new Fichario(this, file);
 		setSize(700, 700);
 		montarLayout();
 		configurar();
@@ -51,7 +51,7 @@ public class Formulario extends JFrame {
 			}
 		}
 
-		itemConexao.addActionListener(e -> new ConnDialog(this));
+		itemConexao.addActionListener(e -> new ConexaoDialogo(this));
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

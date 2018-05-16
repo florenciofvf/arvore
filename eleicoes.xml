@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <objeto titulo="Eleições" sub-icone="diamante" pesquisa-por-popup="false">
-	<sql>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</sql>
-	<sel>SELECT * FROM eleicao</sel>
+	<arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</arvore>
+	<tabela>SELECT * FROM eleicao</tabela>
 
-	<objeto titulo="Candidatos" sub-icone="pessoas" manter-vazio="true">
-		<sql>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</sql>
-		<sel>SELECT * FROM candidato WHERE eleicao_id = ?</sel>
-		<del>DELETE FROM candidato WHERE eleicao_id = ?</del>
+	<objeto titulo="Candidatos" sub-icone="pessoas">
+		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</arvore>
+		<tabela>SELECT * FROM candidato WHERE eleicao_id = ?</tabela>
+		<delete>DELETE FROM candidato WHERE eleicao_id = ?</delete>
 
 		<objeto titulo="Endereços" icone="home">
-			<sql>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</sql>
-			<sel>SELECT * FROM endereco WHERE id_candidato = ?</sel>
-			<del>DELETE FROM endereco WHERE id_candidato = ?</del>
+			<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</arvore>
+			<tabela>SELECT * FROM endereco WHERE id_candidato = ?</tabela>
+			<delete>DELETE FROM endereco WHERE id_candidato = ?</delete>
 		</objeto>
 	</objeto>
 </objeto>

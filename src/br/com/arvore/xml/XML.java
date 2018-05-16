@@ -69,7 +69,7 @@ class XMLHandler extends DefaultHandler {
 
 			if (raiz == null) {
 				String estrategia = attributes.getValue(Constantes.ESTRATEGIA_PARAMETRO);
-				Constantes.setEstrategia(estrategia);
+				Constantes.configEstrategiaParametros(estrategia);
 
 				raiz = objeto;
 			} else {
@@ -97,7 +97,7 @@ class XMLHandler extends DefaultHandler {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
-				selecionado.setConsulta(string.trim());
+				selecionado.setInstrucaoArvore(string.trim());
 			}
 
 			limpar();
@@ -105,7 +105,7 @@ class XMLHandler extends DefaultHandler {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
-				selecionado.setPesquisa(string.trim());
+				selecionado.setInstrucaoTabela(string.trim());
 			}
 
 			limpar();
@@ -113,7 +113,7 @@ class XMLHandler extends DefaultHandler {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
-				selecionado.setDeletar(string.trim());
+				selecionado.setInstrucaoUpdate(string.trim());
 			}
 
 			limpar();
@@ -121,7 +121,7 @@ class XMLHandler extends DefaultHandler {
 			String string = builder.toString();
 
 			if (!Util.estaVazio(string)) {
-				selecionado.setDeletar(string.trim());
+				selecionado.setInstrucaoDelete(string.trim());
 			}
 
 			limpar();
