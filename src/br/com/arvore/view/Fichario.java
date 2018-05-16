@@ -17,10 +17,48 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 	private final Formulario formulario;
 	private Objeto raiz;
 
-	public Fichario(Formulario formulario, File file) throws Exception {
-		raiz = XML.processar(file);
+	public Fichario(Formulario formulario) {
 		this.formulario = formulario;
-		addAba("label.objetos", raiz, true);
+	}
+
+	public void abrirArquivo(File file, boolean msgInexistente, boolean msgSemConteudo, boolean msgNaoLeitura) {
+		if (file != null) {
+			if (!file.exists()) {
+				if (msgInexistente)
+					Util.mensagem(formulario,
+							Mensagens.getString("erro.arquivo.inexistente") + "\n\n\n" + file.getAbsolutePath());
+				return;
+			}
+
+			if (file.length() == 0) {
+				if (msgSemConteudo)
+					Util.mensagem(formulario,
+							Mensagens.getString("erro.arquivo.vazio") + "\n\n\n" + file.getAbsolutePath());
+				return;
+			}
+
+			if (!file.canRead()) {
+				if (msgNaoLeitura)
+					Util.mensagem(null,
+							Mensagens.getString("erro.arquivo.leitura") + "\n\n\n" + file.getAbsolutePath());
+				return;
+			}
+
+			limpar();
+
+			try {
+				raiz = XML.processar(file);
+				addAba("label.objetos", raiz, true);
+			} catch (Exception ex) {
+				Util.stackTraceAndMessage("clonarAba()", ex, this);
+			}
+		}
+	}
+
+	private void limpar() {
+		while (getTabCount() > 0) {
+			excluirAba(0);
+		}
 	}
 
 	private void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {

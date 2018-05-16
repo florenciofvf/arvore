@@ -8,6 +8,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
@@ -26,15 +27,16 @@ public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
+	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final JMenuBar menuBar = new JMenuBar();
 	private final Fichario fichario;
 
-	public Formulario(File file) throws Exception {
+	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		fichario = new Fichario(this, file);
+		fichario = new Fichario(this);
 		setSize(700, 700);
 		montarLayout();
 		configurar();
@@ -54,6 +56,10 @@ public class Formulario extends JFrame {
 		itemConexao.addActionListener(e -> new ConexaoDialogo(this));
 
 		addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent e) {
+				fichario.abrirArquivo(new File("modelo.xml"), false, false, false);
+			};
+
 			public void windowClosing(WindowEvent e) {
 				try {
 					Conexao.close();
@@ -71,12 +77,24 @@ public class Formulario extends JFrame {
 			}
 			System.exit(0);
 		});
+
+		itemAbrir.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser(".");
+			fileChooser.showOpenDialog(Formulario.this);
+
+			File file = fileChooser.getSelectedFile();
+			if (file != null) {
+				fichario.abrirArquivo(file, true, true, true);
+			}
+		});
 	}
 
 	private void montarLayout() {
 		setLayout(new BorderLayout());
 		add(BorderLayout.CENTER, fichario);
 
+		menuArquivo.add(itemAbrir);
+		menuArquivo.addSeparator();
 		menuArquivo.add(itemConexao);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
