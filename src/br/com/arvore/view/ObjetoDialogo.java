@@ -10,6 +10,7 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.comp.TextArea;
 import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
@@ -44,10 +45,10 @@ public class ObjetoDialogo extends Dialogo {
 		textAreaUpdate.setText(Util.normalizar(objeto.getInstrucaoUpdate()));
 		textAreaDelete.setText(Util.normalizar(objeto.getInstrucaoDelete()));
 
-		fichario.addTab("label.arvore", textAreaArvore);
-		fichario.addTab("label.tabela", textAreaTabela);
-		fichario.addTab("label.update", textAreaUpdate);
-		fichario.addTab("label.delete", textAreaDelete);
+		fichario.addTab("label.arvore", Icones.ARVORE, textAreaArvore);
+		fichario.addTab("label.tabela", Icones.TABELA, textAreaTabela);
+		fichario.addTab("label.update", Icones.THREADS, textAreaUpdate);
+		fichario.addTab("label.delete", Icones.LIXEIRA, textAreaDelete);
 
 		add(BorderLayout.CENTER, fichario);
 	}
