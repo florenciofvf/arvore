@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<objeto titulo="Eleições" sub-icone="diamante">
+<objeto titulo="Eleições" sub-icone="diamante" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</arvore>
 	<tabela>SELECT * FROM eleicao</tabela>
 
@@ -9,10 +9,6 @@
 		<tabela>SELECT * FROM candidato WHERE eleicao_id = ?</tabela>
 		<delete>DELETE FROM candidato WHERE eleicao_id = ?</delete>
 
-		<objeto titulo="Endereços" icone="home">
-			<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</arvore>
-			<tabela>SELECT * FROM endereco WHERE id_candidato = ?</tabela>
-			<delete>DELETE FROM endereco WHERE id_candidato = ?</delete>
-		</objeto>
+		<xi:include href="enderecos.xml" />
 	</objeto>
 </objeto>

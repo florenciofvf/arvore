@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 
@@ -39,6 +40,7 @@ class XMLHandler extends DefaultHandler {
 	private Objeto raiz;
 
 	public Objeto getRaiz() {
+		ArvoreUtil.validarDependencia(raiz);
 		return raiz;
 	}
 

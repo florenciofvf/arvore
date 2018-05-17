@@ -42,4 +42,14 @@ public class ArvoreUtil {
 		TreeModelEvent event = new TreeModelEvent(objeto, path);
 		modelo.treeStructureChanged(event);
 	}
+
+	public static void validarDependencia(Objeto objeto) {
+		if (objeto.getPai() == null) {
+			int[] parametros = ParametroUtil.getIndiceParametros(objeto.getInstrucaoArvore());
+
+			if (parametros.length > 0) {
+				throw new IllegalStateException(Mensagens.getString("erro.arquivo_dependente"));
+			}
+		}
+	}
 }

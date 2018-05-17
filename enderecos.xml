@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<objeto titulo="Endereços" icone="home">
+	<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</arvore>
+	<tabela>SELECT * FROM endereco WHERE id_candidato = ?</tabela>
+	<delete>DELETE FROM endereco WHERE id_candidato = ?</delete>
+</objeto>

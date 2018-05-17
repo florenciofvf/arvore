@@ -80,9 +80,14 @@ public class Formulario extends JFrame {
 
 		itemAbrir.addActionListener(e -> {
 			JFileChooser fileChooser = new JFileChooser(".");
-			fileChooser.showOpenDialog(Formulario.this);
+			int opcao = fileChooser.showOpenDialog(Formulario.this);
+
+			if (opcao != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
 
 			File file = fileChooser.getSelectedFile();
+
 			if (file != null) {
 				fichario.abrirArquivo(file, true, true, true);
 			}
