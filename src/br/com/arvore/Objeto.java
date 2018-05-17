@@ -18,12 +18,15 @@ public class Objeto {
 	private String instrucaoTabela;
 	private String instrucaoUpdate;
 	private String instrucaoDelete;
+	private String instrucaoInsert;
 	private Icon iconeManterVazio;
 	private boolean pesquisaPopup;
 	private boolean desabilitado;
 	private boolean manterVazio;
 	private final String titulo;
 	private String nomeSubIcone;
+	private String observacao;
+	private String descricao;
 	private String nomeIcone;
 	private Icon subIcone;
 	private Icon icone;
@@ -46,10 +49,13 @@ public class Objeto {
 		clone.instrucaoTabela = instrucaoTabela;
 		clone.instrucaoUpdate = instrucaoUpdate;
 		clone.instrucaoDelete = instrucaoDelete;
+		clone.instrucaoInsert = instrucaoInsert;
 		clone.pesquisaPopup = pesquisaPopup;
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.manterVazio = manterVazio;
+		clone.observacao = observacao;
+		clone.descricao = descricao;
 		clone.nomeIcone = nomeIcone;
 		clone.subIcone = subIcone;
 		clone.icone = icone;
@@ -320,6 +326,14 @@ public class Objeto {
 		this.instrucaoUpdate = instrucaoUpdate;
 	}
 
+	public String getInstrucaoInsert() {
+		return instrucaoInsert;
+	}
+
+	public void setInstrucaoInsert(String instrucaoInsert) {
+		this.instrucaoInsert = instrucaoInsert;
+	}
+
 	public boolean isDesabilitado() {
 		return desabilitado;
 	}
@@ -342,6 +356,22 @@ public class Objeto {
 
 	public void setPesquisaPopup(boolean pesquisaPopup) {
 		this.pesquisaPopup = pesquisaPopup;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override

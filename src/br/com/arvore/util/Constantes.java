@@ -7,12 +7,15 @@ public class Constantes {
 	public static final String NOME_ARQUIVO_PADRAO = "default.xml";
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
+	public static final String OBSERVACAO = "observacao";
+	public static final String DESCRICAO = "descricao";
 	public static final String SUB_ICONE = "sub-icone";
 	public static final String PSMT_META = "PSMT_META";
 	public static final String INST_ARVORE = "arvore";
 	public static final String INST_TABELA = "tabela";
 	public static final String INST_UPDATE = "update";
 	public static final String INST_DELETE = "delete";
+	public static final String INST_INSERT = "insert";
 	public static final String PSMT_SET = "PSMT_SET";
 	public static final String OBJETO = "objeto";
 	public static final String DRIVER = "driver";

@@ -82,6 +82,12 @@ class XMLHandler extends DefaultHandler {
 			limpar();
 		} else if (Constantes.INST_DELETE.equals(qName)) {
 			limpar();
+		} else if (Constantes.INST_INSERT.equals(qName)) {
+			limpar();
+		} else if (Constantes.OBSERVACAO.equals(qName)) {
+			limpar();
+		} else if (Constantes.DESCRICAO.equals(qName)) {
+			limpar();
 		}
 	}
 
@@ -119,6 +125,31 @@ class XMLHandler extends DefaultHandler {
 
 			if (!Util.estaVazio(string)) {
 				selecionado.setInstrucaoDelete(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.INST_INSERT.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setInstrucaoInsert(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.OBSERVACAO.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setObservacao(string.trim());
+			}
+
+			limpar();
+
+		} else if (Constantes.DESCRICAO.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setDescricao(string.trim());
 			}
 
 			limpar();
