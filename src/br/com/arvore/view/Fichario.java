@@ -47,8 +47,10 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 			limpar();
 
 			try {
+				formulario.setTitle(Mensagens.getString("label.arvore"));
 				raiz = XML.processar(file);
 				addAba("label.objetos", raiz, true);
+				formulario.setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}

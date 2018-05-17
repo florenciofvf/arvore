@@ -19,6 +19,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import br.com.arvore.banco.Conexao;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
+import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
@@ -57,7 +58,7 @@ public class Formulario extends JFrame {
 
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
-				fichario.abrirArquivo(new File("modelo.xml"), false, false, false);
+				fichario.abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
 			};
 
 			public void windowClosing(WindowEvent e) {

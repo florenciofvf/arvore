@@ -4,6 +4,7 @@ public class Constantes {
 	public static final String ESTRATEGIA_PARAMETRO = "estrategia-parametro";
 	public static final String ICONE_MANTER_VAZIO = "icone-manter-vazio";
 	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
+	public static final String NOME_ARQUIVO_PADRAO = "default.xml";
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
 	public static final String SUB_ICONE = "sub-icone";
