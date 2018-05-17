@@ -26,7 +26,7 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	private Objeto selecionado;
 
 	public PainelAba(Formulario formulario, Arvore arvore) {
-		arvore.setArvoreListener(this);
+		arvore.adicionarOuvinte(this);
 		this.formulario = formulario;
 		this.arvore = arvore;
 		montarLayout();

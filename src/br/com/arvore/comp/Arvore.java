@@ -2,6 +2,8 @@ package br.com.arvore.comp;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
@@ -13,7 +15,7 @@ import br.com.arvore.util.TreeRD;
 
 public class Arvore extends JTree {
 	private static final long serialVersionUID = 1L;
-	private ArvoreListener arvoreListener;
+	private final List<ArvoreListener> ouvintes;
 
 	public Arvore(TreeModel newModel) {
 		super(newModel);
@@ -21,12 +23,29 @@ public class Arvore extends JTree {
 		putClientProperty("JTree.lineStyle", "Horizontal");
 		addMouseListener(new Listener());
 		setCellRenderer(new TreeRD());
+		ouvintes = new ArrayList<>();
 		setShowsRootHandles(true);
 		setRootVisible(true);
 	}
 
-	public void setArvoreListener(ArvoreListener arvoreListener) {
-		this.arvoreListener = arvoreListener;
+	public void adicionarOuvinte(ArvoreListener arvoreListener) {
+		int indice = ouvintes.indexOf(arvoreListener);
+
+		if (indice == -1) {
+			ouvintes.add(arvoreListener);
+		}
+	}
+
+	private void notificarClicado(Objeto objeto) {
+		for (ArvoreListener ouvinte : ouvintes) {
+			ouvinte.clicado(objeto);
+		}
+	}
+
+	private void notificarExibirPopup(Objeto objeto, MouseEvent e) {
+		for (ArvoreListener ouvinte : ouvintes) {
+			ouvinte.exibirPopup(this, objeto, e);
+		}
 	}
 
 	private class Listener extends MouseAdapter {
@@ -40,12 +59,12 @@ public class Arvore extends JTree {
 				return;
 			}
 
-			if (path.getLastPathComponent() instanceof Objeto && arvoreListener != null) {
+			if (path.getLastPathComponent() instanceof Objeto) {
 				Objeto selecionado = (Objeto) path.getLastPathComponent();
 
 				if (ultimoSelecionado != selecionado) {
 					ultimoSelecionado = selecionado;
-					arvoreListener.clicado(selecionado);
+					notificarClicado(selecionado);
 				}
 			}
 		}
@@ -71,9 +90,9 @@ public class Arvore extends JTree {
 				return;
 			}
 
-			if (path.getLastPathComponent() instanceof Objeto && arvoreListener != null) {
+			if (path.getLastPathComponent() instanceof Objeto) {
 				Objeto selecionado = (Objeto) path.getLastPathComponent();
-				arvoreListener.exibirPopup(Arvore.this, selecionado, e);
+				notificarExibirPopup(selecionado, e);
 			}
 		}
 	}
