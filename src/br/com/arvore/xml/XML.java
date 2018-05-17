@@ -23,14 +23,9 @@ public class XML {
 
 		SAXParser parser = factory.newSAXParser();
 
-		try {
-			XMLHandler handler = new XMLHandler();
-			parser.parse(file, handler);
-			return handler.getRaiz();
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("XML.processar()", ex, null);
-			throw new IllegalStateException();
-		}
+		XMLHandler handler = new XMLHandler();
+		parser.parse(file, handler);
+		return handler.getRaiz();
 	}
 }
 
