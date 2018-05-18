@@ -31,11 +31,6 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	private final Button buttonExecutar = new Button();
 	private final Label labelStatus = new Label();
 	private final Formulario formulario;
-	private final byte ARVORE = 0;
-	private final byte TABELA = 1;
-	private final byte UPDATE = 2;
-	private final byte DELETE = 3;
-	private final byte INSERT = 4;
 	private Arvore arvore;
 	private Objeto objeto;
 
@@ -48,13 +43,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	private void configurar() {
 		buttonExecutar.addActionListener(e -> processar());
 
-		fichario.addChangeListener(e -> {
-			int i = fichario.getSelectedIndex();
-
-			if (i != -1) {
-				buttonExecutar.setIcon(fichario.getIconAt(i));
-			}
-		});
+		fichario.addChangeListener(e -> controleButton());
 	}
 
 	private void montarLayout() {
@@ -63,43 +52,74 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 		add(BorderLayout.SOUTH, new PanelLeft(buttonExecutar));
 	}
 
+	private void controleButton() {
+		String s = getTituloSelecionado();
+		buttonExecutar.setVisible(ehValido(s));
+
+		if(buttonExecutar.isVisible()) {
+			int i = fichario.getSelectedIndex();
+
+			if (i != -1) {
+				buttonExecutar.setIcon(fichario.getIconAt(i));
+			}
+		}
+	}
+
+	private boolean ehValido(String s) {
+		String[] strings = {"label.arvore", "label.tabela", "label.update", "label.delete", "label.insert"};
+
+		for (String string : strings) {
+			if(ehTitulo(string, s)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private void processar() {
-		if (ARVORE == fichario.getSelectedIndex()) {
+		String tituloSel = getTituloSelecionado();
+
+		if (ehTitulo("label.arvore", tituloSel)) {
 			if (!textAreaArvore.estaVazio()) {
 				objeto.setInstrucaoArvore(textAreaArvore.getText());
 			}
 			formulario.getFichario().atualizarArvore(objeto);
 
-		} else if (TABELA == fichario.getSelectedIndex()) {
+		} else if (ehTitulo("label.tabela", tituloSel)) {
+
+			objeto.setInstrucaoTabela(textAreaTabela.getText());
 			if (textAreaTabela.estaVazio()) {
-				Util.mensagem(this, Mensagens.getString("erro.sem_instrucao_tabela"));
+				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_tabela"));
 				return;
 			}
-			objeto.setInstrucaoTabela(textAreaTabela.getText());
 			formulario.getFichario().criarModeloRegistro(objeto);
 
-		} else if (UPDATE == fichario.getSelectedIndex()) {
+		} else if (ehTitulo("label.update", tituloSel)) {
+
+			objeto.setInstrucaoUpdate(textAreaUpdate.getText());
 			if (textAreaUpdate.estaVazio()) {
-				Util.mensagem(this, Mensagens.getString("erro.sem_instrucao_update"));
+				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_update"));
 				return;
 			}
-			objeto.setInstrucaoUpdate(textAreaUpdate.getText());
 			atualizar(objeto);
 
-		} else if (DELETE == fichario.getSelectedIndex()) {
+		} else if (ehTitulo("label.delete", tituloSel)) {
+
+			objeto.setInstrucaoDelete(textAreaDelete.getText());
 			if (textAreaDelete.estaVazio()) {
-				Util.mensagem(this, Mensagens.getString("erro.sem_instrucao_delete"));
+				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_delete"));
 				return;
 			}
-			objeto.setInstrucaoDelete(textAreaDelete.getText());
 			excluir(objeto);
 
-		} else if (INSERT == fichario.getSelectedIndex()) {
+		} else if (ehTitulo("label.insert", tituloSel)) {
+
+			objeto.setInstrucaoInsert(textAreaDelete.getText());
 			if (textAreaDelete.estaVazio()) {
-				Util.mensagem(this, Mensagens.getString("erro.sem_instrucao_insert"));
+				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_insert"));
 				return;
 			}
-			objeto.setInstrucaoInsert(textAreaDelete.getText());
 			inserir(objeto);
 
 		}
@@ -118,18 +138,18 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, this);
+			Util.stackTraceAndMessage("Excluir", ex, formulario);
 		}
 	}
 
 	private void excluir(Objeto objeto) {
-		if (!Util.confirmaExclusao(this)) {
+		if (!Util.confirmaExclusao(formulario)) {
 			return;
 		}
 
 		try {
 			int i = ArvoreUtil.excluirObjetos(objeto);
-			Util.mensagem(this, Mensagens.getString("label.sucesso") + " (" + i + ")");
+			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
 			if (Constantes.INFLAR_ANTECIPADO) {
 				objeto.inflar();
@@ -139,7 +159,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, this);
+			Util.stackTraceAndMessage("Excluir", ex, formulario);
 		}
 	}
 
@@ -150,7 +170,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 
 		try {
 			int i = ArvoreUtil.atualizarObjetos(objeto);
-			Util.mensagem(this, Mensagens.getString("label.sucesso") + " (" + i + ")");
+			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
 			if (Constantes.INFLAR_ANTECIPADO) {
 				objeto.inflar();
@@ -160,7 +180,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, this);
+			Util.stackTraceAndMessage("Excluir", ex, formulario);
 		}
 	}
 
@@ -217,12 +237,21 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			fichario.addTab("label.descricao", Icones.INFO, textAreaDescri);
 		}
 
-		int i = fichario.getSelectedIndex();
-		buttonExecutar.setVisible(i != -1 && i <= INSERT);
+		controleButton();
+	}
 
-		if (i != -1 && i <= INSERT) {
-			buttonExecutar.setIcon(fichario.getIconAt(i));
+	private String getTituloSelecionado() {
+		int i = fichario.getSelectedIndex();
+
+		if (i == -1) {
+			return "";
 		}
+
+		return fichario.getTitleAt(i);
+	}
+
+	public boolean ehTitulo(String chave, String s) {
+		return Mensagens.getString(chave).equals(s);
 	}
 
 	public Arvore getArvore() {
