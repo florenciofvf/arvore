@@ -27,4 +27,9 @@ public class ArgLong extends Arg {
 	public String toString() {
 		return "Long=" + valor;
 	}
+
+	@Override
+	public String getString() {
+		return Long.toString(valor);
+	}
 }

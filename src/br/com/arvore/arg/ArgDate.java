@@ -30,4 +30,9 @@ public class ArgDate extends Arg {
 	public String toString() {
 		return "Date=" + valor;
 	}
+
+	@Override
+	public String getString() {
+		return valor == null ? "" : valor.toString();
+	}
 }

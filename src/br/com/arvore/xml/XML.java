@@ -88,6 +88,18 @@ class XMLHandler extends DefaultHandler {
 			limpar();
 		} else if (Constantes.DESCRICAO.equals(qName)) {
 			limpar();
+		} else if (Constantes.INST_SUB_TABELA.equals(qName)) {
+			limpar();
+		} else if (Constantes.INST_SUB_UPDATE.equals(qName)) {
+			limpar();
+		} else if (Constantes.INST_SUB_DELETE.equals(qName)) {
+			limpar();
+		} else if (Constantes.INST_SUB_INSERT.equals(qName)) {
+			limpar();
+		} else if (Constantes.SUB_OBSERVACAO.equals(qName)) {
+			limpar();
+		} else if (Constantes.SUB_DESCRICAO.equals(qName)) {
+			limpar();
 		}
 	}
 
@@ -150,6 +162,56 @@ class XMLHandler extends DefaultHandler {
 
 			if (!Util.estaVazio(string)) {
 				selecionado.setDescricao(string.trim());
+			}
+
+			limpar();
+
+		} else if (Constantes.INST_SUB_TABELA.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setInstrucaoSubTabela(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.INST_SUB_UPDATE.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setInstrucaoSubUpdate(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.INST_SUB_DELETE.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setInstrucaoSubDelete(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.INST_SUB_INSERT.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setInstrucaoSubInsert(string.trim());
+			}
+
+			limpar();
+		} else if (Constantes.SUB_OBSERVACAO.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setSubObservacao(string.trim());
+			}
+
+			limpar();
+
+		} else if (Constantes.SUB_DESCRICAO.equals(qName)) {
+			String string = builder.toString();
+
+			if (!Util.estaVazio(string)) {
+				selecionado.setSubDescricao(string.trim());
 			}
 
 			limpar();

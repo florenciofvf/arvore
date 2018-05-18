@@ -27,4 +27,9 @@ public class ArgInt extends Arg {
 	public String toString() {
 		return "Int=" + valor;
 	}
+
+	@Override
+	public String getString() {
+		return Integer.toString(valor);
+	}
 }

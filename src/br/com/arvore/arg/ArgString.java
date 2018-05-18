@@ -27,4 +27,9 @@ public class ArgString extends Arg {
 	public String toString() {
 		return "String=" + valor;
 	}
+
+	@Override
+	public String getString() {
+		return valor == null ? "" : valor;
+	}
 }

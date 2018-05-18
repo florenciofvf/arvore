@@ -15,10 +15,19 @@ public class Objeto {
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
 	private String instrucaoArvore;
+
+	private String instrucaoSubTabela;
+	private String instrucaoSubUpdate;
+	private String instrucaoSubDelete;
+	private String instrucaoSubInsert;
+	private String subObservacao;
+	private String subDescricao;
+
 	private String instrucaoTabela;
 	private String instrucaoUpdate;
 	private String instrucaoDelete;
 	private String instrucaoInsert;
+
 	private Icon iconeManterVazio;
 	private boolean pesquisaPopup;
 	private boolean desabilitado;
@@ -44,13 +53,19 @@ public class Objeto {
 		Objeto clone = new Objeto(titulo);
 
 		clone.nomeIconeManterVazio = nomeIconeManterVazio;
+		clone.instrucaoSubTabela = instrucaoSubTabela;
+		clone.instrucaoSubUpdate = instrucaoSubUpdate;
+		clone.instrucaoSubDelete = instrucaoSubDelete;
+		clone.instrucaoSubInsert = instrucaoSubInsert;
 		clone.iconeManterVazio = iconeManterVazio;
 		clone.instrucaoArvore = instrucaoArvore;
 		clone.instrucaoTabela = instrucaoTabela;
 		clone.instrucaoUpdate = instrucaoUpdate;
 		clone.instrucaoDelete = instrucaoDelete;
 		clone.instrucaoInsert = instrucaoInsert;
+		clone.subObservacao = subObservacao;
 		clone.pesquisaPopup = pesquisaPopup;
+		clone.subDescricao = subDescricao;
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.manterVazio = manterVazio;
@@ -100,7 +115,7 @@ public class Objeto {
 					continue;
 				}
 
-				obj.setIcone(getSubIcone());
+				atributosSet(obj);
 				add(obj);
 
 				for (Objeto o : nativos) {
@@ -118,6 +133,19 @@ public class Objeto {
 				}
 			}
 		}
+	}
+
+	private void atributosSet(Objeto obj) {
+		obj.setIcone(getSubIcone());
+		Arg[] args = obj.getArgs();
+		String s = args != null && args.length > 0 ? " " + args[0].getString() : "";
+
+		obj.setInstrucaoTabela(instrucaoSubTabela + s);
+		obj.setInstrucaoUpdate(instrucaoSubUpdate + s);
+		obj.setInstrucaoDelete(instrucaoSubDelete + s);
+		obj.setInstrucaoInsert(instrucaoSubInsert + s);
+		obj.setObservacao(subObservacao);
+		obj.setDescricao(subDescricao);
 	}
 
 	public void inflarParcial() throws Exception {
@@ -160,7 +188,7 @@ public class Objeto {
 					continue;
 				}
 
-				obj.setIcone(getSubIcone());
+				atributosSet(obj);
 				add(obj);
 
 				for (Objeto o : nativos) {
@@ -372,6 +400,54 @@ public class Objeto {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getInstrucaoSubTabela() {
+		return instrucaoSubTabela;
+	}
+
+	public void setInstrucaoSubTabela(String instrucaoSubTabela) {
+		this.instrucaoSubTabela = instrucaoSubTabela;
+	}
+
+	public String getInstrucaoSubUpdate() {
+		return instrucaoSubUpdate;
+	}
+
+	public void setInstrucaoSubUpdate(String instrucaoSubUpdate) {
+		this.instrucaoSubUpdate = instrucaoSubUpdate;
+	}
+
+	public String getInstrucaoSubDelete() {
+		return instrucaoSubDelete;
+	}
+
+	public void setInstrucaoSubDelete(String instrucaoSubDelete) {
+		this.instrucaoSubDelete = instrucaoSubDelete;
+	}
+
+	public String getInstrucaoSubInsert() {
+		return instrucaoSubInsert;
+	}
+
+	public void setInstrucaoSubInsert(String instrucaoSubInsert) {
+		this.instrucaoSubInsert = instrucaoSubInsert;
+	}
+
+	public String getSubObservacao() {
+		return subObservacao;
+	}
+
+	public void setSubObservacao(String subObservacao) {
+		this.subObservacao = subObservacao;
+	}
+
+	public String getSubDescricao() {
+		return subDescricao;
+	}
+
+	public void setSubDescricao(String subDescricao) {
+		this.subDescricao = subDescricao;
 	}
 
 	@Override
