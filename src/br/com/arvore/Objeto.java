@@ -140,11 +140,24 @@ public class Objeto {
 		Arg[] args = obj.getArgs();
 		String s = args != null && args.length > 0 ? " " + args[0].getString() : "";
 
-		obj.setInstrucaoTabela(instrucaoSubTabela + s);
-		obj.setInstrucaoUpdate(instrucaoSubUpdate + s);
-		obj.setInstrucaoDelete(instrucaoSubDelete + s);
-		obj.setInstrucaoInsert(instrucaoSubInsert + s);
+		if (!Util.estaVazio(instrucaoSubTabela)) {
+			obj.setInstrucaoTabela(instrucaoSubTabela + s);
+		}
+
+		if (!Util.estaVazio(instrucaoSubUpdate)) {
+			obj.setInstrucaoUpdate(instrucaoSubUpdate + s);
+		}
+
+		if (!Util.estaVazio(instrucaoSubDelete)) {
+			obj.setInstrucaoDelete(instrucaoSubDelete + s);
+		}
+
+		if (!Util.estaVazio(instrucaoSubInsert)) {
+			obj.setInstrucaoInsert(instrucaoSubInsert + s);
+		}
+
 		obj.setObservacao(subObservacao);
+
 		obj.setDescricao(subDescricao);
 	}
 
