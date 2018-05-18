@@ -56,7 +56,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 		String s = getTituloSelecionado();
 		buttonExecutar.setVisible(ehValido(s));
 
-		if(buttonExecutar.isVisible()) {
+		if (buttonExecutar.isVisible()) {
 			int i = fichario.getSelectedIndex();
 
 			if (i != -1) {
@@ -66,10 +66,10 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	}
 
 	private boolean ehValido(String s) {
-		String[] strings = {"label.arvore", "label.tabela", "label.update", "label.delete", "label.insert"};
+		String[] strings = { "label.arvore", "label.tabela", "label.update", "label.delete", "label.insert" };
 
 		for (String string : strings) {
-			if(ehTitulo(string, s)) {
+			if (ehTitulo(string, s)) {
 				return true;
 			}
 		}

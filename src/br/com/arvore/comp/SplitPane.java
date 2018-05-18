@@ -29,7 +29,7 @@ public class SplitPane extends JSplitPane {
 		setContinuousLayout(true);
 
 		addPropertyChangeListener(evt -> {
-			if(listener == null) {
+			if (listener == null) {
 				return;
 			}
 

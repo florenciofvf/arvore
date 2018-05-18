@@ -146,7 +146,7 @@ public class Util {
 		for (char c : s.toCharArray()) {
 			if (c == '\t') {
 				if (anterior != '\t') {
-					sb.append("   ");
+					sb.append(" ");
 				}
 			} else {
 				sb.append(c);

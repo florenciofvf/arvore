@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.Icon;
 
 import br.com.arvore.util.ArvoreUtil;
+import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
@@ -83,6 +84,10 @@ public class Objeto {
 	}
 
 	public void inflar() throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return;
+		}
+
 		if (!nativoArmazenados) {
 			for (Objeto obj : objetos) {
 				nativos.add(obj.clonar());
@@ -162,6 +167,10 @@ public class Objeto {
 	}
 
 	public void inflarParcial() throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return;
+		}
+
 		if (!nativoArmazenados) {
 			for (Objeto obj : objetos) {
 				nativos.add(obj.clonar());
@@ -173,6 +182,10 @@ public class Objeto {
 	}
 
 	public void inflarParcial2() throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return;
+		}
+
 		if (!nativoArmazenados) {
 			return;
 		}
