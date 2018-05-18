@@ -27,6 +27,15 @@ public class Persistencia {
 		return i;
 	}
 
+	public static int inserirObjeto(Objeto objeto) throws Exception {
+		Connection conn = Conexao.getConnection();
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoInsert());
+
+		int i = psmt.executeUpdate();
+		psmt.close();
+		return i;
+	}
+
 	public static int atualizarObjetos(Objeto objeto) throws Exception {
 		Connection conn = Conexao.getConnection();
 		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoUpdate());

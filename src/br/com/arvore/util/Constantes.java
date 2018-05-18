@@ -26,12 +26,13 @@ public class Constantes {
 	public static final String SENHA = "senha";
 	public static final String URL = "url";
 
+	public static final double DIV_FICHARIO_CONTROLE = 0.70;
 	public static final boolean INFLAR_ANTECIPADO = false;
+	public static final double DIV_ARVORE_TABELA = 0.35;
 	public static final byte ESTRATEGIA_SUBSTITUIR = 0;
 	public static final int LARGURA_ICONE_ORDENAR = 20;
 	public static final byte ESTRATEGIA_PSMT_META = 1;
 	public static final byte ESTRATEGIA_PSMT_SET = 2;
-	public static final int LAR_SPLIT = 400;
 	public static byte ESTRATEGIA_PARAMS;
 	public static final int DOIS = 2;
 

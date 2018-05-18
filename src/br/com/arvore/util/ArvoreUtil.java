@@ -23,6 +23,10 @@ public class ArvoreUtil {
 		return Persistencia.excluirObjetos(objeto);
 	}
 
+	public static int inserirObjeto(Objeto objeto) throws Exception {
+		return Persistencia.inserirObjeto(objeto);
+	}
+
 	public static int atualizarObjetos(Objeto objeto) throws Exception {
 		return Persistencia.atualizarObjetos(objeto);
 	}

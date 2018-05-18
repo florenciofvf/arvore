@@ -21,27 +21,28 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	private final SplitPane split = new SplitPane();
 	private final Table table = new Table();
 	private final Popup popup = new Popup();
-	private final Formulario formulario;
 	private final Arvore arvore;
 	private Objeto selecionado;
 
-	public PainelAba(Formulario formulario, Arvore arvore) {
+	public PainelAba(Arvore arvore) {
 		arvore.adicionarOuvinte(this);
-		this.formulario = formulario;
 		this.arvore = arvore;
 		montarLayout();
 		configurar();
+	}
+
+	public Arvore getArvore() {
+		return arvore;
 	}
 
 	private void montarLayout() {
 		add(BorderLayout.CENTER, split);
 		split.setLeftComponent(new ScrollPane(arvore));
 		split.setRightComponent(new ScrollPane(table));
-		split.setDividerLocation(Constantes.LAR_SPLIT);
+		split.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
 	}
 
 	private void configurar() {
-		popup.itemPropriedades.addActionListener(e -> new ObjetoDialogo(formulario, this, arvore, selecionado));
 		popup.itemAtualizar.addActionListener(e -> atualizarArvore(selecionado));
 	}
 
@@ -73,19 +74,12 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-		boolean instrucaoArvore = !Util.estaVazio(selecionado.getInstrucaoArvore());
-		boolean instrucaoTabela = !Util.estaVazio(selecionado.getInstrucaoTabela());
-		boolean instrucaoUpdate = !Util.estaVazio(selecionado.getInstrucaoUpdate());
-		boolean instrucaoDelete = !Util.estaVazio(selecionado.getInstrucaoDelete());
-
-		popup.itemPropriedades.setEnabled(instrucaoArvore || instrucaoTabela || instrucaoUpdate || instrucaoDelete);
-
 		this.selecionado = selecionado;
 		popup.show(arvore, e.getX(), e.getY());
 	}
 
 	@Override
-	public void clicado(Objeto objeto) {
+	public void clicado(Arvore arvore, Objeto objeto) {
 		if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
 			return;
 		}

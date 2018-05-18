@@ -36,9 +36,13 @@ public class Arvore extends JTree {
 		}
 	}
 
+	public void excluirOuvinte(ArvoreListener arvoreListener) {
+		ouvintes.remove(arvoreListener);
+	}
+
 	private void notificarClicado(Objeto objeto) {
 		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.clicado(objeto);
+			ouvinte.clicado(this, objeto);
 		}
 	}
 

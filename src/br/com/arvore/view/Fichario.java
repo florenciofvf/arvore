@@ -71,7 +71,8 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		}
 
 		Arvore arvore = new Arvore(new ModeloArvore(objeto));
-		PainelAba painelAba = new PainelAba(formulario, arvore);
+		arvore.adicionarOuvinte(formulario.getControle());
+		PainelAba painelAba = new PainelAba(arvore);
 		addTab(Mensagens.getString(chaveTitulo), painelAba);
 
 		FicharioTitulo titulo = new FicharioTitulo(this, clonar, this);
@@ -80,7 +81,27 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 
 	@Override
 	public void excluirAba(int indice) {
+		PainelAba painelAba = (PainelAba) getComponentAt(indice);
+		formulario.arvoreExcluida(painelAba.getArvore());
 		remove(indice);
+	}
+
+	public void atualizarArvore(Objeto objeto) {
+		int i = getSelectedIndex();
+
+		if (i != -1) {
+			PainelAba painelAba = (PainelAba) getComponentAt(i);
+			painelAba.atualizarArvore(objeto);
+		}
+	}
+
+	public void criarModeloRegistro(Objeto objeto) {
+		int i = getSelectedIndex();
+
+		if (i != -1) {
+			PainelAba painelAba = (PainelAba) getComponentAt(i);
+			painelAba.criarModeloRegistro(objeto);
+		}
 	}
 
 	@Override

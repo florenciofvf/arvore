@@ -16,9 +16,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import br.com.arvore.Objeto;
 import br.com.arvore.banco.Conexao;
+import br.com.arvore.comp.Arvore;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
+import br.com.arvore.comp.SplitPane;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
@@ -29,18 +32,36 @@ public class Formulario extends JFrame {
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
+	private final SplitPane splitPane = new SplitPane(SplitPane.VERTICAL_SPLIT);
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
+	private final Objeto INVALIDO = new Objeto("...");
 	private final JMenuBar menuBar = new JMenuBar();
+	private final PainelControle controle;
 	private final Fichario fichario;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		controle = new PainelControle(this);
 		fichario = new Fichario(this);
 		setSize(700, 700);
 		montarLayout();
 		configurar();
+	}
+
+	public PainelControle getControle() {
+		return controle;
+	}
+
+	public Fichario getFichario() {
+		return fichario;
+	}
+
+	public void arvoreExcluida(Arvore arvore) {
+		if (controle.getArvore() == arvore) {
+			controle.clicado(null, INVALIDO);
+		}
 	}
 
 	private void configurar() {
@@ -59,6 +80,8 @@ public class Formulario extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
 				fichario.abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
+				splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
+				controle.clicado(null, INVALIDO);
 			};
 
 			public void windowClosing(WindowEvent e) {
@@ -97,15 +120,20 @@ public class Formulario extends JFrame {
 
 	private void montarLayout() {
 		setLayout(new BorderLayout());
-		add(BorderLayout.CENTER, fichario);
+
+		splitPane.setLeftComponent(fichario);
+		splitPane.setRightComponent(controle);
+		add(BorderLayout.CENTER, splitPane);
 
 		menuArquivo.add(itemAbrir);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemConexao);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
+
 		menuBar.add(menuArquivo);
 		menuBar.add(menuAparencia);
+
 		configMenuAparencia();
 		setJMenuBar(menuBar);
 	}
