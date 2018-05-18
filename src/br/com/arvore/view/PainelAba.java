@@ -9,6 +9,7 @@ import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.PanelBorder;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.SplitPane;
+import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.comp.Table;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
@@ -16,7 +17,7 @@ import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 
-public class PainelAba extends PanelBorder implements ArvoreListener {
+public class PainelAba extends PanelBorder implements ArvoreListener, SplitPaneListener {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane split = new SplitPane();
 	private final Table table = new Table();
@@ -36,6 +37,7 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	}
 
 	private void montarLayout() {
+		split.setListener(this);
 		add(BorderLayout.CENTER, split);
 		split.setLeftComponent(new ScrollPane(arvore));
 		split.setRightComponent(new ScrollPane(table));
@@ -81,9 +83,15 @@ public class PainelAba extends PanelBorder implements ArvoreListener {
 	@Override
 	public void clicado(Arvore arvore, Objeto objeto) {
 		if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
+			table.setModel(new ModeloOrdenacao());
 			return;
 		}
 
 		criarModeloRegistro(objeto);
+	}
+
+	@Override
+	public void localizacao(int i) {
+		Constantes.DIV_ARVORE_TABELA = i;
 	}
 }

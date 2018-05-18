@@ -40,7 +40,7 @@ public class Constantes {
 
 	public static final double DIV_FICHARIO_CONTROLE = 0.70;
 	public static final boolean INFLAR_ANTECIPADO = false;
-	public static final double DIV_ARVORE_TABELA = 0.35;
+	public static int DIV_ARVORE_TABELA = 400;
 	public static final byte ESTRATEGIA_SUBSTITUIR = 0;
 	public static final int LARGURA_ICONE_ORDENAR = 20;
 	public static final byte ESTRATEGIA_PSMT_META = 1;
