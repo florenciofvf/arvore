@@ -13,13 +13,18 @@ import br.com.arvore.comp.PanelLeft;
 import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.comp.TextArea;
 import br.com.arvore.util.ArvoreUtil;
-import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
 public class PainelControle extends PanelBorder implements ArvoreListener {
 	private static final long serialVersionUID = 1L;
+	private final String[][] MATRIZ = { { Mensagens.getString("label.arvore"), Mensagens.getString("label.atualizar") },
+			{ Mensagens.getString("label.tabela"), Mensagens.getString("label.registros") },
+			{ Mensagens.getString("label.update"), Mensagens.getString("label.update_dados") },
+			{ Mensagens.getString("label.delete"), Mensagens.getString("label.delete_dados") },
+			{ Mensagens.getString("label.insert"), Mensagens.getString("label.insert_dados") } };
+
 	private final TextArea textAreaArvore = new TextArea();
 	private final TextArea textAreaTabela = new TextArea();
 	private final TextArea textAreaUpdate = new TextArea();
@@ -27,10 +32,17 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	private final TextArea textAreaInsert = new TextArea();
 	private final TextArea textAreaObserv = new TextArea();
 	private final TextArea textAreaDescri = new TextArea();
+	private final TextArea textAreaComent = new TextArea();
+	private final TextArea textAreaAlerta = new TextArea();
 	private final TabbedPane fichario = new TabbedPane();
 	private final Button buttonExecutar = new Button();
 	private final Label labelStatus = new Label();
 	private final Formulario formulario;
+	private final byte ARVORE = 0;
+	private final byte TABELA = 1;
+	private final byte UPDATE = 2;
+	private final byte DELETE = 3;
+	private final byte INSERT = 4;
 	private Arvore arvore;
 	private Objeto objeto;
 
@@ -53,8 +65,9 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	}
 
 	private void controleButton() {
-		String s = getTituloSelecionado();
-		buttonExecutar.setVisible(ehValido(s));
+		String hint = getHint();
+		buttonExecutar.setToolTipText(hint);
+		buttonExecutar.setVisible(hint != null);
 
 		if (buttonExecutar.isVisible()) {
 			int i = fichario.getSelectedIndex();
@@ -65,28 +78,41 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 		}
 	}
 
-	private boolean ehValido(String s) {
-		String[] strings = { "label.arvore", "label.tabela", "label.update", "label.delete", "label.insert" };
+	private String getTituloAbaAtiva() {
+		int i = fichario.getSelectedIndex();
 
-		for (String string : strings) {
-			if (ehTitulo(string, s)) {
-				return true;
+		if (i == -1) {
+			return null;
+		}
+
+		return fichario.getTitleAt(i);
+	}
+
+	private String getHint() {
+		String tituloAtivo = getTituloAbaAtiva();
+
+		for (String[] linha : MATRIZ) {
+			if (linha[0].equals(tituloAtivo)) {
+				return linha[1];
 			}
 		}
 
-		return false;
+		return null;
+	}
+
+	private boolean ehAbaAtiva(int indice) {
+		String tituloAtivo = getTituloAbaAtiva();
+		return MATRIZ[indice][0].equals(tituloAtivo);
 	}
 
 	private void processar() {
-		String tituloSel = getTituloSelecionado();
-
-		if (ehTitulo("label.arvore", tituloSel)) {
+		if (ehAbaAtiva(ARVORE)) {
 			if (!textAreaArvore.estaVazio()) {
 				objeto.setInstrucaoArvore(textAreaArvore.getText());
 			}
 			formulario.getFichario().atualizarArvore(objeto);
 
-		} else if (ehTitulo("label.tabela", tituloSel)) {
+		} else if (ehAbaAtiva(TABELA)) {
 
 			objeto.setInstrucaoTabela(textAreaTabela.getText());
 			if (textAreaTabela.estaVazio()) {
@@ -95,7 +121,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			}
 			formulario.getFichario().criarModeloRegistro(objeto);
 
-		} else if (ehTitulo("label.update", tituloSel)) {
+		} else if (ehAbaAtiva(UPDATE)) {
 
 			objeto.setInstrucaoUpdate(textAreaUpdate.getText());
 			if (textAreaUpdate.estaVazio()) {
@@ -104,7 +130,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			}
 			atualizar(objeto);
 
-		} else if (ehTitulo("label.delete", tituloSel)) {
+		} else if (ehAbaAtiva(DELETE)) {
 
 			objeto.setInstrucaoDelete(textAreaDelete.getText());
 			if (textAreaDelete.estaVazio()) {
@@ -113,7 +139,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			}
 			excluir(objeto);
 
-		} else if (ehTitulo("label.insert", tituloSel)) {
+		} else if (ehAbaAtiva(INSERT)) {
 
 			objeto.setInstrucaoInsert(textAreaDelete.getText());
 			if (textAreaDelete.estaVazio()) {
@@ -130,15 +156,10 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			int i = ArvoreUtil.inserirObjeto(objeto);
 			Util.mensagem(this, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-
+			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, formulario);
+			Util.stackTraceAndMessage("Inserir", ex, formulario);
 		}
 	}
 
@@ -151,12 +172,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			int i = ArvoreUtil.excluirObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-
+			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("Excluir", ex, formulario);
@@ -172,15 +188,10 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			int i = ArvoreUtil.atualizarObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-
+			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, formulario);
+			Util.stackTraceAndMessage("Atualizar", ex, formulario);
 		}
 	}
 
@@ -207,7 +218,9 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 		textAreaDelete.setText(Util.normalizar(objeto.getInstrucaoDelete()));
 		textAreaInsert.setText(Util.normalizar(objeto.getInstrucaoInsert()));
 		textAreaObserv.setText(Util.normalizar(objeto.getObservacao()));
+		textAreaComent.setText(Util.normalizar(objeto.getComentario()));
 		textAreaDescri.setText(Util.normalizar(objeto.getDescricao()));
+		textAreaAlerta.setText(Util.normalizar(objeto.getAlerta()));
 
 		if (!Util.estaVazio(textAreaArvore.getText())) {
 			fichario.addTab("label.arvore", Icones.ARVORE, textAreaArvore);
@@ -237,21 +250,15 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			fichario.addTab("label.descricao", Icones.INFO, textAreaDescri);
 		}
 
-		controleButton();
-	}
-
-	private String getTituloSelecionado() {
-		int i = fichario.getSelectedIndex();
-
-		if (i == -1) {
-			return "";
+		if (!Util.estaVazio(textAreaComent.getText())) {
+			fichario.addTab("label.comentario", Icones.COMENTARIO, textAreaComent);
 		}
 
-		return fichario.getTitleAt(i);
-	}
+		if (!Util.estaVazio(textAreaAlerta.getText())) {
+			fichario.addTab("label.alerta", Icones.ALERTA, textAreaAlerta);
+		}
 
-	public boolean ehTitulo(String chave, String s) {
-		return Mensagens.getString(chave).equals(s);
+		controleButton();
 	}
 
 	public Arvore getArvore() {

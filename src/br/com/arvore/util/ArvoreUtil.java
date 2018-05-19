@@ -31,6 +31,14 @@ public class ArvoreUtil {
 		return Persistencia.atualizarObjetos(objeto);
 	}
 
+	public static void inflar(Objeto objeto) throws Exception {
+		if (Constantes.INFLAR_ANTECIPADO) {
+			objeto.inflar();
+		} else {
+			objeto.inflarParcial2();
+		}
+	}
+
 	public static void atualizarEstrutura(Arvore arvore, Objeto objeto) {
 		ModeloArvore modelo = (ModeloArvore) arvore.getModel();
 		List<Objeto> caminho = new ArrayList<>();

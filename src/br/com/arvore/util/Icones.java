@@ -15,17 +15,19 @@ public class Icones {
 	public static final Icon DESC_TEXTO = criarImagem("desc_texto");
 	public static final Icon ASC_TEXTO = criarImagem("asc_texto");
 	public static final Icon LOCALIZAR = criarImagem("localizar");
+	public static final Icon COMENTARIO = criarImagem("comment");
 	public static final Icon EXCLUIR = criarImagem("lixeira");
 	public static final Icon ATUALIZAR = criarImagem("sync");
 	public static final Icon UPDATE = criarImagem("update");
 	public static final Icon ARVORE = criarImagem("arvore");
 	public static final Icon TABELA = criarImagem("tabela");
+	public static final Icon ALERTA = criarImagem("alerta");
 	public static final Icon CRIAR = criarImagem("create");
 	public static final Icon BANCO = criarImagem("banco");
-	public static final Icon OBS = criarImagem("alerta");
 	public static final Icon ABRIR = criarImagem("open");
 	public static final Icon SAIR = criarImagem("sair");
 	public static final Icon INFO = criarImagem("info");
+	public static final Icon OBS = criarImagem("tag");
 
 	private static ImageIcon criarImagem(String nome) {
 		try {
