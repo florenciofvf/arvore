@@ -17,7 +17,7 @@ import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 
-public class PainelAba extends PanelBorder implements ArvoreListener, SplitPaneListener {
+public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPaneListener {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane split = new SplitPane();
 	private final Table table = new Table();
@@ -25,7 +25,7 @@ public class PainelAba extends PanelBorder implements ArvoreListener, SplitPaneL
 	private final Arvore arvore;
 	private Objeto selecionado;
 
-	public PainelAba(Arvore arvore) {
+	public FicharioAba(Arvore arvore) {
 		arvore.adicionarOuvinte(this);
 		this.arvore = arvore;
 		montarLayout();

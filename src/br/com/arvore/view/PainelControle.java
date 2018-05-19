@@ -154,7 +154,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	private void inserir(Objeto objeto) {
 		try {
 			int i = ArvoreUtil.inserirObjeto(objeto);
-			Util.mensagem(this, Mensagens.getString("label.sucesso") + " (" + i + ")");
+			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
 			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
@@ -180,7 +180,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	}
 
 	private void atualizar(Objeto objeto) {
-		if (!Util.confirmaAtualizacao(this)) {
+		if (!Util.confirmaAtualizacao(formulario)) {
 			return;
 		}
 
