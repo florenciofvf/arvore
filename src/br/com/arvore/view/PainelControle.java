@@ -243,7 +243,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 		}
 
 		if (!Util.estaVazio(textAreaObserv.getText())) {
-			fichario.addTab("label.observacao", Icones.OBS, textAreaObserv);
+			fichario.addTab("label.observacao", Icones.OBSERVACAO, textAreaObserv);
 		}
 
 		if (!Util.estaVazio(textAreaDescri.getText())) {

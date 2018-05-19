@@ -3,6 +3,7 @@
 <objeto titulo="Eleições" sub-icone="diamante" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</arvore>
 	<tabela>SELECT * FROM eleicao</tabela>
+	<delete>DELETE FROM eleicao WHERE id IN(1,2)</delete>
 
 	<observacao>OBSERVAÇÃO</observacao>
 	<comentario>COMENTÁRIO</comentario>
@@ -10,19 +11,22 @@
 	<alerta>ALERTA</alerta>
 
 	<sub-tabela>SELECT * FROM eleicao WHERE id = </sub-tabela>
-	<sub-update>UPDATE eleicao SET WHERE id = </sub-update>
+	<sub-update>UPDATE eleicao SET nome='' WHERE id = </sub-update>
 	<sub-delete>DELETE FROM eleicao WHERE id = </sub-delete>
-	<sub-insert>INSERT</sub-insert>
+	<sub-insert>INSERT INTO eleicao() VALUES()</sub-insert>
 	<sub-observacao>OBSERVAÇÃO</sub-observacao>
 	<sub-comentario>COMENTÁRIO</sub-comentario>
 	<sub-descricao>DESCRIÇÃO</sub-descricao>
 	<sub-alerta>ALERTA</sub-alerta>
 
-	<objeto titulo="Candidatos" sub-icone="pessoas" pesquisa-por-popup="true">
+	<objeto titulo="Candidatos" sub-icone="pessoas">
 		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</arvore>
 		<tabela>SELECT * FROM candidato WHERE eleicao_id = ?</tabela>
 		<delete>DELETE FROM candidato WHERE eleicao_id = ?</delete>
+
 		<sub-delete>DELETE FROM candidato WHERE id = </sub-delete>
+		<sub-update>UPDATE candidato SET nome = '' WHERE id = </sub-update>
+		<sub-tabela>SELECT * FROM candidato WHERE id = </sub-tabela>
 
 		<xi:include href="enderecos.xml" />
 	</objeto>
