@@ -15,10 +15,11 @@ public abstract class Dialogo extends JDialog {
 
 	public Dialogo(Formulario formulario, int largura, int altura, String titulo) {
 		super(formulario, true);
+		PanelCenter botoes = new PanelCenter(buttonCancelar, buttonOK);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(largura, altura);
 		setLayout(new BorderLayout());
-		add(BorderLayout.SOUTH, new PanelCenter(buttonCancelar, buttonOK));
+		add(BorderLayout.SOUTH, botoes);
 		setLocationRelativeTo(formulario);
 		Util.setActionESC(this);
 		setTitle(titulo);
