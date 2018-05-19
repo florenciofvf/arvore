@@ -19,7 +19,7 @@ import br.com.arvore.util.Util;
 
 public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPaneListener {
 	private static final long serialVersionUID = 1L;
-	private final SplitPane split = new SplitPane();
+	private final SplitPane splitPane = new SplitPane();
 	private final Table table = new Table();
 	private final Popup popup = new Popup();
 	private final Arvore arvore;
@@ -37,11 +37,11 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 	}
 
 	private void montarLayout() {
-		split.setListener(this);
-		add(BorderLayout.CENTER, split);
-		split.setLeftComponent(new ScrollPane(arvore));
-		split.setRightComponent(new ScrollPane(table));
-		split.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
+		splitPane.setListener(this);
+		add(BorderLayout.CENTER, splitPane);
+		splitPane.setLeftComponent(new ScrollPane(arvore));
+		splitPane.setRightComponent(new ScrollPane(table));
+		splitPane.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
 	}
 
 	private void configurar() {
@@ -62,12 +62,7 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 
 	void atualizarArvore(Objeto objeto) {
 		try {
-			if (Constantes.INFLAR_ANTECIPADO) {
-				objeto.inflar();
-			} else {
-				objeto.inflarParcial2();
-			}
-
+			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("ARVORE", ex, this);
