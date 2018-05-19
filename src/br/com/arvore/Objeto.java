@@ -15,29 +15,30 @@ public class Objeto {
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
-	private String instrucaoArvore;
-
 	private String instrucaoSubTabela;
 	private String instrucaoSubUpdate;
 	private String instrucaoSubDelete;
 	private String instrucaoSubInsert;
-	private String subObservacao;
-	private String subDescricao;
-
+	private String instrucaoArvore;
 	private String instrucaoTabela;
 	private String instrucaoUpdate;
 	private String instrucaoDelete;
 	private String instrucaoInsert;
-
 	private Icon iconeManterVazio;
 	private boolean pesquisaPopup;
+	private String subObservacao;
+	private String subComentario;
 	private boolean desabilitado;
+	private String subDescricao;
 	private boolean manterVazio;
 	private final String titulo;
 	private String nomeSubIcone;
 	private String observacao;
-	private String descricao;
+	private String comentario;
+	private String subAlerta;
 	private String nomeIcone;
+	private String descricao;
+	private String alerta;
 	private Icon subIcone;
 	private Icon icone;
 	private Arg[] args;
@@ -65,15 +66,19 @@ public class Objeto {
 		clone.instrucaoDelete = instrucaoDelete;
 		clone.instrucaoInsert = instrucaoInsert;
 		clone.subObservacao = subObservacao;
+		clone.subComentario = subComentario;
 		clone.pesquisaPopup = pesquisaPopup;
 		clone.subDescricao = subDescricao;
 		clone.desabilitado = desabilitado;
 		clone.nomeSubIcone = nomeSubIcone;
 		clone.manterVazio = manterVazio;
 		clone.observacao = observacao;
+		clone.comentario = comentario;
+		clone.subAlerta = subAlerta;
 		clone.descricao = descricao;
 		clone.nomeIcone = nomeIcone;
 		clone.subIcone = subIcone;
+		clone.alerta = alerta;
 		clone.icone = icone;
 
 		for (Objeto obj : objetos) {
@@ -162,8 +167,9 @@ public class Objeto {
 		}
 
 		obj.setObservacao(subObservacao);
-
+		obj.setComentario(subComentario);
 		obj.setDescricao(subDescricao);
+		obj.setAlerta(subAlerta);
 	}
 
 	public void inflarParcial() throws Exception {
@@ -474,6 +480,38 @@ public class Objeto {
 
 	public void setSubDescricao(String subDescricao) {
 		this.subDescricao = subDescricao;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+	public String getAlerta() {
+		return alerta;
+	}
+
+	public void setAlerta(String alerta) {
+		this.alerta = alerta;
+	}
+
+	public String getSubComentario() {
+		return subComentario;
+	}
+
+	public void setSubComentario(String subComentario) {
+		this.subComentario = subComentario;
+	}
+
+	public String getSubAlerta() {
+		return subAlerta;
+	}
+
+	public void setSubAlerta(String subAlerta) {
+		this.subAlerta = subAlerta;
 	}
 
 	@Override

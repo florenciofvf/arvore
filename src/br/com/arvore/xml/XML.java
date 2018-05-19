@@ -1,6 +1,7 @@
 package br.com.arvore.xml;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -30,9 +31,29 @@ public class XML {
 }
 
 class XMLHandler extends DefaultHandler {
+	private final String[][] MATRIZ = { { Constantes.INST_SUB_TABELA, "setInstrucaoSubTabela" },
+			{ Constantes.INST_SUB_UPDATE, "setInstrucaoSubUpdate" },
+			{ Constantes.INST_SUB_DELETE, "setInstrucaoSubDelete" },
+			{ Constantes.INST_SUB_INSERT, "setInstrucaoSubInsert" }, { Constantes.SUB_OBSERVACAO, "setSubObservacao" },
+			{ Constantes.SUB_COMENTARIO, "setSubComentario" }, { Constantes.INST_ARVORE, "setInstrucaoArvore" },
+			{ Constantes.INST_TABELA, "setInstrucaoTabela" }, { Constantes.INST_UPDATE, "setInstrucaoUpdate" },
+			{ Constantes.INST_DELETE, "setInstrucaoDelete" }, { Constantes.INST_INSERT, "setInstrucaoInsert" },
+			{ Constantes.SUB_DESCRICAO, "setSubDescricao" }, { Constantes.OBSERVACAO, "setObservacao" },
+			{ Constantes.COMENTARIO, "setComentario" }, { Constantes.SUB_ALERTA, "setSubAlerta" },
+			{ Constantes.DESCRICAO, "setDescricao" }, { Constantes.ALERTA, "setAlerta" } };
 	private final StringBuilder builder = new StringBuilder();
 	private Objeto selecionado;
 	private Objeto raiz;
+
+	private String getNomeMetodo(String s) {
+		for (String[] linha : MATRIZ) {
+			if (linha[0].equals(s)) {
+				return linha[1];
+			}
+		}
+
+		return null;
+	}
 
 	public Objeto getRaiz() {
 		ArvoreUtil.validarDependencia(raiz);
@@ -74,32 +95,21 @@ class XMLHandler extends DefaultHandler {
 			}
 
 			selecionado = objeto;
-		} else if (Constantes.INST_ARVORE.equals(qName)) {
+		} else if (getNomeMetodo(qName) != null) {
 			limpar();
-		} else if (Constantes.INST_TABELA.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_UPDATE.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_DELETE.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_INSERT.equals(qName)) {
-			limpar();
-		} else if (Constantes.OBSERVACAO.equals(qName)) {
-			limpar();
-		} else if (Constantes.DESCRICAO.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_SUB_TABELA.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_SUB_UPDATE.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_SUB_DELETE.equals(qName)) {
-			limpar();
-		} else if (Constantes.INST_SUB_INSERT.equals(qName)) {
-			limpar();
-		} else if (Constantes.SUB_OBSERVACAO.equals(qName)) {
-			limpar();
-		} else if (Constantes.SUB_DESCRICAO.equals(qName)) {
-			limpar();
+		}
+	}
+
+	private void set(String metodoSet) {
+		String string = builder.toString();
+
+		if (!Util.estaVazio(string)) {
+			try {
+				Method method = selecionado.getClass().getDeclaredMethod(metodoSet, String.class);
+				method.invoke(selecionado, string.trim());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -108,113 +118,13 @@ class XMLHandler extends DefaultHandler {
 		if (Constantes.OBJETO.equals(qName)) {
 			selecionado = selecionado.getPai();
 
-		} else if (Constantes.INST_ARVORE.equals(qName)) {
-			String string = builder.toString();
+		} else {
+			String metodo = getNomeMetodo(qName);
 
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoArvore(string.trim());
+			if (metodo != null) {
+				set(metodo);
+				limpar();
 			}
-
-			limpar();
-		} else if (Constantes.INST_TABELA.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoTabela(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.INST_UPDATE.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoUpdate(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.INST_DELETE.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoDelete(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.INST_INSERT.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoInsert(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.OBSERVACAO.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setObservacao(string.trim());
-			}
-
-			limpar();
-
-		} else if (Constantes.DESCRICAO.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setDescricao(string.trim());
-			}
-
-			limpar();
-
-		} else if (Constantes.INST_SUB_TABELA.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoSubTabela(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.INST_SUB_UPDATE.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoSubUpdate(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.INST_SUB_DELETE.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoSubDelete(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.INST_SUB_INSERT.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setInstrucaoSubInsert(string.trim());
-			}
-
-			limpar();
-		} else if (Constantes.SUB_OBSERVACAO.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setSubObservacao(string.trim());
-			}
-
-			limpar();
-
-		} else if (Constantes.SUB_DESCRICAO.equals(qName)) {
-			String string = builder.toString();
-
-			if (!Util.estaVazio(string)) {
-				selecionado.setSubDescricao(string.trim());
-			}
-
-			limpar();
 		}
 	}
 
