@@ -38,7 +38,7 @@ public class Constantes {
 
 	public static final double DIV_FICHARIO_CONTROLE = 0.70;
 	public static final boolean INFLAR_ANTECIPADO = false;
-	public static final boolean INFLAR_DESATIVADO = true;
+	public static final boolean INFLAR_DESATIVADO = false;
 	public static final byte ESTRATEGIA_SUBSTITUIR = 0;
 	public static final int LARGURA_ICONE_ORDENAR = 20;
 	public static final byte ESTRATEGIA_PSMT_META = 1;

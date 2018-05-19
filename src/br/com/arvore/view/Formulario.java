@@ -45,7 +45,7 @@ public class Formulario extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		controle = new PainelControle(this);
 		fichario = new Fichario(this);
-		setSize(700, 700);
+		setSize(1000, 700);
 		montarLayout();
 		configurar();
 	}

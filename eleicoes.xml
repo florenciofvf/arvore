@@ -4,12 +4,19 @@
 	<arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</arvore>
 	<tabela>SELECT * FROM eleicao</tabela>
 
+	<observacao>OBSERVAÇÃO</observacao>
+	<comentario>COMENTÁRIO</comentario>
+	<descricao>DESCRIÇÃO</descricao>
+	<alerta>ALERTA</alerta>
+
 	<sub-tabela>SELECT * FROM eleicao WHERE id = </sub-tabela>
 	<sub-update>UPDATE eleicao SET WHERE id = </sub-update>
 	<sub-delete>DELETE FROM eleicao WHERE id = </sub-delete>
 	<sub-insert>INSERT</sub-insert>
 	<sub-observacao>OBSERVAÇÃO</sub-observacao>
-	<sub-descricao>OBSERVAÇÃO</sub-descricao>
+	<sub-comentario>COMENTÁRIO</sub-comentario>
+	<sub-descricao>DESCRIÇÃO</sub-descricao>
+	<sub-alerta>ALERTA</sub-alerta>
 
 	<objeto titulo="Candidatos" sub-icone="pessoas" pesquisa-por-popup="true">
 		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</arvore>
