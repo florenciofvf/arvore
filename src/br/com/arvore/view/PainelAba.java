@@ -82,6 +82,10 @@ public class PainelAba extends PanelBorder implements ArvoreListener, SplitPaneL
 
 	@Override
 	public void clicado(Arvore arvore, Objeto objeto) {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return;
+		}
+
 		if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
 			table.setModel(new ModeloOrdenacao());
 			return;
