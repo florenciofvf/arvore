@@ -308,7 +308,7 @@ public class Objeto {
 
 	public void setNomeIcone(String nomeIcone) {
 		if (Util.estaVazio(nomeIcone)) {
-			nomeIcone = "um_pixel";
+			nomeIcone = Constantes.UM_PIXEL;
 		}
 
 		this.nomeIcone = nomeIcone;
@@ -317,7 +317,7 @@ public class Objeto {
 
 	public void setNomeSubIcone(String nomeSubIcone) {
 		if (Util.estaVazio(nomeSubIcone)) {
-			nomeSubIcone = "um_pixel";
+			nomeSubIcone = Constantes.UM_PIXEL;
 		}
 
 		this.nomeSubIcone = nomeSubIcone;
@@ -326,7 +326,7 @@ public class Objeto {
 
 	public void setNomeIconeManterVazio(String nomeIconeManterVazio) {
 		if (Util.estaVazio(nomeIconeManterVazio)) {
-			nomeIconeManterVazio = "um_pixel";
+			nomeIconeManterVazio = Constantes.UM_PIXEL;
 		}
 
 		this.nomeIconeManterVazio = nomeIconeManterVazio;

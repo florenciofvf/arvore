@@ -26,6 +26,7 @@ public class Constantes {
 	public static final String INST_DELETE = "delete";
 	public static final String INST_INSERT = "insert";
 	public static final String PSMT_SET = "PSMT_SET";
+	public static final String UM_PIXEL = "um_pixel";
 	public static final String ALERTA = "alerta";
 	public static final String OBJETO = "objeto";
 	public static final String DRIVER = "driver";
