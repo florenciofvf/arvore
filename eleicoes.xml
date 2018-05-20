@@ -10,9 +10,9 @@
 	<descricao>DESCRIÇÃO</descricao>
 	<alerta>ALERTA</alerta>
 
-	<sub-tabela>SELECT * FROM eleicao WHERE id = </sub-tabela>
-	<sub-update>UPDATE eleicao SET nome='' WHERE id = </sub-update>
-	<sub-delete>DELETE FROM eleicao WHERE id = </sub-delete>
+	<sub-tabela>SELECT * FROM eleicao WHERE id = ?</sub-tabela>
+	<sub-update>UPDATE eleicao SET nome='' WHERE id = ?</sub-update>
+	<sub-delete>DELETE FROM eleicao WHERE id = ?</sub-delete>
 	<sub-insert>INSERT INTO eleicao() VALUES()</sub-insert>
 	<sub-observacao>OBSERVAÇÃO</sub-observacao>
 	<sub-comentario>COMENTÁRIO</sub-comentario>
@@ -24,9 +24,9 @@
 		<tabela>SELECT * FROM candidato WHERE eleicao_id = ?</tabela>
 		<delete>DELETE FROM candidato WHERE eleicao_id = ?</delete>
 
-		<sub-delete>DELETE FROM candidato WHERE id = </sub-delete>
-		<sub-update>UPDATE candidato SET nome = '' WHERE id = </sub-update>
-		<sub-tabela>SELECT * FROM candidato WHERE id = </sub-tabela>
+		<sub-delete>DELETE FROM candidato WHERE id = ?</sub-delete>
+		<sub-update>UPDATE candidato SET nome = '' WHERE id = ?</sub-update>
+		<sub-tabela>SELECT * FROM candidato WHERE id = ?</sub-tabela>
 
 		<xi:include href="enderecos.xml" />
 	</objeto>
