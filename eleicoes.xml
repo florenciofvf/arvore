@@ -11,9 +11,10 @@
 	<alerta>ALERTA</alerta>
 
 	<sub-tabela>SELECT * FROM eleicao WHERE id = ?</sub-tabela>
-	<sub-update>UPDATE eleicao SET nome='' WHERE id = ?</sub-update>
+	<sub-update>UPDATE eleicao SET descricao='' WHERE id = ?</sub-update>
 	<sub-delete>DELETE FROM eleicao WHERE id = ?</sub-delete>
-	<sub-insert>INSERT INTO eleicao() VALUES()</sub-insert>
+	<sub-insert>INSERT INTO eleicao(descricao) VALUES('')</sub-insert>
+
 	<sub-observacao>OBSERVAÇÃO</sub-observacao>
 	<sub-comentario>COMENTÁRIO</sub-comentario>
 	<sub-descricao>DESCRIÇÃO</sub-descricao>
