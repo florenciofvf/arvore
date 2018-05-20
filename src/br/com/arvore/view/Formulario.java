@@ -2,6 +2,7 @@ package br.com.arvore.view;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -19,6 +20,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import br.com.arvore.Objeto;
 import br.com.arvore.banco.Conexao;
 import br.com.arvore.comp.Arvore;
+import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.SplitPane;
@@ -27,7 +29,7 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
-public class Formulario extends JFrame {
+public class Formulario extends JFrame implements FicharioListener, ArvoreListener {
 	private static final long serialVersionUID = 1L;
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
@@ -37,27 +39,46 @@ public class Formulario extends JFrame {
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final Objeto INVALIDO = new Objeto("...");
 	private final JMenuBar menuBar = new JMenuBar();
-	private final PainelControle controle;
+	private final FormularioControle controle;
 	private final Fichario fichario;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		controle = new PainelControle(this);
+		controle = new FormularioControle(this);
 		fichario = new Fichario(this);
 		setSize(1000, 700);
 		montarLayout();
 		configurar();
 	}
 
-	public PainelControle getControle() {
-		return controle;
+	public void atualizarArvore(Objeto objeto) {
+		fichario.atualizarArvore(objeto);
 	}
 
-	public Fichario getFichario() {
-		return fichario;
+	public void criarModeloRegistro(Objeto objeto) {
+		fichario.criarModeloRegistro(objeto);
 	}
 
+	@Override
+	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
+	}
+
+	@Override
+	public void clicado(Arvore arvore, Objeto objeto) {
+		controle.clicado(arvore, objeto);
+	}
+
+	@Override
+	public void abaSelecionada(Arvore arvore, Objeto objeto) {
+		if (objeto == null) {
+			objeto = INVALIDO;
+		}
+
+		controle.clicado(arvore, objeto);
+	}
+
+	@Override
 	public void arvoreExcluida(Arvore arvore) {
 		if (controle.getArvore() == arvore) {
 			controle.clicado(null, INVALIDO);

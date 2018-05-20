@@ -52,24 +52,30 @@ public class Arvore extends JTree {
 		}
 	}
 
+	public Objeto getObjetoSelecionado() {
+		TreePath path = getSelectionPath();
+
+		if (path == null) {
+			return null;
+		}
+
+		if (path.getLastPathComponent() instanceof Objeto) {
+			return (Objeto) path.getLastPathComponent();
+		}
+
+		return null;
+	}
+
 	private class Listener extends MouseAdapter {
 		Objeto ultimoSelecionado;
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			TreePath path = getSelectionPath();
+			Objeto selecionado = getObjetoSelecionado();
 
-			if (path == null) {
-				return;
-			}
-
-			if (path.getLastPathComponent() instanceof Objeto) {
-				Objeto selecionado = (Objeto) path.getLastPathComponent();
-
-				if (ultimoSelecionado != selecionado) {
-					ultimoSelecionado = selecionado;
-					notificarClicado(selecionado);
-				}
+			if (selecionado != null && ultimoSelecionado != selecionado) {
+				ultimoSelecionado = selecionado;
+				notificarClicado(selecionado);
 			}
 		}
 
@@ -88,14 +94,9 @@ public class Arvore extends JTree {
 				return;
 			}
 
-			TreePath path = getSelectionPath();
+			Objeto selecionado = getObjetoSelecionado();
 
-			if (path == null) {
-				return;
-			}
-
-			if (path.getLastPathComponent() instanceof Objeto) {
-				Objeto selecionado = (Objeto) path.getLastPathComponent();
+			if (selecionado != null) {
 				notificarExibirPopup(selecionado, e);
 			}
 		}

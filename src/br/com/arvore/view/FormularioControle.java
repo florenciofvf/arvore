@@ -1,11 +1,9 @@
 package br.com.arvore.view;
 
 import java.awt.BorderLayout;
-import java.awt.event.MouseEvent;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Arvore;
-import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.Button;
 import br.com.arvore.comp.Label;
 import br.com.arvore.comp.PanelBorder;
@@ -17,7 +15,7 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
-public class PainelControle extends PanelBorder implements ArvoreListener {
+public class FormularioControle extends PanelBorder {
 	private static final long serialVersionUID = 1L;
 	private final String[][] MATRIZ = { { Mensagens.getString("label.arvore"), Mensagens.getString("label.atualizar") },
 			{ Mensagens.getString("label.tabela"), Mensagens.getString("label.registros") },
@@ -46,7 +44,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 	private Arvore arvore;
 	private Objeto objeto;
 
-	public PainelControle(Formulario formulario) {
+	public FormularioControle(Formulario formulario) {
 		this.formulario = formulario;
 		montarLayout();
 		configurar();
@@ -110,7 +108,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 			if (!textAreaArvore.estaVazio()) {
 				objeto.setInstrucaoArvore(textAreaArvore.getText());
 			}
-			formulario.getFichario().atualizarArvore(objeto);
+			formulario.atualizarArvore(objeto);
 
 		} else if (ehAbaAtiva(TABELA)) {
 
@@ -119,7 +117,7 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_tabela"));
 				return;
 			}
-			formulario.getFichario().criarModeloRegistro(objeto);
+			formulario.criarModeloRegistro(objeto);
 
 		} else if (ehAbaAtiva(UPDATE)) {
 
@@ -195,11 +193,6 @@ public class PainelControle extends PanelBorder implements ArvoreListener {
 		}
 	}
 
-	@Override
-	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-	}
-
-	@Override
 	public void clicado(Arvore arvore, Objeto objeto) {
 		if (objeto.estaVazio() && objeto.isManterVazio()) {
 			labelStatus.setIcon(objeto.getIconeManterVazio());

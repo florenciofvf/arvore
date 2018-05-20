@@ -15,10 +15,25 @@ import br.com.arvore.xml.XML;
 public class Fichario extends JTabbedPane implements FicharioTituloListener {
 	private static final long serialVersionUID = 1L;
 	private final Formulario formulario;
+	private FicharioListener listener;
 	private Objeto raiz;
 
 	public Fichario(Formulario formulario) {
 		this.formulario = formulario;
+		this.listener = formulario;
+		configurar();
+	}
+
+	private void configurar() {
+		addChangeListener(e -> {
+			int i = getSelectedIndex();
+
+			if (i != -1) {
+				FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+				Arvore arvore = ficharioAba.getArvore();
+				listener.abaSelecionada(arvore, arvore.getObjetoSelecionado());
+			}
+		});
 	}
 
 	public void abrirArquivo(File file, boolean msgInexistente, boolean msgSemConteudo, boolean msgNaoLeitura) {
@@ -71,7 +86,7 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		}
 
 		Arvore arvore = new Arvore(new ModeloArvore(objeto));
-		arvore.adicionarOuvinte(formulario.getControle());
+		arvore.adicionarOuvinte(formulario);
 		FicharioAba ficharioAba = new FicharioAba(arvore);
 		addTab(Mensagens.getString(chaveTitulo), ficharioAba);
 
@@ -82,7 +97,7 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 	@Override
 	public void excluirAba(int indice) {
 		FicharioAba ficharioAba = (FicharioAba) getComponentAt(indice);
-		formulario.arvoreExcluida(ficharioAba.getArvore());
+		listener.arvoreExcluida(ficharioAba.getArvore());
 		remove(indice);
 	}
 
