@@ -139,8 +139,8 @@ public class FormularioControle extends PanelBorder {
 
 		} else if (ehAbaAtiva(INSERT)) {
 
-			objeto.setInstrucaoInsert(textAreaDelete.getText());
-			if (textAreaDelete.estaVazio()) {
+			objeto.setInstrucaoInsert(textAreaInsert.getText());
+			if (textAreaInsert.estaVazio()) {
 				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_insert"));
 				return;
 			}
