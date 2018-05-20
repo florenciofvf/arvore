@@ -121,18 +121,11 @@ public class Objeto {
 		} else {
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-			Param param = new Param();
-			param.subTabela = !Util.estaVazio(instrucaoSubTabela);
-			param.ixSubTabela = ParametroUtil.getIndiceParametros(instrucaoSubTabela);
+			Param param = null;
 
-			param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
-			param.ixSubUpdate = ParametroUtil.getIndiceParametros(instrucaoSubUpdate);
-
-			param.subDelete = !Util.estaVazio(instrucaoSubDelete);
-			param.ixSubDelete = ParametroUtil.getIndiceParametros(instrucaoSubDelete);
-
-			param.subInsert = !Util.estaVazio(instrucaoSubInsert);
-			param.ixSubInsert = ParametroUtil.getIndiceParametros(instrucaoSubInsert);
+			if (!listagem.isEmpty()) {
+				param = criarParam();
+			}
 
 			for (Objeto obj : listagem) {
 				if (obj.isDesabilitado()) {
@@ -202,18 +195,11 @@ public class Objeto {
 		} else {
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
-			Param param = new Param();
-			param.subTabela = !Util.estaVazio(instrucaoSubTabela);
-			param.ixSubTabela = ParametroUtil.getIndiceParametros(instrucaoSubTabela);
+			Param param = null;
 
-			param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
-			param.ixSubUpdate = ParametroUtil.getIndiceParametros(instrucaoSubUpdate);
-
-			param.subDelete = !Util.estaVazio(instrucaoSubDelete);
-			param.ixSubDelete = ParametroUtil.getIndiceParametros(instrucaoSubDelete);
-
-			param.subInsert = !Util.estaVazio(instrucaoSubInsert);
-			param.ixSubInsert = ParametroUtil.getIndiceParametros(instrucaoSubInsert);
+			if (!listagem.isEmpty()) {
+				param = criarParam();
+			}
 
 			for (Objeto obj : listagem) {
 				if (obj.isDesabilitado()) {
@@ -247,6 +233,24 @@ public class Objeto {
 
 		boolean subInsert;
 		int[] ixSubInsert;
+	}
+
+	Param criarParam() {
+		Param param = new Param();
+
+		param.subTabela = !Util.estaVazio(instrucaoSubTabela);
+		param.ixSubTabela = ParametroUtil.getIndiceParametros(instrucaoSubTabela);
+
+		param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
+		param.ixSubUpdate = ParametroUtil.getIndiceParametros(instrucaoSubUpdate);
+
+		param.subDelete = !Util.estaVazio(instrucaoSubDelete);
+		param.ixSubDelete = ParametroUtil.getIndiceParametros(instrucaoSubDelete);
+
+		param.subInsert = !Util.estaVazio(instrucaoSubInsert);
+		param.ixSubInsert = ParametroUtil.getIndiceParametros(instrucaoSubInsert);
+
+		return param;
 	}
 
 	private void atributosSet(Objeto obj, Param param) {
