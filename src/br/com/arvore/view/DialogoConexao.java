@@ -2,6 +2,7 @@ package br.com.arvore.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Window;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
@@ -14,14 +15,14 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
-public class ConexaoDialogo extends Dialogo {
+public class DialogoConexao extends Dialogo {
 	private static final long serialVersionUID = 1L;
 	private TextField textFieldUrl = new TextField();
 	private TextField textFieldUsr = new TextField();
 	private TextField textFieldPsw = new TextField();
 
-	public ConexaoDialogo(Formulario formulario) {
-		super(formulario, 700, 140, Mensagens.getString("label.conexao"));
+	public DialogoConexao(Window window) {
+		super(window, 700, 140, Mensagens.getString("label.conexao"), true);
 		montarLayout();
 		setVisible(true);
 		SwingUtilities.invokeLater(() -> toFront());

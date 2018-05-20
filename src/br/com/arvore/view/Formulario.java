@@ -96,7 +96,7 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 			}
 		}
 
-		itemConexao.addActionListener(e -> new ConexaoDialogo(this));
+		itemConexao.addActionListener(e -> new DialogoConexao(this));
 
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {

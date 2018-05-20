@@ -3,6 +3,8 @@ package br.com.arvore.view;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Arvore;
 import br.com.arvore.comp.ArvoreListener;
@@ -46,6 +48,8 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 
 	private void configurar() {
 		popup.itemAtualizar.addActionListener(e -> atualizarArvore(selecionado));
+		popup.itemDestacar
+				.addActionListener(e -> new DialogoObjeto(SwingUtilities.getWindowAncestor(this), selecionado));
 	}
 
 	void criarModeloRegistro(Objeto objeto) {

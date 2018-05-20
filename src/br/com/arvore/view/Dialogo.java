@@ -1,6 +1,7 @@
 package br.com.arvore.view;
 
 import java.awt.BorderLayout;
+import java.awt.Window;
 
 import javax.swing.JDialog;
 
@@ -13,14 +14,21 @@ public abstract class Dialogo extends JDialog {
 	private Button buttonCancelar = new Button("label.cancelar");
 	private Button buttonOK = new Button("label.ok");
 
-	public Dialogo(Formulario formulario, int largura, int altura, String titulo) {
-		super(formulario, true);
-		PanelCenter botoes = new PanelCenter(buttonCancelar, buttonOK);
+	public Dialogo(Window window, int largura, int altura, String titulo, boolean buttonProcessar) {
+		super(window);
+		setModal(true);
+
+		PanelCenter botoes = new PanelCenter(buttonCancelar);
+
+		if (buttonProcessar) {
+			botoes.add(buttonOK);
+		}
+
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(largura, altura);
 		setLayout(new BorderLayout());
 		add(BorderLayout.SOUTH, botoes);
-		setLocationRelativeTo(formulario);
+		setLocationRelativeTo(window);
 		Util.setActionESC(this);
 		setTitle(titulo);
 		configurar();

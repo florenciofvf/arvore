@@ -23,6 +23,7 @@ public class Icones {
 	public static final Icon ARVORE = criarImagem("arvore");
 	public static final Icon TABELA = criarImagem("tabela");
 	public static final Icon ALERTA = criarImagem("alerta");
+	public static final Icon DIALOG = criarImagem("dialog");
 	public static final Icon CRIAR = criarImagem("create");
 	public static final Icon BANCO = criarImagem("banco");
 	public static final Icon ABRIR = criarImagem("open");
