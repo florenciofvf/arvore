@@ -1,5 +1,8 @@
 package br.com.arvore.util;
 
+import br.com.arvore.Arg;
+import br.com.arvore.Objeto;
+
 public class ParametroUtil {
 	private ParametroUtil() {
 	}
@@ -43,5 +46,33 @@ public class ParametroUtil {
 			array[indice] = i;
 			indice++;
 		}
+	}
+
+	public static String substituir(String instrucao, Objeto objetoArgs) {
+		int[] parametros = getIndiceParametros(instrucao);
+
+		return substituir(instrucao, objetoArgs, parametros);
+	}
+
+	public static String substituir(String instrucao, Objeto objetoArgs, int[] parametros) {
+		StringBuilder builder = new StringBuilder();
+
+		int proximo = 0;
+
+		for (int i = 0; i < parametros.length; i++) {
+			Arg arg = objetoArgs.getArgs()[i];
+			int indice = parametros[i];
+
+			builder.append(instrucao.substring(proximo, indice));
+			arg.set(builder);
+
+			proximo = indice + 1;
+		}
+
+		if (proximo < instrucao.length()) {
+			builder.append(instrucao.substring(proximo));
+		}
+
+		return builder.toString();
 	}
 }

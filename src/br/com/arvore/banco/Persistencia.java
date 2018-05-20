@@ -71,7 +71,7 @@ public class Persistencia {
 			parametrosSet(instrucao, objeto.getPai(), psmt);
 
 		} else if (Constantes.ESTRATEGIA_PARAMS == Constantes.ESTRATEGIA_SUBSTITUIR) {
-			psmt = conn.prepareStatement(substituir(instrucao, objeto.getPai()));
+			psmt = conn.prepareStatement(ParametroUtil.substituir(instrucao, objeto.getPai()));
 
 		}
 
@@ -96,30 +96,6 @@ public class Persistencia {
 			Arg arg = objetoArgs.getArgs()[i - 1];
 			arg.set(psmt, i);
 		}
-	}
-
-	private static String substituir(String instrucao, Objeto objetoArgs) {
-		int[] parametros = ParametroUtil.getIndiceParametros(instrucao);
-
-		StringBuilder builder = new StringBuilder();
-
-		int proximo = 0;
-
-		for (int i = 0; i < parametros.length; i++) {
-			Arg arg = objetoArgs.getArgs()[i];
-			int indice = parametros[i];
-
-			builder.append(instrucao.substring(proximo, indice));
-			arg.set(builder);
-
-			proximo = indice + 1;
-		}
-
-		if (proximo < instrucao.length()) {
-			builder.append(instrucao.substring(proximo));
-		}
-
-		return builder.toString();
 	}
 
 	public static List<Objeto> coletar(ResultSet rs) throws Exception {

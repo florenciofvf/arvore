@@ -8,6 +8,7 @@ import javax.swing.Icon;
 import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
+import br.com.arvore.util.ParametroUtil;
 import br.com.arvore.util.Util;
 
 public class Objeto {
@@ -120,12 +121,25 @@ public class Objeto {
 		} else {
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
+			Param param = new Param();
+			param.subTabela = !Util.estaVazio(instrucaoSubTabela);
+			param.ixSubTabela = ParametroUtil.getIndiceParametros(instrucaoSubTabela);
+
+			param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
+			param.ixSubUpdate = ParametroUtil.getIndiceParametros(instrucaoSubUpdate);
+
+			param.subDelete = !Util.estaVazio(instrucaoSubDelete);
+			param.ixSubDelete = ParametroUtil.getIndiceParametros(instrucaoSubDelete);
+
+			param.subInsert = !Util.estaVazio(instrucaoSubInsert);
+			param.ixSubInsert = ParametroUtil.getIndiceParametros(instrucaoSubInsert);
+
 			for (Objeto obj : listagem) {
 				if (obj.isDesabilitado()) {
 					continue;
 				}
 
-				atributosSet(obj);
+				atributosSet(obj, param);
 				add(obj);
 
 				for (Objeto o : nativos) {
@@ -143,33 +157,6 @@ public class Objeto {
 				}
 			}
 		}
-	}
-
-	private void atributosSet(Objeto obj) {
-		obj.setIcone(getSubIcone());
-		Arg[] args = obj.getArgs();
-		String s = args != null && args.length > 0 ? " " + args[0].getString() : "";
-
-		if (!Util.estaVazio(instrucaoSubTabela)) {
-			obj.setInstrucaoTabela(instrucaoSubTabela + s);
-		}
-
-		if (!Util.estaVazio(instrucaoSubUpdate)) {
-			obj.setInstrucaoUpdate(instrucaoSubUpdate + s);
-		}
-
-		if (!Util.estaVazio(instrucaoSubDelete)) {
-			obj.setInstrucaoDelete(instrucaoSubDelete + s);
-		}
-
-		if (!Util.estaVazio(instrucaoSubInsert)) {
-			obj.setInstrucaoInsert(instrucaoSubInsert + s);
-		}
-
-		obj.setObservacao(subObservacao);
-		obj.setComentario(subComentario);
-		obj.setDescricao(subDescricao);
-		obj.setAlerta(subAlerta);
 	}
 
 	public void inflarParcial() throws Exception {
@@ -215,12 +202,25 @@ public class Objeto {
 		} else {
 			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
 
+			Param param = new Param();
+			param.subTabela = !Util.estaVazio(instrucaoSubTabela);
+			param.ixSubTabela = ParametroUtil.getIndiceParametros(instrucaoSubTabela);
+
+			param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
+			param.ixSubUpdate = ParametroUtil.getIndiceParametros(instrucaoSubUpdate);
+
+			param.subDelete = !Util.estaVazio(instrucaoSubDelete);
+			param.ixSubDelete = ParametroUtil.getIndiceParametros(instrucaoSubDelete);
+
+			param.subInsert = !Util.estaVazio(instrucaoSubInsert);
+			param.ixSubInsert = ParametroUtil.getIndiceParametros(instrucaoSubInsert);
+
 			for (Objeto obj : listagem) {
 				if (obj.isDesabilitado()) {
 					continue;
 				}
 
-				atributosSet(obj);
+				atributosSet(obj, param);
 				add(obj);
 
 				for (Objeto o : nativos) {
@@ -233,6 +233,45 @@ public class Objeto {
 				}
 			}
 		}
+	}
+
+	class Param {
+		boolean subTabela;
+		int[] ixSubTabela;
+
+		boolean subUpdate;
+		int[] ixSubUpdate;
+
+		boolean subDelete;
+		int[] ixSubDelete;
+
+		boolean subInsert;
+		int[] ixSubInsert;
+	}
+
+	private void atributosSet(Objeto obj, Param param) {
+		obj.setIcone(getSubIcone());
+
+		if (param.subTabela) {
+			obj.setInstrucaoTabela(ParametroUtil.substituir(instrucaoSubTabela, obj, param.ixSubTabela));
+		}
+
+		if (param.subUpdate) {
+			obj.setInstrucaoUpdate(ParametroUtil.substituir(instrucaoSubUpdate, obj, param.ixSubUpdate));
+		}
+
+		if (param.subDelete) {
+			obj.setInstrucaoDelete(ParametroUtil.substituir(instrucaoSubDelete, obj, param.ixSubDelete));
+		}
+
+		if (param.subInsert) {
+			obj.setInstrucaoInsert(ParametroUtil.substituir(instrucaoSubInsert, obj, param.ixSubInsert));
+		}
+
+		obj.setObservacao(subObservacao);
+		obj.setComentario(subComentario);
+		obj.setDescricao(subDescricao);
+		obj.setAlerta(subAlerta);
 	}
 
 	public Objeto getPai() {
