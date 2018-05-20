@@ -17,7 +17,7 @@ public class DialogoObjeto extends Dialogo {
 
 	public DialogoObjeto(Window window, Objeto objeto) {
 		super(window, 400, 400, objeto.getTitulo(), false);
-		montarLayout(objeto.clonar());
+		montarLayout(objeto);
 		setVisible(true);
 		SwingUtilities.invokeLater(() -> toFront());
 	}
