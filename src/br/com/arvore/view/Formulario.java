@@ -41,6 +41,7 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 	private final JMenuBar menuBar = new JMenuBar();
 	private final FormularioControle controle;
 	private final Fichario fichario;
+	private int abaSelecionada;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
@@ -66,7 +67,9 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 
 	@Override
 	public void clicado(Arvore arvore, Objeto objeto) {
+		abaSelecionada = controle.getAbaSelecionada();
 		controle.clicado(arvore, objeto);
+		controle.selecionarAba(abaSelecionada);
 	}
 
 	@Override

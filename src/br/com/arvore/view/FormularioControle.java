@@ -56,6 +56,16 @@ public class FormularioControle extends PanelBorder {
 		fichario.addChangeListener(e -> controleButton());
 	}
 
+	public int getAbaSelecionada() {
+		return fichario.getSelectedIndex();
+	}
+
+	public void selecionarAba(int i) {
+		if (i > 0 && i < fichario.getTabCount()) {
+			fichario.setSelectedIndex(i);
+		}
+	}
+
 	private void montarLayout() {
 		add(BorderLayout.NORTH, labelStatus);
 		add(BorderLayout.CENTER, fichario);
