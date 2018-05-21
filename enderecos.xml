@@ -3,6 +3,7 @@
 <objeto titulo="Endereços" icone="home">
 	<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</arvore>
 	<tabela>SELECT * FROM endereco WHERE id_candidato = ?</tabela>
+	<sub-tabela>SELECT * FROM endereco WHERE id = ?</sub-tabela>
 	<delete>DELETE FROM endereco WHERE id_candidato = ?</delete>
-	<insert>INSERT INTO endereco(id_candidato, 'logradouro') VALUES(1, 'LOGRADOURO')</insert>
+	<insert>INSERT INTO endereco(id_candidato, logradouro) VALUES(1, 'LOGRADOURO')</insert>
 </objeto>
