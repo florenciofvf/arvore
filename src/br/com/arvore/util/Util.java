@@ -6,11 +6,14 @@ import java.awt.EventQueue;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -155,5 +158,35 @@ public class Util {
 		}
 
 		return sb.toString();
+	}
+
+	public static String getStringLista(List<String> lista, boolean apostrofes) {
+		StringBuilder sb = new StringBuilder();
+
+		for (String string : lista) {
+			if (estaVazio(string)) {
+				continue;
+			}
+
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+
+			sb.append(apostrofes ? citar(string) : string);
+		}
+
+		return sb.toString();
+	}
+
+	private static String citar(String string) {
+		return "'" + string + "'";
+	}
+
+	public static void setContentTransfered(String string) {
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+		if (clipboard != null) {
+			clipboard.setContents(new StringSelection(string), null);
+		}
 	}
 }
