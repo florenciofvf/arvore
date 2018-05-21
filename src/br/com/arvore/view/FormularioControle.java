@@ -41,6 +41,7 @@ public class FormularioControle extends PanelBorder {
 	private final byte UPDATE = 2;
 	private final byte DELETE = 3;
 	private final byte INSERT = 4;
+	private int abaControleSel;
 	private Arvore arvore;
 	private Objeto objeto;
 
@@ -60,8 +61,12 @@ public class FormularioControle extends PanelBorder {
 		return fichario.getSelectedIndex();
 	}
 
-	public void selecionarAba(int i) {
-		if (i > 0 && i < fichario.getTabCount()) {
+	public int getAbaControleSel() {
+		return abaControleSel;
+	}
+
+	public void selecionarAba(int i, int controle) {
+		if (i > 0 && i < fichario.getTabCount() && controle == abaControleSel) {
 			fichario.setSelectedIndex(i);
 		}
 	}
@@ -215,6 +220,8 @@ public class FormularioControle extends PanelBorder {
 		this.objeto = objeto;
 		fichario.removeAll();
 
+		abaControleSel = 0;
+
 		textAreaArvore.setText(Util.normalizar(objeto.getInstrucaoArvore()));
 		textAreaTabela.setText(Util.normalizar(objeto.getInstrucaoTabela()));
 		textAreaUpdate.setText(Util.normalizar(objeto.getInstrucaoUpdate()));
@@ -227,38 +234,47 @@ public class FormularioControle extends PanelBorder {
 
 		if (!Util.estaVazio(textAreaArvore.getText())) {
 			fichario.addTab("label.arvore", Icones.ARVORE, textAreaArvore);
+			abaControleSel += 1;
 		}
 
 		if (!Util.estaVazio(textAreaTabela.getText())) {
 			fichario.addTab("label.tabela", Icones.TABELA, textAreaTabela);
+			abaControleSel += 2;
 		}
 
 		if (!Util.estaVazio(textAreaUpdate.getText())) {
 			fichario.addTab("label.update", Icones.UPDATE, textAreaUpdate);
+			abaControleSel += 4;
 		}
 
 		if (!Util.estaVazio(textAreaDelete.getText())) {
 			fichario.addTab("label.delete", Icones.EXCLUIR, textAreaDelete);
+			abaControleSel += 8;
 		}
 
 		if (!Util.estaVazio(textAreaInsert.getText())) {
 			fichario.addTab("label.insert", Icones.CRIAR, textAreaInsert);
+			abaControleSel += 16;
 		}
 
 		if (!Util.estaVazio(textAreaObserv.getText())) {
 			fichario.addTab("label.observacao", Icones.OBSERVACAO, textAreaObserv);
+			abaControleSel += 32;
 		}
 
 		if (!Util.estaVazio(textAreaDescri.getText())) {
 			fichario.addTab("label.descricao", Icones.INFO, textAreaDescri);
+			abaControleSel += 64;
 		}
 
 		if (!Util.estaVazio(textAreaComent.getText())) {
 			fichario.addTab("label.comentario", Icones.COMENTARIO, textAreaComent);
+			abaControleSel += 128;
 		}
 
 		if (!Util.estaVazio(textAreaAlerta.getText())) {
 			fichario.addTab("label.alerta", Icones.ALERTA, textAreaAlerta);
+			abaControleSel += 256;
 		}
 
 		controleButton();
