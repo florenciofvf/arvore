@@ -1,4 +1,4 @@
-package br.com.arvore.util;
+package br.com.arvore.rd;
 
 import java.awt.Component;
 
@@ -6,6 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 import br.com.arvore.comp.Label;
+import br.com.arvore.util.Icones;
 
 public class HeaderRD extends Label implements TableCellRenderer {
 	private static final long serialVersionUID = 1L;

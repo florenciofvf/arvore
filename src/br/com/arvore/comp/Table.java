@@ -12,9 +12,9 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import br.com.arvore.modelo.ModeloOrdenacao;
-import br.com.arvore.util.CellRD;
+import br.com.arvore.rd.CellRD;
+import br.com.arvore.rd.HeaderRD;
 import br.com.arvore.util.Constantes;
-import br.com.arvore.util.HeaderRD;
 import br.com.arvore.util.Util;
 
 public class Table extends JTable {

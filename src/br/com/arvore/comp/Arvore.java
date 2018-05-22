@@ -11,7 +11,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.util.TreeRD;
+import br.com.arvore.rd.TreeRD;
 
 public class Arvore extends JTree {
 	private static final long serialVersionUID = 1L;
