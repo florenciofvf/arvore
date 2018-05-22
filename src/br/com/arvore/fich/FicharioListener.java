@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.fich;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Arvore;

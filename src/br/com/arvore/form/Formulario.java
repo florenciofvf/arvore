@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.form;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
@@ -24,6 +24,9 @@ import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.SplitPane;
+import br.com.arvore.dialog.DialogoConexao;
+import br.com.arvore.fich.Fichario;
+import br.com.arvore.fich.FicharioListener;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;

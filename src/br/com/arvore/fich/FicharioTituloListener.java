@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.fich;
 
 public interface FicharioTituloListener {
 	public void excluirAba(int indice);

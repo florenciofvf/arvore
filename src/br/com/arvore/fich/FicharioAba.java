@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.fich;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
@@ -13,6 +13,7 @@ import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.SplitPane;
 import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.comp.Table;
+import br.com.arvore.dialog.DialogoObjeto;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.util.ArvoreUtil;

@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Window;

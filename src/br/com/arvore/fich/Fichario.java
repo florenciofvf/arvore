@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.fich;
 
 import java.io.File;
 
@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Arvore;
+import br.com.arvore.form.Formulario;
 import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;

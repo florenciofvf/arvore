@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.form;
 
 import java.awt.BorderLayout;
 
