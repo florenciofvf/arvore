@@ -3,11 +3,13 @@ package br.com.arvore.fich;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Arvore;
 import br.com.arvore.comp.ArvoreListener;
+import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.PanelBorder;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.SplitPane;
@@ -18,6 +20,7 @@ import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
 public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPaneListener {
@@ -97,5 +100,17 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 	@Override
 	public void localizacao(int i) {
 		Constantes.DIV_ARVORE_TABELA = i;
+	}
+}
+
+class Popup extends JPopupMenu {
+	private static final long serialVersionUID = 1L;
+	final MenuItem itemAtualizar = new MenuItem("label.atualizar", Icones.ATUALIZAR);
+	final MenuItem itemDestacar = new MenuItem("label.destacar", Icones.DESCONECTA);
+
+	public Popup() {
+		add(itemAtualizar);
+		addSeparator();
+		add(itemDestacar);
 	}
 }
