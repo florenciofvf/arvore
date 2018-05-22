@@ -18,8 +18,8 @@ public class Icones {
 	public static final Icon ASC_TEXTO = criarImagem("asc_texto");
 	public static final Icon LOCALIZAR = criarImagem("localizar");
 	public static final Icon COMENTARIO = criarImagem("comment");
+	public static final Icon ATUALIZAR = criarImagem("refresh");
 	public static final Icon EXCLUIR = criarImagem("lixeira");
-	public static final Icon ATUALIZAR = criarImagem("sync");
 	public static final Icon UPDATE = criarImagem("update");
 	public static final Icon ARVORE = criarImagem("arvore");
 	public static final Icon TABELA = criarImagem("tabela");
