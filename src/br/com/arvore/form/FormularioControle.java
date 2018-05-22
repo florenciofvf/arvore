@@ -172,7 +172,7 @@ public class FormularioControle extends PanelBorder {
 			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Inserir", ex, formulario);
+			Util.stackTraceAndMessage("INSERIR", ex, formulario);
 		}
 	}
 
@@ -188,7 +188,7 @@ public class FormularioControle extends PanelBorder {
 			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Excluir", ex, formulario);
+			Util.stackTraceAndMessage("EXCLUIR", ex, formulario);
 		}
 	}
 
@@ -204,7 +204,7 @@ public class FormularioControle extends PanelBorder {
 			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("Atualizar", ex, formulario);
+			Util.stackTraceAndMessage("ATUALIZAR", ex, formulario);
 		}
 	}
 

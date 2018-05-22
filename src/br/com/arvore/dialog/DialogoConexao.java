@@ -64,7 +64,7 @@ public class DialogoConexao extends Dialogo {
 			Conexao.getConnection();
 			dispose();
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("DialogoConexao.processar()", ex, this);
+			Util.stackTraceAndMessage("CONECTAR", ex, this);
 		}
 	}
 }

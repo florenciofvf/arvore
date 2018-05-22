@@ -64,7 +64,7 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 			table.setModel(modeloOrdenacao);
 			Util.ajustar(table, getGraphics());
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("REGISTROS", ex, this);
+			Util.stackTraceAndMessage("EXIBIR REGISTROS", ex, this);
 		}
 	}
 
@@ -73,7 +73,7 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 			ArvoreUtil.inflar(objeto);
 			ArvoreUtil.atualizarEstrutura(arvore, objeto);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("ARVORE", ex, this);
+			Util.stackTraceAndMessage("ATUALIZAR ARVORE", ex, this);
 		}
 	}
 

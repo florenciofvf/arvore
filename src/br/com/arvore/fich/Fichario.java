@@ -125,7 +125,7 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		try {
 			addAba("label.objetos", raiz, false);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("clonarAba()", ex, this);
+			Util.stackTraceAndMessage("CLONAR ABA", ex, this);
 		}
 	}
 }
