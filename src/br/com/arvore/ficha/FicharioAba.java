@@ -23,7 +23,7 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
-public class FicharioAba extends PanelBorder implements SplitPaneListener {
+public class FicharioAba extends PanelBorder {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane splitPane = new SplitPane();
 	private final Table table = new Table();
@@ -38,40 +38,13 @@ public class FicharioAba extends PanelBorder implements SplitPaneListener {
 		configurar();
 	}
 
-	private class Listener implements ArvoreListener {
-		@Override
-		public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-			popup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
-			FicharioAba.this.selecionado = selecionado;
-			popup.show(arvore, e.getX(), e.getY());
-		}
-
-		@Override
-		public void pedidoExclusao(Arvore arvore, Objeto objeto) {
-		}
-
-		@Override
-		public void clicado(Arvore arvore, Objeto objeto) {
-			if (Constantes.INFLAR_DESATIVADO) {
-				return;
-			}
-
-			if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
-				table.setModel(new ModeloOrdenacao());
-				return;
-			}
-
-			criarModeloRegistro(objeto);
-		}
-	}
-
 	public Arvore getArvore() {
 		return arvore;
 	}
 
 	private void montarLayout() {
-		splitPane.setListener(this);
 		add(BorderLayout.CENTER, splitPane);
+		splitPane.setListener(new ListenerSplitPane());
 		splitPane.setLeftComponent(new ScrollPane(arvore));
 		splitPane.setRightComponent(new ScrollPane(table));
 		splitPane.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
@@ -113,9 +86,38 @@ public class FicharioAba extends PanelBorder implements SplitPaneListener {
 		arvore.excluir(objeto);
 	}
 
-	@Override
-	public void localizacao(int i) {
-		Constantes.DIV_ARVORE_TABELA = i;
+	private class Listener implements ArvoreListener {
+		@Override
+		public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
+			popup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
+			FicharioAba.this.selecionado = selecionado;
+			popup.show(arvore, e.getX(), e.getY());
+		}
+
+		@Override
+		public void pedidoExclusao(Arvore arvore, Objeto objeto) {
+		}
+
+		@Override
+		public void clicado(Arvore arvore, Objeto objeto) {
+			if (Constantes.INFLAR_DESATIVADO) {
+				return;
+			}
+
+			if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
+				table.setModel(new ModeloOrdenacao());
+				return;
+			}
+
+			criarModeloRegistro(objeto);
+		}
+	}
+
+	private class ListenerSplitPane implements SplitPaneListener {
+		@Override
+		public void localizacao(int i) {
+			Constantes.DIV_ARVORE_TABELA = i;
+		}
 	}
 }
 
