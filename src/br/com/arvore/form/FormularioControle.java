@@ -120,17 +120,21 @@ public class FormularioControle extends PanelBorder {
 
 	private void processar() {
 		if (ehAbaAtiva(ARVORE)) {
+
 			if (!textAreaArvore.estaVazio()) {
 				objeto.setInstrucaoArvore(textAreaArvore.getText());
 			}
+
 			formulario.atualizarArvore(objeto);
 
 		} else if (ehAbaAtiva(TABELA)) {
-			objeto.setInstrucaoTabela(textAreaTabela.getText());
+
 			if (textAreaTabela.estaVazio()) {
 				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_tabela"));
 				return;
 			}
+
+			objeto.setInstrucaoTabela(textAreaTabela.getText());
 			formulario.criarModeloRegistro(objeto);
 
 		} else if (ehAbaAtiva(INSERT)) {
@@ -141,7 +145,6 @@ public class FormularioControle extends PanelBorder {
 
 		} else if (ehAbaAtiva(UPDATE)) {
 			atualizar(objeto);
-
 		}
 	}
 
