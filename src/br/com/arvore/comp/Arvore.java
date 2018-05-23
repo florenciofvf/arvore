@@ -46,6 +46,12 @@ public class Arvore extends JTree {
 		}
 	}
 
+	private void notificarPedidoExclusao(Objeto objeto) {
+		for (ArvoreListener ouvinte : ouvintes) {
+			ouvinte.pedidoExclusao(this, objeto);
+		}
+	}
+
 	private void notificarExibirPopup(Objeto objeto, MouseEvent e) {
 		for (ArvoreListener ouvinte : ouvintes) {
 			ouvinte.exibirPopup(this, objeto, e);
@@ -64,6 +70,12 @@ public class Arvore extends JTree {
 		}
 
 		return null;
+	}
+
+	public void excluir(Objeto objeto) {
+		if (objeto != null) {
+			notificarPedidoExclusao(objeto);
+		}
 	}
 
 	private class Listener extends MouseAdapter {

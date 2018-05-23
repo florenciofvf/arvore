@@ -3,6 +3,7 @@ package br.com.arvore.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.tree.TreePath;
 
@@ -53,6 +54,28 @@ public class ArvoreUtil {
 		TreePath path = new TreePath(caminho.toArray(new Object[] {}));
 		TreeModelEvent event = new TreeModelEvent(objeto, path);
 		modelo.treeStructureChanged(event);
+	}
+
+	public static void excluirEstrutura(Arvore arvore, Objeto objeto) {
+		ModeloArvore modelo = (ModeloArvore) arvore.getModel();
+		List<Objeto> caminho = new ArrayList<>();
+
+		Objeto o = objeto;
+
+		while (o != null) {
+			caminho.add(0, o);
+			o = o.getPai();
+		}
+
+		TreePath path = new TreePath(caminho.toArray(new Object[] {}));
+		TreeModelEvent event = new TreeModelEvent(objeto, path);
+
+		if (objeto.getPai() != null) {
+			objeto.getPai().excluir(objeto);
+		}
+
+		modelo.treeNodesRemoved(event);
+		SwingUtilities.updateComponentTreeUI(arvore);
 	}
 
 	public static void validarDependencia(Objeto objeto) {

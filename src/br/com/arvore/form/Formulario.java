@@ -79,6 +79,11 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 	}
 
 	@Override
+	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
+		controle.pedidoExclusao(arvore, objeto);
+	}
+
+	@Override
 	public void abaSelecionada(Arvore arvore, Objeto objeto) {
 		if (objeto == null) {
 			objeto = INVALIDO;

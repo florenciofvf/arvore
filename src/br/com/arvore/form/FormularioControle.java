@@ -185,8 +185,7 @@ public class FormularioControle extends PanelBorder {
 			int i = ArvoreUtil.excluirObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			ArvoreUtil.inflar(objeto);
-			ArvoreUtil.atualizarEstrutura(arvore, objeto);
+			ArvoreUtil.excluirEstrutura(arvore, objeto);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("EXCLUIR", ex, formulario);
 		}
@@ -206,6 +205,18 @@ public class FormularioControle extends PanelBorder {
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("ATUALIZAR", ex, formulario);
 		}
+	}
+
+	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
+		clicado(arvore, objeto);
+
+		int i = fichario.indexOfTab(Mensagens.getString("label.delete"));
+
+		if (i != -1) {
+			fichario.setSelectedIndex(i);
+		}
+
+		processar();
 	}
 
 	public void clicado(Arvore arvore, Objeto objeto) {

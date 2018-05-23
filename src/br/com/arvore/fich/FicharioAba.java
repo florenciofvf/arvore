@@ -52,6 +52,7 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 
 	private void configurar() {
 		popup.itemAtualizar.addActionListener(e -> atualizarArvore(selecionado));
+		popup.itemDelete.addActionListener(e -> excluirArvore(selecionado));
 		popup.itemDestacar
 				.addActionListener(e -> new DialogoObjeto(SwingUtilities.getWindowAncestor(this), selecionado));
 	}
@@ -77,8 +78,13 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 		}
 	}
 
+	void excluirArvore(Objeto objeto) {
+		arvore.excluir(objeto);
+	}
+
 	@Override
 	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
+		popup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
 		this.selecionado = selecionado;
 		popup.show(arvore, e.getX(), e.getY());
 	}
@@ -101,16 +107,23 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 	public void localizacao(int i) {
 		Constantes.DIV_ARVORE_TABELA = i;
 	}
+
+	@Override
+	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
+	}
 }
 
 class Popup extends JPopupMenu {
 	private static final long serialVersionUID = 1L;
 	final MenuItem itemAtualizar = new MenuItem("label.atualizar", Icones.ATUALIZAR);
 	final MenuItem itemDestacar = new MenuItem("label.destacar", Icones.DESCONECTA);
+	final MenuItem itemDelete = new MenuItem("label.delete", Icones.EXCLUIR);
 
 	public Popup() {
 		add(itemAtualizar);
 		addSeparator();
 		add(itemDestacar);
+		addSeparator();
+		add(itemDelete);
 	}
 }
