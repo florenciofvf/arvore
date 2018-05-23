@@ -61,6 +61,10 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 		fichario.atualizarArvore(objeto);
 	}
 
+	public void excluirArvore(Objeto objeto) {
+		fichario.excluirArvore(objeto);
+	}
+
 	public void criarModeloRegistro(Objeto objeto) {
 		fichario.criarModeloRegistro(objeto);
 	}

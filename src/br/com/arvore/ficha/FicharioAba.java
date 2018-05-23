@@ -52,7 +52,7 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 
 	private void configurar() {
 		popup.itemAtualizar.addActionListener(e -> atualizarArvore(selecionado));
-		popup.itemDelete.addActionListener(e -> excluirArvore(selecionado));
+		popup.itemDelete.addActionListener(e -> pedidoExclusao(selecionado));
 		popup.itemDestacar
 				.addActionListener(e -> new DialogoObjeto(SwingUtilities.getWindowAncestor(this), selecionado));
 	}
@@ -79,6 +79,10 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 	}
 
 	void excluirArvore(Objeto objeto) {
+		ArvoreUtil.excluirEstrutura(arvore, objeto);
+	}
+
+	void pedidoExclusao(Objeto objeto) {
 		arvore.excluir(objeto);
 	}
 

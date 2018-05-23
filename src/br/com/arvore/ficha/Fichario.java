@@ -111,6 +111,15 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		}
 	}
 
+	public void excluirArvore(Objeto objeto) {
+		int i = getSelectedIndex();
+
+		if (i != -1) {
+			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+			ficharioAba.excluirArvore(objeto);
+		}
+	}
+
 	public void criarModeloRegistro(Objeto objeto) {
 		int i = getSelectedIndex();
 

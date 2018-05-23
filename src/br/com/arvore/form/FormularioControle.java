@@ -32,6 +32,7 @@ public class FormularioControle extends PanelBorder {
 	private final TextArea textAreaDescri = new TextArea();
 	private final TextArea textAreaComent = new TextArea();
 	private final TextArea textAreaAlerta = new TextArea();
+
 	private final TabbedPane fichario = new TabbedPane();
 	private final Button buttonExecutar = new Button();
 	private final Label labelStatus = new Label();
@@ -160,8 +161,7 @@ public class FormularioControle extends PanelBorder {
 			int i = ArvoreUtil.inserirObjeto(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			ArvoreUtil.inflar(objeto);
-			ArvoreUtil.atualizarEstrutura(arvore, objeto);
+			formulario.atualizarArvore(objeto);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("INSERIR", ex, formulario);
 		}
@@ -183,7 +183,7 @@ public class FormularioControle extends PanelBorder {
 			int i = ArvoreUtil.excluirObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			ArvoreUtil.excluirEstrutura(arvore, objeto);
+			formulario.excluirArvore(objeto);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("EXCLUIR", ex, formulario);
 		}
@@ -205,8 +205,7 @@ public class FormularioControle extends PanelBorder {
 			int i = ArvoreUtil.atualizarObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
-			ArvoreUtil.inflar(objeto);
-			ArvoreUtil.atualizarEstrutura(arvore, objeto);
+			formulario.atualizarArvore(objeto);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("ATUALIZAR", ex, formulario);
 		}
