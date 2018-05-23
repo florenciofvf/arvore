@@ -1,4 +1,4 @@
-package br.com.arvore.fich;
+package br.com.arvore.ficha;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

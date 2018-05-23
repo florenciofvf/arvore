@@ -1,4 +1,4 @@
-package br.com.arvore.fich;
+package br.com.arvore.ficha;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
