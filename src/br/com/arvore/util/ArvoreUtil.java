@@ -10,7 +10,7 @@ import javax.swing.tree.TreePath;
 import br.com.arvore.Objeto;
 import br.com.arvore.banco.Persistencia;
 import br.com.arvore.comp.Arvore;
-import br.com.arvore.modelo.ModeloArvore;
+import br.com.arvore.mod.ModeloArvore;
 
 public class ArvoreUtil {
 	private ArvoreUtil() {

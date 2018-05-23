@@ -1,4 +1,4 @@
-package br.com.arvore.modelo;
+package br.com.arvore.mod;
 
 import java.util.Arrays;
 

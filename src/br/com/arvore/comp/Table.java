@@ -12,7 +12,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import br.com.arvore.modelo.ModeloOrdenacao;
+import br.com.arvore.mod.ModeloOrdenacao;
 import br.com.arvore.rd.CellRD;
 import br.com.arvore.rd.HeaderRD;
 import br.com.arvore.util.Constantes;

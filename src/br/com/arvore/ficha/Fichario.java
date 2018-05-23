@@ -7,7 +7,7 @@ import javax.swing.JTabbedPane;
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Arvore;
 import br.com.arvore.form.Formulario;
-import br.com.arvore.modelo.ModeloArvore;
+import br.com.arvore.mod.ModeloArvore;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;

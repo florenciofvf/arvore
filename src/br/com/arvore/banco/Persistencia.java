@@ -12,7 +12,7 @@ import java.util.Map;
 
 import br.com.arvore.Arg;
 import br.com.arvore.Objeto;
-import br.com.arvore.modelo.ModeloRegistro;
+import br.com.arvore.mod.ModeloRegistro;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.ParametroUtil;
 

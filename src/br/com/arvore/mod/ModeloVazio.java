@@ -1,4 +1,4 @@
-package br.com.arvore.modelo;
+package br.com.arvore.mod;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
