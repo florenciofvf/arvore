@@ -23,7 +23,7 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
-public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPaneListener {
+public class FicharioAba extends PanelBorder implements SplitPaneListener {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane splitPane = new SplitPane();
 	private final Table table = new Table();
@@ -32,10 +32,37 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 	private Objeto selecionado;
 
 	public FicharioAba(Arvore arvore) {
-		arvore.adicionarOuvinte(this);
+		arvore.adicionarOuvinte(new Listener());
 		this.arvore = arvore;
 		montarLayout();
 		configurar();
+	}
+
+	private class Listener implements ArvoreListener {
+		@Override
+		public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
+			popup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
+			FicharioAba.this.selecionado = selecionado;
+			popup.show(arvore, e.getX(), e.getY());
+		}
+
+		@Override
+		public void pedidoExclusao(Arvore arvore, Objeto objeto) {
+		}
+
+		@Override
+		public void clicado(Arvore arvore, Objeto objeto) {
+			if (Constantes.INFLAR_DESATIVADO) {
+				return;
+			}
+
+			if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
+				table.setModel(new ModeloOrdenacao());
+				return;
+			}
+
+			criarModeloRegistro(objeto);
+		}
 	}
 
 	public Arvore getArvore() {
@@ -87,33 +114,8 @@ public class FicharioAba extends PanelBorder implements ArvoreListener, SplitPan
 	}
 
 	@Override
-	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-		popup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
-		this.selecionado = selecionado;
-		popup.show(arvore, e.getX(), e.getY());
-	}
-
-	@Override
-	public void clicado(Arvore arvore, Objeto objeto) {
-		if (Constantes.INFLAR_DESATIVADO) {
-			return;
-		}
-
-		if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
-			table.setModel(new ModeloOrdenacao());
-			return;
-		}
-
-		criarModeloRegistro(objeto);
-	}
-
-	@Override
 	public void localizacao(int i) {
 		Constantes.DIV_ARVORE_TABELA = i;
-	}
-
-	@Override
-	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
 	}
 }
 
