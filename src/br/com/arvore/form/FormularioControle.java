@@ -126,7 +126,6 @@ public class FormularioControle extends PanelBorder {
 			formulario.atualizarArvore(objeto);
 
 		} else if (ehAbaAtiva(TABELA)) {
-
 			objeto.setInstrucaoTabela(textAreaTabela.getText());
 			if (textAreaTabela.estaVazio()) {
 				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_tabela"));
@@ -134,37 +133,26 @@ public class FormularioControle extends PanelBorder {
 			}
 			formulario.criarModeloRegistro(objeto);
 
-		} else if (ehAbaAtiva(UPDATE)) {
-
-			objeto.setInstrucaoUpdate(textAreaUpdate.getText());
-			if (textAreaUpdate.estaVazio()) {
-				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_update"));
-				return;
-			}
-			atualizar(objeto);
+		} else if (ehAbaAtiva(INSERT)) {
+			inserir(objeto);
 
 		} else if (ehAbaAtiva(DELETE)) {
-
-			objeto.setInstrucaoDelete(textAreaDelete.getText());
-			if (textAreaDelete.estaVazio()) {
-				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_delete"));
-				return;
-			}
 			excluir(objeto);
 
-		} else if (ehAbaAtiva(INSERT)) {
-
-			objeto.setInstrucaoInsert(textAreaInsert.getText());
-			if (textAreaInsert.estaVazio()) {
-				Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_insert"));
-				return;
-			}
-			inserir(objeto);
+		} else if (ehAbaAtiva(UPDATE)) {
+			atualizar(objeto);
 
 		}
 	}
 
 	private void inserir(Objeto objeto) {
+		if (textAreaInsert.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_insert"));
+			return;
+		}
+
+		objeto.setInstrucaoInsert(textAreaInsert.getText());
+
 		try {
 			int i = ArvoreUtil.inserirObjeto(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
@@ -177,6 +165,13 @@ public class FormularioControle extends PanelBorder {
 	}
 
 	private void excluir(Objeto objeto) {
+		if (textAreaDelete.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_delete"));
+			return;
+		}
+
+		objeto.setInstrucaoDelete(textAreaDelete.getText());
+
 		if (!Util.confirmaExclusao(formulario)) {
 			return;
 		}
@@ -192,6 +187,13 @@ public class FormularioControle extends PanelBorder {
 	}
 
 	private void atualizar(Objeto objeto) {
+		if (textAreaUpdate.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_update"));
+			return;
+		}
+
+		objeto.setInstrucaoUpdate(textAreaUpdate.getText());
+
 		if (!Util.confirmaAtualizacao(formulario)) {
 			return;
 		}
