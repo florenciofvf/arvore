@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -19,8 +20,8 @@ import br.com.arvore.util.Util;
 
 public class Table extends JTable {
 	private static final long serialVersionUID = 1L;
-	private TablePopup popup = new TablePopup();
 	private TableListener tableListener;
+	private Popup popup = new Popup();
 	private boolean descendente;
 
 	public Table() {
@@ -147,5 +148,26 @@ public class Table extends JTable {
 		}
 
 		return resposta;
+	}
+}
+
+class Popup extends JPopupMenu {
+	private static final long serialVersionUID = 1L;
+	final MenuItem itemCopiarComAspas = new MenuItem("label.copiar_com_aspas");
+	final MenuItem itemCopiar = new MenuItem("label.copiar");
+	private int tag;
+
+	public Popup() {
+		add(itemCopiar);
+		addSeparator();
+		add(itemCopiarComAspas);
+	}
+
+	public int getTag() {
+		return tag;
+	}
+
+	public void setTag(int tag) {
+		this.tag = tag;
 	}
 }

@@ -4,8 +4,9 @@
 	<xi:include href="eleicoes.xml" />
 
 	<objeto titulo="Endereços" icone="home" sub-icone="diamante" manter-vazio="true" icone-manter-vazio="home">
-		<arvore>SELECT concat(id, "-", logradouro, "-", id_candidato), id as inteiro FROM endereco</arvore>
+		<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco</arvore>
 		<insert>INSERT INTO endereco(id_candidato, 'logradouro') VALUES(1, 'LOGRADOURO')</insert>
+		<sub-update>UPDATE endereco SET id_candidato = 1 WHERE id = 1</sub-update>
 		<sub-tabela>SELECT * FROM endereco WHERE id = ?</sub-tabela>
 	</objeto>
 </objeto>
