@@ -1,4 +1,4 @@
-package br.com.arvore.rd;
+package br.com.arvore.rnd;
 
 import java.awt.Component;
 

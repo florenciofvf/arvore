@@ -7,7 +7,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import br.com.arvore.comp.TableListener;
-import br.com.arvore.rd.HeaderRD;
+import br.com.arvore.rnd.HeaderRD;
 import br.com.arvore.util.Util;
 
 public class ModeloOrdenacao extends AbstractTableModel implements TableListener {
