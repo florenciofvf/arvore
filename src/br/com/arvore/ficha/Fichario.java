@@ -145,6 +145,5 @@ public class Fichario extends JTabbedPane {
 				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
 			}
 		}
-
 	}
 }

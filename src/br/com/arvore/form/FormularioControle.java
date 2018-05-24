@@ -37,12 +37,14 @@ public class FormularioControle extends PanelBorder {
 	private final Button buttonExecutar = new Button();
 	private final Label labelStatus = new Label();
 	private final Formulario formulario;
+
 	private final byte ARVORE = 0;
 	private final byte TABELA = 1;
 	private final byte UPDATE = 2;
 	private final byte DELETE = 3;
 	private final byte INSERT = 4;
 	private int abaControleSel;
+
 	private Arvore arvore;
 	private Objeto objeto;
 
