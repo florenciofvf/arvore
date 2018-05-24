@@ -21,8 +21,11 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 
 	public Fichario(Formulario formulario) {
 		this.formulario = formulario;
-		this.listener = formulario;
 		configurar();
+	}
+
+	public void setListener(FicharioListener listener) {
+		this.listener = listener;
 	}
 
 	private void configurar() {

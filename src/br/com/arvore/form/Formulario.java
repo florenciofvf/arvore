@@ -32,7 +32,7 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
-public class Formulario extends JFrame implements FicharioListener, ArvoreListener {
+public class Formulario extends JFrame implements ArvoreListener {
 	private static final long serialVersionUID = 1L;
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
@@ -52,6 +52,7 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		controle = new FormularioControle(this);
 		fichario = new Fichario(this);
+		fichario.setListener(new Listener());
 		setSize(1000, 700);
 		montarLayout();
 		configurar();
@@ -85,22 +86,6 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 	@Override
 	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
 		controle.pedidoExclusao(arvore, objeto);
-	}
-
-	@Override
-	public void abaSelecionada(Arvore arvore, Objeto objeto) {
-		if (objeto == null) {
-			objeto = INVALIDO;
-		}
-
-		controle.clicado(arvore, objeto);
-	}
-
-	@Override
-	public void arvoreExcluida(Arvore arvore) {
-		if (controle.getArvore() == arvore) {
-			controle.clicado(null, INVALIDO);
-		}
 	}
 
 	private void configurar() {
@@ -175,6 +160,24 @@ public class Formulario extends JFrame implements FicharioListener, ArvoreListen
 
 		configMenuAparencia();
 		setJMenuBar(menuBar);
+	}
+
+	private class Listener implements FicharioListener {
+		@Override
+		public void abaSelecionada(Arvore arvore, Objeto objeto) {
+			if (objeto == null) {
+				objeto = INVALIDO;
+			}
+
+			controle.clicado(arvore, objeto);
+		}
+
+		@Override
+		public void arvoreExcluida(Arvore arvore) {
+			if (controle.getArvore() == arvore) {
+				controle.clicado(null, INVALIDO);
+			}
+		}
 	}
 
 	private void configMenuAparencia() {
