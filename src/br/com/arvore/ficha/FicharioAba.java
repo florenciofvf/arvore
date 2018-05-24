@@ -32,7 +32,7 @@ public class FicharioAba extends PanelBorder {
 	private Objeto selecionado;
 
 	public FicharioAba(Arvore arvore) {
-		arvore.adicionarOuvinte(new Listener());
+		arvore.adicionarOuvinte(new ListenerArvore());
 		this.arvore = arvore;
 		montarLayout();
 		configurar();
@@ -86,7 +86,7 @@ public class FicharioAba extends PanelBorder {
 		arvore.excluir(objeto);
 	}
 
-	private class Listener implements ArvoreListener {
+	private class ListenerArvore implements ArvoreListener {
 		@Override
 		public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
 			popup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));

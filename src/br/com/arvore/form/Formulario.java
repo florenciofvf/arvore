@@ -53,7 +53,7 @@ public class Formulario extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		controle = new FormularioControle(this);
 		fichario = new Fichario(this);
-		fichario.setListener(new Listener());
+		fichario.setListener(new ListenerFichario());
 		setSize(1000, 700);
 		montarLayout();
 		configurar();
@@ -149,7 +149,7 @@ public class Formulario extends JFrame {
 		setJMenuBar(menuBar);
 	}
 
-	private class Listener implements FicharioListener {
+	private class ListenerFichario implements FicharioListener {
 		@Override
 		public void abaSelecionada(Arvore arvore, Objeto objeto) {
 			if (objeto == null) {

@@ -15,7 +15,7 @@ import br.com.arvore.xml.XML;
 
 public class Fichario extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
-	private final ListenerFicharioTitulo listenerFichario = new ListenerFicharioTitulo();
+	private final ListenerFicharioTitulo listenerFicharioTitulo = new ListenerFicharioTitulo();
 	private final Formulario formulario;
 	private FicharioListener listener;
 	private Objeto raiz;
@@ -79,7 +79,7 @@ public class Fichario extends JTabbedPane {
 
 	private void limpar() {
 		while (getTabCount() > 0) {
-			listenerFichario.excluirAba(0);
+			listenerFicharioTitulo.excluirAba(0);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class Fichario extends JTabbedPane {
 		FicharioAba ficharioAba = new FicharioAba(arvore);
 		addTab(Mensagens.getString(chaveTitulo), ficharioAba);
 
-		FicharioTitulo titulo = new FicharioTitulo(this, clonar, listenerFichario);
+		FicharioTitulo titulo = new FicharioTitulo(this, clonar, listenerFicharioTitulo);
 		setTabComponentAt(getTabCount() - 1, titulo);
 	}
 
