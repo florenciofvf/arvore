@@ -13,8 +13,9 @@ import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 import br.com.arvore.xml.XML;
 
-public class Fichario extends JTabbedPane implements FicharioTituloListener {
+public class Fichario extends JTabbedPane {
 	private static final long serialVersionUID = 1L;
+	private final ListenerFicharioTitulo listenerFichario = new ListenerFicharioTitulo();
 	private final Formulario formulario;
 	private FicharioListener listener;
 	private Objeto raiz;
@@ -78,7 +79,7 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 
 	private void limpar() {
 		while (getTabCount() > 0) {
-			excluirAba(0);
+			listenerFichario.excluirAba(0);
 		}
 	}
 
@@ -94,15 +95,8 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		FicharioAba ficharioAba = new FicharioAba(arvore);
 		addTab(Mensagens.getString(chaveTitulo), ficharioAba);
 
-		FicharioTitulo titulo = new FicharioTitulo(this, clonar, this);
+		FicharioTitulo titulo = new FicharioTitulo(this, clonar, listenerFichario);
 		setTabComponentAt(getTabCount() - 1, titulo);
-	}
-
-	@Override
-	public void excluirAba(int indice) {
-		FicharioAba ficharioAba = (FicharioAba) getComponentAt(indice);
-		listener.arvoreExcluida(ficharioAba.getArvore());
-		remove(indice);
 	}
 
 	public void atualizarArvore(Objeto objeto) {
@@ -132,12 +126,22 @@ public class Fichario extends JTabbedPane implements FicharioTituloListener {
 		}
 	}
 
-	@Override
-	public void clonarAba() {
-		try {
-			addAba("label.objetos", raiz, false);
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("CLONAR ABA", ex, this);
+	private class ListenerFicharioTitulo implements FicharioTituloListener {
+		@Override
+		public void excluirAba(int indice) {
+			FicharioAba ficharioAba = (FicharioAba) getComponentAt(indice);
+			listener.arvoreExcluida(ficharioAba.getArvore());
+			remove(indice);
 		}
+
+		@Override
+		public void clonarAba() {
+			try {
+				addAba("label.objetos", raiz, false);
+			} catch (Exception ex) {
+				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
+			}
+		}
+		
 	}
 }
