@@ -91,7 +91,7 @@ public class Fichario extends JTabbedPane {
 		}
 
 		Arvore arvore = new Arvore(new ModeloArvore(objeto));
-		arvore.adicionarOuvinte(formulario);
+		arvore.adicionarOuvinte(formulario.getListenerArvore());
 		FicharioAba ficharioAba = new FicharioAba(arvore);
 		addTab(Mensagens.getString(chaveTitulo), ficharioAba);
 
@@ -142,6 +142,6 @@ public class Fichario extends JTabbedPane {
 				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
 			}
 		}
-		
+
 	}
 }

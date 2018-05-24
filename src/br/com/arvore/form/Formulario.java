@@ -32,12 +32,13 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
-public class Formulario extends JFrame implements ArvoreListener {
+public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final SplitPane splitPane = new SplitPane(SplitPane.VERTICAL_SPLIT);
+	private final ListenerArvore listenerArvore = new ListenerArvore();
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final Objeto INVALIDO = new Objeto("...");
@@ -58,6 +59,10 @@ public class Formulario extends JFrame implements ArvoreListener {
 		configurar();
 	}
 
+	public ListenerArvore getListenerArvore() {
+		return listenerArvore;
+	}
+
 	public void atualizarArvore(Objeto objeto) {
 		fichario.atualizarArvore(objeto);
 	}
@@ -68,24 +73,6 @@ public class Formulario extends JFrame implements ArvoreListener {
 
 	public void criarModeloRegistro(Objeto objeto) {
 		fichario.criarModeloRegistro(objeto);
-	}
-
-	@Override
-	public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
-	}
-
-	@Override
-	public void clicado(Arvore arvore, Objeto objeto) {
-		abaSelecionada = controle.getAbaSelecionada();
-		abaControleSel = controle.getAbaControleSel();
-
-		controle.clicado(arvore, objeto);
-		controle.selecionarAba(abaSelecionada, abaControleSel);
-	}
-
-	@Override
-	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
-		controle.pedidoExclusao(arvore, objeto);
 	}
 
 	private void configurar() {
@@ -177,6 +164,26 @@ public class Formulario extends JFrame implements ArvoreListener {
 			if (controle.getArvore() == arvore) {
 				controle.clicado(null, INVALIDO);
 			}
+		}
+	}
+
+	private class ListenerArvore implements ArvoreListener {
+		@Override
+		public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
+		}
+
+		@Override
+		public void pedidoExclusao(Arvore arvore, Objeto objeto) {
+			controle.pedidoExclusao(arvore, objeto);
+		}
+
+		@Override
+		public void clicado(Arvore arvore, Objeto objeto) {
+			abaSelecionada = controle.getAbaSelecionada();
+			abaControleSel = controle.getAbaControleSel();
+
+			controle.clicado(arvore, objeto);
+			controle.selecionarAba(abaSelecionada, abaControleSel);
 		}
 	}
 
