@@ -75,6 +75,7 @@ public class ArvoreUtil {
 		}
 
 		modelo.treeNodesRemoved(event);
+		arvore.setSelectionPath(null);
 		SwingUtilities.updateComponentTreeUI(arvore);
 	}
 

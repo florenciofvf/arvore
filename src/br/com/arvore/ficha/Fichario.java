@@ -30,15 +30,17 @@ public class Fichario extends JTabbedPane {
 	}
 
 	private void configurar() {
-		addChangeListener(e -> {
-			int i = getSelectedIndex();
+		addChangeListener(e -> abaSelecionada());
+	}
 
-			if (i != -1) {
-				FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
-				Arvore arvore = ficharioAba.getArvore();
-				listener.abaSelecionada(arvore, arvore.getObjetoSelecionado());
-			}
-		});
+	private void abaSelecionada() {
+		int i = getSelectedIndex();
+
+		if (i != -1) {
+			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+			Arvore arvore = ficharioAba.getArvore();
+			listener.abaSelecionada(arvore, arvore.getObjetoSelecionado());
+		}
 	}
 
 	public void abrirArquivo(File file, boolean msgInexistente, boolean msgSemConteudo, boolean msgNaoLeitura) {
@@ -114,6 +116,7 @@ public class Fichario extends JTabbedPane {
 		if (i != -1) {
 			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
 			ficharioAba.excluirArvore(objeto);
+			abaSelecionada();
 		}
 	}
 
