@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -14,6 +13,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import br.com.arvore.comp.MenuItem;
+import br.com.arvore.comp.Popup;
 import br.com.arvore.mod.ModeloOrdenacao;
 import br.com.arvore.rnd.HeaderRD;
 import br.com.arvore.util.Constantes;
@@ -118,7 +118,7 @@ public class Tabela extends JTable {
 		}
 	};
 
-	private class PopupHeader extends JPopupMenu {
+	private class PopupHeader extends Popup {
 		private static final long serialVersionUID = 1L;
 		final MenuItem itemCopiarComAspas = new MenuItem("label.copiar_com_aspas");
 		final MenuItem itemCopiar = new MenuItem("label.copiar");
