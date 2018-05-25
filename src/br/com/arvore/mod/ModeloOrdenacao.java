@@ -6,11 +6,11 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-import br.com.arvore.comp.TableListener;
 import br.com.arvore.rnd.HeaderRD;
 import br.com.arvore.util.Util;
+import br.com.arvore.view.TabelaListener;
 
-public class ModeloOrdenacao extends AbstractTableModel implements TableListener {
+public class ModeloOrdenacao extends AbstractTableModel implements TabelaListener {
 	private static final long serialVersionUID = 1L;
 	private final boolean[] colunasNumero;
 	private final TableModel model;

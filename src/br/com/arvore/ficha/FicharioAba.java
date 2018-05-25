@@ -14,7 +14,6 @@ import br.com.arvore.comp.PanelBorder;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.SplitPane;
 import br.com.arvore.comp.SplitPaneListener;
-import br.com.arvore.comp.Table;
 import br.com.arvore.dialog.DialogoObjeto;
 import br.com.arvore.mod.ModeloOrdenacao;
 import br.com.arvore.mod.ModeloRegistro;
@@ -22,11 +21,12 @@ import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
+import br.com.arvore.view.Tabela;
 
 public class FicharioAba extends PanelBorder {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane splitPane = new SplitPane();
-	private final Table table = new Table();
+	private final Tabela tabela = new Tabela();
 	private final Popup popup = new Popup();
 	private final Arvore arvore;
 	private Objeto selecionado;
@@ -46,7 +46,7 @@ public class FicharioAba extends PanelBorder {
 		add(BorderLayout.CENTER, splitPane);
 		splitPane.setListener(new ListenerSplitPane());
 		splitPane.setLeftComponent(new ScrollPane(arvore));
-		splitPane.setRightComponent(new ScrollPane(table));
+		splitPane.setRightComponent(new ScrollPane(tabela));
 		splitPane.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
 	}
 
@@ -61,9 +61,10 @@ public class FicharioAba extends PanelBorder {
 		try {
 			ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
 			ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro, modeloRegistro.getColunasNumero());
-
-			table.setModel(modeloOrdenacao);
-			Util.ajustar(table, getGraphics());
+			tabela.limparOuvintes();
+			tabela.adicionarOuvinte(modeloOrdenacao);
+			tabela.setModel(modeloOrdenacao);
+			Util.ajustar(tabela, getGraphics());
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("EXIBIR REGISTROS", ex, this);
 		}
@@ -105,7 +106,7 @@ public class FicharioAba extends PanelBorder {
 			}
 
 			if (objeto.isPesquisaPopup() || Util.estaVazio(objeto.getInstrucaoTabela())) {
-				table.setModel(new ModeloOrdenacao());
+				tabela.setModel(new ModeloOrdenacao());
 				return;
 			}
 
