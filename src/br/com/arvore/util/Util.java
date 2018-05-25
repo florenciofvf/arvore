@@ -3,8 +3,6 @@ package br.com.arvore.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -22,11 +20,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.KeyStroke;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 import br.com.arvore.comp.TextArea;
 
@@ -110,32 +104,6 @@ public class Util {
 		}
 
 		return sw.toString();
-	}
-
-	public static void ajustar(JTable table, Graphics graphics) {
-		ajustar(table, graphics, Constantes.LARGURA_ICONE_ORDENAR);
-	}
-
-	public static void ajustar(JTable table, Graphics graphics, int ajuste) {
-		DefaultTableColumnModel columnModel = (DefaultTableColumnModel) table.getColumnModel();
-		FontMetrics fontMetrics = graphics.getFontMetrics();
-
-		for (int col = 0; col < table.getColumnCount(); col++) {
-			String coluna = table.getColumnName(col);
-			int largura = fontMetrics.stringWidth(coluna);
-
-			for (int lin = 0; lin < table.getRowCount(); lin++) {
-				TableCellRenderer renderer = table.getCellRenderer(lin, col);
-
-				Component component = renderer.getTableCellRendererComponent(table, table.getValueAt(lin, col), false,
-						false, lin, col);
-
-				largura = Math.max(largura, component.getPreferredSize().width);
-			}
-
-			TableColumn column = columnModel.getColumn(col);
-			column.setPreferredWidth(largura + ajuste);
-		}
 	}
 
 	public static String normalizar(String s) {

@@ -22,6 +22,7 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 import br.com.arvore.view.Tabela;
+import br.com.arvore.view.TabelaUtil;
 
 public class FicharioAba extends PanelBorder {
 	private static final long serialVersionUID = 1L;
@@ -64,7 +65,7 @@ public class FicharioAba extends PanelBorder {
 			tabela.limparOuvintes();
 			tabela.adicionarOuvinte(modeloOrdenacao);
 			tabela.setModel(modeloOrdenacao);
-			Util.ajustar(tabela, getGraphics());
+			TabelaUtil.ajustar(tabela, getGraphics());
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("EXIBIR REGISTROS", ex, this);
 		}
