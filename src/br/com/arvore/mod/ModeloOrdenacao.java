@@ -7,8 +7,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import br.com.arvore.rnd.HeaderRD;
+import br.com.arvore.tabela.TabelaListener;
 import br.com.arvore.util.Util;
-import br.com.arvore.view.TabelaListener;
 
 public class ModeloOrdenacao extends AbstractTableModel implements TabelaListener {
 	private static final long serialVersionUID = 1L;

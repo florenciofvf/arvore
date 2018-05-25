@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.tabela;
 
 import java.awt.Component;
 import java.awt.FontMetrics;

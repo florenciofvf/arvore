@@ -17,12 +17,12 @@ import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.dialog.DialogoObjeto;
 import br.com.arvore.mod.ModeloOrdenacao;
 import br.com.arvore.mod.ModeloRegistro;
+import br.com.arvore.tabela.Tabela;
+import br.com.arvore.tabela.TabelaUtil;
 import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
-import br.com.arvore.view.Tabela;
-import br.com.arvore.view.TabelaUtil;
 
 public class FicharioAba extends PanelBorder {
 	private static final long serialVersionUID = 1L;

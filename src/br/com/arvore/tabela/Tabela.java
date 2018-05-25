@@ -1,4 +1,4 @@
-package br.com.arvore.view;
+package br.com.arvore.tabela;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
