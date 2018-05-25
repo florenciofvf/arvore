@@ -92,7 +92,7 @@ public class Arvore extends JTree {
 		Objeto selecionado = getObjetoSelecionado();
 
 		if (selecionado != null) {
-
+			ArvoreUtil.excluirEstrutura(this, selecionado);
 		}
 	}
 
