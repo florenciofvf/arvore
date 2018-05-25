@@ -9,6 +9,8 @@ import br.com.arvore.arvore.Arvore;
 import br.com.arvore.container.Container;
 import br.com.arvore.form.Formulario;
 import br.com.arvore.mod.ModeloArvore;
+import br.com.arvore.titulo.Titulo;
+import br.com.arvore.titulo.TituloListener;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
@@ -98,7 +100,7 @@ public class Fichario extends JTabbedPane {
 		Container ficharioAba = new Container(arvore);
 		addTab(Mensagens.getString(chaveTitulo), ficharioAba);
 
-		FicharioTitulo titulo = new FicharioTitulo(this, clonar, listenerFicharioTitulo);
+		Titulo titulo = new Titulo(this, clonar, listenerFicharioTitulo);
 		setTabComponentAt(getTabCount() - 1, titulo);
 	}
 
@@ -130,7 +132,7 @@ public class Fichario extends JTabbedPane {
 		}
 	}
 
-	private class ListenerFicharioTitulo implements FicharioTituloListener {
+	private class ListenerFicharioTitulo implements TituloListener {
 		@Override
 		public void excluirAba(int indice) {
 			Container ficharioAba = (Container) getComponentAt(indice);

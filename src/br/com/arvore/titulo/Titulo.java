@@ -1,4 +1,4 @@
-package br.com.arvore.ficha;
+package br.com.arvore.titulo;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -11,35 +11,55 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Objects;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import br.com.arvore.comp.Button;
 import br.com.arvore.comp.Label;
+import br.com.arvore.comp.Panel;
 import br.com.arvore.util.Mensagens;
 
-public class FicharioTitulo extends JPanel {
+public class Titulo extends Panel {
 	private static final long serialVersionUID = 1L;
-	private final FicharioTituloListener ficharioTituloListener;
+	private final List<TituloListener> ouvintes;
 	private final JTabbedPane tabbedPane;
 	private final boolean clonar;
 
-	public FicharioTitulo(JTabbedPane tabbedPane, boolean clonar, FicharioTituloListener ficharioTituloListener) {
+	public Titulo(JTabbedPane tabbedPane, boolean clonar) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-		this.ficharioTituloListener = ficharioTituloListener;
-		Objects.requireNonNull(ficharioTituloListener);
-		Objects.requireNonNull(tabbedPane);
 		this.tabbedPane = tabbedPane;
+		ouvintes = new ArrayList<>();
 		this.clonar = clonar;
 		add(new Rotulo());
 		setOpaque(false);
 		add(new Ctrl());
+	}
+
+	public void adicionarOuvinte(TituloListener listener) {
+		ouvintes.add(listener);
+	}
+
+	public void limparOuvintes() {
+		ouvintes.clear();
+	}
+
+	private void notificarExcluirAba(int indice) {
+		for (TituloListener ouvinte : ouvintes) {
+			ouvinte.excluirAba(indice);
+		}
+	}
+
+	private void notificarClonarAba() {
+		for (TituloListener ouvinte : ouvintes) {
+			ouvinte.clonarAba();
+		}
 	}
 
 	private class Rotulo extends Label {
@@ -51,7 +71,7 @@ public class FicharioTitulo extends JPanel {
 
 		@Override
 		public String getText() {
-			int i = tabbedPane.indexOfTabComponent(FicharioTitulo.this);
+			int i = tabbedPane.indexOfTabComponent(Titulo.this);
 
 			if (i != -1) {
 				return tabbedPane.getTitleAt(i);
@@ -61,7 +81,7 @@ public class FicharioTitulo extends JPanel {
 		}
 	}
 
-	private class Ctrl extends Button implements ActionListener {
+	private class Ctrl extends Button {
 		private static final long serialVersionUID = 1L;
 
 		public Ctrl() {
@@ -69,16 +89,31 @@ public class FicharioTitulo extends JPanel {
 			setToolTipText(Mensagens.getString("label.fechar"));
 			setBorder(BorderFactory.createEtchedBorder());
 			setPreferredSize(new Dimension(size, size));
-			addMouseListener(new MouseListener());
+			addActionListener(actionListener);
+			addMouseListener(mouseListener);
 			setContentAreaFilled(false);
 			setUI(new BasicButtonUI());
 			setRolloverEnabled(true);
 			setBorderPainted(false);
-			addActionListener(this);
 			setFocusable(false);
 		}
 
-		private class MouseListener extends MouseAdapter {
+		private ActionListener actionListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int indice = tabbedPane.indexOfTabComponent(Titulo.this);
+
+				if (indice != -1) {
+					if (!clonar) {
+						notificarExcluirAba(indice);
+					} else {
+						notificarClonarAba();
+					}
+				}
+			}
+		};
+
+		private MouseListener mouseListener = new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				Component component = e.getComponent();
@@ -98,19 +133,7 @@ public class FicharioTitulo extends JPanel {
 					button.setBorderPainted(false);
 				}
 			}
-		}
-
-		public void actionPerformed(ActionEvent e) {
-			int i = tabbedPane.indexOfTabComponent(FicharioTitulo.this);
-
-			if (i != -1 && ficharioTituloListener != null) {
-				if (clonar) {
-					ficharioTituloListener.clonarAba();
-				} else {
-					ficharioTituloListener.excluirAba(i);
-				}
-			}
-		}
+		};
 
 		public void updateUI() {
 		}

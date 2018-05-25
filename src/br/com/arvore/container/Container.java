@@ -32,10 +32,6 @@ public class Container extends PanelBorder {
 		ouvintes.add(listener);
 	}
 
-	public void excluirOuvinte(ContainerListener listener) {
-		ouvintes.remove(listener);
-	}
-
 	public void limparOuvintes() {
 		ouvintes.clear();
 	}
