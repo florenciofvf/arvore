@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.arvore.Arvore;
+import br.com.arvore.container.Container;
 import br.com.arvore.form.Formulario;
 import br.com.arvore.mod.ModeloArvore;
 import br.com.arvore.util.Constantes;
@@ -37,7 +38,7 @@ public class Fichario extends JTabbedPane {
 		int i = getSelectedIndex();
 
 		if (i != -1) {
-			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+			Container ficharioAba = (Container) getComponentAt(i);
 			Arvore arvore = ficharioAba.getArvore();
 			listener.abaSelecionada(arvore, arvore.getObjetoSelecionado());
 		}
@@ -94,7 +95,7 @@ public class Fichario extends JTabbedPane {
 
 		Arvore arvore = new Arvore(new ModeloArvore(objeto));
 		arvore.adicionarOuvinte(formulario.getListenerArvore());
-		FicharioAba ficharioAba = new FicharioAba(arvore);
+		Container ficharioAba = new Container(arvore);
 		addTab(Mensagens.getString(chaveTitulo), ficharioAba);
 
 		FicharioTitulo titulo = new FicharioTitulo(this, clonar, listenerFicharioTitulo);
@@ -105,7 +106,7 @@ public class Fichario extends JTabbedPane {
 		int i = getSelectedIndex();
 
 		if (i != -1) {
-			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+			Container ficharioAba = (Container) getComponentAt(i);
 			ficharioAba.atualizarArvore(objeto);
 		}
 	}
@@ -114,7 +115,7 @@ public class Fichario extends JTabbedPane {
 		int i = getSelectedIndex();
 
 		if (i != -1) {
-			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+			Container ficharioAba = (Container) getComponentAt(i);
 			ficharioAba.excluirArvore(objeto);
 			abaSelecionada();
 		}
@@ -124,7 +125,7 @@ public class Fichario extends JTabbedPane {
 		int i = getSelectedIndex();
 
 		if (i != -1) {
-			FicharioAba ficharioAba = (FicharioAba) getComponentAt(i);
+			Container ficharioAba = (Container) getComponentAt(i);
 			ficharioAba.criarModeloRegistro(objeto);
 		}
 	}
@@ -132,7 +133,7 @@ public class Fichario extends JTabbedPane {
 	private class ListenerFicharioTitulo implements FicharioTituloListener {
 		@Override
 		public void excluirAba(int indice) {
-			FicharioAba ficharioAba = (FicharioAba) getComponentAt(indice);
+			Container ficharioAba = (Container) getComponentAt(indice);
 			listener.arvoreExcluida(ficharioAba.getArvore());
 			remove(indice);
 		}
