@@ -12,8 +12,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import br.com.arvore.mod.ModeloOrdenacao;
-import br.com.arvore.rnd.CellRD;
+import br.com.arvore.modelo.ModeloOrdenacao;
+import br.com.arvore.renderer.CellRD;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 

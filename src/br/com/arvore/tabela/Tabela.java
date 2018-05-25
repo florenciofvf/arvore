@@ -12,10 +12,10 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import br.com.arvore.comp.MenuItem;
-import br.com.arvore.comp.Popup;
-import br.com.arvore.mod.ModeloOrdenacao;
-import br.com.arvore.rnd.HeaderRD;
+import br.com.arvore.componente.MenuItem;
+import br.com.arvore.componente.Popup;
+import br.com.arvore.modelo.ModeloOrdenacao;
+import br.com.arvore.renderer.HeaderRD;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 

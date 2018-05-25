@@ -8,7 +8,7 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.tree.TreePath;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.mod.ModeloArvore;
+import br.com.arvore.modelo.ModeloArvore;
 
 public class ArvoreUtil {
 	private ArvoreUtil() {

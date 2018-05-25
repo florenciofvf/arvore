@@ -7,11 +7,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import br.com.arvore.arg.ArgDate;
-import br.com.arvore.arg.ArgInt;
-import br.com.arvore.arg.ArgLong;
-import br.com.arvore.arg.ArgObject;
-import br.com.arvore.arg.ArgString;
+import br.com.arvore.args.ArgDate;
+import br.com.arvore.args.ArgInt;
+import br.com.arvore.args.ArgLong;
+import br.com.arvore.args.ArgObject;
+import br.com.arvore.args.ArgString;
 
 public abstract class Arg {
 

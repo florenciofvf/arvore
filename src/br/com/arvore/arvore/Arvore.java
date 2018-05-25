@@ -12,9 +12,9 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.comp.MenuItem;
-import br.com.arvore.comp.Popup;
-import br.com.arvore.rnd.TreeRD;
+import br.com.arvore.componente.MenuItem;
+import br.com.arvore.componente.Popup;
+import br.com.arvore.renderer.TreeRD;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 

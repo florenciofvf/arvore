@@ -20,9 +20,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-import br.com.arvore.comp.Button;
-import br.com.arvore.comp.Label;
-import br.com.arvore.comp.Panel;
+import br.com.arvore.componente.Button;
+import br.com.arvore.componente.Label;
+import br.com.arvore.componente.Panel;
 import br.com.arvore.util.Mensagens;
 
 public class Titulo extends Panel {

@@ -6,10 +6,10 @@ import java.util.List;
 
 import br.com.arvore.arvore.Arvore;
 import br.com.arvore.arvore.ArvoreListener;
-import br.com.arvore.comp.PanelBorder;
-import br.com.arvore.comp.ScrollPane;
-import br.com.arvore.comp.SplitPane;
-import br.com.arvore.comp.SplitPaneListener;
+import br.com.arvore.componente.PanelBorder;
+import br.com.arvore.componente.ScrollPane;
+import br.com.arvore.componente.SplitPane;
+import br.com.arvore.componente.SplitPaneListener;
 import br.com.arvore.tabela.Tabela;
 import br.com.arvore.util.Constantes;
 
