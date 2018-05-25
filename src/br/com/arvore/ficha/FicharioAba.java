@@ -7,8 +7,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.comp.Arvore;
-import br.com.arvore.comp.ArvoreListener;
+import br.com.arvore.arvore.Arvore;
+import br.com.arvore.arvore.ArvoreListener;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.PanelBorder;
 import br.com.arvore.comp.ScrollPane;
@@ -120,20 +120,5 @@ public class FicharioAba extends PanelBorder {
 		public void localizacao(int i) {
 			Constantes.DIV_ARVORE_TABELA = i;
 		}
-	}
-}
-
-class Popup extends JPopupMenu {
-	private static final long serialVersionUID = 1L;
-	final MenuItem itemAtualizar = new MenuItem("label.atualizar", Icones.ATUALIZAR);
-	final MenuItem itemDestacar = new MenuItem("label.destacar", Icones.DESCONECTA);
-	final MenuItem itemDelete = new MenuItem("label.delete", Icones.EXCLUIR);
-
-	public Popup() {
-		add(itemAtualizar);
-		addSeparator();
-		add(itemDestacar);
-		addSeparator();
-		add(itemDelete);
 	}
 }

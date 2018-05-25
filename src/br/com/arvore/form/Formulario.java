@@ -2,7 +2,6 @@ package br.com.arvore.form;
 
 import java.awt.BorderLayout;
 import java.awt.Window;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -18,9 +17,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.arvore.Arvore;
 import br.com.arvore.banco.Conexao;
-import br.com.arvore.comp.Arvore;
-import br.com.arvore.comp.ArvoreListener;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.SplitPane;
@@ -38,7 +36,7 @@ public class Formulario extends JFrame {
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final SplitPane splitPane = new SplitPane(SplitPane.VERTICAL_SPLIT);
-	private final ListenerArvore listenerArvore = new ListenerArvore();
+	//private final ListenerArvore listenerArvore = new ListenerArvore();
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final Objeto INVALIDO = new Objeto("...");
@@ -59,9 +57,9 @@ public class Formulario extends JFrame {
 		configurar();
 	}
 
-	public ListenerArvore getListenerArvore() {
-		return listenerArvore;
-	}
+//	public ListenerArvore getListenerArvore() {
+//		return listenerArvore;
+//	}
 
 	public void atualizarArvore(Objeto objeto) {
 		fichario.atualizarArvore(objeto);
@@ -167,7 +165,7 @@ public class Formulario extends JFrame {
 		}
 	}
 
-	private class ListenerArvore implements ArvoreListener {
+	/*private class ListenerArvore implements ArvoreListener {
 		@Override
 		public void exibirPopup(Arvore arvore, Objeto selecionado, MouseEvent e) {
 		}
@@ -185,7 +183,7 @@ public class Formulario extends JFrame {
 			controle.clicado(arvore, objeto);
 			controle.selecionarAba(abaSelecionada, abaControleSel);
 		}
-	}
+	}*/
 
 	private void configMenuAparencia() {
 		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();

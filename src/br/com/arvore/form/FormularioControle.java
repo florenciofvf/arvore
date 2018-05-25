@@ -3,7 +3,7 @@ package br.com.arvore.form;
 import java.awt.BorderLayout;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.comp.Arvore;
+import br.com.arvore.arvore.Arvore;
 import br.com.arvore.comp.Button;
 import br.com.arvore.comp.Label;
 import br.com.arvore.comp.PanelBorder;

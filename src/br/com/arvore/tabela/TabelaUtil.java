@@ -18,6 +18,8 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 
 public class TabelaUtil {
+	private TabelaUtil() {
+	}
 
 	public static void ajustar(JTable table, Graphics graphics) {
 		ajustar(table, graphics, Constantes.LARGURA_ICONE_ORDENAR);
