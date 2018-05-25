@@ -36,30 +36,6 @@ public class Container extends PanelBorder {
 		ouvintes.clear();
 	}
 
-	private void notificarSelecionado() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.selecionado(this);
-		}
-	}
-
-	private void notificarAtualizar() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.pedidoAtualizar(this);
-		}
-	}
-
-	private void notificarDestacar() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.pedidoDestacar(this);
-		}
-	}
-
-	private void notificarExcluir() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.pedidoExcluir(this);
-		}
-	}
-
 	private void montarLayout() {
 		add(BorderLayout.CENTER, splitPane);
 		splitPane.setListener(splitPaneListener);
@@ -76,25 +52,25 @@ public class Container extends PanelBorder {
 		}
 
 		@Override
-		public void selecionado(Arvore arvore) {
+		public void selecionadoObjeto(Arvore arvore) {
 			checar(arvore);
 			notificarSelecionado();
 		}
 
 		@Override
-		public void pedidoExcluir(Arvore arvore) {
+		public void pedidoExcluirObjeto(Arvore arvore) {
 			checar(arvore);
 			notificarExcluir();
 		}
 
 		@Override
-		public void pedidoDestacar(Arvore arvore) {
+		public void pedidoDestacarObjeto(Arvore arvore) {
 			checar(arvore);
 			notificarDestacar();
 		}
 
 		@Override
-		public void pedidoAtualizar(Arvore arvore) {
+		public void pedidoAtualizarObjeto(Arvore arvore) {
 			checar(arvore);
 			notificarAtualizar();
 		}
@@ -106,4 +82,28 @@ public class Container extends PanelBorder {
 			Constantes.DIV_ARVORE_TABELA = i;
 		}
 	};
+
+	private void notificarSelecionado() {
+		for (ContainerListener ouvinte : ouvintes) {
+			ouvinte.selecionadoObjeto(this);
+		}
+	}
+
+	private void notificarAtualizar() {
+		for (ContainerListener ouvinte : ouvintes) {
+			ouvinte.pedidoAtualizarObjeto(this);
+		}
+	}
+
+	private void notificarDestacar() {
+		for (ContainerListener ouvinte : ouvintes) {
+			ouvinte.pedidoDestacarObjeto(this);
+		}
+	}
+
+	private void notificarExcluir() {
+		for (ContainerListener ouvinte : ouvintes) {
+			ouvinte.pedidoExcluirObjeto(this);
+		}
+	}
 }

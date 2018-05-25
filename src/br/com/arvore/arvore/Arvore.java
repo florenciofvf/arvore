@@ -52,25 +52,25 @@ public class Arvore extends JTree {
 
 	private void notificarSelecionado() {
 		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.selecionado(this);
+			ouvinte.selecionadoObjeto(this);
 		}
 	}
 
 	private void notificarAtualizar() {
 		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.pedidoAtualizar(this);
+			ouvinte.pedidoAtualizarObjeto(this);
 		}
 	}
 
 	private void notificarDestacar() {
 		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.pedidoDestacar(this);
+			ouvinte.pedidoDestacarObjeto(this);
 		}
 	}
 
 	private void notificarExcluir() {
 		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.pedidoExcluir(this);
+			ouvinte.pedidoExcluirObjeto(this);
 		}
 	}
 
