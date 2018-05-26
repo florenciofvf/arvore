@@ -12,6 +12,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.ObjetoUtil;
 import br.com.arvore.componente.MenuItem;
 import br.com.arvore.componente.Popup;
 import br.com.arvore.renderer.TreeRD;
@@ -91,9 +92,22 @@ public class Arvore extends JTree {
 	public void excluirSelecionado() {
 		Objeto selecionado = getObjetoSelecionado();
 
-		if (selecionado != null) {
-			ArvoreUtil.excluirEstrutura(this, selecionado);
+		if (selecionado == null) {
+			return;
 		}
+
+		ArvoreUtil.excluirEstrutura(this, selecionado);
+	}
+
+	public void inflarSelecionado() throws Exception {
+		Objeto selecionado = getObjetoSelecionado();
+
+		if (selecionado == null) {
+			return;
+		}
+
+		ObjetoUtil.inflar(selecionado);
+		ArvoreUtil.atualizarEstrutura(this, selecionado);
 	}
 
 	private MouseListener mouseListener = new MouseAdapter() {

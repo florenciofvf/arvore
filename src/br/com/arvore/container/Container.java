@@ -4,13 +4,17 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.arvore.Objeto;
 import br.com.arvore.arvore.Arvore;
 import br.com.arvore.arvore.ArvoreListener;
 import br.com.arvore.componente.PanelBorder;
 import br.com.arvore.componente.ScrollPane;
 import br.com.arvore.componente.SplitPane;
 import br.com.arvore.componente.SplitPaneListener;
+import br.com.arvore.modelo.ModeloOrdenacao;
+import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.tabela.Tabela;
+import br.com.arvore.tabela.TabelaUtil;
 import br.com.arvore.util.Constantes;
 
 public class Container extends PanelBorder {
@@ -46,6 +50,15 @@ public class Container extends PanelBorder {
 		splitPane.setLeftComponent(new ScrollPane(arvore));
 		splitPane.setRightComponent(new ScrollPane(tabela));
 		splitPane.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
+	}
+
+	public void exibirRegistros(Objeto objeto) throws Exception {
+		ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
+		ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro, modeloRegistro.getColunasNumero());
+		tabela.limparOuvintes();
+		tabela.adicionarOuvinte(modeloOrdenacao);
+		tabela.setModel(modeloOrdenacao);
+		TabelaUtil.ajustar(tabela, getGraphics());
 	}
 
 	private ArvoreListener arvoreListener = new ArvoreListener() {

@@ -3,6 +3,7 @@ package br.com.arvore.formulario;
 import java.awt.BorderLayout;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.ObjetoUtil;
 import br.com.arvore.componente.Button;
 import br.com.arvore.componente.Label;
 import br.com.arvore.componente.PanelBorder;
@@ -111,111 +112,120 @@ public class Controle extends PanelBorder {
 	private void arvore() {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
-//		if (!textAreaArvore.estaVazio()) {
-//			objeto.setInstrucaoArvore(textAreaArvore.getText());
-//		}
-//
-//		formulario.atualizarArvore(objeto);
+		if (textAreaArvore.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_arvore"));
+			return;
+		}
+
+		selecionado.setInstrucaoArvore(textAreaArvore.getText());
+
+		try {
+			container.getArvore().inflarSelecionado();
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("ATUALIZAR OBJETO", ex, formulario);
+		}
 	}
 
 	private void tabela() {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
-//		if (textAreaTabela.estaVazio()) {
-//			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_tabela"));
-//			return;
-//		}
-//
-//		objeto.setInstrucaoTabela(textAreaTabela.getText());
-//		formulario.criarModeloRegistro(objeto);
+		if (textAreaTabela.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_tabela"));
+			return;
+		}
+
+		selecionado.setInstrucaoTabela(textAreaTabela.getText());
+
+		try {
+			container.exibirRegistros(selecionado);
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("EXIBIR REGISTROS", ex, formulario);
+		}
 	}
 
-	private void insert(/*Objeto objeto*/) {
+	private void insert() {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
-//		if (textAreaInsert.estaVazio()) {
-//			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_insert"));
-//			return;
-//		}
-//
-//		objeto.setInstrucaoInsert(textAreaInsert.getText());
-//
-//		try {
-//			int i = ObjetoUtil.inserirObjeto(objeto);
-//			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
-//
-//			formulario.atualizarArvore(objeto);
-//		} catch (Exception ex) {
-//			Util.stackTraceAndMessage("INSERIR", ex, formulario);
-//		}
+		if (textAreaInsert.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_insert"));
+			return;
+		}
+
+		selecionado.setInstrucaoInsert(textAreaInsert.getText());
+
+		try {
+			int i = ObjetoUtil.inserirObjeto(selecionado);
+			Util.mensagem(formulario, Mensagens.getString("label.inseridos") + " (" + i + ")");
+			container.getArvore().inflarSelecionado();
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("INSERIR OBJETO", ex, formulario);
+		}
 	}
 
-	private void update(/*Objeto objeto*/) {
+	private void update() {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
-//		if (textAreaUpdate.estaVazio()) {
-//			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_update"));
-//			return;
-//		}
-//
-//		objeto.setInstrucaoUpdate(textAreaUpdate.getText());
-//
-//		if (!Util.confirmaAtualizacao(formulario)) {
-//			return;
-//		}
-//
-//		try {
-//			int i = ObjetoUtil.atualizarObjetos(objeto);
-//			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
-//
-//			formulario.atualizarArvore(objeto);
-//		} catch (Exception ex) {
-//			Util.stackTraceAndMessage("ATUALIZAR", ex, formulario);
-//		}
+		if (textAreaUpdate.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_update"));
+			return;
+		}
+
+		if (!Util.confirmaAtualizacao(formulario)) {
+			return;
+		}
+
+		selecionado.setInstrucaoUpdate(textAreaUpdate.getText());
+
+		try {
+			int i = ObjetoUtil.atualizarObjetos(selecionado);
+			Util.mensagem(formulario, Mensagens.getString("label.atualizados") + " (" + i + ")");
+			container.getArvore().inflarSelecionado();
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("UPDATE OBJETO", ex, formulario);
+		}
 	}
 
-	private void delete(/*Objeto objeto*/) {
+	private void delete() {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
-//		if (textAreaDelete.estaVazio()) {
-//			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_delete"));
-//			return;
-//		}
-//
-//		objeto.setInstrucaoDelete(textAreaDelete.getText());
-//
-//		if (!Util.confirmaExclusao(formulario)) {
-//			return;
-//		}
-//
-//		try {
-//			int i = ObjetoUtil.excluirObjetos(objeto);
-//			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
-//
-//			formulario.excluirArvore(objeto);
-//		} catch (Exception ex) {
-//			Util.stackTraceAndMessage("EXCLUIR", ex, formulario);
-//		}
+		if (textAreaDelete.estaVazio()) {
+			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_delete"));
+			return;
+		}
+
+		if (!Util.confirmaExclusao(formulario)) {
+			return;
+		}
+
+		selecionado.setInstrucaoDelete(textAreaDelete.getText());
+
+		try {
+			int i = ObjetoUtil.excluirObjetos(selecionado);
+			Util.mensagem(formulario, Mensagens.getString("label.excluidos") + " (" + i + ")");
+			container.getArvore().excluirSelecionado();
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("EXCLUIR OBJETO", ex, formulario);
+		}
 	}
 
 	public void acaoObjeto(Container container, String chaveTitulo) {
@@ -232,7 +242,7 @@ public class Controle extends PanelBorder {
 	public void destacarObjeto(Container container) {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
@@ -254,7 +264,7 @@ public class Controle extends PanelBorder {
 		final int abaSelecionada = ControleUtil.getIndiceAbaAtiva(fichario);
 		final int controleSelTmp = abaControleSel;
 
-		if(selecionado == null) {
+		if (selecionado == null) {
 			return;
 		}
 
@@ -330,7 +340,7 @@ public class Controle extends PanelBorder {
 		}
 
 		controlarBotao();
-		selecionarAba(abaSelecionada, controleSelTmp); 
+		selecionarAba(abaSelecionada, controleSelTmp);
 	}
 
 	private void selecionarAba(int indice, int controle) {
