@@ -14,7 +14,6 @@ import br.com.arvore.Arg;
 import br.com.arvore.Objeto;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.util.Constantes;
-import br.com.arvore.util.ParametroUtil;
 
 public class Persistencia {
 
@@ -71,7 +70,7 @@ public class Persistencia {
 			parametrosSet(instrucao, objeto.getPai(), psmt);
 
 		} else if (Constantes.ESTRATEGIA_PARAMS == Constantes.ESTRATEGIA_SUBSTITUIR) {
-			psmt = conn.prepareStatement(ParametroUtil.substituir(instrucao, objeto.getPai()));
+			psmt = conn.prepareStatement(PersistenciaUtil.substituir(instrucao, objeto.getPai()));
 
 		}
 
@@ -90,7 +89,7 @@ public class Persistencia {
 	}
 
 	private static void parametrosSet(String instrucao, Objeto objetoArgs, PreparedStatement psmt) throws Exception {
-		int[] parametros = ParametroUtil.getIndiceParametros(instrucao);
+		int[] parametros = PersistenciaUtil.getIndiceParametros(instrucao);
 
 		for (int i = 1; i <= parametros.length; i++) {
 			Arg arg = objetoArgs.getArgs()[i - 1];

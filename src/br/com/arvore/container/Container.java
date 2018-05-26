@@ -36,6 +36,10 @@ public class Container extends PanelBorder {
 		ouvintes.clear();
 	}
 
+	public Arvore getArvore() {
+		return arvore;
+	}
+
 	private void montarLayout() {
 		add(BorderLayout.CENTER, splitPane);
 		splitPane.setListener(splitPaneListener);

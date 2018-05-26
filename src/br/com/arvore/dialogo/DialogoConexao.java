@@ -2,7 +2,7 @@ package br.com.arvore.dialogo;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Window;
+import java.awt.Frame;
 
 import javax.swing.Box;
 import javax.swing.JComponent;
@@ -21,8 +21,8 @@ public class DialogoConexao extends Dialogo {
 	private TextField textFieldUsr = new TextField();
 	private TextField textFieldPsw = new TextField();
 
-	public DialogoConexao(Window window) {
-		super(window, 700, 140, Mensagens.getString("label.conexao"), true);
+	public DialogoConexao(Frame frame) {
+		super(frame, 700, 140, Mensagens.getString("label.conexao"), true);
 		montarLayout();
 		setVisible(true);
 		SwingUtilities.invokeLater(() -> toFront());

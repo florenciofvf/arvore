@@ -5,10 +5,9 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-import br.com.arvore.util.ArvoreUtil;
+import br.com.arvore.banco.PersistenciaUtil;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
-import br.com.arvore.util.ParametroUtil;
 import br.com.arvore.util.Util;
 
 public class Objeto {
@@ -119,7 +118,7 @@ public class Objeto {
 				}
 			}
 		} else {
-			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
+			List<Objeto> listagem = ObjetoUtil.getObjetos(this);
 
 			Param param = null;
 
@@ -193,7 +192,7 @@ public class Objeto {
 				}
 			}
 		} else {
-			List<Objeto> listagem = ArvoreUtil.getObjetos(this);
+			List<Objeto> listagem = ObjetoUtil.getObjetos(this);
 
 			Param param = null;
 
@@ -239,16 +238,16 @@ public class Objeto {
 		Param param = new Param();
 
 		param.subTabela = !Util.estaVazio(instrucaoSubTabela);
-		param.ixSubTabela = ParametroUtil.getIndiceParametros(instrucaoSubTabela);
+		param.ixSubTabela = PersistenciaUtil.getIndiceParametros(instrucaoSubTabela);
 
 		param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
-		param.ixSubUpdate = ParametroUtil.getIndiceParametros(instrucaoSubUpdate);
+		param.ixSubUpdate = PersistenciaUtil.getIndiceParametros(instrucaoSubUpdate);
 
 		param.subDelete = !Util.estaVazio(instrucaoSubDelete);
-		param.ixSubDelete = ParametroUtil.getIndiceParametros(instrucaoSubDelete);
+		param.ixSubDelete = PersistenciaUtil.getIndiceParametros(instrucaoSubDelete);
 
 		param.subInsert = !Util.estaVazio(instrucaoSubInsert);
-		param.ixSubInsert = ParametroUtil.getIndiceParametros(instrucaoSubInsert);
+		param.ixSubInsert = PersistenciaUtil.getIndiceParametros(instrucaoSubInsert);
 
 		return param;
 	}
@@ -257,19 +256,19 @@ public class Objeto {
 		obj.setIcone(getSubIcone());
 
 		if (param.subTabela) {
-			obj.setInstrucaoTabela(ParametroUtil.substituir(instrucaoSubTabela, obj, param.ixSubTabela));
+			obj.setInstrucaoTabela(PersistenciaUtil.substituir(instrucaoSubTabela, obj, param.ixSubTabela));
 		}
 
 		if (param.subUpdate) {
-			obj.setInstrucaoUpdate(ParametroUtil.substituir(instrucaoSubUpdate, obj, param.ixSubUpdate));
+			obj.setInstrucaoUpdate(PersistenciaUtil.substituir(instrucaoSubUpdate, obj, param.ixSubUpdate));
 		}
 
 		if (param.subDelete) {
-			obj.setInstrucaoDelete(ParametroUtil.substituir(instrucaoSubDelete, obj, param.ixSubDelete));
+			obj.setInstrucaoDelete(PersistenciaUtil.substituir(instrucaoSubDelete, obj, param.ixSubDelete));
 		}
 
 		if (param.subInsert) {
-			obj.setInstrucaoInsert(ParametroUtil.substituir(instrucaoSubInsert, obj, param.ixSubInsert));
+			obj.setInstrucaoInsert(PersistenciaUtil.substituir(instrucaoSubInsert, obj, param.ixSubInsert));
 		}
 
 		obj.setObservacao(subObservacao);

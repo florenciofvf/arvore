@@ -16,12 +16,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import br.com.arvore.Objeto;
-import br.com.arvore.arvore.Arvore;
 import br.com.arvore.banco.Conexao;
 import br.com.arvore.componente.Menu;
 import br.com.arvore.componente.MenuItem;
 import br.com.arvore.componente.SplitPane;
+import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.fichario.FicharioListener;
@@ -36,41 +35,21 @@ public class Formulario extends JFrame {
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final SplitPane splitPane = new SplitPane(SplitPane.VERTICAL_SPLIT);
-	// private final ListenerArvore listenerArvore = new ListenerArvore();
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
-	private final Objeto INVALIDO = new Objeto("...");
 	private final JMenuBar menuBar = new JMenuBar();
-	private final FormularioControle controle;
+	private final Controle controle;
 	private final Fichario fichario;
-	private int abaSelecionada;
-	private int abaControleSel;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		controle = new FormularioControle(this);
+		controle = new Controle(this);
 		fichario = new Fichario(this);
-		fichario.setListener(new ListenerFichario());
+		fichario.adicionarOuvinte(ficharioListener);
 		setSize(1000, 700);
 		montarLayout();
 		configurar();
-	}
-
-	// public ListenerArvore getListenerArvore() {
-	// return listenerArvore;
-	// }
-
-	public void atualizarArvore(Objeto objeto) {
-		fichario.atualizarArvore(objeto);
-	}
-
-	public void excluirArvore(Objeto objeto) {
-		fichario.excluirArvore(objeto);
-	}
-
-	public void criarModeloRegistro(Objeto objeto) {
-		fichario.criarModeloRegistro(objeto);
 	}
 
 	private void configurar() {
@@ -90,14 +69,14 @@ public class Formulario extends JFrame {
 			public void windowOpened(WindowEvent e) {
 				fichario.abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
 				splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
-				controle.clicado(null, INVALIDO);
+				//controle.clicado(null, INVALIDO);
 			};
 
 			public void windowClosing(WindowEvent e) {
 				try {
 					Conexao.close();
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
 			};
 		});
@@ -105,8 +84,8 @@ public class Formulario extends JFrame {
 		itemFechar.addActionListener(e -> {
 			try {
 				Conexao.close();
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
 			System.exit(0);
 		});
@@ -147,40 +126,37 @@ public class Formulario extends JFrame {
 		setJMenuBar(menuBar);
 	}
 
-	private class ListenerFichario implements FicharioListener {
+	private FicharioListener ficharioListener = new FicharioListener() {
 		@Override
-		public void abaSelecionada(Arvore arvore, Objeto objeto) {
-			if (objeto == null) {
-				objeto = INVALIDO;
-			}
-
-			controle.clicado(arvore, objeto);
+		public void selecionadoObjeto(Container container) {
+			controle.selecionadoObjeto(container);
 		}
 
 		@Override
-		public void arvoreExcluida(Arvore arvore) {
-			if (controle.getArvore() == arvore) {
-				controle.clicado(null, INVALIDO);
-			}
+		public void pedidoExcluirObjeto(Container container) {
+			controle.acaoObjeto(container, "label.delete");
 		}
-	}
 
-	/*
-	 * private class ListenerArvore implements ArvoreListener {
-	 * 
-	 * @Override public void exibirPopup(Arvore arvore, Objeto selecionado,
-	 * MouseEvent e) { }
-	 * 
-	 * @Override public void pedidoExclusao(Arvore arvore, Objeto objeto) {
-	 * controle.pedidoExclusao(arvore, objeto); }
-	 * 
-	 * @Override public void clicado(Arvore arvore, Objeto objeto) {
-	 * abaSelecionada = controle.getAbaSelecionada(); abaControleSel =
-	 * controle.getAbaControleSel();
-	 * 
-	 * controle.clicado(arvore, objeto); controle.selecionarAba(abaSelecionada,
-	 * abaControleSel); } }
-	 */
+		@Override
+		public void pedidoDestacarObjeto(Container container) {
+			controle.destacarObjeto(container);
+		}
+
+		@Override
+		public void pedidoAtualizarObjeto(Container container) {
+			controle.acaoObjeto(container, "label.arvore");
+		}
+
+		@Override
+		public void containerSelecionado(Container container) {
+			controle.selecionadoObjeto(container);
+		}
+
+		@Override
+		public void containerExcluido(Container container) {
+			controle.containerExcluido(container);
+		}
+	};
 
 	private void configMenuAparencia() {
 		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();

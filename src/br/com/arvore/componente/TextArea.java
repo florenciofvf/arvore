@@ -27,6 +27,10 @@ public class TextArea extends JScrollPane {
 		textArea.setText(string);
 	}
 
+	public void insert(int pos, String string) {
+		textArea.insert(string, pos);
+	}
+
 	public boolean estaVazio() {
 		return Util.estaVazio(getText());
 	}

@@ -1,12 +1,14 @@
-package br.com.arvore.util;
+package br.com.arvore;
 
 import java.util.List;
 
-import br.com.arvore.Objeto;
+import br.com.arvore.banco.PersistenciaUtil;
 import br.com.arvore.banco.Persistencia;
+import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Mensagens;
 
-public class ArvoreUtil {
-	private ArvoreUtil() {
+public class ObjetoUtil {
+	private ObjetoUtil() {
 	}
 
 	public static List<Objeto> getObjetos(Objeto objeto) throws Exception {
@@ -35,7 +37,7 @@ public class ArvoreUtil {
 
 	public static void validarDependencia(Objeto objeto) {
 		if (objeto.getPai() == null) {
-			int[] parametros = ParametroUtil.getIndiceParametros(objeto.getInstrucaoArvore());
+			int[] parametros = PersistenciaUtil.getIndiceParametros(objeto.getInstrucaoArvore());
 
 			if (parametros.length > 0) {
 				throw new IllegalStateException(Mensagens.getString("erro.arquivo_dependente"));

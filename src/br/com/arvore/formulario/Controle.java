@@ -2,6 +2,7 @@ package br.com.arvore.formulario;
 
 import java.awt.BorderLayout;
 
+import br.com.arvore.ObjetoUtil;
 import br.com.arvore.Objeto;
 import br.com.arvore.arvore.Arvore;
 import br.com.arvore.componente.Button;
@@ -10,12 +11,13 @@ import br.com.arvore.componente.PanelBorder;
 import br.com.arvore.componente.PanelLeft;
 import br.com.arvore.componente.TabbedPane;
 import br.com.arvore.componente.TextArea;
-import br.com.arvore.util.ArvoreUtil;
+import br.com.arvore.container.Container;
+import br.com.arvore.dialogo.DialogoObjeto;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
-public class FormularioControle extends PanelBorder {
+public class Controle extends PanelBorder {
 	private static final long serialVersionUID = 1L;
 	private final String[][] MATRIZ = { { Mensagens.getString("label.arvore"), Mensagens.getString("label.atualizar") },
 			{ Mensagens.getString("label.tabela"), Mensagens.getString("label.registros") },
@@ -37,18 +39,16 @@ public class FormularioControle extends PanelBorder {
 	private final Button buttonExecutar = new Button();
 	private final Label labelStatus = new Label();
 	private final Formulario formulario;
+	private Container container;
+	private int abaControleSel;
 
 	private final byte ARVORE = 0;
 	private final byte TABELA = 1;
 	private final byte UPDATE = 2;
 	private final byte DELETE = 3;
 	private final byte INSERT = 4;
-	private int abaControleSel;
 
-	private Arvore arvore;
-	private Objeto objeto;
-
-	public FormularioControle(Formulario formulario) {
+	public Controle(Formulario formulario) {
 		this.formulario = formulario;
 		montarLayout();
 		configurar();
@@ -56,22 +56,7 @@ public class FormularioControle extends PanelBorder {
 
 	private void configurar() {
 		buttonExecutar.addActionListener(e -> processar());
-
-		fichario.addChangeListener(e -> controleButton());
-	}
-
-	public int getAbaSelecionada() {
-		return fichario.getSelectedIndex();
-	}
-
-	public int getAbaControleSel() {
-		return abaControleSel;
-	}
-
-	public void selecionarAba(int i, int controle) {
-		if (i > 0 && i < fichario.getTabCount() && controle == abaControleSel) {
-			fichario.setSelectedIndex(i);
-		}
+		fichario.addChangeListener(e -> controlarBotao());
 	}
 
 	private void montarLayout() {
@@ -80,32 +65,22 @@ public class FormularioControle extends PanelBorder {
 		add(BorderLayout.SOUTH, new PanelLeft(buttonExecutar));
 	}
 
-	private void controleButton() {
-		String hint = getHint();
+	private void controlarBotao() {
+		String hint = getHintButton();
 		buttonExecutar.setToolTipText(hint);
 		buttonExecutar.setVisible(hint != null);
 
 		if (buttonExecutar.isVisible()) {
-			int i = fichario.getSelectedIndex();
+			int indice = ControleUtil.getIndiceAbaAtiva(fichario);
 
-			if (i != -1) {
-				buttonExecutar.setIcon(fichario.getIconAt(i));
+			if (indice != -1) {
+				buttonExecutar.setIcon(fichario.getIconAt(indice));
 			}
 		}
 	}
 
-	private String getTituloAbaAtiva() {
-		int i = fichario.getSelectedIndex();
-
-		if (i == -1) {
-			return null;
-		}
-
-		return fichario.getTitleAt(i);
-	}
-
-	private String getHint() {
-		String tituloAtivo = getTituloAbaAtiva();
+	private String getHintButton() {
+		String tituloAtivo = ControleUtil.getTituloAbaAtiva(fichario);
 
 		for (String[] linha : MATRIZ) {
 			if (linha[0].equals(tituloAtivo)) {
@@ -116,9 +91,9 @@ public class FormularioControle extends PanelBorder {
 		return null;
 	}
 
-	private boolean ehAbaAtiva(int indice) {
-		String tituloAtivo = getTituloAbaAtiva();
-		return MATRIZ[indice][0].equals(tituloAtivo);
+	private boolean ehAbaAtiva(int linha) {
+		String tituloAtivo = ControleUtil.getTituloAbaAtiva(fichario);
+		return MATRIZ[linha][0].equals(tituloAtivo);
 	}
 
 	private void processar() {
@@ -160,7 +135,7 @@ public class FormularioControle extends PanelBorder {
 		objeto.setInstrucaoInsert(textAreaInsert.getText());
 
 		try {
-			int i = ArvoreUtil.inserirObjeto(objeto);
+			int i = ObjetoUtil.inserirObjeto(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
 			formulario.atualizarArvore(objeto);
@@ -182,7 +157,7 @@ public class FormularioControle extends PanelBorder {
 		}
 
 		try {
-			int i = ArvoreUtil.excluirObjetos(objeto);
+			int i = ObjetoUtil.excluirObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
 			formulario.excluirArvore(objeto);
@@ -204,7 +179,7 @@ public class FormularioControle extends PanelBorder {
 		}
 
 		try {
-			int i = ArvoreUtil.atualizarObjetos(objeto);
+			int i = ObjetoUtil.atualizarObjetos(objeto);
 			Util.mensagem(formulario, Mensagens.getString("label.sucesso") + " (" + i + ")");
 
 			formulario.atualizarArvore(objeto);
@@ -213,91 +188,124 @@ public class FormularioControle extends PanelBorder {
 		}
 	}
 
-	public void pedidoExclusao(Arvore arvore, Objeto objeto) {
-		clicado(arvore, objeto);
+	public void acaoObjeto(Container container, String chaveTitulo) {
+		selecionadoObjeto(container);
 
-		int i = fichario.indexOfTab(Mensagens.getString("label.delete"));
+		int indice = fichario.indexOfTab(Mensagens.getString(chaveTitulo));
 
-		if (i != -1) {
-			fichario.setSelectedIndex(i);
+		if (indice != -1) {
+			fichario.setSelectedIndex(indice);
+			processar();
 		}
-
-		processar();
 	}
 
-	public void clicado(Arvore arvore, Objeto objeto) {
-		if (objeto.estaVazio() && objeto.isManterVazio()) {
-			labelStatus.setIcon(objeto.getIconeManterVazio());
-		} else {
-			labelStatus.setIcon(objeto.getIcone());
+	public void destacarObjeto(Container container) {
+		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
+
+		if(selecionado == null) {
+			return;
 		}
 
-		labelStatus.setText(arvore == null ? "" : objeto.getTitulo());
-		this.arvore = arvore;
-		this.objeto = objeto;
+		new DialogoObjeto(formulario, selecionado);
+	}
+
+	public void containerExcluido(Container container) {
+		if (this.container == container) {
+			selecionadoObjeto(null);
+		}
+	}
+
+	public void selecionadoObjeto(Container container) {
+		labelStatus.setIcon(null);
+		labelStatus.setText("");
 		fichario.removeAll();
+
+		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
+		final int abaSelecionada = ControleUtil.getIndiceAbaAtiva(fichario);
+		final int controleSelTmp = abaControleSel;
+
+		if(selecionado == null) {
+			return;
+		}
+
+		if (selecionado.estaVazio() && selecionado.isManterVazio()) {
+			labelStatus.setIcon(selecionado.getIconeManterVazio());
+		} else {
+			labelStatus.setIcon(selecionado.getIcone());
+		}
+
+		labelStatus.setText(selecionado.getTitulo());
+		this.container = container;
+
+		textAreaArvore.setText(Util.normalizar(selecionado.getInstrucaoArvore()));
+		textAreaTabela.setText(Util.normalizar(selecionado.getInstrucaoTabela()));
+		textAreaUpdate.setText(Util.normalizar(selecionado.getInstrucaoUpdate()));
+		textAreaDelete.setText(Util.normalizar(selecionado.getInstrucaoDelete()));
+		textAreaInsert.setText(Util.normalizar(selecionado.getInstrucaoInsert()));
+
+		textAreaObserv.setText(Util.normalizar(selecionado.getObservacao()));
+		textAreaComent.setText(Util.normalizar(selecionado.getComentario()));
+		textAreaDescri.setText(Util.normalizar(selecionado.getDescricao()));
+		textAreaAlerta.setText(Util.normalizar(selecionado.getAlerta()));
 
 		abaControleSel = 0;
 
-		textAreaArvore.setText(Util.normalizar(objeto.getInstrucaoArvore()));
-		textAreaTabela.setText(Util.normalizar(objeto.getInstrucaoTabela()));
-		textAreaUpdate.setText(Util.normalizar(objeto.getInstrucaoUpdate()));
-		textAreaDelete.setText(Util.normalizar(objeto.getInstrucaoDelete()));
-		textAreaInsert.setText(Util.normalizar(objeto.getInstrucaoInsert()));
-		textAreaObserv.setText(Util.normalizar(objeto.getObservacao()));
-		textAreaComent.setText(Util.normalizar(objeto.getComentario()));
-		textAreaDescri.setText(Util.normalizar(objeto.getDescricao()));
-		textAreaAlerta.setText(Util.normalizar(objeto.getAlerta()));
-
-		if (!Util.estaVazio(textAreaArvore.getText())) {
+		if (!textAreaArvore.estaVazio()) {
 			fichario.addTab("label.arvore", Icones.ARVORE, textAreaArvore);
 			abaControleSel += 1;
 		}
 
-		if (!Util.estaVazio(textAreaTabela.getText())) {
+		if (!textAreaTabela.estaVazio()) {
 			fichario.addTab("label.tabela", Icones.TABELA, textAreaTabela);
 			abaControleSel += 2;
 		}
 
-		if (!Util.estaVazio(textAreaUpdate.getText())) {
+		if (!textAreaUpdate.estaVazio()) {
 			fichario.addTab("label.update", Icones.UPDATE, textAreaUpdate);
 			abaControleSel += 4;
 		}
 
-		if (!Util.estaVazio(textAreaDelete.getText())) {
+		if (!textAreaDelete.estaVazio()) {
 			fichario.addTab("label.delete", Icones.EXCLUIR, textAreaDelete);
 			abaControleSel += 8;
 		}
 
-		if (!Util.estaVazio(textAreaInsert.getText())) {
+		if (!textAreaInsert.estaVazio()) {
 			fichario.addTab("label.insert", Icones.CRIAR, textAreaInsert);
 			abaControleSel += 16;
 		}
 
-		if (!Util.estaVazio(textAreaObserv.getText())) {
+		if (!textAreaObserv.estaVazio()) {
 			fichario.addTab("label.observacao", Icones.OBSERVACAO, textAreaObserv);
+			textAreaObserv.insert(0, " ");
 			abaControleSel += 32;
 		}
 
-		if (!Util.estaVazio(textAreaDescri.getText())) {
+		if (!textAreaDescri.estaVazio()) {
 			fichario.addTab("label.descricao", Icones.INFO, textAreaDescri);
+			textAreaDescri.insert(0, " ");
 			abaControleSel += 64;
 		}
 
-		if (!Util.estaVazio(textAreaComent.getText())) {
+		if (!textAreaComent.estaVazio()) {
 			fichario.addTab("label.comentario", Icones.COMENTARIO, textAreaComent);
+			textAreaComent.insert(0, " ");
 			abaControleSel += 128;
 		}
 
-		if (!Util.estaVazio(textAreaAlerta.getText())) {
+		if (!textAreaAlerta.estaVazio()) {
 			fichario.addTab("label.alerta", Icones.ALERTA, textAreaAlerta);
+			textAreaAlerta.insert(0, " ");
 			abaControleSel += 256;
 		}
 
-		controleButton();
+		controlarBotao();
+		selecionarAba(abaSelecionada, controleSelTmp); 
 	}
 
-	public Arvore getArvore() {
-		return arvore;
+	private void selecionarAba(int indice, int controle) {
+		if (indice > 0 && indice < fichario.getTabCount() && controle == abaControleSel) {
+			fichario.setSelectedIndex(indice);
+		}
 	}
 }

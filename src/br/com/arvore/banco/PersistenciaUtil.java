@@ -1,10 +1,10 @@
-package br.com.arvore.util;
+package br.com.arvore.banco;
 
 import br.com.arvore.Arg;
 import br.com.arvore.Objeto;
 
-public class ParametroUtil {
-	private ParametroUtil() {
+public class PersistenciaUtil {
+	private PersistenciaUtil() {
 	}
 
 	public static int[] getIndiceParametros(String s) {

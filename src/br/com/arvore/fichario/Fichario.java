@@ -4,22 +4,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTabbedPane;
-
+import br.com.arvore.ObjetoUtil;
 import br.com.arvore.Objeto;
 import br.com.arvore.arvore.Arvore;
+import br.com.arvore.componente.TabbedPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
-import br.com.arvore.util.ArvoreUtil;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 import br.com.arvore.xml.XML;
 
-public class Fichario extends JTabbedPane {
+public class Fichario extends TabbedPane {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
 	private final Formulario formulario;
@@ -94,12 +93,12 @@ public class Fichario extends JTabbedPane {
 	private void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
 		objeto = objeto.clonar();
 
-		ArvoreUtil.inflar(objeto);
+		ObjetoUtil.inflar(objeto);
 
 		Arvore arvore = new Arvore(new ModeloArvore(objeto));
 		Container container = new Container(arvore);
 		container.adicionarOuvinte(containerListener);
-		addTab(Mensagens.getString(chaveTitulo), container);
+		addTab(chaveTitulo, container);
 
 		Titulo titulo = new Titulo(this, clonar);
 		titulo.adicionarOuvinte(tituloListener);
