@@ -12,6 +12,8 @@ import br.com.arvore.componente.TabbedPane;
 import br.com.arvore.componente.TextArea;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoObjeto;
+import br.com.arvore.modelo.ModeloOrdenacao;
+import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
@@ -341,6 +343,17 @@ public class Controle extends PanelBorder {
 
 		controlarBotao();
 		selecionarAba(abaSelecionada, controleSelTmp);
+
+		if (Constantes.INFLAR_DESATIVADO) {
+			return;
+		}
+
+		if (selecionado.isPesquisaPopup() || textAreaTabela.estaVazio()) {
+			container.getTabela().setModel(new ModeloOrdenacao());
+			return;
+		}
+
+		tabela();
 	}
 
 	private void selecionarAba(int indice, int controle) {

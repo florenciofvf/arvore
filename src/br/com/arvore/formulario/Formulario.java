@@ -69,7 +69,7 @@ public class Formulario extends JFrame {
 			public void windowOpened(WindowEvent e) {
 				fichario.abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
 				splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
-				// controle.clicado(null, INVALIDO);
+				controle.selecionadoObjeto(null);
 			};
 
 			public void windowClosing(WindowEvent e) {

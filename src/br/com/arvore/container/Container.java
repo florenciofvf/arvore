@@ -44,6 +44,10 @@ public class Container extends PanelBorder {
 		return arvore;
 	}
 
+	public Tabela getTabela() {
+		return tabela;
+	}
+
 	private void montarLayout() {
 		add(BorderLayout.CENTER, splitPane);
 		splitPane.setListener(splitPaneListener);
