@@ -258,13 +258,13 @@ public class Controle extends PanelBorder {
 	}
 
 	public void selecionadoObjeto(Container container) {
-		labelStatus.setIcon(null);
-		labelStatus.setText("");
-		fichario.removeAll();
-
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 		final int abaSelecionada = ControleUtil.getIndiceAbaAtiva(fichario);
 		final int controleSelTmp = abaControleSel;
+
+		labelStatus.setIcon(null);
+		labelStatus.setText("");
+		fichario.removeAll();
 
 		if (selecionado == null) {
 			return;
