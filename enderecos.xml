@@ -2,9 +2,9 @@
 
 <objeto titulo="Endereços" icone="home">
 	<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco WHERE id_candidato = ?</arvore>
+	<insert>INSERT INTO endereco(id_candidato, logradouro) VALUES(1, 'LOGRADOURO')</insert>
+	<sub-update>UPDATE endereco SET id_candidato = 1 WHERE id = 1</sub-update>
 	<tabela>SELECT * FROM endereco WHERE id_candidato = ?</tabela>
 	<sub-tabela>SELECT * FROM endereco WHERE id = ?</sub-tabela>
-	<sub-update>UPDATE endereco SET id_candidato = 1 WHERE id = 1</sub-update>
 	<delete>DELETE FROM endereco WHERE id_candidato = ?</delete>
-	<insert>INSERT INTO endereco(id_candidato, logradouro) VALUES(1, 'LOGRADOURO')</insert>
 </objeto>

@@ -225,6 +225,7 @@ public class Controle extends PanelBorder {
 			int i = ObjetoUtil.excluirObjetos(selecionado);
 			Util.mensagem(formulario, Mensagens.getString("label.excluidos") + " (" + i + ")");
 			container.getArvore().excluirSelecionado();
+			selecionadoObjeto(container);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("DELETE OBJETO", ex, formulario);
 		}
