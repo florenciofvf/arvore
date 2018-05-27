@@ -6,12 +6,10 @@ import java.util.List;
 
 import br.com.arvore.ObjetoUtil;
 import br.com.arvore.Objeto;
-import br.com.arvore.arvore.Arvore;
 import br.com.arvore.componente.TabbedPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
 import br.com.arvore.formulario.Formulario;
-import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
 import br.com.arvore.util.Mensagens;
@@ -34,16 +32,12 @@ public class Fichario extends TabbedPane {
 		ouvintes.add(listener);
 	}
 
-	public void limparOuvintes() {
-		ouvintes.clear();
-	}
-
 	private void abaSelecionada() {
 		int indice = getSelectedIndex();
 
 		if (indice != -1) {
 			Container container = (Container) getComponentAt(indice);
-			notificarContainerSelecionado(container);
+			ouvintes.forEach(o -> o.containerSelecionado(container));
 		}
 	}
 
@@ -90,13 +84,16 @@ public class Fichario extends TabbedPane {
 		}
 	}
 
+	private void notificarContainerExcluido(Container container) {
+		ouvintes.forEach(o -> o.containerExcluido(container));
+	}
+
 	private void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
 		objeto = objeto.clonar();
 
 		ObjetoUtil.inflar(objeto);
 
-		Arvore arvore = new Arvore(new ModeloArvore(objeto));
-		Container container = new Container(arvore);
+		Container container = new Container(objeto);
 		container.adicionarOuvinte(containerListener);
 		addTab(chaveTitulo, container);
 
@@ -126,58 +123,22 @@ public class Fichario extends TabbedPane {
 	private ContainerListener containerListener = new ContainerListener() {
 		@Override
 		public void selecionadoObjeto(Container container) {
-			notificarSelecionadoObjeto(container);
+			ouvintes.forEach(o -> o.selecionadoObjeto(container));
 		}
 
 		@Override
 		public void pedidoAtualizarObjeto(Container container) {
-			notificarAtualizarObjeto(container);
+			ouvintes.forEach(o -> o.pedidoAtualizarObjeto(container));
 		}
 
 		@Override
 		public void pedidoDestacarObjeto(Container container) {
-			notificarDestacarObjeto(container);
+			ouvintes.forEach(o -> o.pedidoDestacarObjeto(container));
 		}
 
 		@Override
 		public void pedidoExcluirObjeto(Container container) {
-			notificarExcluirObjeto(container);
+			ouvintes.forEach(o -> o.pedidoExcluirObjeto(container));
 		}
 	};
-
-	private void notificarSelecionadoObjeto(Container container) {
-		for (FicharioListener ouvinte : ouvintes) {
-			ouvinte.selecionadoObjeto(container);
-		}
-	}
-
-	private void notificarAtualizarObjeto(Container container) {
-		for (FicharioListener ouvinte : ouvintes) {
-			ouvinte.pedidoAtualizarObjeto(container);
-		}
-	}
-
-	private void notificarDestacarObjeto(Container container) {
-		for (FicharioListener ouvinte : ouvintes) {
-			ouvinte.pedidoDestacarObjeto(container);
-		}
-	}
-
-	private void notificarExcluirObjeto(Container container) {
-		for (FicharioListener ouvinte : ouvintes) {
-			ouvinte.pedidoExcluirObjeto(container);
-		}
-	}
-
-	private void notificarContainerSelecionado(Container container) {
-		for (FicharioListener ouvinte : ouvintes) {
-			ouvinte.containerSelecionado(container);
-		}
-	}
-
-	private void notificarContainerExcluido(Container container) {
-		for (FicharioListener ouvinte : ouvintes) {
-			ouvinte.containerExcluido(container);
-		}
-	}
 }

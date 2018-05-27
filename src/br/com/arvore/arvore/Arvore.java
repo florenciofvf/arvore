@@ -34,45 +34,13 @@ public class Arvore extends JTree {
 		setShowsRootHandles(true);
 		setRootVisible(true);
 
-		arvorePopup.itemAtualizar.addActionListener(e -> notificarAtualizar());
-		arvorePopup.itemDestacar.addActionListener(e -> notificarDestacar());
-		arvorePopup.itemDelete.addActionListener(e -> notificarExcluir());
+		arvorePopup.itemAtualizar.addActionListener(e -> ouvintes.forEach(o -> o.pedidoAtualizarObjeto(this)));
+		arvorePopup.itemDestacar.addActionListener(e -> ouvintes.forEach(o -> o.pedidoDestacarObjeto(this)));
+		arvorePopup.itemDelete.addActionListener(e -> ouvintes.forEach(o -> o.pedidoExcluirObjeto(this)));
 	}
 
 	public void adicionarOuvinte(ArvoreListener listener) {
 		ouvintes.add(listener);
-	}
-
-	public void excluirOuvinte(ArvoreListener listener) {
-		ouvintes.remove(listener);
-	}
-
-	public void limparOuvintes() {
-		ouvintes.clear();
-	}
-
-	private void notificarSelecionado() {
-		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.selecionadoObjeto(this);
-		}
-	}
-
-	private void notificarAtualizar() {
-		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.pedidoAtualizarObjeto(this);
-		}
-	}
-
-	private void notificarDestacar() {
-		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.pedidoDestacarObjeto(this);
-		}
-	}
-
-	private void notificarExcluir() {
-		for (ArvoreListener ouvinte : ouvintes) {
-			ouvinte.pedidoExcluirObjeto(this);
-		}
 	}
 
 	public Objeto getObjetoSelecionado() {
@@ -119,7 +87,7 @@ public class Arvore extends JTree {
 
 			if (selecionado != null && ultimoSelecionado != selecionado) {
 				ultimoSelecionado = selecionado;
-				notificarSelecionado();
+				ouvintes.forEach(o -> o.selecionadoObjeto(Arvore.this));
 			}
 		}
 

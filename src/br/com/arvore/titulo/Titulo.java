@@ -46,22 +46,6 @@ public class Titulo extends Panel {
 		ouvintes.add(listener);
 	}
 
-	public void limparOuvintes() {
-		ouvintes.clear();
-	}
-
-	private void notificarExcluirAba(int indice) {
-		for (TituloListener ouvinte : ouvintes) {
-			ouvinte.excluirAba(indice);
-		}
-	}
-
-	private void notificarClonarAba() {
-		for (TituloListener ouvinte : ouvintes) {
-			ouvinte.clonarAba();
-		}
-	}
-
 	private class Rotulo extends Label {
 		private static final long serialVersionUID = 1L;
 
@@ -105,9 +89,9 @@ public class Titulo extends Panel {
 
 				if (indice != -1) {
 					if (!clonar) {
-						notificarExcluirAba(indice);
+						ouvintes.forEach(o -> o.excluirAba(indice));
 					} else {
-						notificarClonarAba();
+						ouvintes.forEach(TituloListener::clonarAba);
 					}
 				}
 			}

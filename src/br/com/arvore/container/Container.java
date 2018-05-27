@@ -11,6 +11,7 @@ import br.com.arvore.componente.PanelBorder;
 import br.com.arvore.componente.ScrollPane;
 import br.com.arvore.componente.SplitPane;
 import br.com.arvore.componente.SplitPaneListener;
+import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.tabela.Tabela;
@@ -24,20 +25,15 @@ public class Container extends PanelBorder {
 	private final Tabela tabela = new Tabela();
 	private final Arvore arvore;
 
-	public Container(Arvore arvore) {
-		arvore.limparOuvintes();
+	public Container(Objeto objeto) {
+		arvore = new Arvore(new ModeloArvore(objeto));
 		arvore.adicionarOuvinte(arvoreListener);
 		ouvintes = new ArrayList<>();
-		this.arvore = arvore;
 		montarLayout();
 	}
 
 	public void adicionarOuvinte(ContainerListener listener) {
 		ouvintes.add(listener);
-	}
-
-	public void limparOuvintes() {
-		ouvintes.clear();
 	}
 
 	public Arvore getArvore() {
@@ -75,25 +71,25 @@ public class Container extends PanelBorder {
 		@Override
 		public void selecionadoObjeto(Arvore arvore) {
 			checar(arvore);
-			notificarSelecionado();
+			ouvintes.forEach(o -> o.selecionadoObjeto(Container.this));
 		}
 
 		@Override
 		public void pedidoExcluirObjeto(Arvore arvore) {
 			checar(arvore);
-			notificarExcluir();
+			ouvintes.forEach(o -> o.pedidoExcluirObjeto(Container.this));
 		}
 
 		@Override
 		public void pedidoDestacarObjeto(Arvore arvore) {
 			checar(arvore);
-			notificarDestacar();
+			ouvintes.forEach(o -> o.pedidoDestacarObjeto(Container.this));
 		}
 
 		@Override
 		public void pedidoAtualizarObjeto(Arvore arvore) {
 			checar(arvore);
-			notificarAtualizar();
+			ouvintes.forEach(o -> o.pedidoAtualizarObjeto(Container.this));
 		}
 	};
 
@@ -103,28 +99,4 @@ public class Container extends PanelBorder {
 			Constantes.DIV_ARVORE_TABELA = i;
 		}
 	};
-
-	private void notificarSelecionado() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.selecionadoObjeto(this);
-		}
-	}
-
-	private void notificarAtualizar() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.pedidoAtualizarObjeto(this);
-		}
-	}
-
-	private void notificarDestacar() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.pedidoDestacarObjeto(this);
-		}
-	}
-
-	private void notificarExcluir() {
-		for (ContainerListener ouvinte : ouvintes) {
-			ouvinte.pedidoExcluirObjeto(this);
-		}
-	}
 }

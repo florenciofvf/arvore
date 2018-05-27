@@ -36,13 +36,13 @@ public class Tabela extends JTable {
 		tableHeader.addMouseListener(headerListener);
 
 		popupHeader.itemCopiar.addActionListener(e -> {
-			List<String> resp = TabelaUtil.getValoresColuna(Tabela.this, popupHeader.getTag());
-			Util.setContentTransfered(Util.getStringLista(resp, false));
+			List<String> lista = TabelaUtil.getValoresColuna(Tabela.this, popupHeader.getTag());
+			Util.setContentTransfered(Util.getStringLista(lista, false));
 		});
 
 		popupHeader.itemCopiarComAspas.addActionListener(e -> {
-			List<String> resp = TabelaUtil.getValoresColuna(Tabela.this, popupHeader.getTag());
-			Util.setContentTransfered(Util.getStringLista(resp, true));
+			List<String> lista = TabelaUtil.getValoresColuna(Tabela.this, popupHeader.getTag());
+			Util.setContentTransfered(Util.getStringLista(lista, true));
 		});
 	}
 
@@ -52,12 +52,6 @@ public class Tabela extends JTable {
 
 	public void limparOuvintes() {
 		ouvintes.clear();
-	}
-
-	private void notificarOrdenacaoColuna(TableColumn tableColumn, int modelColuna) {
-		for (TabelaListener listener : ouvintes) {
-			listener.ordenarColuna(tableColumn, descendente, modelColuna);
-		}
 	}
 
 	@Override
@@ -113,7 +107,7 @@ public class Tabela extends JTable {
 					tableColumn.setPreferredWidth(largura);
 				}
 
-				notificarOrdenacaoColuna(tableColumn, modelColuna);
+				ouvintes.forEach(o -> o.ordenarColuna(tableColumn, descendente, modelColuna));
 			}
 		}
 	};
