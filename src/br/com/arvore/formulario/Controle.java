@@ -260,6 +260,7 @@ public class Controle extends PanelBorder {
 		final int abaSelecionada = ControleUtil.getIndiceAbaAtiva(fichario);
 		final int controleSelTmp = abaControleSel;
 
+		buttonExecutar.setVisible(false);
 		labelStatus.setIcon(null);
 		labelStatus.setText("");
 		fichario.removeAll();
