@@ -85,7 +85,7 @@ public class Formulario extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
 				fichario.abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
-				splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
+				splitPane.setDividerLocation(0.78);
 				controle.selecionadoObjeto(null);
 			};
 

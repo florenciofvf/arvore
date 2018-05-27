@@ -68,7 +68,7 @@ public class Controle extends PanelBorder {
 
 	private void controleButton() {
 		String hint = getHintButton();
-		buttonExecutar.setToolTipText(hint);
+		buttonExecutar.setText(hint);
 		buttonExecutar.setVisible(hint != null && !Constantes.INFLAR_DESATIVADO);
 
 		if (buttonExecutar.isVisible()) {
