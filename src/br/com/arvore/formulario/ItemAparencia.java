@@ -1,13 +1,13 @@
 package br.com.arvore.formulario;
 
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import br.com.arvore.componente.RadioButtonMenuItem;
 import br.com.arvore.util.Util;
 
-public class ItemAparencia extends JRadioButtonMenuItem {
+public class ItemAparencia extends RadioButtonMenuItem {
 	private static final long serialVersionUID = 1L;
 	private final String classe;
 
