@@ -57,7 +57,7 @@ public class Controle extends PanelBorder {
 
 	private void configurar() {
 		buttonExecutar.addActionListener(e -> processar());
-		fichario.addChangeListener(e -> controlarBotao());
+		fichario.addChangeListener(e -> controleButton());
 	}
 
 	private void montarLayout() {
@@ -66,7 +66,7 @@ public class Controle extends PanelBorder {
 		add(BorderLayout.SOUTH, new PanelLeft(buttonExecutar));
 	}
 
-	private void controlarBotao() {
+	private void controleButton() {
 		String hint = getHintButton();
 		buttonExecutar.setToolTipText(hint);
 		buttonExecutar.setVisible(hint != null);
@@ -172,7 +172,7 @@ public class Controle extends PanelBorder {
 			Util.mensagem(formulario, Mensagens.getString("label.inseridos") + " (" + i + ")");
 			container.getArvore().inflarSelecionado();
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("INSERIR OBJETO", ex, formulario);
+			Util.stackTraceAndMessage("INSERT OBJETO", ex, formulario);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class Controle extends PanelBorder {
 			Util.mensagem(formulario, Mensagens.getString("label.excluidos") + " (" + i + ")");
 			container.getArvore().excluirSelecionado();
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("EXCLUIR OBJETO", ex, formulario);
+			Util.stackTraceAndMessage("DELETE OBJETO", ex, formulario);
 		}
 	}
 
@@ -341,7 +341,7 @@ public class Controle extends PanelBorder {
 			abaControleSel += 256;
 		}
 
-		controlarBotao();
+		controleButton();
 		selecionarAba(abaSelecionada, controleSelTmp);
 
 		if (Constantes.INFLAR_DESATIVADO) {
