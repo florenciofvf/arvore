@@ -61,14 +61,15 @@ public class Controle extends PanelBorder {
 	}
 
 	private void montarLayout() {
-		add(BorderLayout.NORTH, labelStatus);
 		add(BorderLayout.CENTER, fichario);
+		add(BorderLayout.NORTH, new PanelLeft(labelStatus));
 		add(BorderLayout.SOUTH, new PanelLeft(buttonExecutar));
 	}
 
 	private void controleButton() {
 		String hint = getHintButton();
 		buttonExecutar.setText(hint);
+		buttonExecutar.setToolTipText(hint);
 		buttonExecutar.setVisible(hint != null && !Constantes.INFLAR_DESATIVADO);
 
 		if (buttonExecutar.isVisible()) {
