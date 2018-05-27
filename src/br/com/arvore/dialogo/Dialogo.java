@@ -5,8 +5,8 @@ import java.awt.Frame;
 
 import javax.swing.JDialog;
 
-import br.com.arvore.componente.Button;
-import br.com.arvore.componente.PanelCenter;
+import br.com.arvore.compnte.Button;
+import br.com.arvore.compnte.PanelCenter;
 import br.com.arvore.util.Util;
 
 public abstract class Dialogo extends JDialog {

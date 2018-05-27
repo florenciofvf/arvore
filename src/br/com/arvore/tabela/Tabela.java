@@ -12,8 +12,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-import br.com.arvore.componente.MenuItem;
-import br.com.arvore.componente.Popup;
+import br.com.arvore.compnte.MenuItem;
+import br.com.arvore.compnte.Popup;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.renderer.HeaderRD;
 import br.com.arvore.util.Constantes;

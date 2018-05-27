@@ -15,11 +15,11 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.componente.Menu;
-import br.com.arvore.componente.MenuItem;
-import br.com.arvore.componente.RadioButtonMenuItem;
-import br.com.arvore.componente.SplitPane;
-import br.com.arvore.componente.SplitPaneListener;
+import br.com.arvore.compnte.Menu;
+import br.com.arvore.compnte.MenuItem;
+import br.com.arvore.compnte.RadioButtonMenuItem;
+import br.com.arvore.compnte.SplitPane;
+import br.com.arvore.compnte.SplitPaneListener;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.fichario.Fichario;

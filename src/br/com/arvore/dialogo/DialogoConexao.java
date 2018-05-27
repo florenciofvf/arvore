@@ -9,8 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import br.com.arvore.banco.Conexao;
-import br.com.arvore.componente.Label;
-import br.com.arvore.componente.TextField;
+import br.com.arvore.compnte.Label;
+import br.com.arvore.compnte.TextField;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;

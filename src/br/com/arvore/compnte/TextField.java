@@ -1,4 +1,4 @@
-package br.com.arvore.componente;
+package br.com.arvore.compnte;
 
 import javax.swing.JTextField;
 

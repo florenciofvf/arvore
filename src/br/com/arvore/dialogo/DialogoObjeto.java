@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 import br.com.arvore.ObjetoUtil;
 import br.com.arvore.Objeto;
 import br.com.arvore.arvore.Arvore;
-import br.com.arvore.componente.ScrollPane;
+import br.com.arvore.compnte.ScrollPane;
 import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.util.Util;
 

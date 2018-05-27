@@ -4,12 +4,12 @@ import java.awt.BorderLayout;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.ObjetoUtil;
-import br.com.arvore.componente.Button;
-import br.com.arvore.componente.Label;
-import br.com.arvore.componente.PanelBorder;
-import br.com.arvore.componente.PanelLeft;
-import br.com.arvore.componente.TabbedPane;
-import br.com.arvore.componente.TextArea;
+import br.com.arvore.compnte.Button;
+import br.com.arvore.compnte.Label;
+import br.com.arvore.compnte.PanelBorder;
+import br.com.arvore.compnte.PanelLeft;
+import br.com.arvore.compnte.TabbedPane;
+import br.com.arvore.compnte.TextArea;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoObjeto;
 import br.com.arvore.modelo.ModeloOrdenacao;

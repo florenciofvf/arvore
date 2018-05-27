@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import br.com.arvore.componente.RadioButtonMenuItem;
+import br.com.arvore.compnte.RadioButtonMenuItem;
 import br.com.arvore.util.Util;
 
 public class ItemAparencia extends RadioButtonMenuItem {

@@ -22,7 +22,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import br.com.arvore.componente.TextArea;
+import br.com.arvore.compnte.TextArea;
 
 public class Util {
 	private static final boolean LOG_CONSOLE = false;
