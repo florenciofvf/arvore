@@ -111,7 +111,7 @@ public class Controle extends PanelBorder {
 		}
 	}
 
-	private void arvore() {
+	public void arvore() {
 		final Objeto selecionado = ControleUtil.getObjetoSelecionado(container);
 
 		if (selecionado == null) {
@@ -120,8 +120,6 @@ public class Controle extends PanelBorder {
 
 		if (!textAreaArvore.estaVazio()) {
 			selecionado.setInstrucaoArvore(textAreaArvore.getText());
-//			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_arvore"));
-//			return;
 		}
 
 		try {
@@ -237,9 +235,8 @@ public class Controle extends PanelBorder {
 
 		if (indice != -1) {
 			fichario.setSelectedIndex(indice);
+			processar();
 		}
-
-		processar();
 	}
 
 	public void destacarObjeto(Container container) {

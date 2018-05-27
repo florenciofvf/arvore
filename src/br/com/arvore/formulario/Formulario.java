@@ -128,7 +128,8 @@ public class Formulario extends JFrame {
 
 		@Override
 		public void pedidoAtualizarObjeto(Container container) {
-			controle.acaoObjeto(container, "label.arvore");
+			controle.selecionadoObjeto(container);
+			controle.arvore();
 		}
 
 		@Override
