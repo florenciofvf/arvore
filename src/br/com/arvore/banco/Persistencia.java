@@ -18,6 +18,10 @@ import br.com.arvore.util.Constantes;
 public class Persistencia {
 
 	public static int excluirObjetos(Objeto objeto) throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return 0;
+		}
+
 		Connection conn = Conexao.getConnection();
 		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoDelete());
 
@@ -27,6 +31,10 @@ public class Persistencia {
 	}
 
 	public static int inserirObjeto(Objeto objeto) throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return 0;
+		}
+
 		Connection conn = Conexao.getConnection();
 		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoInsert());
 
@@ -36,6 +44,10 @@ public class Persistencia {
 	}
 
 	public static int atualizarObjetos(Objeto objeto) throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return 0;
+		}
+
 		Connection conn = Conexao.getConnection();
 		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoUpdate());
 
@@ -45,6 +57,10 @@ public class Persistencia {
 	}
 
 	public static List<Objeto> getObjetos(Objeto objeto) throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return new ArrayList<>();
+		}
+
 		Connection conn = Conexao.getConnection();
 		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoArvore());
 
@@ -97,7 +113,7 @@ public class Persistencia {
 		}
 	}
 
-	public static List<Objeto> coletar(ResultSet rs) throws Exception {
+	private static List<Objeto> coletar(ResultSet rs) throws Exception {
 		ResultSetMetaData rsmd = rs.getMetaData();
 		List<Objeto> objetos = new ArrayList<>();
 		int colunas = rsmd.getColumnCount();
@@ -121,6 +137,10 @@ public class Persistencia {
 	}
 
 	public static ModeloRegistro criarModeloRegistro(Objeto objeto) throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return ModeloRegistro.criarModeloRegistroVazio();
+		}
+
 		Connection conn = Conexao.getConnection();
 		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoTabela());
 

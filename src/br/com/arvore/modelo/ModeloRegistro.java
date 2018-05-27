@@ -1,5 +1,6 @@
 package br.com.arvore.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.event.TableModelListener;
@@ -16,6 +17,13 @@ public class ModeloRegistro implements TableModel {
 	public ModeloRegistro(List<String> colunas, List<List<String>> registros) {
 		REGISTROS = registros;
 		COLUNAS = colunas;
+	}
+
+	public static ModeloRegistro criarModeloRegistroVazio() {
+		ModeloRegistro modelo = new ModeloRegistro(new ArrayList<>(), new ArrayList<>());
+		modelo.colunasNumero = new boolean[0];
+
+		return modelo;
 	}
 
 	public boolean[] getColunasNumero() {
