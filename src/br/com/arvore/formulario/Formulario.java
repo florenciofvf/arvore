@@ -228,11 +228,13 @@ public class Formulario extends JFrame {
 			if (radioItemHorizontal.isSelected()) {
 				organizacao = Constantes.ORGANIZACAO_HORIZONTAL;
 				splitPaneLayout.setOrientation(SplitPane.HORIZONTAL_SPLIT);
+				splitPaneLayout.setDividerLocation(getWidth() / 2);
 			}
 
 			if (radioItemVertical.isSelected()) {
 				organizacao = Constantes.ORGANIZACAO_VERTICAL;
 				splitPaneLayout.setOrientation(SplitPane.VERTICAL_SPLIT);
+				splitPaneLayout.setDividerLocation(getHeight() / 2);
 			}
 		}
 	};
