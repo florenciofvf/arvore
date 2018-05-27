@@ -1,6 +1,8 @@
 package br.com.arvore.formulario;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -12,8 +14,10 @@ import javax.swing.JMenuBar;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import br.com.arvore.Objeto;
 import br.com.arvore.componente.Menu;
 import br.com.arvore.componente.MenuItem;
+import br.com.arvore.componente.RadioButtonMenuItem;
 import br.com.arvore.componente.SplitPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoConexao;
@@ -22,18 +26,26 @@ import br.com.arvore.fichario.FicharioListener;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
+import br.com.arvore.util.Util;
 
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private final RadioButtonMenuItem radioItemHorizontal = new RadioButtonMenuItem("label.horizontal");
+	private final RadioButtonMenuItem radioItemVertical = new RadioButtonMenuItem("label.vertical");
+	private final RadioButtonMenuItem radioItemNormal = new RadioButtonMenuItem("label.normal");
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final SplitPane splitPane = new SplitPane(SplitPane.VERTICAL_SPLIT);
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
+	private final SplitPane splitPaneLayout = new SplitPane();
+	private final Menu menuLayout = new Menu("label.layout");
 	private final JMenuBar menuBar = new JMenuBar();
+	private Fichario ficharioEspelho;
 	private final Fichario fichario;
 	private final Controle controle;
+	private byte organizacao;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
@@ -43,7 +55,25 @@ public class Formulario extends JFrame {
 		fichario.adicionarOuvinte(ficharioListener);
 		setSize(1000, 700);
 		montarLayout();
+		montarMenu();
 		configurar();
+	}
+
+	private void criarFicharioEspelho() {
+		Objeto raiz = fichario.getRaiz();
+
+		if (raiz == null) {
+			return;
+		}
+
+		try {
+			ficharioEspelho = new Fichario(this);
+			ficharioEspelho.adicionarOuvinte(ficharioListener);
+			ficharioEspelho.addAba("label.objetos", raiz, true);
+			ficharioEspelho.setRaiz(raiz);
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, this);
+		}
 	}
 
 	private void configurar() {
@@ -85,6 +115,14 @@ public class Formulario extends JFrame {
 		splitPane.setLeftComponent(fichario);
 		splitPane.setRightComponent(controle);
 		add(BorderLayout.CENTER, splitPane);
+	}
+
+	private void montarMenu() {
+		setJMenuBar(menuBar);
+
+		menuBar.add(menuArquivo);
+		menuBar.add(menuAparencia);
+		menuBar.add(menuLayout);
 
 		menuArquivo.add(itemAbrir);
 		menuArquivo.addSeparator();
@@ -92,11 +130,28 @@ public class Formulario extends JFrame {
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
 
-		menuBar.add(menuArquivo);
-		menuBar.add(menuAparencia);
-
 		configMenuAparencia();
-		setJMenuBar(menuBar);
+
+		menuLayout.add(radioItemNormal);
+		menuLayout.addSeparator();
+		menuLayout.add(radioItemVertical);
+		menuLayout.addSeparator();
+		menuLayout.add(radioItemHorizontal);
+
+		ButtonGroup grupo = new ButtonGroup();
+		grupo.add(radioItemNormal);
+		grupo.add(radioItemVertical);
+		grupo.add(radioItemHorizontal);
+
+		radioItemNormal.addActionListener(layoutListener);
+		radioItemVertical.addActionListener(layoutListener);
+		radioItemHorizontal.addActionListener(layoutListener);
+	}
+
+	public void organizacaoNormal() {
+		organizacao = Constantes.ORGANIZACAO_NORMAL;
+		radioItemNormal.setSelected(true);
+		ficharioEspelho = null;
 	}
 
 	private void configMenuAparencia() {
@@ -140,6 +195,45 @@ public class Formulario extends JFrame {
 		@Override
 		public void containerExcluido(Container container) {
 			controle.containerExcluido(container);
+		}
+	};
+
+	private ActionListener layoutListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (radioItemHorizontal.isSelected() || radioItemVertical.isSelected()) {
+				if (ficharioEspelho == null) {
+					criarFicharioEspelho();
+				}
+
+				if (ficharioEspelho == null) {
+					return;
+				}
+
+				if (organizacao == Constantes.ORGANIZACAO_NORMAL) {
+					splitPaneLayout.setLeftComponent(fichario);
+					splitPaneLayout.setRightComponent(ficharioEspelho);
+					splitPane.setLeftComponent(splitPaneLayout);
+				}
+			}
+
+			if (radioItemNormal.isSelected()) {
+				if (organizacao == Constantes.ORGANIZACAO_HORIZONTAL
+						|| organizacao == Constantes.ORGANIZACAO_VERTICAL) {
+					organizacao = Constantes.ORGANIZACAO_NORMAL;
+					splitPane.setLeftComponent(fichario);
+				}
+			}
+
+			if (radioItemHorizontal.isSelected()) {
+				organizacao = Constantes.ORGANIZACAO_HORIZONTAL;
+				splitPaneLayout.setOrientation(SplitPane.HORIZONTAL_SPLIT);
+			}
+
+			if (radioItemVertical.isSelected()) {
+				organizacao = Constantes.ORGANIZACAO_VERTICAL;
+				splitPaneLayout.setOrientation(SplitPane.VERTICAL_SPLIT);
+			}
 		}
 	};
 }

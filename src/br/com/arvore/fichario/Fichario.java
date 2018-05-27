@@ -32,6 +32,14 @@ public class Fichario extends TabbedPane {
 		ouvintes.add(listener);
 	}
 
+	public void setRaiz(Objeto raiz) {
+		this.raiz = raiz;
+	}
+
+	public Objeto getRaiz() {
+		return raiz;
+	}
+
 	private void abaSelecionada() {
 		int indice = getSelectedIndex();
 
@@ -71,6 +79,7 @@ public class Fichario extends TabbedPane {
 				raiz = XML.processar(file);
 				addAba("label.objetos", raiz, true);
 				formulario.setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
+				formulario.organizacaoNormal();
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, formulario);
 			}
@@ -89,7 +98,7 @@ public class Fichario extends TabbedPane {
 		ouvintes.forEach(o -> o.containerExcluido(container));
 	}
 
-	private void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
+	public void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
 		objeto = objeto.clonar();
 
 		ObjetoUtil.inflar(objeto);
