@@ -17,7 +17,8 @@ public class FormularioUtil {
 				Method method = classe.getMethod("setWindowCanFullScreen", Window.class, Boolean.TYPE);
 				method.invoke(classe, formulario, true);
 			} catch (Exception ex) {
-				Util.stackTraceAndMessage(formulario.getClass().getName() + ".setWindowCanFullScreen()", ex, formulario);
+				Util.stackTraceAndMessage(formulario.getClass().getName() + ".setWindowCanFullScreen()", ex,
+						formulario);
 			}
 		}
 	}

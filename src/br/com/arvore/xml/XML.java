@@ -66,24 +66,29 @@ class XMLHandler extends DefaultHandler {
 		}
 	}
 
+	private void setAtributos(Objeto objeto, Attributes attributes) {
+		String iconeManterVazio = attributes.getValue(Constantes.ICONE_MANTER_VAZIO);
+		String pesquisaPopup = attributes.getValue(Constantes.PESQUISA_POPUP);
+		String desabilitado = attributes.getValue(Constantes.DESABILITADO);
+		String manterVazio = attributes.getValue(Constantes.MANTER_VAZIO);
+		String subIcone = attributes.getValue(Constantes.SUB_ICONE);
+		String icone = attributes.getValue(Constantes.ICONE);
+
+		objeto.setPesquisaPopup(Boolean.parseBoolean(pesquisaPopup));
+		objeto.setDesabilitado(Boolean.parseBoolean(desabilitado));
+		objeto.setManterVazio(Boolean.parseBoolean(manterVazio));
+		objeto.setNomeIconeManterVazio(iconeManterVazio);
+		objeto.setNomeSubIcone(subIcone);
+		objeto.setNomeIcone(icone);
+	}
+
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (Constantes.OBJETO.equals(qName)) {
-			String iconeManterVazio = attributes.getValue(Constantes.ICONE_MANTER_VAZIO);
-			String pesquisaPopup = attributes.getValue(Constantes.PESQUISA_POPUP);
-			String desabilitado = attributes.getValue(Constantes.DESABILITADO);
-			String manterVazio = attributes.getValue(Constantes.MANTER_VAZIO);
-			String subIcone = attributes.getValue(Constantes.SUB_ICONE);
 			String titulo = attributes.getValue(Constantes.TITULO);
-			String icone = attributes.getValue(Constantes.ICONE);
 
 			Objeto objeto = new Objeto(titulo);
-			objeto.setPesquisaPopup(Boolean.parseBoolean(pesquisaPopup));
-			objeto.setDesabilitado(Boolean.parseBoolean(desabilitado));
-			objeto.setManterVazio(Boolean.parseBoolean(manterVazio));
-			objeto.setNomeIconeManterVazio(iconeManterVazio);
-			objeto.setNomeSubIcone(subIcone);
-			objeto.setNomeIcone(icone);
+			setAtributos(objeto, attributes);
 
 			if (raiz == null) {
 				String estrategia = attributes.getValue(Constantes.ESTRATEGIA_PARAMETRO);
