@@ -19,6 +19,7 @@ import br.com.arvore.componente.Menu;
 import br.com.arvore.componente.MenuItem;
 import br.com.arvore.componente.RadioButtonMenuItem;
 import br.com.arvore.componente.SplitPane;
+import br.com.arvore.componente.SplitPaneListener;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.fichario.Fichario;
@@ -111,9 +112,9 @@ public class Formulario extends JFrame {
 
 	private void montarLayout() {
 		setLayout(new BorderLayout());
-
 		splitPane.setLeftComponent(fichario);
 		splitPane.setRightComponent(controle);
+		splitPane.setListener(splitPaneListener);
 		add(BorderLayout.CENTER, splitPane);
 	}
 
@@ -236,6 +237,15 @@ public class Formulario extends JFrame {
 				splitPaneLayout.setOrientation(SplitPane.VERTICAL_SPLIT);
 				splitPaneLayout.setDividerLocation(getHeight() / 2);
 			}
+
+			splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
+		}
+	};
+
+	private SplitPaneListener splitPaneListener = new SplitPaneListener() {
+		@Override
+		public void localizacao(int i) {
+			Constantes.DIV_FICHARIO_CONTROLE = i;
 		}
 	};
 }
