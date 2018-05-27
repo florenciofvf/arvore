@@ -118,12 +118,11 @@ public class Controle extends PanelBorder {
 			return;
 		}
 
-		if (textAreaArvore.estaVazio()) {
-			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_arvore"));
-			return;
+		if (!textAreaArvore.estaVazio()) {
+			selecionado.setInstrucaoArvore(textAreaArvore.getText());
+//			Util.mensagem(formulario, Mensagens.getString("erro.sem_instrucao_arvore"));
+//			return;
 		}
-
-		selecionado.setInstrucaoArvore(textAreaArvore.getText());
 
 		try {
 			container.getArvore().inflarSelecionado();
@@ -238,8 +237,9 @@ public class Controle extends PanelBorder {
 
 		if (indice != -1) {
 			fichario.setSelectedIndex(indice);
-			processar();
 		}
+
+		processar();
 	}
 
 	public void destacarObjeto(Container container) {
