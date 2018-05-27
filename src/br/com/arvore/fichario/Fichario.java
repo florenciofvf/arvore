@@ -81,6 +81,7 @@ public class Fichario extends TabbedPane {
 		while (getTabCount() > 0) {
 			Container container = (Container) getComponentAt(0);
 			notificarContainerExcluido(container);
+			remove(0);
 		}
 	}
 

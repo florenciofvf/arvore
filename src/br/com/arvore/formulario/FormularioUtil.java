@@ -29,6 +29,5 @@ public class FormularioUtil {
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage(formulario.getClass().getName() + ".fechar()", ex, formulario);
 		}
-		formulario.dispose();
 	}
 }
