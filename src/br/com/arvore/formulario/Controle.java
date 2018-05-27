@@ -69,7 +69,7 @@ public class Controle extends PanelBorder {
 	private void controleButton() {
 		String hint = getHintButton();
 		buttonExecutar.setToolTipText(hint);
-		buttonExecutar.setVisible(hint != null);
+		buttonExecutar.setVisible(hint != null && !Constantes.INFLAR_DESATIVADO);
 
 		if (buttonExecutar.isVisible()) {
 			int indice = ControleUtil.getIndiceAbaAtiva(fichario);
@@ -342,10 +342,6 @@ public class Controle extends PanelBorder {
 
 		controleButton();
 		selecionarAba(abaSelecionada, controleSelTmp);
-
-		if (Constantes.INFLAR_DESATIVADO) {
-			return;
-		}
 
 		if (selecionado.isPesquisaPopup() || textAreaTabela.estaVazio()) {
 			container.getTabela().setModel(new ModeloOrdenacao());
