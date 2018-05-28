@@ -1,13 +1,23 @@
 package br.com.arvore.dialogo;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.Frame;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.KeyStroke;
 
 import br.com.arvore.compnte.Button;
 import br.com.arvore.compnte.PanelCenter;
-import br.com.arvore.util.Util;
 
 public abstract class Dialogo extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +38,7 @@ public abstract class Dialogo extends JDialog {
 		setLayout(new BorderLayout());
 		add(BorderLayout.SOUTH, botoes);
 		setLocationRelativeTo(frame);
-		Util.setActionESC(this);
+		setActionESC(this);
 		setTitle(titulo);
 		configurar();
 	}
@@ -39,4 +49,25 @@ public abstract class Dialogo extends JDialog {
 	}
 
 	protected abstract void processar();
+
+	private void setActionESC(JDialog dialog) {
+		JComponent component = (JComponent) dialog.getContentPane();
+
+		InputMap inputMap = component.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "esc");
+
+		Action action = new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				WindowEvent event = new WindowEvent(dialog, WindowEvent.WINDOW_CLOSING);
+				EventQueue systemEventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+				systemEventQueue.postEvent(event);
+			}
+		};
+
+		ActionMap actionMap = component.getActionMap();
+		actionMap.put("esc", action);
+	}
 }

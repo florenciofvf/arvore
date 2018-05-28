@@ -45,6 +45,7 @@ public class DialogoConexao extends Dialogo {
 		Box box = Box.createHorizontalBox();
 
 		Label label = new Label(chaveRotulo);
+		label.setHorizontalAlignment(Label.RIGHT);
 		label.setPreferredSize(new Dimension(70, 0));
 		label.setMinimumSize(new Dimension(70, 0));
 
