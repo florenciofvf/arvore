@@ -1,4 +1,4 @@
-package br.com.arvore.formulario;
+package br.com.arvore.controle;
 
 import java.awt.BorderLayout;
 
@@ -12,6 +12,7 @@ import br.com.arvore.compnte.TabbedPane;
 import br.com.arvore.compnte.TextArea;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoObjeto;
+import br.com.arvore.formulario.Formulario;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;

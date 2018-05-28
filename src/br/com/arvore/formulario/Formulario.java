@@ -21,6 +21,7 @@ import br.com.arvore.compnte.RadioButtonMenuItem;
 import br.com.arvore.compnte.SplitPane;
 import br.com.arvore.compnte.SplitPaneListener;
 import br.com.arvore.container.Container;
+import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.fichario.FicharioListener;

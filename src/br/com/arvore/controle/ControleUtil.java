@@ -1,4 +1,4 @@
-package br.com.arvore.formulario;
+package br.com.arvore.controle;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.compnte.TabbedPane;
