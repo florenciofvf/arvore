@@ -58,6 +58,7 @@ public class Container extends PanelBorder {
 		tabela.limparOuvintes();
 		tabela.adicionarOuvinte(modeloOrdenacao);
 		tabela.setModel(modeloOrdenacao);
+		tabela.restaurarMemento();
 		TabelaUtil.ajustar(tabela, getGraphics());
 	}
 

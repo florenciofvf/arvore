@@ -23,6 +23,7 @@ public class Tabela extends JTable {
 	private static final long serialVersionUID = 1L;
 	private PopupHeader popupHeader = new PopupHeader();
 	private final List<TabelaListener> ouvintes;
+	private MementoOrdenacao mementoOrdenacao;
 	private boolean descendente;
 
 	public Tabela() {
@@ -108,6 +109,7 @@ public class Tabela extends JTable {
 				}
 
 				ouvintes.forEach(o -> o.ordenarColuna(tableColumn, descendente, modelColuna));
+				mementoOrdenacao = new MementoOrdenacao(getColumnName(modelColuna), modelColuna);
 			}
 		}
 	};
@@ -130,6 +132,44 @@ public class Tabela extends JTable {
 
 		public void setTag(int tag) {
 			this.tag = tag;
+		}
+	}
+
+	public void restaurarMemento() {
+		if (mementoOrdenacao != null) {
+			mementoOrdenacao.restaurar();
+		}
+	}
+
+	private class MementoOrdenacao {
+		final String nome;
+		final int coluna;
+
+		MementoOrdenacao(String nome, int coluna) {
+			this.coluna = coluna;
+			this.nome = nome;
+		}
+
+		void restaurar() {
+			TableColumnModel columnModel = getColumnModel();
+
+			if (coluna >= columnModel.getColumnCount()) {
+				return;
+			}
+
+			if (!getColumnName(coluna).equals(nome)) {
+				return;
+			}
+
+			TableColumn tableColumn = columnModel.getColumn(coluna);
+			TableCellRenderer headerRenderer = tableColumn.getHeaderRenderer();
+
+			if (!(headerRenderer instanceof HeaderRD)) {
+				int largura = tableColumn.getPreferredWidth() + Constantes.LARGURA_ICONE_ORDENAR;
+				tableColumn.setPreferredWidth(largura);
+			}
+
+			ouvintes.forEach(o -> o.ordenarColuna(tableColumn, descendente, coluna));
 		}
 	}
 }

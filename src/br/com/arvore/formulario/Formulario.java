@@ -3,6 +3,7 @@ package br.com.arvore.formulario;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -11,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -148,6 +150,8 @@ public class Formulario extends JFrame {
 		radioItemNormal.addActionListener(layoutListener);
 		radioItemVertical.addActionListener(layoutListener);
 		radioItemHorizontal.addActionListener(layoutListener);
+
+		itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
 	}
 
 	public void organizacaoNormal() {
