@@ -9,11 +9,11 @@ public class PanelLeft extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public PanelLeft() {
-		super(new FlowLayout(FlowLayout.LEFT));
+		super(new FlowLayout(FlowLayout.LEFT, 7, 0));
 	}
 
 	public PanelLeft(Component... componentes) {
-		super(new FlowLayout(FlowLayout.LEFT));
+		super(new FlowLayout(FlowLayout.LEFT, 7, 0));
 		adicionar(componentes);
 	}
 
