@@ -81,16 +81,10 @@ public class Arvore extends JTree {
 	}
 
 	private MouseListener mouseListener = new MouseAdapter() {
-		Objeto ultimoSelecionado;
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			Objeto selecionado = getObjetoSelecionado();
-
-			if (selecionado != null && ultimoSelecionado != selecionado) {
-				ultimoSelecionado = selecionado;
-				ouvintes.forEach(o -> o.selecionadoObjeto(Arvore.this));
-			}
+			ouvintes.forEach(o -> o.selecionadoObjeto(Arvore.this));
 		}
 
 		@Override
