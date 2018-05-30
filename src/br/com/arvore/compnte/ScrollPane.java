@@ -2,6 +2,7 @@ package br.com.arvore.compnte;
 
 import java.awt.Component;
 
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 
 public class ScrollPane extends JScrollPane {
@@ -9,5 +10,6 @@ public class ScrollPane extends JScrollPane {
 
 	public ScrollPane(Component view) {
 		super(view);
+		setBorder(BorderFactory.createEmptyBorder());
 	}
 }

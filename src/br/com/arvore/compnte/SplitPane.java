@@ -1,5 +1,6 @@
 package br.com.arvore.compnte;
 
+import javax.swing.BorderFactory;
 import javax.swing.JSplitPane;
 
 public class SplitPane extends JSplitPane {
@@ -25,6 +26,7 @@ public class SplitPane extends JSplitPane {
 	}
 
 	private void cfg() {
+		setBorder(BorderFactory.createEmptyBorder());
 		setOneTouchExpandable(true);
 		setContinuousLayout(true);
 

@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -28,6 +29,7 @@ public class Arvore extends JTree {
 		super(newModel);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		putClientProperty("JTree.lineStyle", "Horizontal");
+		setBorder(BorderFactory.createEmptyBorder());
 		addMouseListener(mouseListener);
 		setCellRenderer(new TreeRD());
 		ouvintes = new ArrayList<>();
