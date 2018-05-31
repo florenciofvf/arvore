@@ -15,5 +15,7 @@
 	<objeto titulo="Auto Relacionamento">
 		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto</arvore>
 		<tabela>SELECT * FROM auto</tabela>
+		<sub-objeto-titulo>Origem</sub-objeto-titulo>
+		<sub-objeto-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</sub-objeto-arvore>
 	</objeto>
 </objeto>

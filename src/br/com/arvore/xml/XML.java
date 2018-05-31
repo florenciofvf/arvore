@@ -31,7 +31,9 @@ public class XML {
 }
 
 class XMLHandler extends DefaultHandler {
-	private final String[][] MATRIZ = { { Constantes.INST_SUB_TABELA, "setInstrucaoSubTabela" },
+	private final String[][] MATRIZ = { { Constantes.INST_SUB_OBJETO_TITULO, "setInstrucaoSubObjetoTitulo" },
+			{ Constantes.INST_SUB_OBJETO_ARVORE, "setInstrucaoSubObjetoArvore" },
+			{ Constantes.INST_SUB_TABELA, "setInstrucaoSubTabela" },
 			{ Constantes.INST_SUB_UPDATE, "setInstrucaoSubUpdate" },
 			{ Constantes.INST_SUB_DELETE, "setInstrucaoSubDelete" },
 			{ Constantes.INST_SUB_INSERT, "setInstrucaoSubInsert" }, { Constantes.SUB_OBSERVACAO, "setSubObservacao" },

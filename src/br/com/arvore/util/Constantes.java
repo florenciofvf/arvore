@@ -2,6 +2,8 @@ package br.com.arvore.util;
 
 public class Constantes {
 	public static final String ESTRATEGIA_PARAMETRO = "estrategia-parametro";
+	public static final String INST_SUB_OBJETO_TITULO = "sub-objeto-titulo";
+	public static final String INST_SUB_OBJETO_ARVORE = "sub-objeto-arvore";
 	public static final String ICONE_MANTER_VAZIO = "icone-manter-vazio";
 	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
 	public static final String NOME_ARQUIVO_PADRAO = "default.xml";

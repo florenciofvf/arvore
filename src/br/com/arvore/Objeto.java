@@ -11,6 +11,8 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
 public class Objeto {
+	private String instrucaoSubObjetoTitulo;
+	private String instrucaoSubObjetoArvore;
 	private String nomeIconeManterVazio;
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
@@ -478,6 +480,22 @@ public class Objeto {
 
 	public String getInstrucaoSubTabela() {
 		return instrucaoSubTabela;
+	}
+
+	public String getInstrucaoSubObjetoArvore() {
+		return instrucaoSubObjetoArvore;
+	}
+
+	public String getInstrucaoSubObjetoTitulo() {
+		return instrucaoSubObjetoTitulo;
+	}
+
+	public void setInstrucaoSubObjetoTitulo(String instrucaoSubObjetoTitulo) {
+		this.instrucaoSubObjetoTitulo = instrucaoSubObjetoTitulo;
+	}
+
+	public void setInstrucaoSubObjetoArvore(String instrucaoSubObjetoArvore) {
+		this.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
 	}
 
 	public void setInstrucaoSubTabela(String instrucaoSubTabela) {
