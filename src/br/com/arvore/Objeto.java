@@ -13,6 +13,7 @@ import br.com.arvore.util.Util;
 public class Objeto {
 	private String instrucaoSubObjetoTitulo;
 	private String instrucaoSubObjetoArvore;
+	private String instrucaoSubObjetoTabela;
 	private String nomeIconeManterVazio;
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
@@ -58,6 +59,7 @@ public class Objeto {
 
 		clone.instrucaoSubObjetoTitulo = instrucaoSubObjetoTitulo;
 		clone.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
+		clone.instrucaoSubObjetoTabela = instrucaoSubObjetoTabela;
 		clone.nomeIconeManterVazio = nomeIconeManterVazio;
 		clone.instrucaoSubTabela = instrucaoSubTabela;
 		clone.instrucaoSubUpdate = instrucaoSubUpdate;
@@ -230,6 +232,9 @@ public class Objeto {
 		boolean subObjetoArvore;
 		int[] ixSubObjetoArvore;
 
+		boolean subObjetoTabela;
+		int[] ixSubObjetoTabela;
+
 		boolean subTabela;
 		int[] ixSubTabela;
 
@@ -247,8 +252,12 @@ public class Objeto {
 		Param param = new Param();
 
 		param.subObjetoTitulo = !Util.estaVazio(instrucaoSubObjetoTitulo);
+
 		param.subObjetoArvore = !Util.estaVazio(instrucaoSubObjetoArvore);
 		param.ixSubObjetoArvore = PersistenciaUtil.getIndiceParametros(instrucaoSubObjetoArvore);
+
+		param.subObjetoTabela = !Util.estaVazio(instrucaoSubObjetoTabela);
+		param.ixSubObjetoTabela = PersistenciaUtil.getIndiceParametros(instrucaoSubObjetoTabela);
 
 		param.subTabela = !Util.estaVazio(instrucaoSubTabela);
 		param.ixSubTabela = PersistenciaUtil.getIndiceParametros(instrucaoSubTabela);
@@ -270,9 +279,13 @@ public class Objeto {
 
 		if (param.subObjetoTitulo) {
 			Objeto auto = new Objeto(instrucaoSubObjetoTitulo);
+
 			auto.setInstrucaoSubObjetoTitulo(instrucaoSubObjetoTitulo);
 			auto.setInstrucaoSubObjetoArvore(instrucaoSubObjetoArvore);
+			auto.setInstrucaoSubObjetoTabela(instrucaoSubObjetoTabela);
+
 			auto.setInstrucaoArvore(instrucaoSubObjetoArvore);
+			auto.setInstrucaoTabela(instrucaoSubObjetoTabela);
 
 			obj.add(auto);
 
@@ -514,6 +527,10 @@ public class Objeto {
 		return instrucaoSubObjetoArvore;
 	}
 
+	public void setInstrucaoSubObjetoArvore(String instrucaoSubObjetoArvore) {
+		this.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
+	}
+
 	public String getInstrucaoSubObjetoTitulo() {
 		return instrucaoSubObjetoTitulo;
 	}
@@ -522,8 +539,12 @@ public class Objeto {
 		this.instrucaoSubObjetoTitulo = instrucaoSubObjetoTitulo;
 	}
 
-	public void setInstrucaoSubObjetoArvore(String instrucaoSubObjetoArvore) {
-		this.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
+	public String getInstrucaoSubObjetoTabela() {
+		return instrucaoSubObjetoTabela;
+	}
+
+	public void setInstrucaoSubObjetoTabela(String instrucaoSubObjetoTabela) {
+		this.instrucaoSubObjetoTabela = instrucaoSubObjetoTabela;
 	}
 
 	public void setInstrucaoSubTabela(String instrucaoSubTabela) {

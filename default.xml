@@ -17,5 +17,6 @@
 		<tabela>SELECT * FROM auto</tabela>
 		<sub-objeto-titulo>Origem</sub-objeto-titulo>
 		<sub-objeto-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</sub-objeto-arvore>
+		<sub-objeto-tabela>SELECT * FROM auto WHERE id_auto = ?</sub-objeto-tabela>
 	</objeto>
 </objeto>
