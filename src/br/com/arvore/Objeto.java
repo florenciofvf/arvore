@@ -56,6 +56,8 @@ public class Objeto {
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
 
+		clone.instrucaoSubObjetoTitulo = instrucaoSubObjetoTitulo;
+		clone.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
 		clone.nomeIconeManterVazio = nomeIconeManterVazio;
 		clone.instrucaoSubTabela = instrucaoSubTabela;
 		clone.instrucaoSubUpdate = instrucaoSubUpdate;
@@ -223,6 +225,11 @@ public class Objeto {
 	}
 
 	class Param {
+		boolean subObjetoTitulo;
+
+		boolean subObjetoArvore;
+		int[] ixSubObjetoArvore;
+
 		boolean subTabela;
 		int[] ixSubTabela;
 
@@ -239,6 +246,10 @@ public class Objeto {
 	Param criarParam() {
 		Param param = new Param();
 
+		param.subObjetoTitulo = !Util.estaVazio(instrucaoSubObjetoTitulo);
+		param.subObjetoArvore = !Util.estaVazio(instrucaoSubObjetoArvore);
+		param.ixSubObjetoArvore = PersistenciaUtil.getIndiceParametros(instrucaoSubObjetoArvore);
+
 		param.subTabela = !Util.estaVazio(instrucaoSubTabela);
 		param.ixSubTabela = PersistenciaUtil.getIndiceParametros(instrucaoSubTabela);
 
@@ -254,8 +265,25 @@ public class Objeto {
 		return param;
 	}
 
-	private void atributosSet(Objeto obj, Param param) {
+	private void atributosSet(Objeto obj, Param param) throws Exception {
 		obj.setIcone(getSubIcone());
+
+		if (param.subObjetoTitulo) {
+			Objeto auto = new Objeto(instrucaoSubObjetoTitulo);
+			auto.setInstrucaoSubObjetoTitulo(instrucaoSubObjetoTitulo);
+			auto.setInstrucaoSubObjetoArvore(instrucaoSubObjetoArvore);
+			auto.setInstrucaoArvore(instrucaoSubObjetoArvore);
+
+			obj.add(auto);
+
+			if (Constantes.INFLAR_ANTECIPADO) {
+				auto.inflar();
+
+				if (auto.estaVazio() && !auto.isManterVazio()) {
+					obj.excluir(auto);
+				}
+			}
+		}
 
 		if (param.subTabela) {
 			obj.setInstrucaoTabela(PersistenciaUtil.substituir(instrucaoSubTabela, obj, param.ixSubTabela));
