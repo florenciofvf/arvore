@@ -11,4 +11,9 @@
 		<sub-tabela>SELECT * FROM endereco WHERE id = ?</sub-tabela>
 		<tabela>SELECT * FROM endereco</tabela>
 	</objeto>
+
+	<objeto titulo="Auto Relacionamento">
+		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto</arvore>
+		<tabela>SELECT * FROM auto</tabela>
+	</objeto>
 </objeto>
