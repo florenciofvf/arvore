@@ -26,7 +26,7 @@ public class DialogoObjeto extends Dialogo {
 		try {
 			ObjetoUtil.inflar(objeto);
 			Arvore arvore = new Arvore(new ModeloArvore(objeto));
-
+			arvore.desabilitarPopup();
 			add(BorderLayout.CENTER, new ScrollPane(arvore));
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("DESTACAR OBJETO", ex, this);

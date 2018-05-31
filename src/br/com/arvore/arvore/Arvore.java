@@ -24,6 +24,7 @@ public class Arvore extends JTree {
 	private static final long serialVersionUID = 1L;
 	private ArvorePopup arvorePopup = new ArvorePopup();
 	private final List<ArvoreListener> ouvintes;
+	private boolean popupDesabilitado;
 
 	public Arvore(TreeModel newModel) {
 		super(newModel);
@@ -104,12 +105,16 @@ public class Arvore extends JTree {
 
 			Objeto selecionado = getObjetoSelecionado();
 
-			if (selecionado != null) {
+			if (selecionado != null && !popupDesabilitado) {
 				arvorePopup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
 				arvorePopup.show(Arvore.this, e.getX(), e.getY());
 			}
 		}
 	};
+
+	public void desabilitarPopup() {
+		popupDesabilitado = true;
+	}
 
 	private class ArvorePopup extends Popup {
 		private static final long serialVersionUID = 1L;
