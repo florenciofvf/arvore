@@ -26,8 +26,8 @@ public class SplitPane extends JSplitPane {
 	}
 
 	private void config() {
-		setBorder(BorderFactory.createEmptyBorder());
-		setOneTouchExpandable(true);
+		//setBorder(BorderFactory.createEmptyBorder());
+		//setOneTouchExpandable(true);
 		setContinuousLayout(true);
 		setDividerSize(5);
 

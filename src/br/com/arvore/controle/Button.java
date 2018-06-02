@@ -122,7 +122,7 @@ public class Button extends JButton {
 
 		g.setColor(Color.BLACK.brighter());
 		int l = getFontMetrics(getFont()).stringWidth(text);
-		g.drawString(text, (width - l) / 2, getFontMetrics(getFont()).getHeight() + 1);
+		g.drawString(text, (width - l) / 2, getFontMetrics(getFont()).getHeight() + 2);
 
 		if (sobre) {
 			g.setColor(COR_SOBRE);
