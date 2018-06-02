@@ -1,4 +1,4 @@
-package br.com.arvore.laf;
+package br.com.arvore.compnte;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
