@@ -22,9 +22,10 @@ public class Button extends JButton {
 	private static final long serialVersionUID = 1L;
 	private final Color COR_NORMAL = new Color(160, 160, 160);
 	private final Color COR_PRESS = new Color(64, 128, 255);
+	private final Color COR_SOBRE = new Color(64, 64, 200);
 	private final byte NORMAL = 0;
 	private final byte PRESS = 1;
-	private final byte SOBRE = 2;
+	private boolean sobre;
 	private byte estado;
 
 	public Button() {
@@ -46,8 +47,16 @@ public class Button extends JButton {
 			repaint();
 		}
 
+		@Override
 		public void mouseExited(MouseEvent e) {
 			estado = NORMAL;
+			sobre = false;
+			repaint();
+		};
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			sobre = true;
 			repaint();
 		};
 	};
@@ -56,8 +65,6 @@ public class Button extends JButton {
 	protected void paintComponent(Graphics g) {
 		if (estado == NORMAL) {
 			fillRect((Graphics2D) g, 0, 0, getWidth(), getHeight(), COR_NORMAL);
-		} else if (estado == SOBRE) {
-
 		} else if (estado == PRESS) {
 			fillRect((Graphics2D) g, 0, 0, getWidth(), getHeight(), COR_PRESS);
 		}
@@ -113,8 +120,13 @@ public class Button extends JButton {
 
 		icon.paintIcon(this, g, 5, 4);
 
-		int l = getFontMetrics(getFont()).stringWidth(text);
 		g.setColor(Color.BLACK.brighter());
-		g.drawString(text, (width - l) / 2, height / 3);
+		int l = getFontMetrics(getFont()).stringWidth(text);
+		g.drawString(text, (width - l) / 2, getFontMetrics(getFont()).getHeight() + 1);
+
+		if (sobre) {
+			g.setColor(COR_SOBRE);
+			g.drawRoundRect(inset, inset, buttonWidth, buttonHeight, raio, raio);
+		}
 	}
 }
