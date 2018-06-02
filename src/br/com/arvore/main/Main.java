@@ -9,14 +9,6 @@ import br.com.arvore.util.Util;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-//		UIDefaults defaults = UIManager.getDefaults();
-//		Enumeration<Object> keys = defaults.keys();
-//		while(keys.hasMoreElements()) {
-//			Object key = keys.nextElement();
-//			Object val = defaults.get(key);
-//			System.out.println(key + " - " + val);
-//		}
-
 		try {
 			if (!Constantes.INFLAR_DESATIVADO) {
 				Conexao.getConnection();
