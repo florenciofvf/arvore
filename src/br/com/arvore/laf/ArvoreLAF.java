@@ -26,6 +26,7 @@ public class ArvoreLAF extends BasicLookAndFeel {
 	protected void initClassDefaults(UIDefaults table) {
 		super.initClassDefaults(table);
 		table.put("ButtonUI", "br.com.arvore.laf.ButtonLAF");
+		table.put("PanelUI", "br.com.arvore.laf.PanelLAF");
 	}
 
 	@Override
