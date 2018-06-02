@@ -118,7 +118,7 @@ public class Button extends JButton {
 			return;
 		}
 
-		icon.paintIcon(this, g, 5, 4);
+		icon.paintIcon(this, g, 10, 5);
 
 		g.setColor(Color.BLACK.brighter());
 		int l = getFontMetrics(getFont()).stringWidth(text);

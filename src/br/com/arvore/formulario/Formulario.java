@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -245,6 +246,7 @@ public class Formulario extends JFrame {
 			}
 
 			splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
+			SwingUtilities.updateComponentTreeUI(splitPane);
 		}
 	};
 

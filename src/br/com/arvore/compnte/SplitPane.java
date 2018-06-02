@@ -9,12 +9,12 @@ public class SplitPane extends JSplitPane {
 
 	public SplitPane() {
 		super();
-		cfg();
+		config();
 	}
 
 	public SplitPane(int newOrientation) {
 		super(newOrientation);
-		cfg();
+		config();
 	}
 
 	public SplitPaneListener getListener() {
@@ -25,10 +25,11 @@ public class SplitPane extends JSplitPane {
 		this.listener = listener;
 	}
 
-	private void cfg() {
+	private void config() {
 		setBorder(BorderFactory.createEmptyBorder());
 		setOneTouchExpandable(true);
 		setContinuousLayout(true);
+		setDividerSize(5);
 
 		addPropertyChangeListener(evt -> {
 			if (listener == null) {
