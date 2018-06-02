@@ -27,6 +27,7 @@ import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.fichario.FicharioListener;
+import br.com.arvore.laf.ArvoreLAF;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
@@ -164,6 +165,10 @@ public class Formulario extends JFrame {
 	private void configMenuAparencia() {
 		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
 		ButtonGroup grupo = new ButtonGroup();
+
+		ItemAparencia item_ = new ItemAparencia(this, new LookAndFeelInfo(ArvoreLAF.NOME, ArvoreLAF.class.getName()));
+		menuAparencia.add(item_);
+		grupo.add(item_);
 
 		for (LookAndFeelInfo info : installedLookAndFeels) {
 			ItemAparencia item = new ItemAparencia(this, info);

@@ -5,7 +5,7 @@ import javax.swing.plaf.basic.BasicLookAndFeel;
 
 public class ArvoreLAF extends BasicLookAndFeel {
 	private static final long serialVersionUID = 1L;
-	private final String NOME = "ArvoreLookAndFeel";
+	public static final String NOME = "Arvore";
 
 	@Override
 	public String getName() {

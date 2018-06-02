@@ -17,8 +17,7 @@ public class Main {
 			Util.stackTraceMessageAndException("Main", ex);
 		}
 
-		//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		UIManager.setLookAndFeel("br.com.arvore.laf.ArvoreLAF");
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 		Formulario formulario = new Formulario();
 		formulario.setLocationRelativeTo(null);
