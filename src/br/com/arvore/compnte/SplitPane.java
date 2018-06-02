@@ -1,6 +1,8 @@
 package br.com.arvore.compnte;
 
-import javax.swing.BorderFactory;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
 import javax.swing.JSplitPane;
 
 public class SplitPane extends JSplitPane {
@@ -17,6 +19,19 @@ public class SplitPane extends JSplitPane {
 		config();
 	}
 
+	@Override
+	protected void paintChildren(Graphics g) {
+		super.paintChildren(g);
+
+		Dimension size = getSize();
+
+		if (orientation == HORIZONTAL_SPLIT) {
+			g.fillRect(getDividerLocation(), 0, dividerSize - 1, getHeight() - 1);
+		} else {
+			g.fillRect(0, getDividerLocation(), size.width - 1, dividerSize - 1);
+		}
+	}
+
 	public SplitPaneListener getListener() {
 		return listener;
 	}
@@ -26,8 +41,8 @@ public class SplitPane extends JSplitPane {
 	}
 
 	private void config() {
-		//setBorder(BorderFactory.createEmptyBorder());
-		//setOneTouchExpandable(true);
+		// setBorder(BorderFactory.createEmptyBorder());
+		setOneTouchExpandable(true);
 		setContinuousLayout(true);
 		setDividerSize(5);
 
