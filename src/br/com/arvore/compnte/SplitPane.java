@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JSplitPane;
 
+import br.com.arvore.util.Constantes;
+
 public class SplitPane extends JSplitPane {
 	private static final long serialVersionUID = 1L;
 	private SplitPaneListener listener;
@@ -22,6 +24,10 @@ public class SplitPane extends JSplitPane {
 	@Override
 	protected void paintChildren(Graphics g) {
 		super.paintChildren(g);
+
+		if (!Constantes.DESENHAR_SPLIT_CONTAINER) {
+			return;
+		}
 
 		Dimension size = getSize();
 
@@ -41,8 +47,7 @@ public class SplitPane extends JSplitPane {
 	}
 
 	private void config() {
-		// setBorder(BorderFactory.createEmptyBorder());
-		setOneTouchExpandable(true);
+		setOneTouchExpandable(!Constantes.DESENHAR_SPLIT_CONTAINER);
 		setContinuousLayout(true);
 		setDividerSize(5);
 
