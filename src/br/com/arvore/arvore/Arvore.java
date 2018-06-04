@@ -106,7 +106,7 @@ public class Arvore extends JTree {
 			Objeto selecionado = getObjetoSelecionado();
 
 			if (selecionado != null && !popupDesabilitado) {
-				arvorePopup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getInstrucaoDelete()));
+				arvorePopup.itemDelete.setEnabled(!Util.estaVazio(selecionado.getGrupoDelete()));
 				arvorePopup.show(Arvore.this, e.getX(), e.getY());
 			}
 		}

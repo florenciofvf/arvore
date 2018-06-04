@@ -37,7 +37,7 @@ public class ObjetoUtil {
 
 	public static void validarDependencia(Objeto objeto) {
 		if (objeto.getPai() == null) {
-			int[] parametros = PersistenciaUtil.getIndiceParametros(objeto.getInstrucaoArvore());
+			int[] parametros = PersistenciaUtil.getIndiceParametros(objeto.getGrupoItensArvore());
 
 			if (parametros.length > 0) {
 				throw new IllegalStateException(Mensagens.getString("erro.arquivo_dependente"));

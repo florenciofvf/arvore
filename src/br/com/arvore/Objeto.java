@@ -11,38 +11,40 @@ import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
 public class Objeto {
-	private String instrucaoSubObjetoTitulo;
-	private String instrucaoSubObjetoArvore;
-	private String instrucaoSubObjetoTabela;
+	private String grupoItensArvore;
+	private String grupoItensTabela;
+	private String grupoComentario;
+	private String grupoObservacao;
+	private String grupoDescricao;
+	private String grupoInsert;
+	private String grupoUpdate;
+	private String grupoDelete;
+	private String grupoAlerta;
+
+	private String itemObjetoTitulo;
+	private String itemObjetoArvore;
+	private String itemObjetoTabela;
+	private String itemComentario;
+	private String itemObservacao;
+	private String itemDescricao;
+	private String itemTabela;
+	private String itemInsert;
+	private String itemUpdate;
+	private String itemDelete;
+	private String itemAlerta;
+
 	private String nomeIconeManterVazio;
 	private final List<Objeto> objetos;
 	private final List<Objeto> nativos;
 	private boolean nativoArmazenados;
-	private String instrucaoSubTabela;
-	private String instrucaoSubUpdate;
-	private String instrucaoSubDelete;
-	private String instrucaoSubInsert;
-	private String instrucaoArvore;
-	private String instrucaoTabela;
-	private String instrucaoUpdate;
-	private String instrucaoDelete;
-	private String instrucaoInsert;
 	private Icon iconeManterVazio;
 	private boolean pesquisaPopup;
-	private String subObservacao;
-	private String subComentario;
+	private String nomeItemIcone;
 	private boolean desabilitado;
-	private String subDescricao;
 	private boolean manterVazio;
 	private final String titulo;
-	private String nomeSubIcone;
-	private String observacao;
-	private String comentario;
-	private String subAlerta;
 	private String nomeIcone;
-	private String descricao;
-	private String alerta;
-	private Icon subIcone;
+	private Icon itemIcone;
 	private Icon icone;
 	private Arg[] args;
 	private Objeto pai;
@@ -57,34 +59,37 @@ public class Objeto {
 	public Objeto clonar() {
 		Objeto clone = new Objeto(titulo);
 
-		clone.instrucaoSubObjetoTitulo = instrucaoSubObjetoTitulo;
-		clone.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
-		clone.instrucaoSubObjetoTabela = instrucaoSubObjetoTabela;
 		clone.nomeIconeManterVazio = nomeIconeManterVazio;
-		clone.instrucaoSubTabela = instrucaoSubTabela;
-		clone.instrucaoSubUpdate = instrucaoSubUpdate;
-		clone.instrucaoSubDelete = instrucaoSubDelete;
-		clone.instrucaoSubInsert = instrucaoSubInsert;
 		clone.iconeManterVazio = iconeManterVazio;
-		clone.instrucaoArvore = instrucaoArvore;
-		clone.instrucaoTabela = instrucaoTabela;
-		clone.instrucaoUpdate = instrucaoUpdate;
-		clone.instrucaoDelete = instrucaoDelete;
-		clone.instrucaoInsert = instrucaoInsert;
-		clone.subObservacao = subObservacao;
-		clone.subComentario = subComentario;
+
+		clone.itemObjetoTitulo = itemObjetoTitulo;
+		clone.itemObjetoArvore = itemObjetoArvore;
+		clone.itemObjetoTabela = itemObjetoTabela;
+		clone.itemComentario = itemComentario;
+		clone.itemObservacao = itemObservacao;
+		clone.itemDescricao = itemDescricao;
+		clone.itemTabela = itemTabela;
+		clone.itemInsert = itemInsert;
+		clone.itemUpdate = itemUpdate;
+		clone.itemDelete = itemDelete;
+		clone.itemAlerta = itemAlerta;
+
+		clone.grupoItensArvore = grupoItensArvore;
+		clone.grupoItensTabela = grupoItensTabela;
+		clone.grupoComentario = grupoComentario;
+		clone.grupoObservacao = grupoObservacao;
+		clone.grupoDescricao = grupoDescricao;
+		clone.grupoInsert = grupoInsert;
+		clone.grupoUpdate = grupoUpdate;
+		clone.grupoDelete = grupoDelete;
+		clone.grupoAlerta = grupoAlerta;
+
 		clone.pesquisaPopup = pesquisaPopup;
-		clone.subDescricao = subDescricao;
+		clone.nomeItemIcone = nomeItemIcone;
 		clone.desabilitado = desabilitado;
-		clone.nomeSubIcone = nomeSubIcone;
 		clone.manterVazio = manterVazio;
-		clone.observacao = observacao;
-		clone.comentario = comentario;
-		clone.subAlerta = subAlerta;
-		clone.descricao = descricao;
 		clone.nomeIcone = nomeIcone;
-		clone.subIcone = subIcone;
-		clone.alerta = alerta;
+		clone.itemIcone = itemIcone;
 		clone.icone = icone;
 
 		for (Objeto obj : objetos) {
@@ -109,7 +114,7 @@ public class Objeto {
 
 		limpar();
 
-		if (Util.estaVazio(instrucaoArvore)) {
+		if (Util.estaVazio(grupoItensArvore)) {
 			for (Objeto obj : nativos) {
 				if (obj.isDesabilitado()) {
 					continue;
@@ -183,7 +188,7 @@ public class Objeto {
 
 		limpar();
 
-		if (Util.estaVazio(instrucaoArvore)) {
+		if (Util.estaVazio(grupoItensArvore)) {
 			for (Objeto obj : nativos) {
 				if (obj.isDesabilitado()) {
 					continue;
@@ -227,65 +232,65 @@ public class Objeto {
 	}
 
 	class Param {
-		boolean subObjetoTitulo;
+		boolean itemObjetoTitulo;
 
-		boolean subObjetoArvore;
-		int[] ixSubObjetoArvore;
+		boolean itemObjetoArvore;
+		int[] ixItemObjetoArvore;
 
-		boolean subObjetoTabela;
-		int[] ixSubObjetoTabela;
+		boolean itemObjetoTabela;
+		int[] ixItemObjetoTabela;
 
-		boolean subTabela;
-		int[] ixSubTabela;
+		boolean itemTabela;
+		int[] ixItemTabela;
 
-		boolean subUpdate;
-		int[] ixSubUpdate;
+		boolean itemInsert;
+		int[] ixItemInsert;
 
-		boolean subDelete;
-		int[] ixSubDelete;
+		boolean itemUpdate;
+		int[] ixItemUpdate;
 
-		boolean subInsert;
-		int[] ixSubInsert;
+		boolean itemDelete;
+		int[] ixItemDelete;
 	}
 
 	Param criarParam() {
 		Param param = new Param();
 
-		param.subObjetoTitulo = !Util.estaVazio(instrucaoSubObjetoTitulo);
+		param.itemObjetoTitulo = !Util.estaVazio(itemObjetoTitulo);
 
-		param.subObjetoArvore = !Util.estaVazio(instrucaoSubObjetoArvore);
-		param.ixSubObjetoArvore = PersistenciaUtil.getIndiceParametros(instrucaoSubObjetoArvore);
+		param.itemObjetoArvore = !Util.estaVazio(itemObjetoArvore);
+		param.ixItemObjetoArvore = PersistenciaUtil.getIndiceParametros(itemObjetoArvore);
 
-		param.subObjetoTabela = !Util.estaVazio(instrucaoSubObjetoTabela);
-		param.ixSubObjetoTabela = PersistenciaUtil.getIndiceParametros(instrucaoSubObjetoTabela);
+		param.itemObjetoTabela = !Util.estaVazio(itemObjetoTabela);
+		param.ixItemObjetoTabela = PersistenciaUtil.getIndiceParametros(itemObjetoTabela);
 
-		param.subTabela = !Util.estaVazio(instrucaoSubTabela);
-		param.ixSubTabela = PersistenciaUtil.getIndiceParametros(instrucaoSubTabela);
+		param.itemTabela = !Util.estaVazio(itemTabela);
+		param.ixItemTabela = PersistenciaUtil.getIndiceParametros(itemTabela);
 
-		param.subUpdate = !Util.estaVazio(instrucaoSubUpdate);
-		param.ixSubUpdate = PersistenciaUtil.getIndiceParametros(instrucaoSubUpdate);
+		param.itemInsert = !Util.estaVazio(itemInsert);
+		param.ixItemInsert = PersistenciaUtil.getIndiceParametros(itemInsert);
 
-		param.subDelete = !Util.estaVazio(instrucaoSubDelete);
-		param.ixSubDelete = PersistenciaUtil.getIndiceParametros(instrucaoSubDelete);
+		param.itemUpdate = !Util.estaVazio(itemUpdate);
+		param.ixItemUpdate = PersistenciaUtil.getIndiceParametros(itemUpdate);
 
-		param.subInsert = !Util.estaVazio(instrucaoSubInsert);
-		param.ixSubInsert = PersistenciaUtil.getIndiceParametros(instrucaoSubInsert);
+		param.itemDelete = !Util.estaVazio(itemDelete);
+		param.ixItemDelete = PersistenciaUtil.getIndiceParametros(itemDelete);
 
 		return param;
 	}
 
 	private void atributosSet(Objeto obj, Param param) throws Exception {
-		obj.setIcone(getSubIcone());
+		obj.setIcone(getItemIcone());
 
-		if (param.subObjetoTitulo) {
-			Objeto auto = new Objeto(instrucaoSubObjetoTitulo);
+		if (param.itemObjetoTitulo) {
+			Objeto auto = new Objeto(itemObjetoTitulo);
 
-			auto.setInstrucaoSubObjetoTitulo(instrucaoSubObjetoTitulo);
-			auto.setInstrucaoSubObjetoArvore(instrucaoSubObjetoArvore);
-			auto.setInstrucaoSubObjetoTabela(instrucaoSubObjetoTabela);
+			auto.setItemObjetoTitulo(itemObjetoTitulo);
+			auto.setItemObjetoArvore(itemObjetoArvore);
+			auto.setItemObjetoTabela(itemObjetoTabela);
 
-			auto.setInstrucaoArvore(instrucaoSubObjetoArvore);
-			auto.setInstrucaoTabela(instrucaoSubObjetoTabela);
+			auto.setGrupoItensArvore(itemObjetoArvore);
+			auto.setGrupoItensTabela(itemObjetoTabela);
 
 			obj.add(auto);
 
@@ -298,26 +303,26 @@ public class Objeto {
 			}
 		}
 
-		if (param.subTabela) {
-			obj.setInstrucaoTabela(PersistenciaUtil.substituir(instrucaoSubTabela, obj, param.ixSubTabela));
+		if (param.itemTabela) {
+			obj.setGrupoItensTabela(PersistenciaUtil.substituir(itemTabela, obj, param.ixItemTabela));
 		}
 
-		if (param.subUpdate) {
-			obj.setInstrucaoUpdate(PersistenciaUtil.substituir(instrucaoSubUpdate, obj, param.ixSubUpdate));
+		if (param.itemInsert) {
+			obj.setGrupoInsert(PersistenciaUtil.substituir(itemInsert, obj, param.ixItemInsert));
 		}
 
-		if (param.subDelete) {
-			obj.setInstrucaoDelete(PersistenciaUtil.substituir(instrucaoSubDelete, obj, param.ixSubDelete));
+		if (param.itemUpdate) {
+			obj.setGrupoUpdate(PersistenciaUtil.substituir(itemUpdate, obj, param.ixItemUpdate));
 		}
 
-		if (param.subInsert) {
-			obj.setInstrucaoInsert(PersistenciaUtil.substituir(instrucaoSubInsert, obj, param.ixSubInsert));
+		if (param.itemDelete) {
+			obj.setGrupoDelete(PersistenciaUtil.substituir(itemDelete, obj, param.ixItemDelete));
 		}
 
-		obj.setObservacao(subObservacao);
-		obj.setComentario(subComentario);
-		obj.setDescricao(subDescricao);
-		obj.setAlerta(subAlerta);
+		obj.setGrupoComentario(itemComentario);
+		obj.setGrupoObservacao(itemObservacao);
+		obj.setGrupoDescricao(itemDescricao);
+		obj.setGrupoAlerta(itemAlerta);
 	}
 
 	public Objeto getPai() {
@@ -332,8 +337,8 @@ public class Objeto {
 		return iconeManterVazio;
 	}
 
-	public Icon getSubIcone() {
-		return subIcone;
+	public Icon getItemIcone() {
+		return itemIcone;
 	}
 
 	public void setIcone(Icon icone) {
@@ -344,8 +349,8 @@ public class Objeto {
 		this.iconeManterVazio = iconeManterVazio;
 	}
 
-	public void setSubIcone(Icon subIcone) {
-		this.subIcone = subIcone;
+	public void setItemIcone(Icon itemIcone) {
+		this.itemIcone = itemIcone;
 	}
 
 	public void setNomeIcone(String nomeIcone) {
@@ -357,13 +362,13 @@ public class Objeto {
 		this.icone = Icones.getIcon(nomeIcone);
 	}
 
-	public void setNomeSubIcone(String nomeSubIcone) {
-		if (Util.estaVazio(nomeSubIcone)) {
-			nomeSubIcone = Constantes.UM_PIXEL;
+	public void setNomeItemIcone(String nomeItemIcone) {
+		if (Util.estaVazio(nomeItemIcone)) {
+			nomeItemIcone = Constantes.UM_PIXEL;
 		}
 
-		this.nomeSubIcone = nomeSubIcone;
-		this.subIcone = Icones.getIcon(nomeSubIcone);
+		this.nomeItemIcone = nomeItemIcone;
+		this.itemIcone = Icones.getIcon(nomeItemIcone);
 	}
 
 	public void setNomeIconeManterVazio(String nomeIconeManterVazio) {
@@ -383,8 +388,8 @@ public class Objeto {
 		return nomeIconeManterVazio;
 	}
 
-	public String getNomeSubIcone() {
-		return nomeSubIcone;
+	public String getNomeItemIcone() {
+		return nomeItemIcone;
 	}
 
 	public List<Objeto> getObjetos() {
@@ -439,46 +444,6 @@ public class Objeto {
 		return objetos.get(indice);
 	}
 
-	public String getInstrucaoArvore() {
-		return instrucaoArvore;
-	}
-
-	public void setInstrucaoArvore(String instrucaoArvore) {
-		this.instrucaoArvore = instrucaoArvore;
-	}
-
-	public String getInstrucaoTabela() {
-		return instrucaoTabela;
-	}
-
-	public void setInstrucaoTabela(String instrucaoTabela) {
-		this.instrucaoTabela = instrucaoTabela;
-	}
-
-	public String getInstrucaoDelete() {
-		return instrucaoDelete;
-	}
-
-	public void setInstrucaoDelete(String instrucaoDelete) {
-		this.instrucaoDelete = instrucaoDelete;
-	}
-
-	public String getInstrucaoUpdate() {
-		return instrucaoUpdate;
-	}
-
-	public void setInstrucaoUpdate(String instrucaoUpdate) {
-		this.instrucaoUpdate = instrucaoUpdate;
-	}
-
-	public String getInstrucaoInsert() {
-		return instrucaoInsert;
-	}
-
-	public void setInstrucaoInsert(String instrucaoInsert) {
-		this.instrucaoInsert = instrucaoInsert;
-	}
-
 	public boolean isDesabilitado() {
 		return desabilitado;
 	}
@@ -503,124 +468,164 @@ public class Objeto {
 		this.pesquisaPopup = pesquisaPopup;
 	}
 
-	public String getObservacao() {
-		return observacao;
+	public String getGrupoItensArvore() {
+		return grupoItensArvore;
 	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
+	public void setGrupoItensArvore(String grupoItensArvore) {
+		this.grupoItensArvore = grupoItensArvore;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getGrupoItensTabela() {
+		return grupoItensTabela;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setGrupoItensTabela(String grupoItensTabela) {
+		this.grupoItensTabela = grupoItensTabela;
 	}
 
-	public String getInstrucaoSubTabela() {
-		return instrucaoSubTabela;
+	public String getGrupoComentario() {
+		return grupoComentario;
 	}
 
-	public String getInstrucaoSubObjetoArvore() {
-		return instrucaoSubObjetoArvore;
+	public void setGrupoComentario(String grupoComentario) {
+		this.grupoComentario = grupoComentario;
 	}
 
-	public void setInstrucaoSubObjetoArvore(String instrucaoSubObjetoArvore) {
-		this.instrucaoSubObjetoArvore = instrucaoSubObjetoArvore;
+	public String getGrupoObservacao() {
+		return grupoObservacao;
 	}
 
-	public String getInstrucaoSubObjetoTitulo() {
-		return instrucaoSubObjetoTitulo;
+	public void setGrupoObservacao(String grupoObservacao) {
+		this.grupoObservacao = grupoObservacao;
 	}
 
-	public void setInstrucaoSubObjetoTitulo(String instrucaoSubObjetoTitulo) {
-		this.instrucaoSubObjetoTitulo = instrucaoSubObjetoTitulo;
+	public String getGrupoDescricao() {
+		return grupoDescricao;
 	}
 
-	public String getInstrucaoSubObjetoTabela() {
-		return instrucaoSubObjetoTabela;
+	public void setGrupoDescricao(String grupoDescricao) {
+		this.grupoDescricao = grupoDescricao;
 	}
 
-	public void setInstrucaoSubObjetoTabela(String instrucaoSubObjetoTabela) {
-		this.instrucaoSubObjetoTabela = instrucaoSubObjetoTabela;
+	public String getGrupoInsert() {
+		return grupoInsert;
 	}
 
-	public void setInstrucaoSubTabela(String instrucaoSubTabela) {
-		this.instrucaoSubTabela = instrucaoSubTabela;
+	public void setGrupoInsert(String grupoInsert) {
+		this.grupoInsert = grupoInsert;
 	}
 
-	public String getInstrucaoSubUpdate() {
-		return instrucaoSubUpdate;
+	public String getGrupoUpdate() {
+		return grupoUpdate;
 	}
 
-	public void setInstrucaoSubUpdate(String instrucaoSubUpdate) {
-		this.instrucaoSubUpdate = instrucaoSubUpdate;
+	public void setGrupoUpdate(String grupoUpdate) {
+		this.grupoUpdate = grupoUpdate;
 	}
 
-	public String getInstrucaoSubDelete() {
-		return instrucaoSubDelete;
+	public String getGrupoDelete() {
+		return grupoDelete;
 	}
 
-	public void setInstrucaoSubDelete(String instrucaoSubDelete) {
-		this.instrucaoSubDelete = instrucaoSubDelete;
+	public void setGrupoDelete(String grupoDelete) {
+		this.grupoDelete = grupoDelete;
 	}
 
-	public String getInstrucaoSubInsert() {
-		return instrucaoSubInsert;
+	public String getGrupoAlerta() {
+		return grupoAlerta;
 	}
 
-	public void setInstrucaoSubInsert(String instrucaoSubInsert) {
-		this.instrucaoSubInsert = instrucaoSubInsert;
+	public void setGrupoAlerta(String grupoAlerta) {
+		this.grupoAlerta = grupoAlerta;
 	}
 
-	public String getSubObservacao() {
-		return subObservacao;
+	public String getItemObjetoTitulo() {
+		return itemObjetoTitulo;
 	}
 
-	public void setSubObservacao(String subObservacao) {
-		this.subObservacao = subObservacao;
+	public void setItemObjetoTitulo(String itemObjetoTitulo) {
+		this.itemObjetoTitulo = itemObjetoTitulo;
 	}
 
-	public String getSubDescricao() {
-		return subDescricao;
+	public String getItemObjetoArvore() {
+		return itemObjetoArvore;
 	}
 
-	public void setSubDescricao(String subDescricao) {
-		this.subDescricao = subDescricao;
+	public void setItemObjetoArvore(String itemObjetoArvore) {
+		this.itemObjetoArvore = itemObjetoArvore;
 	}
 
-	public String getComentario() {
-		return comentario;
+	public String getItemObjetoTabela() {
+		return itemObjetoTabela;
 	}
 
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+	public void setItemObjetoTabela(String itemObjetoTabela) {
+		this.itemObjetoTabela = itemObjetoTabela;
 	}
 
-	public String getAlerta() {
-		return alerta;
+	public String getItemComentario() {
+		return itemComentario;
 	}
 
-	public void setAlerta(String alerta) {
-		this.alerta = alerta;
+	public void setItemComentario(String itemComentario) {
+		this.itemComentario = itemComentario;
 	}
 
-	public String getSubComentario() {
-		return subComentario;
+	public String getItemObservacao() {
+		return itemObservacao;
 	}
 
-	public void setSubComentario(String subComentario) {
-		this.subComentario = subComentario;
+	public void setItemObservacao(String itemObservacao) {
+		this.itemObservacao = itemObservacao;
 	}
 
-	public String getSubAlerta() {
-		return subAlerta;
+	public String getItemDescricao() {
+		return itemDescricao;
 	}
 
-	public void setSubAlerta(String subAlerta) {
-		this.subAlerta = subAlerta;
+	public void setItemDescricao(String itemDescricao) {
+		this.itemDescricao = itemDescricao;
+	}
+
+	public String getItemTabela() {
+		return itemTabela;
+	}
+
+	public void setItemTabela(String itemTabela) {
+		this.itemTabela = itemTabela;
+	}
+
+	public String getItemInsert() {
+		return itemInsert;
+	}
+
+	public void setItemInsert(String itemInsert) {
+		this.itemInsert = itemInsert;
+	}
+
+	public String getItemUpdate() {
+		return itemUpdate;
+	}
+
+	public void setItemUpdate(String itemUpdate) {
+		this.itemUpdate = itemUpdate;
+	}
+
+	public String getItemDelete() {
+		return itemDelete;
+	}
+
+	public void setItemDelete(String itemDelete) {
+		this.itemDelete = itemDelete;
+	}
+
+	public String getItemAlerta() {
+		return itemAlerta;
+	}
+
+	public void setItemAlerta(String itemAlerta) {
+		this.itemAlerta = itemAlerta;
 	}
 
 	@Override

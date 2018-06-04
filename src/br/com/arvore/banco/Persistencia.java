@@ -23,7 +23,7 @@ public class Persistencia {
 		}
 
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoDelete());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getGrupoDelete());
 
 		int i = psmt.executeUpdate();
 		psmt.close();
@@ -36,7 +36,7 @@ public class Persistencia {
 		}
 
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoInsert());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getGrupoInsert());
 
 		int i = psmt.executeUpdate();
 		psmt.close();
@@ -49,7 +49,7 @@ public class Persistencia {
 		}
 
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoUpdate());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getGrupoUpdate());
 
 		int i = psmt.executeUpdate();
 		psmt.close();
@@ -62,7 +62,7 @@ public class Persistencia {
 		}
 
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoArvore());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getGrupoItensArvore());
 
 		ResultSet rs = psmt.executeQuery();
 		List<Objeto> objetos = coletar(rs);
@@ -142,7 +142,7 @@ public class Persistencia {
 		}
 
 		Connection conn = Conexao.getConnection();
-		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getInstrucaoTabela());
+		PreparedStatement psmt = criarPreparedStatement(conn, objeto, objeto.getGrupoItensTabela());
 
 		ResultSet rs = psmt.executeQuery();
 		ModeloRegistro modelo = criarModelo(rs);

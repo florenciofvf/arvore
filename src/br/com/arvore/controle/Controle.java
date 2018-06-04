@@ -120,7 +120,7 @@ public class Controle extends PanelBorder {
 		}
 
 		if (!textAreaArvore.estaVazio()) {
-			selecionado.setInstrucaoArvore(textAreaArvore.getText());
+			selecionado.setGrupoItensArvore(textAreaArvore.getText());
 		}
 
 		try {
@@ -142,7 +142,7 @@ public class Controle extends PanelBorder {
 			return;
 		}
 
-		selecionado.setInstrucaoTabela(textAreaTabela.getText());
+		selecionado.setGrupoItensTabela(textAreaTabela.getText());
 
 		try {
 			container.exibirRegistros(selecionado);
@@ -163,7 +163,7 @@ public class Controle extends PanelBorder {
 			return;
 		}
 
-		selecionado.setInstrucaoInsert(textAreaInsert.getText());
+		selecionado.setGrupoInsert(textAreaInsert.getText());
 
 		try {
 			int i = ObjetoUtil.inserirObjeto(selecionado);
@@ -190,7 +190,7 @@ public class Controle extends PanelBorder {
 			return;
 		}
 
-		selecionado.setInstrucaoUpdate(textAreaUpdate.getText());
+		selecionado.setGrupoUpdate(textAreaUpdate.getText());
 
 		try {
 			int i = ObjetoUtil.atualizarObjetos(selecionado);
@@ -217,7 +217,7 @@ public class Controle extends PanelBorder {
 			return;
 		}
 
-		selecionado.setInstrucaoDelete(textAreaDelete.getText());
+		selecionado.setGrupoDelete(textAreaDelete.getText());
 
 		try {
 			int i = ObjetoUtil.excluirObjetos(selecionado);
@@ -279,16 +279,16 @@ public class Controle extends PanelBorder {
 		labelStatus.setText(selecionado.getTitulo());
 		this.container = container;
 
-		textAreaArvore.setText(Util.normalizar(selecionado.getInstrucaoArvore()));
-		textAreaTabela.setText(Util.normalizar(selecionado.getInstrucaoTabela()));
-		textAreaUpdate.setText(Util.normalizar(selecionado.getInstrucaoUpdate()));
-		textAreaDelete.setText(Util.normalizar(selecionado.getInstrucaoDelete()));
-		textAreaInsert.setText(Util.normalizar(selecionado.getInstrucaoInsert()));
+		textAreaArvore.setText(Util.normalizar(selecionado.getGrupoItensArvore()));
+		textAreaTabela.setText(Util.normalizar(selecionado.getGrupoItensTabela()));
+		textAreaUpdate.setText(Util.normalizar(selecionado.getGrupoUpdate()));
+		textAreaDelete.setText(Util.normalizar(selecionado.getGrupoDelete()));
+		textAreaInsert.setText(Util.normalizar(selecionado.getGrupoInsert()));
 
-		textAreaObserv.setText(Util.normalizar(selecionado.getObservacao()));
-		textAreaComent.setText(Util.normalizar(selecionado.getComentario()));
-		textAreaDescri.setText(Util.normalizar(selecionado.getDescricao()));
-		textAreaAlerta.setText(Util.normalizar(selecionado.getAlerta()));
+		textAreaComent.setText(Util.normalizar(selecionado.getGrupoComentario()));
+		textAreaObserv.setText(Util.normalizar(selecionado.getGrupoObservacao()));
+		textAreaDescri.setText(Util.normalizar(selecionado.getGrupoDescricao()));
+		textAreaAlerta.setText(Util.normalizar(selecionado.getGrupoAlerta()));
 
 		abaControleSel = 0;
 
