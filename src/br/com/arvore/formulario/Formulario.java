@@ -159,6 +159,7 @@ public class Formulario extends JFrame {
 		organizacao = Constantes.ORGANIZACAO_NORMAL;
 		splitPane.setLeftComponent(fichario);
 		radioItemNormal.setSelected(true);
+		layoutListener.actionPerformed(null);
 		ficharioEspelho = null;
 	}
 
