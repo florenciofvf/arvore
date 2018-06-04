@@ -31,19 +31,32 @@ public class XML {
 }
 
 class XMLHandler extends DefaultHandler {
-	private final String[][] MATRIZ = { { Constantes.INST_SUB_OBJETO_TITULO, "setInstrucaoSubObjetoTitulo" },
-			{ Constantes.INST_SUB_OBJETO_ARVORE, "setInstrucaoSubObjetoArvore" },
-			{ Constantes.INST_SUB_OBJETO_TABELA, "setInstrucaoSubObjetoTabela" },
-			{ Constantes.INST_SUB_TABELA, "setInstrucaoSubTabela" },
-			{ Constantes.INST_SUB_UPDATE, "setInstrucaoSubUpdate" },
-			{ Constantes.INST_SUB_DELETE, "setInstrucaoSubDelete" },
-			{ Constantes.INST_SUB_INSERT, "setInstrucaoSubInsert" }, { Constantes.SUB_OBSERVACAO, "setSubObservacao" },
-			{ Constantes.SUB_COMENTARIO, "setSubComentario" }, { Constantes.INST_ARVORE, "setInstrucaoArvore" },
-			{ Constantes.INST_TABELA, "setInstrucaoTabela" }, { Constantes.INST_UPDATE, "setInstrucaoUpdate" },
-			{ Constantes.INST_DELETE, "setInstrucaoDelete" }, { Constantes.INST_INSERT, "setInstrucaoInsert" },
-			{ Constantes.SUB_DESCRICAO, "setSubDescricao" }, { Constantes.OBSERVACAO, "setObservacao" },
-			{ Constantes.COMENTARIO, "setComentario" }, { Constantes.SUB_ALERTA, "setSubAlerta" },
-			{ Constantes.DESCRICAO, "setDescricao" }, { Constantes.ALERTA, "setAlerta" } };
+	private final String[][] MATRIZ = { 
+			{ Constantes.ITEM_OBJETO_TITULO, "setInstrucaoSubObjetoTitulo" },
+			{ Constantes.ITEM_OBJETO_ARVORE, "setInstrucaoSubObjetoArvore" },
+			{ Constantes.ITEM_OBJETO_TABELA, "setInstrucaoSubObjetoTabela" },
+
+			{ Constantes.GRUPO_ITENS_ARVORE, "setInstrucaoArvore" },
+			{ Constantes.GRUPO_ITENS_TABELA, "setInstrucaoTabela" }, 
+			{ Constantes.GRUPO_INSERT, "setInstrucaoInsert" },
+			{ Constantes.GRUPO_UPDATE, "setInstrucaoUpdate" },
+			{ Constantes.GRUPO_DELETE, "setInstrucaoDelete" }, 
+			{ Constantes.GRUPO_ALERTA, "setAlerta" },
+			{ Constantes.GRUPO_COMENTARIO, "setComentario" },
+			{ Constantes.GRUPO_OBSERVACAO, "setObservacao" },
+			{ Constantes.GRUPO_DESCRICAO, "setDescricao" },
+
+			{ Constantes.ITEM_TABELA, "setInstrucaoSubTabela" },
+			{ Constantes.ITEM_INSERT, "setInstrucaoSubInsert" },
+			{ Constantes.ITEM_UPDATE, "setInstrucaoSubUpdate" },
+			{ Constantes.ITEM_DELETE, "setInstrucaoSubDelete" },
+
+			{ Constantes.ITEM_COMENTARIO, "setSubComentario" },
+			{ Constantes.ITEM_OBSERVACAO, "setSubObservacao" },
+			{ Constantes.ITEM_DESCRICAO, "setSubDescricao" }, 
+			{ Constantes.ITEM_ALERTA, "setSubAlerta" },
+	
+	};
 	private final StringBuilder builder = new StringBuilder();
 	private Objeto selecionado;
 	private Objeto raiz;
@@ -74,14 +87,14 @@ class XMLHandler extends DefaultHandler {
 		String pesquisaPopup = attributes.getValue(Constantes.PESQUISA_POPUP);
 		String desabilitado = attributes.getValue(Constantes.DESABILITADO);
 		String manterVazio = attributes.getValue(Constantes.MANTER_VAZIO);
-		String subIcone = attributes.getValue(Constantes.SUB_ICONE);
+		String itemIcone = attributes.getValue(Constantes.ITEM_ICONE);
 		String icone = attributes.getValue(Constantes.ICONE);
 
 		objeto.setPesquisaPopup(Boolean.parseBoolean(pesquisaPopup));
 		objeto.setDesabilitado(Boolean.parseBoolean(desabilitado));
 		objeto.setManterVazio(Boolean.parseBoolean(manterVazio));
 		objeto.setNomeIconeManterVazio(iconeManterVazio);
-		objeto.setNomeSubIcone(subIcone);
+		objeto.setNomeSubIcone(itemIcone);
 		objeto.setNomeIcone(icone);
 	}
 
