@@ -18,11 +18,14 @@
 		<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto</grupo-itens-na-arvore>
 		<grupo-itens-na-tabela>SELECT * FROM auto</grupo-itens-na-tabela>
 
-		<item-na-tabela>SELECT * FROM auto WHERE id = ?</item-na-tabela>
-		<item-update>UPDATE auto SET id_auto = 0 WHERE id = ?</item-update>
+		<!--item-na-tabela>SELECT * FROM auto WHERE id = ?</item-na-tabela>
+		<item-update>UPDATE auto SET id_auto = 0 WHERE id = ?</item-update-->
 
-		<item-objeto-titulo>Origem</item-objeto-titulo>
-		<item-objeto-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</item-objeto-arvore>
-		<item-objeto-tabela>SELECT * FROM auto WHERE id_auto = ?</item-objeto-tabela>
+		<objeto titulo="Sucessor">
+			<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</grupo-itens-na-arvore>
+			<item-objeto-titulo>sucessor</item-objeto-titulo>
+			<item-objeto-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</item-objeto-arvore>
+			<item-objeto-tabela>SELECT * FROM auto WHERE id_auto = ?</item-objeto-tabela>
+		</objeto>
 	</objeto>
 </objeto>
