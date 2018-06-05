@@ -21,6 +21,33 @@
 		<!--item-na-tabela>SELECT * FROM auto WHERE id = ?</item-na-tabela>
 		<item-update>UPDATE auto SET id_auto = 0 WHERE id = ?</item-update-->
 
+		<objeto titulo="Anterior">
+			<grupo-itens-na-arvore>
+				SELECT concat(anterior.id, "-", anterior.nome), anterior.id as inteiro 
+				FROM auto anterior, auto atual
+				WHERE atual.id_auto is not null
+				AND atual.id_auto = anterior.id
+				AND atual.id = ?
+			</grupo-itens-na-arvore>
+
+			<item-objeto-titulo>anterior</item-objeto-titulo>
+			<item-objeto-arvore>
+				SELECT concat(anterior.id, "-", anterior.nome), anterior.id as inteiro 
+				FROM auto anterior, auto atual
+				WHERE atual.id_auto is not null
+				AND atual.id_auto = anterior.id
+				AND atual.id = ?
+			</item-objeto-arvore>
+
+			<item-objeto-tabela>
+				SELECT anterior.*
+				FROM auto anterior, auto atual
+				WHERE atual.id_auto is not null
+				AND atual.id_auto = anterior.id
+				AND atual.id = ?
+			</item-objeto-tabela>
+		</objeto>
+
 		<objeto titulo="Sucessor">
 			<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</grupo-itens-na-arvore>
 			<item-objeto-titulo>sucessor</item-objeto-titulo>

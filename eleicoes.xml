@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<objeto titulo="Eleições" sub-icone="diamante" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
+<objeto titulo="Eleições" item-icone="diamante" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<grupo-itens-na-arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</grupo-itens-na-arvore>
 	<grupo-itens-na-tabela>SELECT * FROM eleicao</grupo-itens-na-tabela>
 
@@ -20,7 +20,7 @@
 	<item-descricao>DESCRIÇÃO</item-descricao>
 	<item-alerta>ALERTA</item-alerta>
 
-	<objeto titulo="Candidatos" sub-icone="pessoas">
+	<objeto titulo="Candidatos" item-icone="pessoas">
 		<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</grupo-itens-na-arvore>
 		<grupo-itens-na-tabela>SELECT * FROM candidato WHERE eleicao_id = ?</grupo-itens-na-tabela>
 
