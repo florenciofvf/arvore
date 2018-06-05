@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <objeto titulo="Eleições" sub-icone="diamante" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</arvore>
-	<insert>INSERT INTO eleicao (descricao) VALUES('')</insert>
-	<delete>DELETE FROM eleicao WHERE id IN(1,2)</delete>
-	<tabela>SELECT * FROM eleicao</tabela>
+	<grupo-itens-na-arvore>SELECT concat(id, "-", descricao), id as inteiro FROM eleicao</grupo-itens-na-arvore>
+	<grupo-itens-na-tabela>SELECT * FROM eleicao</grupo-itens-na-tabela>
 
-	<observacao>OBSERVAÇÃO</observacao>
-	<comentario>COMENTÁRIO</comentario>
-	<descricao>DESCRIÇÃO</descricao>
-	<alerta>ALERTA</alerta>
+	<grupo-insert>INSERT INTO eleicao (descricao) VALUES('')</grupo-insert>
+	<grupo-delete>DELETE FROM eleicao WHERE id IN(1,2)</grupo-delete>
+	<grupo-observacao>OBSERVAÇÃO</grupo-observacao>
+	<grupo-comentario>COMENTÁRIO</grupo-comentario>
+	<grupo-descricao>DESCRIÇÃO</grupo-descricao>
+	<grupo-alerta>ALERTA</grupo-alerta>
 
-	<sub-update>UPDATE eleicao SET descricao='' WHERE id = ?</sub-update>
-	<sub-insert>INSERT INTO eleicao(descricao) VALUES('')</sub-insert>
-	<sub-tabela>SELECT * FROM eleicao WHERE id = ?</sub-tabela>
-	<sub-delete>DELETE FROM eleicao WHERE id = ?</sub-delete>
-
-	<sub-observacao>OBSERVAÇÃO</sub-observacao>
-	<sub-comentario>COMENTÁRIO</sub-comentario>
-	<sub-descricao>DESCRIÇÃO</sub-descricao>
-	<sub-alerta>ALERTA</sub-alerta>
+	<item-update>UPDATE eleicao SET descricao='' WHERE id = ?</item-update>
+	<item-insert>INSERT INTO eleicao(descricao) VALUES('')</item-insert>
+	<item-tabela>SELECT * FROM eleicao WHERE id = ?</item-tabela>
+	<item-delete>DELETE FROM eleicao WHERE id = ?</item-delete>
+	<item-observacao>OBSERVAÇÃO</item-observacao>
+	<item-comentario>COMENTÁRIO</item-comentario>
+	<item-descricao>DESCRIÇÃO</item-descricao>
+	<item-alerta>ALERTA</item-alerta>
 
 	<objeto titulo="Candidatos" sub-icone="pessoas">
-		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</arvore>
-		<insert>INSERT INTO candidato (eleicao_id, nome) VALUES(1, 'TESTE')</insert>
-		<sub-update>UPDATE candidato SET nome = '' WHERE id = ?</sub-update>
-		<sub-tabela>SELECT * FROM candidato WHERE id = ?</sub-tabela>
-		<tabela>SELECT * FROM candidato WHERE eleicao_id = ?</tabela>
-		<delete>DELETE FROM candidato WHERE eleicao_id = ?</delete>
-		<sub-delete>DELETE FROM candidato WHERE id = ?</sub-delete>
+		<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM candidato WHERE eleicao_id = ?</grupo-itens-na-arvore>
+		<grupo-itens-na-tabela>SELECT * FROM candidato WHERE eleicao_id = ?</grupo-itens-na-tabela>
+
+		<grupo-insert>INSERT INTO candidato (eleicao_id, nome) VALUES(1, 'TESTE')</grupo-insert>
+		<grupo-delete>DELETE FROM candidato WHERE eleicao_id = ?</grupo-delete>
+
+		<item-update>UPDATE candidato SET nome = '' WHERE id = ?</item-update>
+		<item-tabela>SELECT * FROM candidato WHERE id = ?</item-tabela>
+		<item-delete>DELETE FROM candidato WHERE id = ?</item-delete>
 
 		<xi:include href="enderecos.xml" />
 	</objeto>

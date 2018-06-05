@@ -3,20 +3,23 @@
 <objeto titulo="Eleição de Teste" icone="bola_verde" estrategia-parametro="PSMT_SET" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<xi:include href="eleicoes.xml" />
 
-	<objeto titulo="Endereços" icone="home" sub-icone="diamante" manter-vazio="true" icone-manter-vazio="home">
-		<insert>INSERT INTO endereco(id_candidato, logradouro) VALUES(1, 'LOGRADOURO')</insert>
-		<arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco</arvore>
-		<sub-update>UPDATE endereco SET id_candidato = 1 WHERE id = 1</sub-update>
-		<delete>DELETE FROM endereco WHERE id_candidato = ?</delete>
-		<sub-tabela>SELECT * FROM endereco WHERE id = ?</sub-tabela>
-		<tabela>SELECT * FROM endereco</tabela>
+	<objeto titulo="Endereços" icone="home" item-icone="diamante" manter-vazio="true" icone-manter-vazio="home">
+		<grupo-itens-na-arvore>SELECT concat(id, "-", logradouro), id as inteiro FROM endereco</grupo-itens-na-arvore>
+		<grupo-itens-na-tabela>SELECT * FROM endereco</grupo-itens-na-tabela>
+
+		<grupo-insert>INSERT INTO endereco(id_candidato, logradouro) VALUES(1, 'LOGRADOURO')</grupo-insert>
+		<grupo-delete>DELETE FROM endereco WHERE id_candidato = ?</grupo-delete>
+
+		<item-update>UPDATE endereco SET id_candidato = 1 WHERE id = 1</item-update>
+		<item-tabela>SELECT * FROM endereco WHERE id = ?</item-tabela>
 	</objeto>
 
 	<objeto titulo="Auto Relacionamento">
-		<arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto</arvore>
-		<tabela>SELECT * FROM auto</tabela>
-		<sub-objeto-titulo>Origem</sub-objeto-titulo>
-		<sub-objeto-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</sub-objeto-arvore>
-		<sub-objeto-tabela>SELECT * FROM auto WHERE id_auto = ?</sub-objeto-tabela>
+		<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto</grupo-itens-na-arvore>
+		<grupo-itens-na-tabela>SELECT * FROM auto</grupo-itens-na-tabela>
+
+		<item-objeto-titulo>Origem</item-objeto-titulo>
+		<item-objeto-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto WHERE id_auto = ?</item-objeto-arvore>
+		<item-objeto-tabela>SELECT * FROM auto WHERE id_auto = ?</item-objeto-tabela>
 	</objeto>
 </objeto>
