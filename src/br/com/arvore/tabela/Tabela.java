@@ -24,6 +24,7 @@ public class Tabela extends JTable {
 	private PopupHeader popupHeader = new PopupHeader();
 	private final List<TabelaListener> ouvintes;
 	private MementoOrdenacao mementoOrdenacao;
+	private MementoSelecao mementoSelecao;
 	private boolean descendente;
 
 	public Tabela() {
@@ -170,6 +171,36 @@ public class Tabela extends JTable {
 			}
 
 			ouvintes.forEach(o -> o.ordenarColuna(tableColumn, descendente, coluna));
+		}
+	}
+
+	public void restaurarSelecao() {
+		if (mementoSelecao != null) {
+			mementoSelecao.restaurar(this);
+		}
+	}
+
+	public void mementoSelecao() {
+		mementoSelecao = new MementoSelecao(this);
+	}
+
+	private class MementoSelecao {
+		final int[] linhas;
+
+		MementoSelecao(Tabela tabela) {
+			linhas = tabela.getSelectedRows();
+		}
+
+		void restaurar(Tabela tabela) {
+			if (linhas != null) {
+				TableModel model = tabela.getModel();
+
+				for (int i : linhas) {
+					if (i < model.getRowCount()) {
+						tabela.addRowSelectionInterval(i, i);
+					}
+				}
+			}
 		}
 	}
 }

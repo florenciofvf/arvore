@@ -55,10 +55,12 @@ public class Container extends PanelBorder {
 	public void exibirRegistros(Objeto objeto) throws Exception {
 		ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
 		ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro, modeloRegistro.getColunasNumero());
+		tabela.mementoSelecao();
 		tabela.limparOuvintes();
 		tabela.adicionarOuvinte(modeloOrdenacao);
 		tabela.setModel(modeloOrdenacao);
 		tabela.restaurarMemento();
+		tabela.restaurarSelecao();
 		TabelaUtil.ajustar(tabela, getGraphics());
 	}
 
