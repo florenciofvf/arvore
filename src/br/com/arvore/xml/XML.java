@@ -31,29 +31,20 @@ public class XML {
 }
 
 class XMLHandler extends DefaultHandler {
-	private final String[][] MATRIZ = { 
-			{ Constantes.GRUPO_ITENS_ARVORE, "setGrupoItensArvore" },
+	private final String[][] MATRIZ = { { Constantes.GRUPO_ITENS_ARVORE, "setGrupoItensArvore" },
 			{ Constantes.GRUPO_ITENS_TABELA, "setGrupoItensTabela" },
 			{ Constantes.GRUPO_COMENTARIO, "setGrupoComentario" },
-			{ Constantes.GRUPO_OBSERVACAO, "setGrupoObservacao" },
-			{ Constantes.GRUPO_DESCRICAO, "setGrupoDescricao" },
-			{ Constantes.GRUPO_INSERT, "setGrupoInsert" },
-			{ Constantes.GRUPO_UPDATE, "setGrupoUpdate" },
-			{ Constantes.GRUPO_DELETE, "setGrupoDelete" }, 
-			{ Constantes.GRUPO_ALERTA, "setGrupoAlerta" },
+			{ Constantes.GRUPO_OBSERVACAO, "setGrupoObservacao" }, { Constantes.GRUPO_DESCRICAO, "setGrupoDescricao" },
+			{ Constantes.GRUPO_INSERT, "setGrupoInsert" }, { Constantes.GRUPO_UPDATE, "setGrupoUpdate" },
+			{ Constantes.GRUPO_DELETE, "setGrupoDelete" }, { Constantes.GRUPO_ALERTA, "setGrupoAlerta" },
 
 			{ Constantes.ITEM_OBJETO_TITULO, "setItemObjetoTitulo" },
 			{ Constantes.ITEM_OBJETO_ARVORE, "setItemObjetoArvore" },
 			{ Constantes.ITEM_OBJETO_TABELA, "setItemObjetoTabela" },
-			{ Constantes.ITEM_COMENTARIO, "setItemComentario" },
-			{ Constantes.ITEM_OBSERVACAO, "setItemObservacao" },
-			{ Constantes.ITEM_DESCRICAO, "setItemDescricao" },
-			{ Constantes.ITEM_TABELA, "setItemTabela" },
-			{ Constantes.ITEM_INSERT, "setItemInsert" },
-			{ Constantes.ITEM_UPDATE, "setItemUpdate" },
-			{ Constantes.ITEM_DELETE, "setItemDelete" },
-			{ Constantes.ITEM_ALERTA, "setItemAlerta" }
-	};
+			{ Constantes.ITEM_COMENTARIO, "setItemComentario" }, { Constantes.ITEM_OBSERVACAO, "setItemObservacao" },
+			{ Constantes.ITEM_DESCRICAO, "setItemDescricao" }, { Constantes.ITEM_TABELA, "setItemTabela" },
+			{ Constantes.ITEM_INSERT, "setItemInsert" }, { Constantes.ITEM_UPDATE, "setItemUpdate" },
+			{ Constantes.ITEM_DELETE, "setItemDelete" }, { Constantes.ITEM_ALERTA, "setItemAlerta" } };
 
 	private final StringBuilder builder = new StringBuilder();
 	private Objeto selecionado;
