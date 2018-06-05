@@ -3,7 +3,7 @@ package br.com.arvore.main;
 import javax.swing.UIManager;
 
 import br.com.arvore.banco.Conexao;
-import br.com.arvore.formulario.Formulario;
+import br.com.arvore.form.Formulario;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Util;
 

@@ -1,4 +1,4 @@
-package br.com.arvore.formulario;
+package br.com.arvore.form;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
