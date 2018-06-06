@@ -1,4 +1,4 @@
-package br.com.arvore.form;
+package br.com.arvore.formulario;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;

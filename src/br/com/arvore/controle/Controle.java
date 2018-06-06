@@ -11,7 +11,7 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.comp.TextArea;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoObjeto;
-import br.com.arvore.form.Formulario;
+import br.com.arvore.formulario.Formulario;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;

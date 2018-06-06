@@ -9,7 +9,7 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.Objeto;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
-import br.com.arvore.form.Formulario;
+import br.com.arvore.formulario.Formulario;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
 import br.com.arvore.util.Mensagens;

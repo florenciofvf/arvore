@@ -1,4 +1,4 @@
-package br.com.arvore.form;
+package br.com.arvore.formulario;
 
 import java.awt.Window;
 import java.lang.reflect.Method;
