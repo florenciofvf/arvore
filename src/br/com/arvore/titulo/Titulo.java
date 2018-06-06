@@ -38,7 +38,6 @@ public class Titulo extends Panel {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		tituloPopup = clonar ? new TituloPopup() : null;
-		addMouseListener(mouseListener);
 		this.tabbedPane = tabbedPane;
 		ouvintes = new ArrayList<>();
 		this.clonar = clonar;
@@ -56,7 +55,38 @@ public class Titulo extends Panel {
 
 		Rotulo() {
 			setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+			addMouseListener(mouseListener);
 		}
+
+		private MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int i = tabbedPane.indexOfTabComponent(Titulo.this);
+
+				if (i != -1) {
+					tabbedPane.setSelectedIndex(i);
+				}
+			};
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				processar(e);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				processar(e);
+			}
+
+			private void processar(MouseEvent e) {
+				if (!e.isPopupTrigger()) {
+					return;
+				}
+
+				if (tituloPopup != null) {
+					tituloPopup.show(Titulo.this, e.getX(), e.getY());
+				}
+			}
+		};
 
 		@Override
 		public String getText() {
@@ -180,26 +210,4 @@ public class Titulo extends Panel {
 			add(itemExcluir);
 		}
 	}
-
-	private MouseListener mouseListener = new MouseAdapter() {
-		@Override
-		public void mousePressed(MouseEvent e) {
-			processar(e);
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			processar(e);
-		}
-
-		private void processar(MouseEvent e) {
-			if (!e.isPopupTrigger()) {
-				return;
-			}
-
-			if(tituloPopup != null) {
-				tituloPopup.show(Titulo.this, e.getX(), e.getY());
-			}
-		}
-	};
 }

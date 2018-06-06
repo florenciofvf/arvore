@@ -88,6 +88,7 @@ public class Formulario extends JFrame {
 
 	private void montarLayout() {
 		// divisor.setListener(splitPaneListener);
+		divisor.setOrientation(Divisor.VERTICAL_SPLIT);
 		divisor.setRightComponent(controle);
 		add(BorderLayout.CENTER, divisor);
 	}
