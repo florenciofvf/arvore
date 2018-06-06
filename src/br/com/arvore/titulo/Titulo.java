@@ -22,18 +22,23 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import br.com.arvore.comp.Button;
 import br.com.arvore.comp.Label;
+import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.Panel;
+import br.com.arvore.comp.Popup;
 import br.com.arvore.util.Mensagens;
 
 public class Titulo extends Panel {
 	private static final long serialVersionUID = 1L;
 	private final List<TituloListener> ouvintes;
+	private final TituloPopup tituloPopup;
 	private final JTabbedPane tabbedPane;
 	private final boolean clonar;
 
 	public Titulo(JTabbedPane tabbedPane, boolean clonar) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+		tituloPopup = clonar ? new TituloPopup() : null;
+		addMouseListener(mouseListener);
 		this.tabbedPane = tabbedPane;
 		ouvintes = new ArrayList<>();
 		this.clonar = clonar;
@@ -154,4 +159,47 @@ public class Titulo extends Panel {
 			g2.dispose();
 		}
 	}
+
+	private class TituloPopup extends Popup {
+		private static final long serialVersionUID = 1L;
+		final MenuItem itemCloneEsquerdo = new MenuItem("label.clone_esquerdo");
+		final MenuItem itemCloneDireito = new MenuItem("label.clone_direito");
+		final MenuItem itemCloneAbaixo = new MenuItem("label.clone_abaixo");
+		final MenuItem itemCloneAcima = new MenuItem("label.clone_acima");
+		final MenuItem itemExcluir = new MenuItem("label.excluir");
+
+		public TituloPopup() {
+			add(itemCloneEsquerdo);
+			addSeparator();
+			add(itemCloneDireito);
+			addSeparator();
+			add(itemCloneAbaixo);
+			addSeparator();
+			add(itemCloneAcima);
+			addSeparator();
+			add(itemExcluir);
+		}
+	}
+
+	private MouseListener mouseListener = new MouseAdapter() {
+		@Override
+		public void mousePressed(MouseEvent e) {
+			processar(e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			processar(e);
+		}
+
+		private void processar(MouseEvent e) {
+			if (!e.isPopupTrigger()) {
+				return;
+			}
+
+			if(tituloPopup != null) {
+				tituloPopup.show(Titulo.this, e.getX(), e.getY());
+			}
+		}
+	};
 }

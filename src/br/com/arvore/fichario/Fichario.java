@@ -1,6 +1,6 @@
 package br.com.arvore.fichario;
 
-import java.io.File;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,14 +9,13 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.Objeto;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
+import br.com.arvore.divisor.DivisorClone;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
-import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
-import br.com.arvore.xml.XML;
 
-public class Fichario extends TabbedPane {
+public class Fichario extends TabbedPane implements DivisorClone {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
 	private final Formulario formulario;
@@ -36,61 +35,12 @@ public class Fichario extends TabbedPane {
 		this.raiz = raiz;
 	}
 
-	public Objeto getRaiz() {
-		return raiz;
-	}
-
 	private void abaSelecionada() {
 		int indice = getSelectedIndex();
 
 		if (indice != -1) {
 			Container container = (Container) getComponentAt(indice);
 			ouvintes.forEach(o -> o.containerSelecionado(container));
-		}
-	}
-
-	public void abrirArquivo(File file, boolean msgInexistente, boolean msgSemConteudo, boolean msgNaoLeitura) {
-		if (file != null) {
-			if (!file.exists()) {
-				if (msgInexistente)
-					Util.mensagem(formulario,
-							Mensagens.getString("erro.arquivo.inexistente") + "\n\n\n" + file.getAbsolutePath());
-				return;
-			}
-
-			if (file.length() == 0) {
-				if (msgSemConteudo)
-					Util.mensagem(formulario,
-							Mensagens.getString("erro.arquivo.vazio") + "\n\n\n" + file.getAbsolutePath());
-				return;
-			}
-
-			if (!file.canRead()) {
-				if (msgNaoLeitura)
-					Util.mensagem(formulario,
-							Mensagens.getString("erro.arquivo.leitura") + "\n\n\n" + file.getAbsolutePath());
-				return;
-			}
-
-			limpar();
-
-			try {
-				formulario.setTitle(Mensagens.getString("label.arvore"));
-				raiz = XML.processar(file);
-				addAba("label.objetos", raiz, true);
-				formulario.setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
-				formulario.organizacaoNormal();
-			} catch (Exception ex) {
-				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, formulario);
-			}
-		}
-	}
-
-	private void limpar() {
-		while (getTabCount() > 0) {
-			Container container = (Container) getComponentAt(0);
-			notificarContainerExcluido(container);
-			remove(0);
 		}
 	}
 
@@ -151,4 +101,19 @@ public class Fichario extends TabbedPane {
 			ouvintes.forEach(o -> o.pedidoExcluirObjeto(container));
 		}
 	};
+
+	@Override
+	public Component clonar() {
+		Fichario fichario = new Fichario(formulario);
+		fichario.adicionarOuvinte(formulario.getFicharioListener());
+
+		try {
+			fichario.addAba("label.objetos", raiz, true);
+			fichario.raiz = raiz;
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, formulario);
+		}
+
+		return fichario;
+	}
 }

@@ -46,14 +46,11 @@ public class Constantes {
 	public static final boolean DESENHAR_SPLIT_CONTAINER = false;
 	public static final boolean INFLAR_ANTECIPADO = false;
 	public static final boolean INFLAR_DESATIVADO = false;
-	public static final byte ORGANIZACAO_HORIZONTAL = 2;
 	public static final byte ESTRATEGIA_SUBSTITUIR = 0;
 	public static final int LARGURA_ICONE_ORDENAR = 20;
-	public static final byte ORGANIZACAO_VERTICAL = 1;
 	public static final byte ESTRATEGIA_PSMT_META = 1;
 	public static final byte ESTRATEGIA_PSMT_SET = 2;
-	public static final byte ORGANIZACAO_NORMAL = 0;
-	public static int DIV_FICHARIO_CONTROLE = 500;
+	// public static int DIV_FICHARIO_CONTROLE = 500;
 	public static int DIV_ARVORE_TABELA = 360;
 	public static byte ESTRATEGIA_PARAMS;
 	public static final int DOIS = 2;

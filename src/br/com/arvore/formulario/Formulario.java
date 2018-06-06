@@ -1,8 +1,6 @@
 package br.com.arvore.formulario;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -13,72 +11,46 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
-import br.com.arvore.comp.RadioButtonMenuItem;
-import br.com.arvore.comp.SplitPane;
-import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.container.Container;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
+import br.com.arvore.divisor.Divisor;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.fichario.FicharioListener;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
+import br.com.arvore.xml.XML;
 
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private final RadioButtonMenuItem radioItemHorizontal = new RadioButtonMenuItem("label.horizontal");
-	private final RadioButtonMenuItem radioItemVertical = new RadioButtonMenuItem("label.vertical");
-	private final RadioButtonMenuItem radioItemNormal = new RadioButtonMenuItem("label.normal");
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
-	private final SplitPane splitPane = new SplitPane(SplitPane.VERTICAL_SPLIT);
+
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
-	private final SplitPane splitPaneLayout = new SplitPane();
-	private final Menu menuLayout = new Menu("label.layout");
+
 	private final JMenuBar menuBar = new JMenuBar();
-	private Fichario ficharioEspelho;
-	private final Fichario fichario;
+	private final Divisor divisor = new Divisor();
 	private final Controle controle;
-	private byte organizacao;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		controle = new Controle(this);
-		fichario = new Fichario(this);
-		fichario.adicionarOuvinte(ficharioListener);
+		setLayout(new BorderLayout());
 		setSize(1000, 700);
 		montarLayout();
 		montarMenu();
 		configurar();
-	}
-
-	private void criarFicharioEspelho() {
-		Objeto raiz = fichario.getRaiz();
-
-		if (raiz == null) {
-			return;
-		}
-
-		try {
-			ficharioEspelho = new Fichario(this);
-			ficharioEspelho.adicionarOuvinte(ficharioListener);
-			ficharioEspelho.addAba("label.objetos", raiz, true);
-			ficharioEspelho.setRaiz(raiz);
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, this);
-		}
 	}
 
 	private void configurar() {
@@ -88,8 +60,8 @@ public class Formulario extends JFrame {
 
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
-				fichario.abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
-				splitPane.setDividerLocation(0.78);
+				abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
+				divisor.setDividerLocation(0.78);
 				controle.selecionadoObjeto(null);
 			};
 
@@ -109,17 +81,15 @@ public class Formulario extends JFrame {
 			File file = fileChooser.getSelectedFile();
 
 			if (file != null) {
-				fichario.abrirArquivo(file, true, true, true);
+				abrirArquivo(file, true, true, true);
 			}
 		});
 	}
 
 	private void montarLayout() {
-		setLayout(new BorderLayout());
-		splitPane.setLeftComponent(fichario);
-		splitPane.setRightComponent(controle);
-		splitPane.setListener(splitPaneListener);
-		add(BorderLayout.CENTER, splitPane);
+		// divisor.setListener(splitPaneListener);
+		divisor.setRightComponent(controle);
+		add(BorderLayout.CENTER, divisor);
 	}
 
 	private void montarMenu() {
@@ -127,7 +97,6 @@ public class Formulario extends JFrame {
 
 		menuBar.add(menuArquivo);
 		menuBar.add(menuAparencia);
-		menuBar.add(menuLayout);
 
 		menuArquivo.add(itemAbrir);
 		menuArquivo.addSeparator();
@@ -137,30 +106,7 @@ public class Formulario extends JFrame {
 
 		configMenuAparencia();
 
-		menuLayout.add(radioItemNormal);
-		menuLayout.addSeparator();
-		menuLayout.add(radioItemVertical);
-		menuLayout.addSeparator();
-		menuLayout.add(radioItemHorizontal);
-
-		ButtonGroup grupo = new ButtonGroup();
-		grupo.add(radioItemNormal);
-		grupo.add(radioItemVertical);
-		grupo.add(radioItemHorizontal);
-
-		radioItemNormal.addActionListener(layoutListener);
-		radioItemVertical.addActionListener(layoutListener);
-		radioItemHorizontal.addActionListener(layoutListener);
-
 		itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
-	}
-
-	public void organizacaoNormal() {
-		organizacao = Constantes.ORGANIZACAO_NORMAL;
-		splitPane.setLeftComponent(fichario);
-		radioItemNormal.setSelected(true);
-		layoutListener.actionPerformed(null);
-		ficharioEspelho = null;
 	}
 
 	private void configMenuAparencia() {
@@ -172,6 +118,10 @@ public class Formulario extends JFrame {
 			menuAparencia.add(item);
 			grupo.add(item);
 		}
+	}
+
+	public FicharioListener getFicharioListener() {
+		return ficharioListener;
 	}
 
 	private FicharioListener ficharioListener = new FicharioListener() {
@@ -207,54 +157,46 @@ public class Formulario extends JFrame {
 		}
 	};
 
-	private ActionListener layoutListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (radioItemHorizontal.isSelected() || radioItemVertical.isSelected()) {
-				if (ficharioEspelho == null) {
-					criarFicharioEspelho();
+	private void abrirArquivo(File file, boolean msgInexistente, boolean msgSemConteudo, boolean msgNaoLeitura) {
+		if (file != null) {
+			if (!file.exists()) {
+				if (msgInexistente) {
+					String msg = Mensagens.getString("erro.arquivo.inexistente");
+					Util.mensagem(this, msg + "\n\n\n" + file.getAbsolutePath());
 				}
-
-				if (ficharioEspelho == null) {
-					return;
-				}
-
-				if (organizacao == Constantes.ORGANIZACAO_NORMAL) {
-					splitPaneLayout.setLeftComponent(fichario);
-					splitPaneLayout.setRightComponent(ficharioEspelho);
-					splitPane.setLeftComponent(splitPaneLayout);
-				}
+				return;
 			}
 
-			if (radioItemNormal.isSelected()) {
-				if (organizacao == Constantes.ORGANIZACAO_HORIZONTAL
-						|| organizacao == Constantes.ORGANIZACAO_VERTICAL) {
-					organizacao = Constantes.ORGANIZACAO_NORMAL;
-					splitPane.setLeftComponent(fichario);
+			if (file.length() == 0) {
+				if (msgSemConteudo) {
+					String msg = Mensagens.getString("erro.arquivo.vazio");
+					Util.mensagem(this, msg + "\n\n\n" + file.getAbsolutePath());
 				}
+				return;
 			}
 
-			if (radioItemHorizontal.isSelected()) {
-				organizacao = Constantes.ORGANIZACAO_HORIZONTAL;
-				splitPaneLayout.setOrientation(SplitPane.HORIZONTAL_SPLIT);
-				splitPaneLayout.setDividerLocation(getWidth() / 2);
+			if (!file.canRead()) {
+				if (msgNaoLeitura) {
+					String msg = Mensagens.getString("erro.arquivo.leitura");
+					Util.mensagem(this, msg + "\n\n\n" + file.getAbsolutePath());
+				}
+				return;
 			}
 
-			if (radioItemVertical.isSelected()) {
-				organizacao = Constantes.ORGANIZACAO_VERTICAL;
-				splitPaneLayout.setOrientation(SplitPane.VERTICAL_SPLIT);
-				splitPaneLayout.setDividerLocation(getHeight() / 2);
-			}
+			divisor.setLeftComponent(null);
 
-			splitPane.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
-			SwingUtilities.updateComponentTreeUI(splitPane);
+			try {
+				setTitle(Mensagens.getString("label.arvore"));
+				Objeto raiz = XML.processar(file);
+				Fichario fichario = new Fichario(this);
+				fichario.adicionarOuvinte(ficharioListener);
+				fichario.setRaiz(raiz);
+				fichario.addAba("label.objetos", raiz, true);
+				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
+				divisor.setLeftComponent(fichario);
+			} catch (Exception ex) {
+				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
+			}
 		}
-	};
-
-	private SplitPaneListener splitPaneListener = new SplitPaneListener() {
-		@Override
-		public void localizacao(int i) {
-			Constantes.DIV_FICHARIO_CONTROLE = i;
-		}
-	};
+	}
 }
