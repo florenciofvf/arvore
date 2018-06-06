@@ -1,4 +1,4 @@
-package br.com.arvore.compnte;
+package br.com.arvore.comp;
 
 import java.awt.BorderLayout;
 

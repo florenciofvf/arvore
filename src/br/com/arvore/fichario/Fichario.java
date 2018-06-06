@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.arvore.ObjetoUtil;
-import br.com.arvore.compnte.TabbedPane;
+import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.Objeto;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;

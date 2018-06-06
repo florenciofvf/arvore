@@ -5,7 +5,7 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import br.com.arvore.compnte.Label;
+import br.com.arvore.comp.Label;
 import br.com.arvore.util.Icones;
 
 public class HeaderRD extends Label implements TableCellRenderer {

@@ -14,8 +14,8 @@ import javax.swing.tree.TreeSelectionModel;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.ObjetoUtil;
-import br.com.arvore.compnte.MenuItem;
-import br.com.arvore.compnte.Popup;
+import br.com.arvore.comp.MenuItem;
+import br.com.arvore.comp.Popup;
 import br.com.arvore.renderer.TreeRD;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;

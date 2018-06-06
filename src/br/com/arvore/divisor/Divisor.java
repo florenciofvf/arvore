@@ -2,7 +2,7 @@ package br.com.arvore.divisor;
 
 import java.awt.Component;
 
-import br.com.arvore.compnte.SplitPane;
+import br.com.arvore.comp.SplitPane;
 
 public class Divisor extends SplitPane implements DivisorListener {
 	private static final long serialVersionUID = 1L;

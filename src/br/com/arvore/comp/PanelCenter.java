@@ -1,19 +1,19 @@
-package br.com.arvore.compnte;
+package br.com.arvore.comp;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
 
-public class PanelLeft extends JPanel {
+public class PanelCenter extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public PanelLeft() {
-		super(new FlowLayout(FlowLayout.LEFT));
+	public PanelCenter() {
+		super(new FlowLayout(FlowLayout.CENTER));
 	}
 
-	public PanelLeft(Component... componentes) {
-		super(new FlowLayout(FlowLayout.LEFT));
+	public PanelCenter(Component... componentes) {
+		super(new FlowLayout(FlowLayout.CENTER));
 		adicionar(componentes);
 	}
 

@@ -1,7 +1,7 @@
 package br.com.arvore.controle;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.compnte.TabbedPane;
+import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.container.Container;
 
 public class ControleUtil {

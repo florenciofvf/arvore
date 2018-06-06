@@ -16,8 +16,8 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.KeyStroke;
 
-import br.com.arvore.compnte.Button;
-import br.com.arvore.compnte.PanelCenter;
+import br.com.arvore.comp.Button;
+import br.com.arvore.comp.PanelCenter;
 
 public abstract class Dialogo extends JDialog {
 	private static final long serialVersionUID = 1L;

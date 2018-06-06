@@ -1,4 +1,4 @@
-package br.com.arvore.compnte;
+package br.com.arvore.comp;
 
 import javax.swing.Icon;
 import javax.swing.JMenuItem;

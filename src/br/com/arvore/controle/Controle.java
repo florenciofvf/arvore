@@ -4,11 +4,11 @@ import java.awt.BorderLayout;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.ObjetoUtil;
-import br.com.arvore.compnte.Label;
-import br.com.arvore.compnte.PanelBorder;
-import br.com.arvore.compnte.PanelLeft;
-import br.com.arvore.compnte.TabbedPane;
-import br.com.arvore.compnte.TextArea;
+import br.com.arvore.comp.Label;
+import br.com.arvore.comp.PanelBorder;
+import br.com.arvore.comp.PanelLeft;
+import br.com.arvore.comp.TabbedPane;
+import br.com.arvore.comp.TextArea;
 import br.com.arvore.container.Container;
 import br.com.arvore.dialogo.DialogoObjeto;
 import br.com.arvore.form.Formulario;
