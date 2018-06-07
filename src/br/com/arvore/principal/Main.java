@@ -1,4 +1,4 @@
-package br.com.arvore.main;
+package br.com.arvore.principal;
 
 import javax.swing.UIManager;
 

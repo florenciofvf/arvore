@@ -22,6 +22,7 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import br.com.arvore.comp.Button;
 import br.com.arvore.comp.Label;
+import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.Popup;
@@ -192,28 +193,29 @@ public class Titulo extends Panel {
 
 	private class TituloPopup extends Popup {
 		private static final long serialVersionUID = 1L;
-		final MenuItem itemCloneEsquerdo = new MenuItem("label.clone_esquerdo");
-		final MenuItem itemCloneDireito = new MenuItem("label.clone_direito");
-		final MenuItem itemCloneAbaixo = new MenuItem("label.clone_abaixo");
-		final MenuItem itemCloneAcima = new MenuItem("label.clone_acima");
 		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
+		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");
+		final MenuItem itemDireito = new MenuItem("label.a_direita");
+		final Menu menuClonarEste = new Menu("label.clonar_este");
+		final MenuItem itemAbaixo = new MenuItem("label.abaixo");
+		final MenuItem itemAcima = new MenuItem("label.acima");
 
 		public TituloPopup() {
-			add(itemCloneEsquerdo);
-			addSeparator();
-			add(itemCloneDireito);
-			addSeparator();
-			add(itemCloneAbaixo);
-			addSeparator();
-			add(itemCloneAcima);
+			add(menuClonarEste);
 			addSeparator();
 			add(itemExcluir);
 
-			itemCloneEsquerdo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneEsquerdo));
-			itemCloneDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
-			itemCloneAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
-			itemCloneAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));
+			menuClonarEste.add(itemEsquerdo);
+			menuClonarEste.add(itemDireito);
+			menuClonarEste.addSeparator();
+			menuClonarEste.add(itemAcima);
+			menuClonarEste.add(itemAbaixo);
+
 			itemExcluir.addActionListener(e -> ouvintes.forEach(TituloListener::excluirFichario));
+			itemEsquerdo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneEsquerdo));
+			itemDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
+			itemAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
+			itemAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));
 		}
 	}
 }
