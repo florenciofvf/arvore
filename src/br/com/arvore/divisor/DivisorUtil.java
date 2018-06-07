@@ -43,17 +43,25 @@ public class DivisorUtil {
 		divisor.setRightComponent(criarDivisor(divisor, Divisor.VERTICAL_SPLIT, c1, c2));
 	}
 
-	private static Divisor criarDivisor(Divisor divisor, int orientacao, Component c1, Component c2) {
+	private static Divisor criarDivisor(DivisorListener listener, int orientacao, Component c1, Component c2) {
 		Divisor objeto = new Divisor();
 
+		objeto.setDivisorListener(listener);
 		objeto.setOrientation(orientacao);
-		objeto.setDivisorListener(divisor);
 		objeto.setRightComponent(c2);
 		objeto.setLeftComponent(c1);
+		configDivisor(objeto, c1);
+		configDivisor(objeto, c2);
 		setLeftFalse(c2);
 		setLeftTrue(c1);
 
 		return objeto;
+	}
+
+	public static void configDivisor(Divisor divisor, Component componente) {
+		if (componente instanceof DivisorClone) {
+			((DivisorClone) componente).setDivisor(divisor);
+		}
 	}
 
 	public static void setLeftFalse(Component componente) {

@@ -18,31 +18,35 @@ public class Divisor extends SplitPane implements DivisorListener {
 
 	public void clonarLeft(byte disposicao) {
 		Component clone = DivisorUtil.clonarLeft(this);
+		Component left = leftComponent;
+		remove(leftComponent);
 
 		if (disposicao == ESQUERDO) {
-			DivisorUtil.novoHorizontalLeft(this, leftComponent, clone);
+			DivisorUtil.novoHorizontalLeft(this, left, clone);
 		} else if (disposicao == DIREITO) {
-			DivisorUtil.novoHorizontalLeft(this, clone, leftComponent);
+			DivisorUtil.novoHorizontalLeft(this, clone, left);
 
 		} else if (disposicao == ABAIXO) {
-			DivisorUtil.novoVerticalLeft(this, clone, leftComponent);
+			DivisorUtil.novoVerticalLeft(this, clone, left);
 		} else if (disposicao == ACIMA) {
-			DivisorUtil.novoVerticalLeft(this, leftComponent, clone);
+			DivisorUtil.novoVerticalLeft(this, left, clone);
 		}
 	}
 
 	public void clonarRight(byte disposicao) {
 		Component clone = DivisorUtil.clonarRight(this);
+		Component right = rightComponent;
+		remove(rightComponent);
 
 		if (disposicao == ESQUERDO) {
-			DivisorUtil.novoHorizontalRight(this, rightComponent, clone);
+			DivisorUtil.novoHorizontalRight(this, right, clone);
 		} else if (disposicao == DIREITO) {
-			DivisorUtil.novoHorizontalRight(this, clone, rightComponent);
+			DivisorUtil.novoHorizontalRight(this, clone, right);
 
 		} else if (disposicao == ABAIXO) {
-			DivisorUtil.novoVerticalRight(this, clone, rightComponent);
+			DivisorUtil.novoVerticalRight(this, clone, right);
 		} else if (disposicao == ACIMA) {
-			DivisorUtil.novoVerticalRight(this, rightComponent, clone);
+			DivisorUtil.novoVerticalRight(this, right, clone);
 		}
 	}
 
@@ -68,10 +72,12 @@ public class Divisor extends SplitPane implements DivisorListener {
 		Component componente = divisor.getRightComponent();
 
 		if (divisor == leftComponent) {
+			DivisorUtil.configDivisor(this, componente);
 			DivisorUtil.setLeftTrue(componente);
 			setLeftComponent(componente);
 
 		} else if (divisor == rightComponent) {
+			DivisorUtil.configDivisor(this, componente);
 			DivisorUtil.setLeftFalse(componente);
 			setRightComponent(componente);
 
@@ -86,10 +92,12 @@ public class Divisor extends SplitPane implements DivisorListener {
 		Component componente = divisor.getLeftComponent();
 
 		if (divisor == leftComponent) {
+			DivisorUtil.configDivisor(this, componente);
 			DivisorUtil.setLeftTrue(componente);
 			setLeftComponent(componente);
 
 		} else if (divisor == rightComponent) {
+			DivisorUtil.configDivisor(this, componente);
 			DivisorUtil.setLeftFalse(componente);
 			setRightComponent(componente);
 
