@@ -120,7 +120,7 @@ public class Divisor extends SplitPane {
 			remove(rightComponent);
 			ouvinte.excluidoRight(this);
 		}
-		
+
 	}
 
 	private DivisorListener divisorListener = new DivisorListener() {
