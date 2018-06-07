@@ -20,22 +20,19 @@ public class Fichario extends TabbedPane implements DivisorClone {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
 	private final Formulario formulario;
+	private final Objeto raiz;
 	private Divisor divisor;
 	private boolean left;
-	private Objeto raiz;
 
-	public Fichario(Formulario formulario) {
+	public Fichario(Formulario formulario, Objeto raiz) {
+		addChangeListener(e -> abaSelecionada());
 		this.formulario = formulario;
 		ouvintes = new ArrayList<>();
-		addChangeListener(e -> abaSelecionada());
+		this.raiz = raiz;
 	}
 
 	public void adicionarOuvinte(FicharioListener listener) {
 		ouvintes.add(listener);
-	}
-
-	public void setRaiz(Objeto raiz) {
-		this.raiz = raiz;
 	}
 
 	public boolean isLeft() {
@@ -168,12 +165,11 @@ public class Fichario extends TabbedPane implements DivisorClone {
 
 	@Override
 	public Component clonar() {
-		Fichario fichario = new Fichario(formulario);
+		Fichario fichario = new Fichario(formulario, raiz);
 		fichario.adicionarOuvinte(formulario.getFicharioListener());
 
 		try {
 			fichario.addAba("label.objetos", raiz, true);
-			fichario.raiz = raiz;
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, formulario);
 		}

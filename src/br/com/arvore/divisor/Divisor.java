@@ -3,133 +3,167 @@ package br.com.arvore.divisor;
 import java.awt.Component;
 
 import br.com.arvore.comp.SplitPane;
+import br.com.arvore.fichario.Fichario;
 
-public class Divisor extends SplitPane implements DivisorListener {
+public class Divisor extends SplitPane {
 	private static final long serialVersionUID = 1L;
-	private DivisorListener divisorListener;
-	public static final byte ESQUERDO = 1;
 	private MementoDivisor mementoDivisor;
+	public static final byte ESQUERDO = 1;
 	public static final byte DIREITO = 2;
 	public static final byte ABAIXO = 3;
 	public static final byte ACIMA = 4;
+	private DivisorListener ouvinte;
 
-	public void setDivisorListener(DivisorListener divisorListener) {
-		this.divisorListener = divisorListener;
+	@Override
+	public void setLeftComponent(Component comp) {
+		super.setLeftComponent(comp);
+
+		if (comp instanceof Fichario) {
+			Fichario fichario = (Fichario) comp;
+			fichario.setDivisor(this);
+			fichario.setLeft(true);
+		} else if (comp instanceof Divisor) {
+			((Divisor) comp).ouvinte = divisorListener;
+		} else {
+			throw new IllegalStateException();
+		}
+	}
+
+	@Override
+	public void setRightComponent(Component comp) {
+		super.setRightComponent(comp);
+
+		if (comp instanceof Fichario) {
+			Fichario fichario = (Fichario) comp;
+			fichario.setDivisor(this);
+			fichario.setLeft(false);
+		} else if (comp instanceof Divisor) {
+			((Divisor) comp).ouvinte = divisorListener;
+		} else {
+			throw new IllegalStateException();
+		}
+	}
+
+	@Override
+	public void remove(Component comp) {
+		super.remove(comp);
+
+		if (comp instanceof Fichario) {
+			Fichario fichario = (Fichario) comp;
+			fichario.setDivisor(null);
+		} else if (comp instanceof Divisor) {
+			((Divisor) comp).ouvinte = null;
+		} else {
+			throw new IllegalStateException();
+		}
 	}
 
 	public void clonarLeft(byte disposicao) {
 		Component clone = DivisorUtil.clonarLeft(this);
 		Component left = leftComponent;
 		criarMementoDivisor();
-		remove(leftComponent);
 
-		if (disposicao == ESQUERDO) {
-			DivisorUtil.novoHorizontalLeft(this, left, clone);
-		} else if (disposicao == DIREITO) {
-			DivisorUtil.novoHorizontalLeft(this, clone, left);
-
-		} else if (disposicao == ABAIXO) {
-			DivisorUtil.novoVerticalLeft(this, clone, left);
-		} else if (disposicao == ACIMA) {
-			DivisorUtil.novoVerticalLeft(this, left, clone);
+		switch (disposicao) {
+		case ESQUERDO:
+			DivisorUtil.novoHorizontalLeft(this, left, clone, left.getSize());
+			break;
+		case DIREITO:
+			DivisorUtil.novoHorizontalLeft(this, clone, left, left.getSize());
+			break;
+		case ABAIXO:
+			DivisorUtil.novoVerticalLeft(this, clone, left, left.getSize());
+			break;
+		case ACIMA:
+			DivisorUtil.novoVerticalLeft(this, left, clone, left.getSize());
+			break;
+		default:
+			throw new IllegalStateException();
 		}
 
-		restaurarLocalizacaoDivisor();
+		restaurarMementoDivisor();
 	}
 
 	public void clonarRight(byte disposicao) {
 		Component clone = DivisorUtil.clonarRight(this);
 		Component right = rightComponent;
 		criarMementoDivisor();
-		remove(rightComponent);
 
-		if (disposicao == ESQUERDO) {
-			DivisorUtil.novoHorizontalRight(this, right, clone);
-		} else if (disposicao == DIREITO) {
-			DivisorUtil.novoHorizontalRight(this, clone, right);
-
-		} else if (disposicao == ABAIXO) {
-			DivisorUtil.novoVerticalRight(this, clone, right);
-		} else if (disposicao == ACIMA) {
-			DivisorUtil.novoVerticalRight(this, right, clone);
+		switch (disposicao) {
+		case ESQUERDO:
+			DivisorUtil.novoHorizontalRight(this, right, clone, right.getSize());
+			break;
+		case DIREITO:
+			DivisorUtil.novoHorizontalRight(this, clone, right, right.getSize());
+			break;
+		case ABAIXO:
+			DivisorUtil.novoVerticalRight(this, clone, right, right.getSize());
+			break;
+		case ACIMA:
+			DivisorUtil.novoVerticalRight(this, right, clone, right.getSize());
+			break;
+		default:
+			throw new IllegalStateException();
 		}
 
-		restaurarLocalizacaoDivisor();
+		restaurarMementoDivisor();
 	}
 
 	public void excluirLeft() {
-		remove(leftComponent);
-
-		if (divisorListener != null) {
-			divisorListener.excluidoLeft(this);
+		if (ouvinte != null) {
+			remove(leftComponent);
+			ouvinte.excluidoLeft(this);
 		}
 	}
 
 	public void excluirRight() {
-		remove(rightComponent);
-
-		if (divisorListener != null) {
-			divisorListener.excluidoRight(this);
+		if (ouvinte != null) {
+			remove(rightComponent);
+			ouvinte.excluidoRight(this);
 		}
+		
 	}
 
-	@Override
-	public void excluidoLeft(Divisor divisor) {
-		DivisorUtil.checarValido(this, divisor);
-		Component componente = divisor.getRightComponent();
-
-		if (divisor == leftComponent) {
-
-			DivisorUtil.configDivisor(this, componente);
-			DivisorUtil.setLeftTrue(componente);
+	private DivisorListener divisorListener = new DivisorListener() {
+		@Override
+		public void excluidoLeft(Divisor divisor) {
+			DivisorUtil.checarValido(Divisor.this, divisor);
+			Component comp = divisor.getRightComponent();
 			criarMementoDivisor();
-			setLeftComponent(componente);
-			restaurarLocalizacaoDivisor();
 
-		} else if (divisor == rightComponent) {
+			if (divisor == leftComponent) {
+				setLeftComponent(comp);
+			} else if (divisor == rightComponent) {
+				setRightComponent(comp);
+			} else {
+				throw new IllegalStateException();
+			}
 
-			DivisorUtil.configDivisor(this, componente);
-			DivisorUtil.setLeftFalse(componente);
-			criarMementoDivisor();
-			setRightComponent(componente);
-			restaurarLocalizacaoDivisor();
-
-		} else {
-			throw new IllegalStateException();
+			restaurarMementoDivisor();
 		}
-	}
 
-	@Override
-	public void excluidoRight(Divisor divisor) {
-		DivisorUtil.checarValido(this, divisor);
-		Component componente = divisor.getLeftComponent();
-
-		if (divisor == leftComponent) {
-
-			DivisorUtil.configDivisor(this, componente);
-			DivisorUtil.setLeftTrue(componente);
+		@Override
+		public void excluidoRight(Divisor divisor) {
+			DivisorUtil.checarValido(Divisor.this, divisor);
+			Component comp = divisor.getLeftComponent();
 			criarMementoDivisor();
-			setLeftComponent(componente);
-			restaurarLocalizacaoDivisor();
 
-		} else if (divisor == rightComponent) {
+			if (divisor == leftComponent) {
+				setLeftComponent(comp);
+			} else if (divisor == rightComponent) {
+				setRightComponent(comp);
+			} else {
+				throw new IllegalStateException();
+			}
 
-			DivisorUtil.configDivisor(this, componente);
-			DivisorUtil.setLeftFalse(componente);
-			criarMementoDivisor();
-			setRightComponent(componente);
-			restaurarLocalizacaoDivisor();
-
-		} else {
-			throw new IllegalStateException();
+			restaurarMementoDivisor();
 		}
-	}
+	};
 
 	private void criarMementoDivisor() {
 		mementoDivisor = new MementoDivisor(this);
 	}
 
-	private void restaurarLocalizacaoDivisor() {
+	private void restaurarMementoDivisor() {
 		if (mementoDivisor != null) {
 			mementoDivisor.restaurar();
 		}
