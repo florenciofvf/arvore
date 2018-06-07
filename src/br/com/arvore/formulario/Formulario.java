@@ -17,6 +17,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
+import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.container.Container;
 import br.com.arvore.controle.Controle;
@@ -36,12 +37,11 @@ public class Formulario extends JFrame {
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
-
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	private final Menu menuArquivo = new Menu("label.arquivo");
-
 	private final JMenuBar menuBar = new JMenuBar();
 	private final Divisor divisor = new Divisor();
+	private final Panel PNL_PADRAO = new Panel();
 	private final Controle controle;
 
 	public Formulario() {
@@ -91,6 +91,7 @@ public class Formulario extends JFrame {
 	private void montarLayout() {
 		divisor.setOrientation(Divisor.VERTICAL_SPLIT);
 		divisor.setListener(splitPaneListener);
+		divisor.setLeftComponent(PNL_PADRAO);
 		divisor.setRightComponent(controle);
 		add(BorderLayout.CENTER, divisor);
 	}
@@ -193,7 +194,7 @@ public class Formulario extends JFrame {
 				return;
 			}
 
-			divisor.setLeftComponent(null);
+			divisor.setLeftComponent(PNL_PADRAO);
 
 			try {
 				setTitle(Mensagens.getString("label.arvore"));
