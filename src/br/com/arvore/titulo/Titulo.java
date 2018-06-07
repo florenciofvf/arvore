@@ -196,7 +196,7 @@ public class Titulo extends Panel {
 		final MenuItem itemCloneDireito = new MenuItem("label.clone_direito");
 		final MenuItem itemCloneAbaixo = new MenuItem("label.clone_abaixo");
 		final MenuItem itemCloneAcima = new MenuItem("label.clone_acima");
-		final MenuItem itemExcluir = new MenuItem("label.excluir");
+		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
 
 		public TituloPopup() {
 			add(itemCloneEsquerdo);
@@ -208,6 +208,12 @@ public class Titulo extends Panel {
 			add(itemCloneAcima);
 			addSeparator();
 			add(itemExcluir);
+
+			itemCloneEsquerdo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneEsquerdo));
+			itemCloneDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
+			itemCloneAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
+			itemCloneAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));
+			itemExcluir.addActionListener(e -> ouvintes.forEach(TituloListener::excluirFichario));
 		}
 	}
 }

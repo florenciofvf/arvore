@@ -9,6 +9,7 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.Objeto;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
+import br.com.arvore.divisor.Divisor;
 import br.com.arvore.divisor.DivisorClone;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.titulo.Titulo;
@@ -19,6 +20,8 @@ public class Fichario extends TabbedPane implements DivisorClone {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
 	private final Formulario formulario;
+	private Divisor divisor;
+	private boolean left;
 	private Objeto raiz;
 
 	public Fichario(Formulario formulario) {
@@ -33,6 +36,22 @@ public class Fichario extends TabbedPane implements DivisorClone {
 
 	public void setRaiz(Objeto raiz) {
 		this.raiz = raiz;
+	}
+
+	public boolean isLeft() {
+		return left;
+	}
+
+	public void setLeft(boolean left) {
+		this.left = left;
+	}
+
+	public Divisor getDivisor() {
+		return divisor;
+	}
+
+	public void setDivisor(Divisor divisor) {
+		this.divisor = divisor;
 	}
 
 	private void abaSelecionada() {
@@ -76,6 +95,51 @@ public class Fichario extends TabbedPane implements DivisorClone {
 				addAba("label.objetos", raiz, false);
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
+			}
+		}
+
+		@Override
+		public void excluirFichario() {
+			if (divisor != null && left) {
+				divisor.excluirLeft();
+			} else if (divisor != null && !left) {
+				divisor.excluirRight();
+			}
+		}
+
+		@Override
+		public void cloneEsquerdo() {
+			if (divisor != null && left) {
+				divisor.clonarLeft(Divisor.ESQUERDO);
+			} else if (divisor != null && !left) {
+				divisor.clonarRight(Divisor.ESQUERDO);
+			}
+		}
+
+		@Override
+		public void cloneDireito() {
+			if (divisor != null && left) {
+				divisor.clonarLeft(Divisor.DIREITO);
+			} else if (divisor != null && !left) {
+				divisor.clonarRight(Divisor.DIREITO);
+			}
+		}
+
+		@Override
+		public void cloneAbaixo() {
+			if (divisor != null && left) {
+				divisor.clonarLeft(Divisor.ABAIXO);
+			} else if (divisor != null && !left) {
+				divisor.clonarRight(Divisor.ABAIXO);
+			}
+		}
+
+		@Override
+		public void cloneAcima() {
+			if (divisor != null && left) {
+				divisor.clonarLeft(Divisor.ACIMA);
+			} else if (divisor != null && !left) {
+				divisor.clonarRight(Divisor.ACIMA);
 			}
 		}
 	};
