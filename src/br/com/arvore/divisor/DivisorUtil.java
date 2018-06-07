@@ -50,8 +50,22 @@ public class DivisorUtil {
 		objeto.setDivisorListener(divisor);
 		objeto.setRightComponent(c2);
 		objeto.setLeftComponent(c1);
+		setLeftFalse(c2);
+		setLeftTrue(c1);
 
 		return objeto;
+	}
+
+	public static void setLeftFalse(Component componente) {
+		if (componente instanceof DivisorClone) {
+			((DivisorClone) componente).setLeft(false);
+		}
+	}
+
+	public static void setLeftTrue(Component componente) {
+		if (componente instanceof DivisorClone) {
+			((DivisorClone) componente).setLeft(true);
+		}
 	}
 
 	public static void checarValido(Divisor divisor, Component componente) {

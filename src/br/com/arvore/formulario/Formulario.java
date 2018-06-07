@@ -22,6 +22,7 @@ import br.com.arvore.container.Container;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.divisor.Divisor;
+import br.com.arvore.divisor.DivisorUtil;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.fichario.FicharioListener;
 import br.com.arvore.util.Constantes;
@@ -199,9 +200,9 @@ public class Formulario extends JFrame {
 				Objeto raiz = XML.processar(file);
 				Fichario fichario = new Fichario(this);
 				fichario.adicionarOuvinte(ficharioListener);
+				DivisorUtil.setLeftTrue(fichario);
 				fichario.setDivisor(divisor);
 				fichario.setRaiz(raiz);
-				fichario.setLeft(true);
 				fichario.addAba("label.objetos", raiz, true);
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				divisor.setLeftComponent(fichario);

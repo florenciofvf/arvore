@@ -68,9 +68,13 @@ public class Divisor extends SplitPane implements DivisorListener {
 		Component componente = divisor.getRightComponent();
 
 		if (divisor == leftComponent) {
+			DivisorUtil.setLeftTrue(componente);
 			setLeftComponent(componente);
+
 		} else if (divisor == rightComponent) {
+			DivisorUtil.setLeftFalse(componente);
 			setRightComponent(componente);
+
 		} else {
 			throw new IllegalStateException();
 		}
@@ -82,9 +86,13 @@ public class Divisor extends SplitPane implements DivisorListener {
 		Component componente = divisor.getLeftComponent();
 
 		if (divisor == leftComponent) {
+			DivisorUtil.setLeftTrue(componente);
 			setLeftComponent(componente);
+
 		} else if (divisor == rightComponent) {
+			DivisorUtil.setLeftFalse(componente);
 			setRightComponent(componente);
+
 		} else {
 			throw new IllegalStateException();
 		}
