@@ -3,6 +3,7 @@ package br.com.arvore.comp;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import javax.swing.BorderFactory;
 import javax.swing.JSplitPane;
 
 import br.com.arvore.util.Constantes;
@@ -48,6 +49,7 @@ public class SplitPane extends JSplitPane {
 
 	private void config() {
 		setOneTouchExpandable(!Constantes.DESENHAR_SPLIT_CONTAINER);
+		setBorder(BorderFactory.createEmptyBorder());
 		setContinuousLayout(true);
 		setDividerSize(5);
 
