@@ -28,19 +28,27 @@ public class DivisorUtil {
 	}
 
 	public static void novoHorizontalLeft(Divisor divisor, Component c1, Component c2) {
-		divisor.setLeftComponent(criarDivisor(divisor, Divisor.HORIZONTAL_SPLIT, c1, c2));
+		Divisor objeto = criarDivisor(divisor, Divisor.HORIZONTAL_SPLIT, c1, c2);
+		divisor.setLeftComponent(objeto);
+		objeto.setDividerLocation(divisor.getWidth() / 2);
 	}
 
 	public static void novoHorizontalRight(Divisor divisor, Component c1, Component c2) {
-		divisor.setRightComponent(criarDivisor(divisor, Divisor.HORIZONTAL_SPLIT, c1, c2));
+		Divisor objeto = criarDivisor(divisor, Divisor.HORIZONTAL_SPLIT, c1, c2);
+		divisor.setRightComponent(objeto);
+		objeto.setDividerLocation(divisor.getWidth() / 2);
 	}
 
 	public static void novoVerticalLeft(Divisor divisor, Component c1, Component c2) {
-		divisor.setLeftComponent(criarDivisor(divisor, Divisor.VERTICAL_SPLIT, c1, c2));
+		Divisor objeto = criarDivisor(divisor, Divisor.VERTICAL_SPLIT, c1, c2);
+		divisor.setLeftComponent(objeto);
+		objeto.setDividerLocation(divisor.getHeight() / 2);
 	}
 
 	public static void novoVerticalRight(Divisor divisor, Component c1, Component c2) {
-		divisor.setRightComponent(criarDivisor(divisor, Divisor.VERTICAL_SPLIT, c1, c2));
+		Divisor objeto = criarDivisor(divisor, Divisor.VERTICAL_SPLIT, c1, c2);
+		divisor.setRightComponent(objeto);
+		objeto.setDividerLocation(divisor.getHeight() / 2);
 	}
 
 	private static Divisor criarDivisor(DivisorListener listener, int orientacao, Component c1, Component c2) {
