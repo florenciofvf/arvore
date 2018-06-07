@@ -36,16 +36,6 @@ public class Tabela extends JTable {
 		ouvintes = new ArrayList<>();
 		setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableHeader.addMouseListener(headerListener);
-
-		popupHeader.itemCopiar.addActionListener(e -> {
-			List<String> lista = TabelaUtil.getValoresColuna(Tabela.this, popupHeader.getTag());
-			Util.setContentTransfered(Util.getStringLista(lista, false));
-		});
-
-		popupHeader.itemCopiarComAspas.addActionListener(e -> {
-			List<String> lista = TabelaUtil.getValoresColuna(Tabela.this, popupHeader.getTag());
-			Util.setContentTransfered(Util.getStringLista(lista, true));
-		});
 	}
 
 	public void adicionarOuvinte(TabelaListener listener) {
@@ -125,6 +115,16 @@ public class Tabela extends JTable {
 			add(itemCopiar);
 			addSeparator();
 			add(itemCopiarComAspas);
+
+			itemCopiar.addActionListener(e -> {
+				List<String> lista = TabelaUtil.getValoresColuna(Tabela.this, getTag());
+				Util.setContentTransfered(Util.getStringLista(lista, false));
+			});
+
+			itemCopiarComAspas.addActionListener(e -> {
+				List<String> lista = TabelaUtil.getValoresColuna(Tabela.this, getTag());
+				Util.setContentTransfered(Util.getStringLista(lista, true));
+			});
 		}
 
 		public int getTag() {

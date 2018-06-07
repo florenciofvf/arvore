@@ -36,10 +36,6 @@ public class Arvore extends JTree {
 		ouvintes = new ArrayList<>();
 		setShowsRootHandles(true);
 		setRootVisible(true);
-
-		arvorePopup.itemAtualizar.addActionListener(e -> ouvintes.forEach(o -> o.pedidoAtualizarObjeto(this)));
-		arvorePopup.itemDestacar.addActionListener(e -> ouvintes.forEach(o -> o.pedidoDestacarObjeto(this)));
-		arvorePopup.itemDelete.addActionListener(e -> ouvintes.forEach(o -> o.pedidoExcluirObjeto(this)));
 	}
 
 	public void adicionarOuvinte(ArvoreListener listener) {
@@ -128,6 +124,10 @@ public class Arvore extends JTree {
 			add(itemDestacar);
 			addSeparator();
 			add(itemDelete);
+
+			itemAtualizar.addActionListener(e -> ouvintes.forEach(o -> o.pedidoAtualizarObjeto(Arvore.this)));
+			itemDestacar.addActionListener(e -> ouvintes.forEach(o -> o.pedidoDestacarObjeto(Arvore.this)));
+			itemDelete.addActionListener(e -> ouvintes.forEach(o -> o.pedidoExcluirObjeto(Arvore.this)));
 		}
 	}
 }
