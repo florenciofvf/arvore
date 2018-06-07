@@ -17,6 +17,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
+import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.container.Container;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
@@ -87,8 +88,8 @@ public class Formulario extends JFrame {
 	}
 
 	private void montarLayout() {
-		// divisor.setListener(splitPaneListener);
 		divisor.setOrientation(Divisor.VERTICAL_SPLIT);
+		divisor.setListener(splitPaneListener);
 		divisor.setRightComponent(controle);
 		add(BorderLayout.CENTER, divisor);
 	}
@@ -124,6 +125,13 @@ public class Formulario extends JFrame {
 	public FicharioListener getFicharioListener() {
 		return ficharioListener;
 	}
+
+	private SplitPaneListener splitPaneListener = new SplitPaneListener() {
+		@Override
+		public void localizacao(int i) {
+			Constantes.DIV_FICHARIO_CONTROLE = i;
+		}
+	};
 
 	private FicharioListener ficharioListener = new FicharioListener() {
 		@Override
@@ -191,10 +199,13 @@ public class Formulario extends JFrame {
 				Objeto raiz = XML.processar(file);
 				Fichario fichario = new Fichario(this);
 				fichario.adicionarOuvinte(ficharioListener);
+				fichario.setDivisor(divisor);
 				fichario.setRaiz(raiz);
+				fichario.setLeft(true);
 				fichario.addAba("label.objetos", raiz, true);
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				divisor.setLeftComponent(fichario);
+				divisor.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}
