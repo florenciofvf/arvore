@@ -35,7 +35,9 @@ import br.com.arvore.xml.XML;
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
+	private final MenuItem itemAplicarModelo = new MenuItem("label.aplicar_modelo");
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
+	private final MenuItem itemSalvarModelo = new MenuItem("label.salvar_modelo");
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final Menu menuAparencia = new Menu("label.aparencia");
 	public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
@@ -86,6 +88,36 @@ public class Formulario extends JFrame {
 				abrirArquivo(file, true, true, true);
 			}
 		});
+
+		itemAplicarModelo.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser(".");
+			int opcao = fileChooser.showOpenDialog(Formulario.this);
+
+			if (opcao != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
+
+			File file = fileChooser.getSelectedFile();
+
+			if (file != null) {
+				aplicarModelo(file);
+			}
+		});
+
+		itemSalvarModelo.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser(".");
+			int opcao = fileChooser.showSaveDialog(Formulario.this);
+
+			if (opcao != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
+
+			File file = fileChooser.getSelectedFile();
+
+			if (file != null) {
+				salvarModelo(file);
+			}
+		});
 	}
 
 	private void montarLayout() {
@@ -106,6 +138,9 @@ public class Formulario extends JFrame {
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemConexao);
 		menuArquivo.addSeparator();
+		menuArquivo.add(itemAplicarModelo);
+		menuArquivo.add(itemSalvarModelo);
+		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
 
 		configMenuAparencia();
@@ -122,6 +157,12 @@ public class Formulario extends JFrame {
 			menuAparencia.add(item);
 			grupo.add(item);
 		}
+	}
+
+	private void salvarModelo(File file) {
+	}
+
+	private void aplicarModelo(File file) {
 	}
 
 	public FicharioListener getFicharioListener() {
