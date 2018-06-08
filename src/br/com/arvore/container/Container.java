@@ -48,6 +48,10 @@ public class Container extends PanelBorder {
 		splitPane.setLeftComponent(new ScrollPane(arvore));
 	}
 
+	public void setDividerLocation(int i) {
+		splitPane.setDividerLocation(i);
+	}
+
 	public void exibirRegistros(Objeto objeto) throws Exception {
 		ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
 		ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro, modeloRegistro.getColunasNumero());

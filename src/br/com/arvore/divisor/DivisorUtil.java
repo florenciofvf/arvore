@@ -29,37 +29,37 @@ public class DivisorUtil {
 	}
 
 	public static void novoHorizontalLeft(Divisor divisor, Component left, Component right, Dimension d) {
-		Divisor objeto = criarDivisor(Divisor.HORIZONTAL_SPLIT, left, right);
-		divisor.setLeftComponent(objeto);
-		objeto.setDividerLocation(d.width / 2);
+		Divisor divisorLeft = criarDivisor(Divisor.HORIZONTAL_SPLIT, left, right);
+		divisor.setLeftComponent(divisorLeft);
+		divisorLeft.setDividerLocation(d.width / 2);
 	}
 
 	public static void novoHorizontalRight(Divisor divisor, Component left, Component right, Dimension d) {
-		Divisor objeto = criarDivisor(Divisor.HORIZONTAL_SPLIT, left, right);
-		divisor.setRightComponent(objeto);
-		objeto.setDividerLocation(d.width / 2);
+		Divisor divisorRight = criarDivisor(Divisor.HORIZONTAL_SPLIT, left, right);
+		divisor.setRightComponent(divisorRight);
+		divisorRight.setDividerLocation(d.width / 2);
 	}
 
 	public static void novoVerticalLeft(Divisor divisor, Component left, Component right, Dimension d) {
-		Divisor objeto = criarDivisor(Divisor.VERTICAL_SPLIT, left, right);
-		divisor.setLeftComponent(objeto);
-		objeto.setDividerLocation(d.height / 2);
+		Divisor divisorLeft = criarDivisor(Divisor.VERTICAL_SPLIT, left, right);
+		divisor.setLeftComponent(divisorLeft);
+		divisorLeft.setDividerLocation(d.height / 2);
 	}
 
 	public static void novoVerticalRight(Divisor divisor, Component left, Component right, Dimension d) {
-		Divisor objeto = criarDivisor(Divisor.VERTICAL_SPLIT, left, right);
-		divisor.setRightComponent(objeto);
-		objeto.setDividerLocation(d.height / 2);
+		Divisor divisorRight = criarDivisor(Divisor.VERTICAL_SPLIT, left, right);
+		divisor.setRightComponent(divisorRight);
+		divisorRight.setDividerLocation(d.height / 2);
 	}
 
 	private static Divisor criarDivisor(int orientacao, Component left, Component right) {
-		Divisor objeto = new Divisor();
+		Divisor divisor = new Divisor();
 
-		objeto.setOrientation(orientacao);
-		objeto.setRightComponent(right);
-		objeto.setLeftComponent(left);
+		divisor.setOrientation(orientacao);
+		divisor.setRightComponent(right);
+		divisor.setLeftComponent(left);
 
-		return objeto;
+		return divisor;
 	}
 
 	public static void checarValido(Divisor divisor, Component comp) {

@@ -70,6 +70,7 @@ public class Fichario extends TabbedPane implements DivisorClone {
 		ObjetoUtil.inflar(objeto);
 
 		Container container = new Container(objeto);
+		container.setDividerLocation(getWidth() / 2);
 		container.adicionarOuvinte(containerListener);
 		addTab(chaveTitulo, container);
 
