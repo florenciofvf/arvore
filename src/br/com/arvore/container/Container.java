@@ -10,13 +10,11 @@ import br.com.arvore.arvore.ArvoreListener;
 import br.com.arvore.comp.PanelBorder;
 import br.com.arvore.comp.ScrollPane;
 import br.com.arvore.comp.SplitPane;
-import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.modelo.ModeloArvore;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.tabela.Tabela;
 import br.com.arvore.tabela.TabelaUtil;
-import br.com.arvore.util.Constantes;
 
 public class Container extends PanelBorder {
 	private static final long serialVersionUID = 1L;
@@ -46,10 +44,8 @@ public class Container extends PanelBorder {
 
 	private void montarLayout() {
 		add(BorderLayout.CENTER, splitPane);
-		splitPane.setListener(splitPaneListener);
-		splitPane.setLeftComponent(new ScrollPane(arvore));
 		splitPane.setRightComponent(new ScrollPane(tabela));
-		splitPane.setDividerLocation(Constantes.DIV_ARVORE_TABELA);
+		splitPane.setLeftComponent(new ScrollPane(arvore));
 	}
 
 	public void exibirRegistros(Objeto objeto) throws Exception {
@@ -93,13 +89,6 @@ public class Container extends PanelBorder {
 		public void pedidoAtualizarObjeto(Arvore arvore) {
 			checar(arvore);
 			ouvintes.forEach(o -> o.pedidoAtualizarObjeto(Container.this));
-		}
-	};
-
-	private SplitPaneListener splitPaneListener = new SplitPaneListener() {
-		@Override
-		public void localizacao(int i) {
-			Constantes.DIV_ARVORE_TABELA = i;
 		}
 	};
 }
