@@ -37,10 +37,10 @@ public class Formulario extends JFrame {
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	private final Menu menuAparencia = new Menu("label.aparencia");
+	public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final JMenuBar menuBar = new JMenuBar();
 	private final Divisor divisor = new Divisor();
-	private final Panel PNL_PADRAO = new Panel();
 	private final Controle controle;
 
 	public Formulario() {
@@ -208,5 +208,9 @@ public class Formulario extends JFrame {
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}
 		}
+	}
+
+	public static class Pnl_padrao extends Panel {
+		private static final long serialVersionUID = 1L;
 	}
 }

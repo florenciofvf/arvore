@@ -2,8 +2,12 @@ package br.com.arvore.divisor;
 
 import java.awt.Component;
 
+import javax.swing.JButton;
+
 import br.com.arvore.comp.SplitPane;
+import br.com.arvore.controle.Controle;
 import br.com.arvore.fichario.Fichario;
+import br.com.arvore.formulario.Formulario;
 
 public class Divisor extends SplitPane {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +28,9 @@ public class Divisor extends SplitPane {
 			fichario.setLeft(true);
 		} else if (comp instanceof Divisor) {
 			((Divisor) comp).ouvinte = divisorListener;
+		} else if (comp instanceof Formulario.Pnl_padrao) {
+		} else if (comp instanceof Controle) {
+		} else if (comp instanceof JButton) {
 		} else {
 			throw new IllegalStateException();
 		}
@@ -39,6 +46,9 @@ public class Divisor extends SplitPane {
 			fichario.setLeft(false);
 		} else if (comp instanceof Divisor) {
 			((Divisor) comp).ouvinte = divisorListener;
+		} else if (comp instanceof Formulario.Pnl_padrao) {
+		} else if (comp instanceof Controle) {
+		} else if (comp instanceof JButton) {
 		} else {
 			throw new IllegalStateException();
 		}
@@ -53,6 +63,9 @@ public class Divisor extends SplitPane {
 			fichario.setDivisor(null);
 		} else if (comp instanceof Divisor) {
 			((Divisor) comp).ouvinte = null;
+		} else if (comp instanceof Formulario.Pnl_padrao) {
+		} else if (comp instanceof Controle) {
+		} else if (comp instanceof JButton) {
 		} else {
 			throw new IllegalStateException();
 		}
