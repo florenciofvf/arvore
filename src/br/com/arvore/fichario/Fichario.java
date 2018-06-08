@@ -61,7 +61,7 @@ public class Fichario extends TabbedPane implements DivisorClone {
 	}
 
 	public void setDividerLocation() {
-		if(getTabCount() > 0) {
+		if (getTabCount() > 0) {
 			Container container = (Container) getComponentAt(0);
 			container.setDividerLocation(getWidth() / 2);
 		}

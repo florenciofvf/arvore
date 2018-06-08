@@ -61,12 +61,17 @@ public class DivisorUtil {
 	private static Divisor criarDivisor(int orientacao, Component left, Component right, Dimension d) {
 		Divisor divisor = new Divisor();
 
-		right.setSize(d.width / 2, right.getHeight());
-		left.setSize(d.width / 2, left.getHeight());
+		if (orientacao == Divisor.HORIZONTAL_SPLIT) {
+			right.setSize(d.width / 2, right.getHeight());
+			left.setSize(d.width / 2, left.getHeight());
+		} else {
+			right.setSize(d);
+			left.setSize(d);
+		}
+
 		divisor.setOrientation(orientacao);
 		divisor.setRightComponent(right);
 		divisor.setLeftComponent(left);
-		divisor.setPreferredSize(d);
 		divisor.setSize(d);
 
 		return divisor;
