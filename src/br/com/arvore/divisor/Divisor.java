@@ -1,7 +1,6 @@
 package br.com.arvore.divisor;
 
 import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.JButton;
 
@@ -73,9 +72,7 @@ public class Divisor extends SplitPane {
 	}
 
 	public void clonarLeft(byte disposicao) {
-		Dimension dimension = disposicao == ESQUERDO || disposicao == DIREITO
-				? new Dimension(leftComponent.getSize().width / 2, 0) : leftComponent.getSize();
-		Component clone = DivisorUtil.clonarLeft(this, dimension);
+		Component clone = DivisorUtil.clonarLeft(this);
 		Component left = leftComponent;
 		criarMementoDivisor();
 
@@ -100,9 +97,7 @@ public class Divisor extends SplitPane {
 	}
 
 	public void clonarRight(byte disposicao) {
-		Dimension dimension = disposicao == ESQUERDO || disposicao == DIREITO
-				? new Dimension(leftComponent.getSize().width / 2, 0) : leftComponent.getSize();
-		Component clone = DivisorUtil.clonarRight(this, dimension);
+		Component clone = DivisorUtil.clonarRight(this);
 		Component right = rightComponent;
 		criarMementoDivisor();
 
@@ -138,7 +133,6 @@ public class Divisor extends SplitPane {
 			remove(rightComponent);
 			ouvinte.excluidoRight(this);
 		}
-
 	}
 
 	private DivisorListener divisorListener = new DivisorListener() {
@@ -157,6 +151,7 @@ public class Divisor extends SplitPane {
 			}
 
 			restaurarMementoDivisor();
+			DivisorUtil.setDividerLocation(Divisor.this);
 		}
 
 		@Override
@@ -174,6 +169,7 @@ public class Divisor extends SplitPane {
 			}
 
 			restaurarMementoDivisor();
+			DivisorUtil.setDividerLocation(Divisor.this);
 		}
 	};
 

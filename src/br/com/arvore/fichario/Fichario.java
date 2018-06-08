@@ -1,7 +1,6 @@
 package br.com.arvore.fichario;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +60,13 @@ public class Fichario extends TabbedPane implements DivisorClone {
 		}
 	}
 
+	public void setDividerLocation() {
+		if(getTabCount() > 0) {
+			Container container = (Container) getComponentAt(0);
+			container.setDividerLocation(getWidth() / 2);
+		}
+	}
+
 	private void notificarContainerExcluido(Container container) {
 		ouvintes.forEach(o -> o.containerExcluido(container));
 	}
@@ -71,13 +77,14 @@ public class Fichario extends TabbedPane implements DivisorClone {
 		ObjetoUtil.inflar(objeto);
 
 		Container container = new Container(objeto);
-		container.setDividerLocation(getWidth() / 2);
 		container.adicionarOuvinte(containerListener);
 		addTab(chaveTitulo, container);
 
 		Titulo titulo = new Titulo(this, clonar);
 		titulo.adicionarOuvinte(tituloListener);
 		setTabComponentAt(getTabCount() - 1, titulo);
+
+		setDividerLocation();
 	}
 
 	private TituloListener tituloListener = new TituloListener() {
@@ -166,9 +173,8 @@ public class Fichario extends TabbedPane implements DivisorClone {
 	};
 
 	@Override
-	public Component clonar(Dimension dimension) {
+	public Component clonar() {
 		Fichario fichario = new Fichario(formulario, raiz);
-		fichario.setSize(dimension);
 		fichario.adicionarOuvinte(formulario.getFicharioListener());
 
 		try {
