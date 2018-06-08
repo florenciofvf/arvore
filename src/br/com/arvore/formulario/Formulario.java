@@ -30,6 +30,7 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
+import br.com.arvore.util.XMLUtil;
 import br.com.arvore.xml.XML;
 
 public class Formulario extends JFrame {
@@ -160,6 +161,15 @@ public class Formulario extends JFrame {
 	}
 
 	private void salvarModelo(File file) {
+		try {
+			XMLUtil xml = new XMLUtil(file);
+			xml.prologo();
+			divisor.salvar(xml);
+			xml.close();
+			Util.mensagem(this, Mensagens.getString("label.salvo_modelo"));
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("SALVAR MODELO", ex, this);
+		}
 	}
 
 	private void aplicarModelo(File file) {

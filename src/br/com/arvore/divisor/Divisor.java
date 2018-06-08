@@ -8,6 +8,8 @@ import br.com.arvore.comp.SplitPane;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.formulario.Formulario;
+import br.com.arvore.util.Constantes;
+import br.com.arvore.util.XMLUtil;
 
 public class Divisor extends SplitPane {
 	private static final long serialVersionUID = 1L;
@@ -188,5 +190,45 @@ public class Divisor extends SplitPane {
 		void restaurar() {
 			setDividerLocation(localizacao);
 		}
+	}
+
+	public void salvar(XMLUtil xml) {
+		xml.inicioTag(Constantes.DIVISOR).fecharTag();
+
+		xml.inicioTag(Constantes.LEFT);
+		if (leftComponent instanceof Divisor) {
+			Divisor divisor = (Divisor) leftComponent;
+			xml.atributo(Constantes.ORIENTACAO, divisor.isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL).fecharTag();
+			divisor.salvar(xml);
+		} else if (leftComponent instanceof Fichario) {
+			Fichario fichario = (Fichario) leftComponent;
+			xml.fecharTag();
+			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + fichario.getTabCount()).fecharTag().finalizarTag(Constantes.FICHARIO);
+		} else if (leftComponent instanceof Controle) {
+			xml.fecharTag();
+			xml.inicioTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
+		}
+		xml.finalizarTag(Constantes.LEFT);
+
+		xml.inicioTag(Constantes.RIGHT);
+		if (rightComponent instanceof Divisor) {
+			Divisor divisor = (Divisor) rightComponent;
+			xml.atributo(Constantes.ORIENTACAO, divisor.isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL).fecharTag();
+			divisor.salvar(xml);
+		} else if (rightComponent instanceof Fichario) {
+			Fichario fichario = (Fichario) rightComponent;
+			xml.fecharTag();
+			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + fichario.getTabCount()).fecharTag().finalizarTag(Constantes.FICHARIO);
+		} else if (rightComponent instanceof Controle) {
+			xml.fecharTag();
+			xml.inicioTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
+		}
+		xml.finalizarTag(Constantes.RIGHT);
+
+		xml.finalizarTag(Constantes.DIVISOR);
+	}
+
+	private boolean isHorizontal() {
+		return orientation == HORIZONTAL_SPLIT;
 	}
 }

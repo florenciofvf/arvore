@@ -31,9 +31,15 @@ public class Constantes {
 
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
+	public static final String ORIENTACAO = "orientacao";
+	public static final String HORIZONTAL = "HORIZONTAL";
 	public static final String PSMT_META = "PSMT_META";
 	public static final String PSMT_SET = "PSMT_SET";
 	public static final String UM_PIXEL = "um_pixel";
+	public static final String VERTICAL = "VERTICAL";
+	public static final String CONTROLE = "controle";
+	public static final String FICHARIO = "fichario";
+	public static final String DIVISOR = "divisor";
 	public static final String OBJETO = "objeto";
 	public static final String DRIVER = "driver";
 	public static final String TITULO = "titulo";
@@ -41,6 +47,9 @@ public class Constantes {
 	public static final String LOGIN = "login";
 	public static final String ICONE = "icone";
 	public static final String SENHA = "senha";
+	public static final String RIGHT = "right";
+	public static final String LEFT = "left";
+	public static final String ABAS = "abas";
 	public static final String URL = "url";
 
 	public static final boolean DESENHAR_SPLIT_CONTAINER = false;
