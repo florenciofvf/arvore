@@ -1,6 +1,7 @@
 package br.com.arvore.fichario;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,8 +166,9 @@ public class Fichario extends TabbedPane implements DivisorClone {
 	};
 
 	@Override
-	public Component clonar() {
+	public Component clonar(Dimension dimension) {
 		Fichario fichario = new Fichario(formulario, raiz);
+		fichario.setSize(dimension);
 		fichario.adicionarOuvinte(formulario.getFicharioListener());
 
 		try {

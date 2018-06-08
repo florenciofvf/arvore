@@ -8,21 +8,21 @@ public class DivisorUtil {
 	private DivisorUtil() {
 	}
 
-	public static Component clonarLeft(Divisor divisor) {
+	public static Component clonarLeft(Divisor divisor, Dimension dimension) {
 		Component componente = divisor.getLeftComponent();
 
 		if (componente instanceof DivisorClone) {
-			return ((DivisorClone) componente).clonar();
+			return ((DivisorClone) componente).clonar(dimension);
 		}
 
 		throw new IllegalStateException();
 	}
 
-	public static Component clonarRight(Divisor divisor) {
+	public static Component clonarRight(Divisor divisor, Dimension dimension) {
 		Component componente = divisor.getRightComponent();
 
 		if (componente instanceof DivisorClone) {
-			return ((DivisorClone) componente).clonar();
+			return ((DivisorClone) componente).clonar(dimension);
 		}
 
 		throw new IllegalStateException();

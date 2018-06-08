@@ -1,6 +1,7 @@
 package br.com.arvore.formulario;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.InputEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -199,6 +200,7 @@ public class Formulario extends JFrame {
 			try {
 				Objeto raiz = XML.processar(file);
 				Fichario fichario = new Fichario(this, raiz);
+				fichario.setSize(new Dimension(getSize()));
 				fichario.adicionarOuvinte(ficharioListener);
 				fichario.addAba("label.objetos", raiz, true);
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
