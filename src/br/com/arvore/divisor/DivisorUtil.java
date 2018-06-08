@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Objects;
 
+import javax.swing.SwingUtilities;
+
 import br.com.arvore.fichario.Fichario;
 
 public class DivisorUtil {
@@ -98,5 +100,7 @@ public class DivisorUtil {
 		if (right instanceof Fichario) {
 			((Fichario) right).setDividerLocation(0);
 		}
+
+		SwingUtilities.updateComponentTreeUI(divisor);
 	}
 }
