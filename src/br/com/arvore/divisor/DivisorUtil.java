@@ -91,12 +91,12 @@ public class DivisorUtil {
 			divisor.setDividerLocation(divisor.getHeight() / 2);
 		}
 
-		if (right instanceof Fichario) {
-			((Fichario) right).setDividerLocation(0);
-		}
-
 		if (left instanceof Fichario) {
 			((Fichario) left).setDividerLocation(0);
+		}
+
+		if (right instanceof Fichario) {
+			((Fichario) right).setDividerLocation(0);
 		}
 	}
 }
