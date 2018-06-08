@@ -193,34 +193,28 @@ public class Divisor extends SplitPane {
 	}
 
 	public void salvar(XMLUtil xml) {
-		xml.inicioTag(Constantes.DIVISOR).fecharTag();
+		xml.inicioTag(Constantes.DIVISOR)
+				.atributo(Constantes.ORIENTACAO, isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL)
+				.fecharTag();
 
-		xml.inicioTag(Constantes.LEFT);
+		xml.inicioTag(Constantes.LEFT).fecharTag();
 		if (leftComponent instanceof Divisor) {
-			Divisor divisor = (Divisor) leftComponent;
-			xml.atributo(Constantes.ORIENTACAO, divisor.isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL).fecharTag();
-			divisor.salvar(xml);
+			((Divisor) leftComponent).salvar(xml);
 		} else if (leftComponent instanceof Fichario) {
-			Fichario fichario = (Fichario) leftComponent;
-			xml.fecharTag();
-			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + fichario.getTabCount()).fecharTag().finalizarTag(Constantes.FICHARIO);
+			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) leftComponent).getTabCount())
+					.fecharTag().finalizarTag(Constantes.FICHARIO);
 		} else if (leftComponent instanceof Controle) {
-			xml.fecharTag();
 			xml.inicioTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
 		}
 		xml.finalizarTag(Constantes.LEFT);
 
-		xml.inicioTag(Constantes.RIGHT);
+		xml.inicioTag(Constantes.RIGHT).fecharTag();
 		if (rightComponent instanceof Divisor) {
-			Divisor divisor = (Divisor) rightComponent;
-			xml.atributo(Constantes.ORIENTACAO, divisor.isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL).fecharTag();
-			divisor.salvar(xml);
+			((Divisor) rightComponent).salvar(xml);
 		} else if (rightComponent instanceof Fichario) {
-			Fichario fichario = (Fichario) rightComponent;
-			xml.fecharTag();
-			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + fichario.getTabCount()).fecharTag().finalizarTag(Constantes.FICHARIO);
+			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) rightComponent).getTabCount())
+					.fecharTag().finalizarTag(Constantes.FICHARIO);
 		} else if (rightComponent instanceof Controle) {
-			xml.fecharTag();
 			xml.inicioTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
 		}
 		xml.finalizarTag(Constantes.RIGHT);
