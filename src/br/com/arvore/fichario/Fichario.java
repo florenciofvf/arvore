@@ -60,11 +60,9 @@ public class Fichario extends TabbedPane implements DivisorClone {
 		}
 	}
 
-	public void setDividerLocation() {
-		if (getTabCount() > 0) {
-			Container container = (Container) getComponentAt(0);
-			container.setDividerLocation(getWidth() / 2);
-		}
+	public void setDividerLocation(int indice) {
+		Container container = (Container) getComponentAt(indice);
+		container.setDividerLocation(getWidth() / 2);
 	}
 
 	private void notificarContainerExcluido(Container container) {
@@ -84,7 +82,7 @@ public class Fichario extends TabbedPane implements DivisorClone {
 		titulo.adicionarOuvinte(tituloListener);
 		setTabComponentAt(getTabCount() - 1, titulo);
 
-		setDividerLocation();
+		setDividerLocation(getTabCount() - 1);
 	}
 
 	private TituloListener tituloListener = new TituloListener() {
