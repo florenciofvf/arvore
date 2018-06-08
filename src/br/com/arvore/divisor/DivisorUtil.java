@@ -85,18 +85,18 @@ public class DivisorUtil {
 		Component right = divisor.getRightComponent();
 		Component left = divisor.getLeftComponent();
 
+		if (divisor.getOrientation() == Divisor.HORIZONTAL_SPLIT) {
+			divisor.setDividerLocation(divisor.getWidth() / 2);
+		} else {
+			divisor.setDividerLocation(divisor.getHeight() / 2);
+		}
+
 		if (right instanceof Fichario) {
 			((Fichario) right).setDividerLocation();
 		}
 
 		if (left instanceof Fichario) {
 			((Fichario) left).setDividerLocation();
-		}
-
-		if(divisor.getOrientation() == Divisor.HORIZONTAL_SPLIT) {
-			divisor.setDividerLocation(divisor.getWidth() / 2);
-		} else {
-			divisor.setDividerLocation(divisor.getHeight() / 2);
 		}
 	}
 }
