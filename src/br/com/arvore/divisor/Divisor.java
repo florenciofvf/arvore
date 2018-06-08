@@ -63,11 +63,6 @@ public class Divisor extends SplitPane {
 			fichario.setDivisor(null);
 		} else if (comp instanceof Divisor) {
 			((Divisor) comp).ouvinte = null;
-		} else if (comp instanceof Formulario.Pnl_padrao) {
-		} else if (comp instanceof Controle) {
-		} else if (comp instanceof JButton) {
-		} else {
-			throw new IllegalStateException();
 		}
 	}
 

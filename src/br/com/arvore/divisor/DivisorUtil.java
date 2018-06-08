@@ -33,28 +33,24 @@ public class DivisorUtil {
 	public static void novoHorizontalLeft(Divisor divisor, Component left, Component right, Dimension d) {
 		Divisor divisorLeft = criarDivisor(Divisor.HORIZONTAL_SPLIT, left, right, d);
 		divisor.setLeftComponent(divisorLeft);
-		divisorLeft.setDividerLocation(d.width / 2);
 		setDividerLocation(divisorLeft);
 	}
 
 	public static void novoHorizontalRight(Divisor divisor, Component left, Component right, Dimension d) {
 		Divisor divisorRight = criarDivisor(Divisor.HORIZONTAL_SPLIT, left, right, d);
 		divisor.setRightComponent(divisorRight);
-		divisorRight.setDividerLocation(d.width / 2);
 		setDividerLocation(divisorRight);
 	}
 
 	public static void novoVerticalLeft(Divisor divisor, Component left, Component right, Dimension d) {
 		Divisor divisorLeft = criarDivisor(Divisor.VERTICAL_SPLIT, left, right, d);
 		divisor.setLeftComponent(divisorLeft);
-		divisorLeft.setDividerLocation(d.height / 2);
 		setDividerLocation(divisorLeft);
 	}
 
 	public static void novoVerticalRight(Divisor divisor, Component left, Component right, Dimension d) {
 		Divisor divisorRight = criarDivisor(Divisor.VERTICAL_SPLIT, left, right, d);
 		divisor.setRightComponent(divisorRight);
-		divisorRight.setDividerLocation(d.height / 2);
 		setDividerLocation(divisorRight);
 	}
 
@@ -95,6 +91,12 @@ public class DivisorUtil {
 
 		if (left instanceof Fichario) {
 			((Fichario) left).setDividerLocation();
+		}
+
+		if(divisor.getOrientation() == Divisor.HORIZONTAL_SPLIT) {
+			divisor.setDividerLocation(divisor.getWidth() / 2);
+		} else {
+			divisor.setDividerLocation(divisor.getHeight() / 2);
 		}
 	}
 }
