@@ -14,6 +14,7 @@ import br.com.arvore.divisor.DivisorClone;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
+import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
@@ -87,9 +88,33 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		setDividerLocation(getTabCount() - 1);
 	}
 
+	private void illegalStateException() {
+		throw new IllegalStateException();
+	}
+
 	@Override
 	public void aplicarLayout(Obj obj) {
-		// TODO
+		if (obj.isLeft()) {
+			Obj filho = obj.getFilho(0);
+
+			if (filho.isFichario()) {
+
+				String abas = filho.getValorAtributo(Constantes.ABAS);
+				int total = Integer.parseInt(abas);
+
+				for (int i = 1; i < total; i++) {
+					tituloListener.clonarAba();
+				}
+
+			} else if (filho.isDivisor()) {
+
+			} else {
+				illegalStateException();
+			}
+
+		} else {
+			illegalStateException();
+		}
 	}
 
 	private TituloListener tituloListener = new TituloListener() {
