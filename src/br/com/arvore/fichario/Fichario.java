@@ -98,16 +98,50 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 			Obj filho = obj.getFilho(0);
 
 			if (filho.isFichario()) {
-
 				String abas = filho.getValorAtributo(Constantes.ABAS);
 				int total = Integer.parseInt(abas);
 
 				for (int i = 1; i < total; i++) {
 					tituloListener.clonarAba();
 				}
-
 			} else if (filho.isDivisor()) {
+				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
 
+				if (Constantes.VERTICAL.equals(orientacao)) {
+					tituloListener.cloneAcima();
+					divisor.aplicarLayout(filho);
+				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
+					tituloListener.cloneDireito();
+					divisor.aplicarLayout(filho);
+				} else {
+					illegalStateException();
+				}
+			} else {
+				illegalStateException();
+			}
+
+		} else if (obj.isRight()) {
+			Obj filho = obj.getFilho(0);
+		
+			if (filho.isFichario()) {
+				String abas = filho.getValorAtributo(Constantes.ABAS);
+				int total = Integer.parseInt(abas);
+
+				for (int i = 1; i < total; i++) {
+					tituloListener.clonarAba();
+				}
+			} else if (filho.isDivisor()) {
+				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
+
+				if (Constantes.VERTICAL.equals(orientacao)) {
+					tituloListener.cloneAcima();
+					divisor.aplicarLayout(filho);
+				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
+					tituloListener.cloneDireito();
+					divisor.aplicarLayout(filho);
+				} else {
+					illegalStateException();
+				}
 			} else {
 				illegalStateException();
 			}

@@ -9,9 +9,11 @@ import br.com.arvore.controle.Controle;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Layout;
+import br.com.arvore.util.Obj;
 import br.com.arvore.util.XMLUtil;
 
-public class Divisor extends SplitPane {
+public class Divisor extends SplitPane implements Layout {
 	private static final long serialVersionUID = 1L;
 	private MementoDivisor mementoDivisor;
 	public static final byte ESQUERDO = 1;
@@ -224,5 +226,25 @@ public class Divisor extends SplitPane {
 
 	private boolean isHorizontal() {
 		return orientation == HORIZONTAL_SPLIT;
+	}
+
+	private void illegalStateException() {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void aplicarLayout(Obj obj) {
+		if(obj.isDivisor()) {
+			Obj left = obj.getFilho(0);
+			Obj right = obj.getFilho(1);
+
+			Layout leftLayout = (Layout) leftComponent;
+			Layout rightLayout = (Layout) rightComponent;
+
+			leftLayout.aplicarLayout(left);
+			rightLayout.aplicarLayout(right);
+		} else {
+			illegalStateException();
+		}
 	}
 }

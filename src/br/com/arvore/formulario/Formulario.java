@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -188,6 +189,7 @@ public class Formulario extends JFrame {
 			fichario.addAba("label.objetos", raiz, true);
 			divisor.setLeftComponent(fichario);
 			fichario.aplicarLayout(raizObj.getFilho(0));
+			SwingUtilities.updateComponentTreeUI(this);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
 		}
