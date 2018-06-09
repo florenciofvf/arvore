@@ -20,7 +20,7 @@ public class XMLUtil {
 		return print(" " + nome + "=" + citar(valor));
 	}
 
-	public XMLUtil inicioTag(String nome) {
+	public XMLUtil abrirTag(String nome) {
 		tab++;
 		return tabular().print("<" + nome);
 	}

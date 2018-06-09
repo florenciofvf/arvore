@@ -193,29 +193,29 @@ public class Divisor extends SplitPane {
 	}
 
 	public void salvar(XMLUtil xml) {
-		xml.inicioTag(Constantes.DIVISOR)
+		xml.abrirTag(Constantes.DIVISOR)
 				.atributo(Constantes.ORIENTACAO, isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL)
 				.fecharTag();
 
-		xml.inicioTag(Constantes.LEFT).fecharTag();
+		xml.abrirTag(Constantes.LEFT).fecharTag();
 		if (leftComponent instanceof Divisor) {
 			((Divisor) leftComponent).salvar(xml);
 		} else if (leftComponent instanceof Fichario) {
-			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) leftComponent).getTabCount())
+			xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) leftComponent).getTabCount())
 					.fecharTag().finalizarTag(Constantes.FICHARIO);
 		} else if (leftComponent instanceof Controle) {
-			xml.inicioTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
+			xml.abrirTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
 		}
 		xml.finalizarTag(Constantes.LEFT);
 
-		xml.inicioTag(Constantes.RIGHT).fecharTag();
+		xml.abrirTag(Constantes.RIGHT).fecharTag();
 		if (rightComponent instanceof Divisor) {
 			((Divisor) rightComponent).salvar(xml);
 		} else if (rightComponent instanceof Fichario) {
-			xml.inicioTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) rightComponent).getTabCount())
+			xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) rightComponent).getTabCount())
 					.fecharTag().finalizarTag(Constantes.FICHARIO);
 		} else if (rightComponent instanceof Controle) {
-			xml.inicioTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
+			xml.abrirTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
 		}
 		xml.finalizarTag(Constantes.RIGHT);
 
