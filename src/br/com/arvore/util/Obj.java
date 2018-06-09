@@ -55,6 +55,22 @@ public class Obj {
 		return tipo;
 	}
 
+	public boolean isFichario() {
+		return Constantes.FICHARIO.equals(tipo);
+	}
+
+	public boolean isDivisor() {
+		return Constantes.DIVISOR.equals(tipo);
+	}
+
+	public boolean isRight() {
+		return Constantes.RIGHT.equals(tipo);
+	}
+
+	public boolean isLeft() {
+		return Constantes.LEFT.equals(tipo);
+	}
+
 	@Override
 	public String toString() {
 		return tipo + ": filhos=" + filhos.size();

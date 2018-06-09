@@ -89,7 +89,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		//TODO
+		// TODO
 	}
 
 	private TituloListener tituloListener = new TituloListener() {
