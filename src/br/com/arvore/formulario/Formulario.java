@@ -46,6 +46,7 @@ public class Formulario extends JFrame {
 	private final JMenuBar menuBar = new JMenuBar();
 	private final Divisor divisor = new Divisor();
 	private final Controle controle;
+	private Objeto raiz;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
@@ -91,6 +92,11 @@ public class Formulario extends JFrame {
 		});
 
 		itemAplicarModelo.addActionListener(e -> {
+			if (raiz == null) {
+				Util.mensagem(this, Mensagens.getString("erro.sem_raiz_para_modelo"));
+				return;
+			}
+
 			JFileChooser fileChooser = new JFileChooser(".");
 			int opcao = fileChooser.showOpenDialog(Formulario.this);
 
@@ -144,12 +150,12 @@ public class Formulario extends JFrame {
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
 
-		configMenuAparencia();
+		menuAparencia();
 
 		itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
 	}
 
-	private void configMenuAparencia() {
+	private void menuAparencia() {
 		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
 		ButtonGroup grupo = new ButtonGroup();
 
@@ -249,7 +255,7 @@ public class Formulario extends JFrame {
 			divisor.setLeftComponent(PNL_PADRAO);
 
 			try {
-				Objeto raiz = XML.processar(file);
+				raiz = XML.processar(file);
 				Fichario fichario = new Fichario(this, raiz);
 				fichario.setSize(new Dimension(getSize()));
 				fichario.adicionarOuvinte(ficharioListener);
@@ -258,6 +264,8 @@ public class Formulario extends JFrame {
 				divisor.setLeftComponent(fichario);
 				divisor.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
 			} catch (Exception ex) {
+				raiz = null;
+				divisor.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}
 		}
