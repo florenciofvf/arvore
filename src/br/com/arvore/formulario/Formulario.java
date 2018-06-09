@@ -29,6 +29,7 @@ import br.com.arvore.fichario.FicharioListener;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
+import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
 import br.com.arvore.util.XMLUtil;
 import br.com.arvore.xml.XML;
@@ -179,6 +180,17 @@ public class Formulario extends JFrame {
 	}
 
 	private void aplicarModelo(File file) {
+		try {
+			Obj raizObj = XML.processarObj(file);
+			Fichario fichario = new Fichario(this, raiz);
+			fichario.setSize(new Dimension(getSize()));
+			fichario.adicionarOuvinte(ficharioListener);
+			fichario.addAba("label.objetos", raiz, true);
+			divisor.setLeftComponent(fichario);
+			fichario.aplicarLayout(raizObj.getFilho(0));
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
+		}
 	}
 
 	public FicharioListener getFicharioListener() {

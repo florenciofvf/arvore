@@ -14,9 +14,11 @@ import br.com.arvore.divisor.DivisorClone;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
+import br.com.arvore.util.Layout;
+import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
 
-public class Fichario extends TabbedPane implements DivisorClone {
+public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
 	private final Formulario formulario;
@@ -83,6 +85,11 @@ public class Fichario extends TabbedPane implements DivisorClone {
 		setTabComponentAt(getTabCount() - 1, titulo);
 
 		setDividerLocation(getTabCount() - 1);
+	}
+
+	@Override
+	public void aplicarLayout(Obj obj) {
+		//TODO
 	}
 
 	private TituloListener tituloListener = new TituloListener() {

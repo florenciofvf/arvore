@@ -13,6 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import br.com.arvore.ObjetoUtil;
 import br.com.arvore.Objeto;
 import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
 
 public class XML {
@@ -23,10 +24,55 @@ public class XML {
 		factory.setXIncludeAware(true);
 
 		SAXParser parser = factory.newSAXParser();
-
 		XMLHandler handler = new XMLHandler();
 		parser.parse(file, handler);
 		return handler.getRaiz();
+	}
+
+	public static Obj processarObj(File file) throws Exception {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		XMLHandlerObj handler = new XMLHandlerObj();
+		SAXParser parser = factory.newSAXParser();
+		parser.parse(file, handler);
+		return handler.getRaiz();
+	}
+}
+
+class XMLHandlerObj extends DefaultHandler {
+	private Obj selecionado;
+	private Obj raiz;
+
+	public Obj getRaiz() {
+		return raiz;
+	}
+
+	private void setAtributos(Obj obj, Attributes attributes) {
+		for (int i = 0; i < attributes.getLength(); i++) {
+			String nome = attributes.getQName(i);
+			String valor = attributes.getValue(i);
+			obj.adicionarAtributo(nome, valor);
+		}
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+		Obj obj = new Obj(qName);
+		setAtributos(obj, attributes);
+
+		if (raiz == null) {
+			raiz = obj;
+		} else {
+			selecionado.adicionarFilho(obj);
+		}
+
+		selecionado = obj;
+	}
+
+	@Override
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		if (selecionado != null) {
+			selecionado = selecionado.getPai();
+		}
 	}
 }
 
