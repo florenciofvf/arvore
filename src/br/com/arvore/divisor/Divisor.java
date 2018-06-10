@@ -199,25 +199,25 @@ public class Divisor extends SplitPane implements Layout {
 				.atributo(Constantes.ORIENTACAO, isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL)
 				.fecharTag();
 
-		xml.abrirTag(Constantes.LEFT).fecharTag();
+		xml.abrirTag2(Constantes.LEFT);
 		if (leftComponent instanceof Divisor) {
 			((Divisor) leftComponent).salvar(xml);
 		} else if (leftComponent instanceof Fichario) {
 			xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) leftComponent).getTabCount())
 					.fecharTag().finalizarTag(Constantes.FICHARIO);
 		} else if (leftComponent instanceof Controle) {
-			xml.abrirTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
+			xml.abrirFinalizarTag(Constantes.CONTROLE);
 		}
 		xml.finalizarTag(Constantes.LEFT);
 
-		xml.abrirTag(Constantes.RIGHT).fecharTag();
+		xml.abrirTag2(Constantes.RIGHT);
 		if (rightComponent instanceof Divisor) {
 			((Divisor) rightComponent).salvar(xml);
 		} else if (rightComponent instanceof Fichario) {
 			xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) rightComponent).getTabCount())
 					.fecharTag().finalizarTag(Constantes.FICHARIO);
 		} else if (rightComponent instanceof Controle) {
-			xml.abrirTag(Constantes.CONTROLE).fecharTag().finalizarTag(Constantes.CONTROLE);
+			xml.abrirFinalizarTag(Constantes.CONTROLE);
 		}
 		xml.finalizarTag(Constantes.RIGHT);
 

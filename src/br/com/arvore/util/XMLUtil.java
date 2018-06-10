@@ -29,10 +29,18 @@ public class XMLUtil {
 		return print(">").ql();
 	}
 
+	public XMLUtil abrirTag2(String nome) {
+		return abrirTag(nome).fecharTag();
+	}
+
 	public XMLUtil finalizarTag(String nome) {
 		tabular().print("</" + nome + ">").ql();
 		tab--;
 		return this;
+	}
+
+	public XMLUtil abrirFinalizarTag(String nome) {
+		return abrirTag2(nome).finalizarTag(nome);
 	}
 
 	private XMLUtil tabular() {
