@@ -116,7 +116,9 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 				for (int i = 1; i < total; i++) {
 					tituloListener.clonarAba();
+				}
 
+				for (int i = 0; i < total; i++) {
 					Container container = (Container) getComponentAt(i);
 					container.aplicarLayout(filho.getFilho(i));
 				}
@@ -145,6 +147,11 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 				for (int i = 1; i < total; i++) {
 					tituloListener.clonarAba();
+				}
+
+				for (int i = 0; i < total; i++) {
+					Container container = (Container) getComponentAt(i);
+					container.aplicarLayout(filho.getFilho(i));
 				}
 			} else if (filho.isDivisor()) {
 				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
