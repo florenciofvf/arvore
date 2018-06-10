@@ -12,7 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
@@ -139,11 +138,6 @@ public class Formulario extends JFrame {
 	}
 
 	private void montarMenu() {
-		setJMenuBar(menuBar);
-
-		menuBar.add(menuArquivo);
-		menuBar.add(menuAparencia);
-
 		menuArquivo.add(itemAbrir);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemConexao);
@@ -152,6 +146,11 @@ public class Formulario extends JFrame {
 		menuArquivo.add(itemSalvarModelo);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
+
+		menuBar.add(menuArquivo);
+		menuBar.add(menuAparencia);
+
+		setJMenuBar(menuBar);
 
 		menuAparencia();
 
@@ -185,12 +184,11 @@ public class Formulario extends JFrame {
 		try {
 			Obj raizObj = XML.processarObj(file);
 			Fichario fichario = new Fichario(this, raiz);
-			fichario.setSize(new Dimension(getSize()));
 			fichario.adicionarOuvinte(ficharioListener);
+			fichario.setSize(getSizeFichario());
 			fichario.addAba("label.objetos", raiz, true);
 			divisor.setLeftComponent(fichario);
 			fichario.aplicarLayout(raizObj.getFilho(0));
-			SwingUtilities.updateComponentTreeUI(this);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
 		}
@@ -272,8 +270,8 @@ public class Formulario extends JFrame {
 			try {
 				raiz = XML.processar(file);
 				Fichario fichario = new Fichario(this, raiz);
-				fichario.setSize(new Dimension(getSize()));
 				fichario.adicionarOuvinte(ficharioListener);
+				fichario.setSize(getSizeFichario());
 				fichario.addAba("label.objetos", raiz, true);
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				divisor.setLeftComponent(fichario);
@@ -284,6 +282,10 @@ public class Formulario extends JFrame {
 				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
 			}
 		}
+	}
+
+	private Dimension getSizeFichario() {
+		return new Dimension(getWidth(), Constantes.DIV_CONTROLE);
 	}
 
 	public static class Pnl_padrao extends Panel {
