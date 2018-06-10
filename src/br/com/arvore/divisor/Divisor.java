@@ -194,47 +194,45 @@ public class Divisor extends SplitPane implements Layout {
 		}
 	}
 
-	public void salvar(XMLUtil xml) {
-		xml.abrirTag(Constantes.DIVISOR)
-				.atributo(Constantes.ORIENTACAO, isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL)
-				.fecharTag();
-
-		xml.abrirTag2(Constantes.LEFT);
-		if (leftComponent instanceof Divisor) {
-			((Divisor) leftComponent).salvar(xml);
-		} else if (leftComponent instanceof Fichario) {
-			xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) leftComponent).getTabCount())
-					.fecharTag().finalizarTag(Constantes.FICHARIO);
-		} else if (leftComponent instanceof Controle) {
-			xml.abrirFinalizarTag(Constantes.CONTROLE);
-		}
-		xml.finalizarTag(Constantes.LEFT);
-
-		xml.abrirTag2(Constantes.RIGHT);
-		if (rightComponent instanceof Divisor) {
-			((Divisor) rightComponent).salvar(xml);
-		} else if (rightComponent instanceof Fichario) {
-			xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, "" + ((Fichario) rightComponent).getTabCount())
-					.fecharTag().finalizarTag(Constantes.FICHARIO);
-		} else if (rightComponent instanceof Controle) {
-			xml.abrirFinalizarTag(Constantes.CONTROLE);
-		}
-		xml.finalizarTag(Constantes.RIGHT);
-
-		xml.finalizarTag(Constantes.DIVISOR);
-	}
-
 	private boolean isHorizontal() {
 		return orientation == HORIZONTAL_SPLIT;
 	}
 
-	private void illegalStateException() {
-		throw new IllegalStateException();
+	@Override
+	public void salvarLayout(XMLUtil xml) {
+		xml.abrirTag(Constantes.DIVISOR);
+		xml.atributo(Constantes.ORIENTACAO, isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL);
+		xml.atributo(Constantes.LOCAL_DIV, getDividerLocation());
+		xml.fecharTag();
+
+		xml.abrirTag2(Constantes.LEFT);
+
+		if (leftComponent instanceof Divisor) {
+			((Divisor) leftComponent).salvarLayout(xml);
+		} else if (leftComponent instanceof Fichario) {
+			((Fichario) leftComponent).salvarLayout(xml);
+		} else if (leftComponent instanceof Controle) {
+			((Controle) leftComponent).salvarLayout(xml);
+		}
+
+		xml.finalizarTag(Constantes.LEFT);
+		xml.abrirTag2(Constantes.RIGHT);
+
+		if (rightComponent instanceof Divisor) {
+			((Divisor) rightComponent).salvarLayout(xml);
+		} else if (rightComponent instanceof Fichario) {
+			((Fichario) rightComponent).salvarLayout(xml);
+		} else if (rightComponent instanceof Controle) {
+			((Controle) rightComponent).salvarLayout(xml);
+		}
+
+		xml.finalizarTag(Constantes.RIGHT);
+		xml.finalizarTag(Constantes.DIVISOR);
 	}
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		if(obj.isDivisor()) {
+		if (obj.isDivisor()) {
 			Obj left = obj.getFilho(0);
 			Obj right = obj.getFilho(1);
 
@@ -243,8 +241,12 @@ public class Divisor extends SplitPane implements Layout {
 
 			leftLayout.aplicarLayout(left);
 			rightLayout.aplicarLayout(right);
+
+			String localDiv = obj.getValorAtributo(Constantes.LOCAL_DIV);
+			int local = Integer.parseInt(localDiv);
+			setDividerLocation(local);
 		} else {
-			illegalStateException();
+			throw new IllegalStateException();
 		}
 	}
 }

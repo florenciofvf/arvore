@@ -18,6 +18,7 @@ import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
+import br.com.arvore.util.XMLUtil;
 
 public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	private static final long serialVersionUID = 1L;
@@ -93,6 +94,18 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	@Override
+	public void salvarLayout(XMLUtil xml) {
+		xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, getTabCount()).fecharTag();
+
+		for (int i = 0; i < getTabCount(); i++) {
+			Container container = (Container) getComponentAt(i);
+			container.salvarLayout(xml);
+		}
+
+		xml.finalizarTag(Constantes.FICHARIO);
+	}
+
+	@Override
 	public void aplicarLayout(Obj obj) {
 		if (obj.isLeft()) {
 			Obj filho = obj.getFilho(0);
@@ -103,6 +116,9 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 				for (int i = 1; i < total; i++) {
 					tituloListener.clonarAba();
+
+					Container container = (Container) getComponentAt(i);
+					container.aplicarLayout(filho.getFilho(i));
 				}
 			} else if (filho.isDivisor()) {
 				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
@@ -122,7 +138,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 		} else if (obj.isRight()) {
 			Obj filho = obj.getFilho(0);
-		
+
 			if (filho.isFichario()) {
 				String abas = filho.getValorAtributo(Constantes.ABAS);
 				int total = Integer.parseInt(abas);

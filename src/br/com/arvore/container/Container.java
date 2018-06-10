@@ -15,8 +15,12 @@ import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.tabela.Tabela;
 import br.com.arvore.tabela.TabelaUtil;
+import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Layout;
+import br.com.arvore.util.Obj;
+import br.com.arvore.util.XMLUtil;
 
-public class Container extends PanelBorder {
+public class Container extends PanelBorder implements Layout {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane splitPane = new SplitPane();
 	private final List<ContainerListener> ouvintes;
@@ -95,4 +99,21 @@ public class Container extends PanelBorder {
 			ouvintes.forEach(o -> o.pedidoAtualizarObjeto(Container.this));
 		}
 	};
+
+	@Override
+	public void salvarLayout(XMLUtil xml) {
+		xml.abrirTag(Constantes.CONTAINER).atributo(Constantes.LOCAL_DIV, splitPane.getDividerLocation()).fecharTag();
+		xml.finalizarTag(Constantes.CONTAINER);
+	}
+
+	@Override
+	public void aplicarLayout(Obj obj) {
+		if (obj.isContainer()) {
+			String localDiv = obj.getValorAtributo(Constantes.LOCAL_DIV);
+			int local = Integer.parseInt(localDiv);
+			setDividerLocation(local);
+		} else {
+			throw new IllegalStateException();
+		}
+	}
 }

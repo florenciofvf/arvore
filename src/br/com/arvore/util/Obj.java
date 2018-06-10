@@ -55,6 +55,14 @@ public class Obj {
 		return tipo;
 	}
 
+	public boolean isContainer() {
+		return Constantes.CONTAINER.equals(tipo);
+	}
+
+	public boolean isControle() {
+		return Constantes.CONTROLE.equals(tipo);
+	}
+
 	public boolean isFichario() {
 		return Constantes.FICHARIO.equals(tipo);
 	}

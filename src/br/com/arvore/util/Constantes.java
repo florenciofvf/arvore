@@ -32,6 +32,8 @@ public class Constantes {
 	public static final String MANTER_VAZIO = "manter-vazio";
 	public static final String ORIENTACAO = "orientacao";
 	public static final String HORIZONTAL = "HORIZONTAL";
+	public static final String LOCAL_DIV = "local-div";
+	public static final String CONTAINER = "container";
 	public static final String PSMT_META = "PSMT_META";
 	public static final String PSMT_SET = "PSMT_SET";
 	public static final String UM_PIXEL = "um_pixel";

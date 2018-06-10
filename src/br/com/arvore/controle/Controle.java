@@ -15,10 +15,13 @@ import br.com.arvore.formulario.Formulario;
 import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
+import br.com.arvore.util.Layout;
 import br.com.arvore.util.Mensagens;
+import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
+import br.com.arvore.util.XMLUtil;
 
-public class Controle extends PanelBorder {
+public class Controle extends PanelBorder implements Layout {
 	private static final long serialVersionUID = 1L;
 	private final String[][] MATRIZ = { { Mensagens.getString("label.arvore"), Mensagens.getString("label.atualizar") },
 			{ Mensagens.getString("label.tabela"), Mensagens.getString("label.registros") },
@@ -355,6 +358,20 @@ public class Controle extends PanelBorder {
 	private void selecionarAba(int indice, int controle) {
 		if (indice > 0 && indice < fichario.getTabCount() && controle == abaControleSel) {
 			fichario.setSelectedIndex(indice);
+		}
+	}
+
+	@Override
+	public void salvarLayout(XMLUtil xml) {
+		xml.abrirFinalizarTag(Constantes.CONTROLE);
+	}
+
+	@Override
+	public void aplicarLayout(Obj obj) {
+		if (obj.isControle()) {
+			selecionadoObjeto(null);
+		} else {
+			throw new IllegalStateException();
 		}
 	}
 }

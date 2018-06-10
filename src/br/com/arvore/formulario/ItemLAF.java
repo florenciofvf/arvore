@@ -7,11 +7,11 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import br.com.arvore.comp.RadioButtonMenuItem;
 import br.com.arvore.util.Util;
 
-public class ItemAparencia extends RadioButtonMenuItem {
+public class ItemLAF extends RadioButtonMenuItem {
 	private static final long serialVersionUID = 1L;
 	private final String classe;
 
-	public ItemAparencia(Formulario formulario, LookAndFeelInfo info) {
+	public ItemLAF(Formulario formulario, LookAndFeelInfo info) {
 		this.setText(info.getName());
 		classe = info.getClassName();
 

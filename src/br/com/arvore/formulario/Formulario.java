@@ -7,13 +7,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Menu;
@@ -41,9 +38,9 @@ public class Formulario extends JFrame {
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemSalvarModelo = new MenuItem("label.salvar_modelo");
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
-	private final Menu menuAparencia = new Menu("label.aparencia");
 	public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
 	private final Menu menuArquivo = new Menu("label.arquivo");
+	private final Menu menuLAF = new Menu("label.aparencia");
 	private final JMenuBar menuBar = new JMenuBar();
 	private final Divisor divisor = new Divisor();
 	private final Controle controle;
@@ -71,7 +68,6 @@ public class Formulario extends JFrame {
 				abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
 				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
 				divisor.setListener(splitPaneListener);
-				controle.selecionadoObjeto(null);
 			};
 
 			public void windowClosing(WindowEvent e) {
@@ -138,6 +134,9 @@ public class Formulario extends JFrame {
 	}
 
 	private void montarMenu() {
+		itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
+		FormularioUtil.menuAparencia(this, menuLAF);
+
 		menuArquivo.add(itemAbrir);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemConexao);
@@ -146,33 +145,16 @@ public class Formulario extends JFrame {
 		menuArquivo.add(itemSalvarModelo);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
-
 		menuBar.add(menuArquivo);
-		menuBar.add(menuAparencia);
-
+		menuBar.add(menuLAF);
 		setJMenuBar(menuBar);
-
-		menuAparencia();
-
-		itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
-	}
-
-	private void menuAparencia() {
-		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
-		ButtonGroup grupo = new ButtonGroup();
-
-		for (LookAndFeelInfo info : installedLookAndFeels) {
-			ItemAparencia item = new ItemAparencia(this, info);
-			menuAparencia.add(item);
-			grupo.add(item);
-		}
 	}
 
 	private void salvarModelo(File file) {
 		try {
 			XMLUtil xml = new XMLUtil(file);
 			xml.prologo();
-			divisor.salvar(xml);
+			divisor.salvarLayout(xml);
 			xml.close();
 			Util.mensagem(this, Mensagens.getString("label.salvo_modelo"));
 		} catch (Exception ex) {
@@ -183,12 +165,16 @@ public class Formulario extends JFrame {
 	private void aplicarModelo(File file) {
 		try {
 			Obj raizObj = XML.processarObj(file);
+
 			Fichario fichario = new Fichario(this, raiz);
 			fichario.adicionarOuvinte(ficharioListener);
 			fichario.setSize(getSizeFichario());
 			fichario.addAba("label.objetos", raiz, true);
+
 			divisor.setLeftComponent(fichario);
+
 			fichario.aplicarLayout(raizObj.getFilho(0));
+			controle.aplicarLayout(raizObj.getFilho(1));
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
 		}
@@ -269,12 +255,15 @@ public class Formulario extends JFrame {
 
 			try {
 				raiz = XML.processar(file);
+
 				Fichario fichario = new Fichario(this, raiz);
 				fichario.adicionarOuvinte(ficharioListener);
 				fichario.setSize(getSizeFichario());
 				fichario.addAba("label.objetos", raiz, true);
+
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				divisor.setLeftComponent(fichario);
+				controle.selecionadoObjeto(null);
 			} catch (Exception ex) {
 				raiz = null;
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
