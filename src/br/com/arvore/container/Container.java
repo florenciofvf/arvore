@@ -26,12 +26,21 @@ public class Container extends PanelBorder implements Layout {
 	private final List<ContainerListener> ouvintes;
 	private final Tabela tabela = new Tabela();
 	private final Arvore arvore;
+	private String titulo;
 
 	public Container(Objeto objeto) {
 		arvore = new Arvore(new ModeloArvore(objeto));
 		arvore.adicionarOuvinte(arvoreListener);
 		ouvintes = new ArrayList<>();
 		montarLayout();
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public void adicionarOuvinte(ContainerListener listener) {
@@ -102,7 +111,10 @@ public class Container extends PanelBorder implements Layout {
 
 	@Override
 	public void salvarLayout(XMLUtil xml) {
-		xml.abrirTag(Constantes.CONTAINER).atributo(Constantes.LOCAL_DIV, splitPane.getDividerLocation()).fecharTag();
+		xml.abrirTag(Constantes.CONTAINER);
+		xml.atributo(Constantes.LOCAL_DIV, splitPane.getDividerLocation());
+		xml.atributo(Constantes.TITULO, titulo);
+		xml.fecharTag();
 		xml.finalizarTag(Constantes.CONTAINER);
 	}
 
