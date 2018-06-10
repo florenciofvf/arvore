@@ -368,8 +368,14 @@ public class Controle extends PanelBorder implements Layout {
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		if (obj.isControle()) {
-			selecionadoObjeto(null);
+		if (obj.isRight()) {
+			Obj filho = obj.getFilho(0);
+
+			if (filho.isControle()) {
+				selecionadoObjeto(null);
+			} else {
+				throw new IllegalStateException();
+			}
 		} else {
 			throw new IllegalStateException();
 		}
