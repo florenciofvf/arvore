@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import br.com.arvore.comp.Button;
@@ -27,6 +28,7 @@ import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.Popup;
 import br.com.arvore.util.Mensagens;
+import br.com.arvore.util.Util;
 
 public class Titulo extends Panel {
 	private static final long serialVersionUID = 1L;
@@ -99,6 +101,24 @@ public class Titulo extends Panel {
 
 			return null;
 		}
+	}
+
+	private void renomear() {
+		int i = tabbedPane.indexOfTabComponent(Titulo.this);
+
+		if (i == -1) {
+			return;
+		}
+
+		String titulo = tabbedPane.getTitleAt(i);
+		String novo = Util.getStringInput(Titulo.this, titulo);
+
+		if (Util.estaVazio(novo)) {
+			return;
+		}
+
+		tabbedPane.setTitleAt(i, novo);
+		SwingUtilities.updateComponentTreeUI(tabbedPane);
 	}
 
 	private class Ctrl extends Button {
@@ -196,12 +216,15 @@ public class Titulo extends Panel {
 		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
 		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");
 		final MenuItem itemDireito = new MenuItem("label.a_direita");
+		final MenuItem itemRenomear = new MenuItem("label.renomear");
 		final Menu menuClonarEste = new Menu("label.clonar_este");
 		final MenuItem itemAbaixo = new MenuItem("label.abaixo");
 		final MenuItem itemAcima = new MenuItem("label.acima");
 
 		public TituloPopup() {
 			add(menuClonarEste);
+			addSeparator();
+			add(itemRenomear);
 			addSeparator();
 			add(itemExcluir);
 
@@ -216,6 +239,7 @@ public class Titulo extends Panel {
 			itemDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
 			itemAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
 			itemAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));
+			itemRenomear.addActionListener(e -> renomear());
 		}
 	}
 }

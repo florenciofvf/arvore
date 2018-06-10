@@ -47,6 +47,10 @@ public class Util {
 				Mensagens.getString("label.atencao"), JOptionPane.YES_OPTION) == JOptionPane.OK_OPTION;
 	}
 
+	public static String getStringInput(Component componente, String atual) {
+		return JOptionPane.showInputDialog(componente, Mensagens.getString("label.titulo"), atual);
+	}
+
 	public static void stackTraceMessageAndException(String tipo, Exception ex) throws Exception {
 		String msg = getStackTrace(tipo, ex);
 		mensagem(null, msg);
