@@ -55,6 +55,7 @@ public class Formulario extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		controle = new Controle(this);
 		setLayout(new BorderLayout());
+		Constantes.DIV_CONTROLE = 500;
 		setSize(1000, 700);
 		montarLayout();
 		montarMenu();
@@ -69,7 +70,8 @@ public class Formulario extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
 				abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
-				divisor.setDividerLocation(0.78);
+				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
+				divisor.setListener(splitPaneListener);
 				controle.selecionadoObjeto(null);
 			};
 
@@ -131,7 +133,6 @@ public class Formulario extends JFrame {
 
 	private void montarLayout() {
 		divisor.setOrientation(Divisor.VERTICAL_SPLIT);
-		divisor.setListener(splitPaneListener);
 		divisor.setLeftComponent(PNL_PADRAO);
 		divisor.setRightComponent(controle);
 		add(BorderLayout.CENTER, divisor);
@@ -202,7 +203,7 @@ public class Formulario extends JFrame {
 	private SplitPaneListener splitPaneListener = new SplitPaneListener() {
 		@Override
 		public void localizacao(int i) {
-			Constantes.DIV_FICHARIO_CONTROLE = i;
+			Constantes.DIV_CONTROLE = i;
 		}
 	};
 
@@ -276,11 +277,11 @@ public class Formulario extends JFrame {
 				fichario.addAba("label.objetos", raiz, true);
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				divisor.setLeftComponent(fichario);
-				divisor.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
 			} catch (Exception ex) {
 				raiz = null;
-				divisor.setDividerLocation(Constantes.DIV_FICHARIO_CONTROLE);
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
+			} finally {
+				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
 			}
 		}
 	}

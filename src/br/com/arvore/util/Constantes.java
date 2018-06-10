@@ -1,11 +1,6 @@
 package br.com.arvore.util;
 
 public class Constantes {
-	public static final String ESTRATEGIA_PARAMETRO = "estrategia-parametro";
-	public static final String ICONE_MANTER_VAZIO = "icone-manter-vazio";
-	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
-	public static final String NOME_ARQUIVO_PADRAO = "default.xml";
-
 	public static final String GRUPO_ITENS_ARVORE = "grupo-itens-na-arvore";
 	public static final String GRUPO_ITENS_TABELA = "grupo-itens-na-tabela";
 	public static final String GRUPO_COMENTARIO = "grupo-comentario";
@@ -29,6 +24,10 @@ public class Constantes {
 	public static final String ITEM_ALERTA = "item-alerta";
 	public static final String ITEM_ICONE = "item-icone";
 
+	public static final String ESTRATEGIA_PARAMETRO = "estrategia-parametro";
+	public static final String ICONE_MANTER_VAZIO = "icone-manter-vazio";
+	public static final String PESQUISA_POPUP = "pesquisa-por-popup";
+	public static final String NOME_ARQUIVO_PADRAO = "default.xml";
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
 	public static final String ORIENTACAO = "orientacao";
@@ -59,9 +58,9 @@ public class Constantes {
 	public static final int LARGURA_ICONE_ORDENAR = 20;
 	public static final byte ESTRATEGIA_PSMT_META = 1;
 	public static final byte ESTRATEGIA_PSMT_SET = 2;
-	public static int DIV_FICHARIO_CONTROLE = 500;
 	public static byte ESTRATEGIA_PARAMS;
 	public static final int DOIS = 2;
+	public static int DIV_CONTROLE;
 
 	private Constantes() {
 	}
