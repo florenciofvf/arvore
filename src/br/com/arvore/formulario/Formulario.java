@@ -175,6 +175,10 @@ public class Formulario extends JFrame {
 
 			fichario.aplicarLayout(raizObj.getFilho(0));
 			controle.aplicarLayout(raizObj.getFilho(1));
+
+			String localDiv = raizObj.getValorAtributo(Constantes.LOCAL_DIV);
+			int local = Integer.parseInt(localDiv);
+			divisor.setDividerLocation(local);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
 		}
@@ -264,11 +268,11 @@ public class Formulario extends JFrame {
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				divisor.setLeftComponent(fichario);
 				controle.selecionadoObjeto(null);
+				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
 			} catch (Exception ex) {
 				raiz = null;
-				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
-			} finally {
 				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
+				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}
 		}
 	}
