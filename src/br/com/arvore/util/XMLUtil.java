@@ -13,7 +13,7 @@ public class XMLUtil {
 	}
 
 	public XMLUtil prologo() {
-		return print("<?xml").atributo("version", 1.0).atributo("encoding", "iso-8859-1").print("?>").ql().ql();
+		return print("<?xml").atributo("version", 1.0).atributo("encoding", "utf-8").print("?>").ql().ql();
 	}
 
 	public XMLUtil atributo(String nome, double valor) {
