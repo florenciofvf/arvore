@@ -32,10 +32,12 @@ public class SplitPane extends JSplitPane {
 
 		Dimension size = getSize();
 
+		g.setColor(getBackground());
+
 		if (orientation == HORIZONTAL_SPLIT) {
-			g.fillRect(getDividerLocation(), 0, dividerSize - 1, getHeight() - 1);
+			g.drawRect(getDividerLocation(), 0, dividerSize - 1, getHeight() - 1);
 		} else {
-			g.fillRect(0, getDividerLocation(), size.width - 1, dividerSize - 1);
+			g.drawRect(0, getDividerLocation(), size.width - 1, dividerSize - 1);
 		}
 	}
 
