@@ -129,4 +129,32 @@ public class Util {
 			clipboard.setContents(new StringSelection(string), null);
 		}
 	}
+
+	public static String escapar(String s) {
+		if (s == null) {
+			return "";
+		}
+
+		StringBuilder builder = new StringBuilder();
+
+		for (char c : s.toCharArray()) {
+			if (c == '\'') {
+				builder.append("&apos;");
+			} else if (c == '\"') {
+				builder.append("&quot;");
+			} else if (c == '&') {
+				builder.append("&amp;");
+			} else if (c == '>') {
+				builder.append("&gt;");
+			} else if (c == '<') {
+				builder.append("&lt;");
+			} else if (c > 0x7e) {
+				builder.append("&#" + ((int) c) + ";");
+			} else {
+				builder.append(c);
+			}
+		}
+
+		return builder.toString();
+	}
 }
