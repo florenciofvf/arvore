@@ -31,6 +31,7 @@ public class Constantes {
 	public static final String DESABILITADO = "desabilitado";
 	public static final String MANTER_VAZIO = "manter-vazio";
 	public static final String ORIENTACAO = "orientacao";
+	public static final String MAXIMIZADO = "maximizado";
 	public static final String HORIZONTAL = "HORIZONTAL";
 	public static final String LOCAL_DIV = "local-div";
 	public static final String CONTAINER = "container";

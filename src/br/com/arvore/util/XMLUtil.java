@@ -16,6 +16,10 @@ public class XMLUtil {
 		return print("<?xml").atributo("version", 1.0).atributo("encoding", "utf-8").print("?>").ql().ql();
 	}
 
+	public XMLUtil atributo(String nome, boolean valor) {
+		return print(" " + nome + "=" + citar("" + valor));
+	}
+
 	public XMLUtil atributo(String nome, double valor) {
 		return print(" " + nome + "=" + citar("" + valor));
 	}
