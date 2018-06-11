@@ -31,9 +31,9 @@ public class Button extends JButton {
 	private int deslocY;
 
 	public Button() {
-		if(System.getProperty("os.name").toLowerCase().indexOf("indows") >= 0) {
-			deslocX =  5;
-			deslocY =  1;
+		if (System.getProperty("os.name").toLowerCase().indexOf("indows") >= 0) {
+			deslocX = 5;
+			deslocY = 1;
 		}
 		setBorder(new EmptyBorder(getInsets()));
 		addMouseListener(mouseListener);

@@ -1,4 +1,4 @@
-Main-Class: br.com.arvore.main.Main
+Main-Class: br.com.arvore.principal.Main
 Class-Path: ojdbc7.jar
 Manifest-Version: 1
 

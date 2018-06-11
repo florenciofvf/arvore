@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import br.com.arvore.Objeto;
 import br.com.arvore.arvore.Arvore;
 import br.com.arvore.arvore.ArvoreListener;
@@ -26,6 +28,7 @@ public class Container extends PanelBorder implements Layout {
 	private final List<ContainerListener> ouvintes;
 	private final Tabela tabela = new Tabela();
 	private final Arvore arvore;
+	private boolean maximizado;
 	private String titulo;
 
 	public Container(Objeto objeto) {
@@ -56,13 +59,37 @@ public class Container extends PanelBorder implements Layout {
 	}
 
 	private void montarLayout() {
-		add(BorderLayout.CENTER, splitPane);
 		splitPane.setRightComponent(new ScrollPane(tabela));
 		splitPane.setLeftComponent(new ScrollPane(arvore));
+		add(BorderLayout.CENTER, splitPane);
 	}
 
 	public void setDividerLocation(int i) {
 		splitPane.setDividerLocation(i);
+	}
+
+	public void maximizar() {
+		if (maximizado) {
+			return;
+		}
+
+		removeAll();
+		maximizado = true;
+		add(BorderLayout.CENTER, new ScrollPane(arvore));
+		SwingUtilities.updateComponentTreeUI(this);
+	}
+
+	public void restaurar() {
+		if (!maximizado) {
+			return;
+		}
+
+		removeAll();
+		maximizado = false;
+		splitPane.setLeftComponent(new ScrollPane(arvore));
+		add(BorderLayout.CENTER, splitPane);
+		setDividerLocation(getWidth() / 2);
+		SwingUtilities.updateComponentTreeUI(this);
 	}
 
 	public void exibirRegistros(Objeto objeto) throws Exception {

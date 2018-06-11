@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicButtonUI;
@@ -27,6 +28,8 @@ import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.Popup;
+import br.com.arvore.comp.RadioButtonMenuItem;
+import br.com.arvore.container.Container;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
@@ -121,6 +124,22 @@ public class Titulo extends Panel {
 		SwingUtilities.updateComponentTreeUI(tabbedPane);
 	}
 
+	private void maximizarRestaurar(boolean max) {
+		int i = tabbedPane.indexOfTabComponent(Titulo.this);
+
+		if (i == -1) {
+			return;
+		}
+
+		Container container = (Container) tabbedPane.getComponentAt(i);
+
+		if (max) {
+			container.maximizar();
+		} else {
+			container.restaurar();
+		}
+	}
+
 	private class Ctrl extends Button {
 		private static final long serialVersionUID = 1L;
 
@@ -213,6 +232,8 @@ public class Titulo extends Panel {
 
 	private class TituloPopup extends Popup {
 		private static final long serialVersionUID = 1L;
+		final RadioButtonMenuItem itemRestaurar = new RadioButtonMenuItem("label.restaurar", true);
+		final RadioButtonMenuItem itemMaximizar = new RadioButtonMenuItem("label.maximizar");
 		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
 		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");
 		final MenuItem itemDireito = new MenuItem("label.a_direita");
@@ -227,6 +248,9 @@ public class Titulo extends Panel {
 			add(itemRenomear);
 			addSeparator();
 			add(itemExcluir);
+			addSeparator();
+			add(itemRestaurar);
+			add(itemMaximizar);
 
 			menuClonarEste.add(itemEsquerdo);
 			menuClonarEste.add(itemDireito);
@@ -234,12 +258,20 @@ public class Titulo extends Panel {
 			menuClonarEste.add(itemAcima);
 			menuClonarEste.add(itemAbaixo);
 
+			itemRestaurar.addActionListener(
+					e -> maximizarRestaurar(itemMaximizar.isSelected() && !itemRestaurar.isSelected()));
+			itemMaximizar.addActionListener(
+					e -> maximizarRestaurar(itemMaximizar.isSelected() && !itemRestaurar.isSelected()));
 			itemExcluir.addActionListener(e -> ouvintes.forEach(TituloListener::excluirFichario));
 			itemEsquerdo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneEsquerdo));
 			itemDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
 			itemAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
 			itemAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));
 			itemRenomear.addActionListener(e -> renomear());
+
+			ButtonGroup grupo = new ButtonGroup();
+			grupo.add(itemMaximizar);
+			grupo.add(itemRestaurar);
 		}
 	}
 }
