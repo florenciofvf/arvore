@@ -38,6 +38,10 @@ public class Container extends PanelBorder implements Layout {
 		montarLayout();
 	}
 
+	public boolean isMaximizado() {
+		return maximizado;
+	}
+
 	public String getTitulo() {
 		return titulo;
 	}

@@ -5,6 +5,8 @@ public interface TituloListener {
 
 	public void clonarLocalDivisor();
 
+	public void selecionarObjeto();
+
 	public void excluirFichario();
 
 	public void cloneEsquerdo();

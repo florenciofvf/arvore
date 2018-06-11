@@ -180,6 +180,10 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	private TituloListener tituloListener = new TituloListener() {
+		public void selecionarObjeto() {
+			abaSelecionada();
+		};
+
 		public void clonarLocalDivisor() {
 			Container container = (Container) getComponentAt(0);
 			int localizacao = container.getDividerLocation();

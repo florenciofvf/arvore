@@ -138,6 +138,8 @@ public class Titulo extends Panel {
 		} else {
 			container.restaurar();
 		}
+
+		ouvintes.forEach(TituloListener::selecionarObjeto);
 	}
 
 	private class Ctrl extends Button {

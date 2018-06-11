@@ -81,6 +81,10 @@ public class Controle extends PanelBorder implements Layout {
 			if (indice != -1) {
 				buttonExecutar.setIcon(fichario.getIconAt(indice));
 			}
+
+			if (ehAbaAtiva(TABELA) && container.isMaximizado()) {
+				buttonExecutar.setVisible(false);
+			}
 		}
 	}
 
