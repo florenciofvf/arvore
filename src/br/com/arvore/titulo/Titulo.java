@@ -43,7 +43,7 @@ public class Titulo extends Panel {
 	public Titulo(JTabbedPane tabbedPane, boolean clonar) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-		tituloPopup = clonar ? new TituloPopup() : null;
+		tituloPopup = new TituloPopup(clonar);
 		this.tabbedPane = tabbedPane;
 		ouvintes = new ArrayList<>();
 		this.clonar = clonar;
@@ -245,17 +245,24 @@ public class Titulo extends Panel {
 		final MenuItem itemAbaixo = new MenuItem("label.abaixo");
 		final MenuItem itemAcima = new MenuItem("label.acima");
 
-		public TituloPopup() {
-			add(menuClonarEste);
-			addSeparator();
-			add(itemRenomear);
-			addSeparator();
-			add(itemExcluir);
-			addSeparator();
-			add(itemRestaurar);
-			add(itemMaximizar);
-			addSeparator();
-			add(itemRLD);
+		public TituloPopup(boolean clonar) {
+			if (clonar) {
+				add(menuClonarEste);
+				addSeparator();
+				add(itemRenomear);
+				addSeparator();
+				add(itemExcluir);
+				addSeparator();
+				add(itemRestaurar);
+				add(itemMaximizar);
+				addSeparator();
+				add(itemRLD);
+			} else {
+				add(itemRenomear);
+				addSeparator();
+				add(itemRestaurar);
+				add(itemMaximizar);
+			}
 
 			menuClonarEste.add(itemEsquerdo);
 			menuClonarEste.add(itemDireito);
