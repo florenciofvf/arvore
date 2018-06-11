@@ -234,6 +234,7 @@ public class Titulo extends Panel {
 		private static final long serialVersionUID = 1L;
 		final RadioButtonMenuItem itemRestaurar = new RadioButtonMenuItem("label.restaurar", true);
 		final RadioButtonMenuItem itemMaximizar = new RadioButtonMenuItem("label.maximizar");
+		final MenuItem itemRLD = new MenuItem("label.replicar_local_divisor");
 		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
 		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");
 		final MenuItem itemDireito = new MenuItem("label.a_direita");
@@ -251,6 +252,8 @@ public class Titulo extends Panel {
 			addSeparator();
 			add(itemRestaurar);
 			add(itemMaximizar);
+			addSeparator();
+			add(itemRLD);
 
 			menuClonarEste.add(itemEsquerdo);
 			menuClonarEste.add(itemDireito);
@@ -264,6 +267,7 @@ public class Titulo extends Panel {
 					e -> maximizarRestaurar(itemMaximizar.isSelected() && !itemRestaurar.isSelected()));
 			itemExcluir.addActionListener(e -> ouvintes.forEach(TituloListener::excluirFichario));
 			itemEsquerdo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneEsquerdo));
+			itemRLD.addActionListener(e -> ouvintes.forEach(TituloListener::clonarLocalDivisor));
 			itemDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
 			itemAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
 			itemAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));

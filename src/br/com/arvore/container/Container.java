@@ -64,6 +64,10 @@ public class Container extends PanelBorder implements Layout {
 		add(BorderLayout.CENTER, splitPane);
 	}
 
+	public int getDividerLocation() {
+		return splitPane.getDividerLocation();
+	}
+
 	public void setDividerLocation(int i) {
 		splitPane.setDividerLocation(i);
 	}
@@ -93,6 +97,10 @@ public class Container extends PanelBorder implements Layout {
 	}
 
 	public void exibirRegistros(Objeto objeto) throws Exception {
+		if (maximizado) {
+			return;
+		}
+
 		ModeloRegistro modeloRegistro = ModeloRegistro.criarModelo(objeto);
 		ModeloOrdenacao modeloOrdenacao = new ModeloOrdenacao(modeloRegistro, modeloRegistro.getColunasNumero());
 		tabela.mementoSelecao();
