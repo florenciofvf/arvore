@@ -1,12 +1,14 @@
 package br.com.arvore.xml;
 
 import java.io.File;
+import java.io.FileReader;
 import java.lang.reflect.Method;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -30,10 +32,12 @@ public class XML {
 	}
 
 	public static Obj processarObj(File file) throws Exception {
+		InputSource source = new InputSource(new FileReader(file));
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		XMLHandlerObj handler = new XMLHandlerObj();
 		SAXParser parser = factory.newSAXParser();
-		parser.parse(file, handler);
+		source.setEncoding(Constantes.ENCODING);
+		parser.parse(source, handler);
 		return handler.getRaiz();
 	}
 }

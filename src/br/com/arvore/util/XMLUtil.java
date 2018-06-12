@@ -9,11 +9,11 @@ public class XMLUtil {
 	private int tab;
 
 	public XMLUtil(File file) throws Exception {
-		pw = new PrintWriter(file);
+		pw = new PrintWriter(file, Constantes.ENCODING);
 	}
 
 	public XMLUtil prologo() {
-		return print("<?xml").atributo("version", 1.0).atributo("encoding", "utf-8").print("?>").ql().ql();
+		return print("<?xml").atributo("version", 1.0).atributo("encoding", Constantes.ENCODING).print("?>").ql().ql();
 	}
 
 	public XMLUtil atributo(String nome, boolean valor) {

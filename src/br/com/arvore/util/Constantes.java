@@ -42,6 +42,7 @@ public class Constantes {
 	public static final String CONTROLE = "controle";
 	public static final String FICHARIO = "fichario";
 	public static final String DIVISOR = "divisor";
+	public static final String ENCODING = "UTF-8";
 	public static final String OBJETO = "objeto";
 	public static final String DRIVER = "driver";
 	public static final String TITULO = "titulo";
