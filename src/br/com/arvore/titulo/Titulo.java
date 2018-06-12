@@ -18,7 +18,6 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicButtonUI;
 
@@ -30,6 +29,7 @@ import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.Popup;
 import br.com.arvore.comp.RadioButtonMenuItem;
 import br.com.arvore.container.Container;
+import br.com.arvore.fichario.Fichario;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Util;
 
@@ -37,15 +37,15 @@ public class Titulo extends Panel {
 	private static final long serialVersionUID = 1L;
 	private final List<TituloListener> ouvintes;
 	private final TituloPopup tituloPopup;
-	private final JTabbedPane tabbedPane;
+	private final Fichario fichario;
 	private final boolean clonar;
 
-	public Titulo(JTabbedPane tabbedPane, boolean clonar) {
+	public Titulo(Fichario fichario, boolean clonar) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		tituloPopup = new TituloPopup(clonar);
-		this.tabbedPane = tabbedPane;
 		ouvintes = new ArrayList<>();
+		this.fichario = fichario;
 		this.clonar = clonar;
 		add(new Rotulo());
 		setOpaque(false);
@@ -75,10 +75,10 @@ public class Titulo extends Panel {
 
 		private MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				int i = tabbedPane.indexOfTabComponent(Titulo.this);
+				int i = fichario.indexOfTabComponent(Titulo.this);
 
 				if (i != -1) {
-					tabbedPane.setSelectedIndex(i);
+					fichario.setSelectedIndex(i);
 				}
 			};
 
@@ -98,6 +98,8 @@ public class Titulo extends Panel {
 				}
 
 				if (tituloPopup != null) {
+					tituloPopup.itemExcluir
+							.setEnabled(fichario.getDivisor() != null && fichario.getDivisor().getOuvinte() != null);
 					tituloPopup.show(Titulo.this, e.getX(), e.getY());
 				}
 			}
@@ -105,10 +107,10 @@ public class Titulo extends Panel {
 
 		@Override
 		public String getText() {
-			int i = tabbedPane.indexOfTabComponent(Titulo.this);
+			int i = fichario.indexOfTabComponent(Titulo.this);
 
 			if (i != -1) {
-				return tabbedPane.getTitleAt(i);
+				return fichario.getTitleAt(i);
 			}
 
 			return null;
@@ -116,31 +118,31 @@ public class Titulo extends Panel {
 	}
 
 	private void renomear() {
-		int i = tabbedPane.indexOfTabComponent(Titulo.this);
+		int i = fichario.indexOfTabComponent(Titulo.this);
 
 		if (i == -1) {
 			return;
 		}
 
-		String titulo = tabbedPane.getTitleAt(i);
+		String titulo = fichario.getTitleAt(i);
 		String novo = Util.getStringInput(Titulo.this, titulo);
 
 		if (Util.estaVazio(novo)) {
 			return;
 		}
 
-		tabbedPane.setTitleAt(i, novo);
-		SwingUtilities.updateComponentTreeUI(tabbedPane);
+		fichario.setTitleAt(i, novo);
+		SwingUtilities.updateComponentTreeUI(fichario);
 	}
 
 	private void maximizarRestaurar(boolean max) {
-		int i = tabbedPane.indexOfTabComponent(Titulo.this);
+		int i = fichario.indexOfTabComponent(Titulo.this);
 
 		if (i == -1) {
 			return;
 		}
 
-		Container container = (Container) tabbedPane.getComponentAt(i);
+		Container container = (Container) fichario.getComponentAt(i);
 
 		if (max) {
 			container.maximizar();
@@ -171,7 +173,7 @@ public class Titulo extends Panel {
 		private ActionListener actionListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int indice = tabbedPane.indexOfTabComponent(Titulo.this);
+				int indice = fichario.indexOfTabComponent(Titulo.this);
 
 				if (indice != -1) {
 					if (!clonar) {

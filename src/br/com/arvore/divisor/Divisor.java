@@ -134,6 +134,10 @@ public class Divisor extends SplitPane implements Layout {
 		}
 	}
 
+	public DivisorListener getOuvinte() {
+		return ouvinte;
+	}
+
 	private DivisorListener divisorListener = new DivisorListener() {
 		@Override
 		public void excluidoLeft(Divisor divisor) {
