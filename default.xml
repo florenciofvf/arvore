@@ -18,9 +18,6 @@
 		<grupo-itens-na-arvore>SELECT concat(id, "-", nome), id as inteiro FROM auto</grupo-itens-na-arvore>
 		<grupo-itens-na-tabela>SELECT * FROM auto</grupo-itens-na-tabela>
 
-		<!--item-na-tabela>SELECT * FROM auto WHERE id = ?</item-na-tabela>
-		<item-update>UPDATE auto SET id_auto = 0 WHERE id = ?</item-update-->
-
 		<objeto titulo="Anterior">
 			<grupo-itens-na-arvore>
 				SELECT concat(anterior.id, "-", anterior.nome), anterior.id as inteiro 
@@ -31,6 +28,7 @@
 			</grupo-itens-na-arvore>
 
 			<item-objeto-titulo>anterior</item-objeto-titulo>
+
 			<item-objeto-arvore>
 				SELECT concat(anterior.id, "-", anterior.nome), anterior.id as inteiro 
 				FROM auto anterior, auto atual

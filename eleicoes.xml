@@ -13,7 +13,7 @@
 
 	<item-update>UPDATE eleicao SET descricao='' WHERE id = ?</item-update>
 	<item-insert>INSERT INTO eleicao(descricao) VALUES('')</item-insert>
-	<item-tabela>SELECT * FROM eleicao WHERE id = ?</item-tabela>
+	<item-na-tabela>SELECT * FROM eleicao WHERE id = ?</item-na-tabela>
 	<item-delete>DELETE FROM eleicao WHERE id = ?</item-delete>
 	<item-observacao>OBSERVAÇÃO</item-observacao>
 	<item-comentario>COMENTÁRIO</item-comentario>
@@ -28,7 +28,7 @@
 		<grupo-delete>DELETE FROM candidato WHERE eleicao_id = ?</grupo-delete>
 
 		<item-update>UPDATE candidato SET nome = '' WHERE id = ?</item-update>
-		<item-tabela>SELECT * FROM candidato WHERE id = ?</item-tabela>
+		<item-na-tabela>SELECT * FROM candidato WHERE id = ?</item-na-tabela>
 		<item-delete>DELETE FROM candidato WHERE id = ?</item-delete>
 
 		<xi:include href="enderecos.xml" />

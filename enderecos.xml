@@ -8,5 +8,5 @@
 	<grupo-delete>DELETE FROM endereco WHERE id_candidato = ?</grupo-delete>
 
 	<item-update>UPDATE endereco SET id_candidato = 1 WHERE id = 1</item-update>
-	<item-tabela>SELECT * FROM endereco WHERE id = ?</item-tabela>
+	<item-na-tabela>SELECT * FROM endereco WHERE id = ?</item-na-tabela>
 </objeto>
