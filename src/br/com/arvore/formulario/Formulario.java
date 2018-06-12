@@ -68,6 +68,7 @@ public class Formulario extends JFrame {
 				abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
 				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
 				divisor.setListener(splitPaneListener);
+				controle.selecionadoObjeto(null);
 			};
 
 			public void windowClosing(WindowEvent e) {
