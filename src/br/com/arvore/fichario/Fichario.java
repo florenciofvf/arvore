@@ -205,12 +205,24 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 			Container container = (Container) getComponentAt(indice);
 			notificarContainerExcluido(container);
 			remove(indice);
+
+			Titulo titulo = (Titulo) getTabComponentAt(0);
+
+			if (titulo != null) {
+				titulo.configRLD(getTabCount() > 1);
+			}
 		}
 
 		@Override
 		public void clonarAba() {
 			try {
 				addAba("label.objetos", raiz, false);
+
+				Titulo titulo = (Titulo) getTabComponentAt(0);
+
+				if (titulo != null) {
+					titulo.configRLD(getTabCount() > 1);
+				}
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
 			}

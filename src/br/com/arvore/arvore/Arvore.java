@@ -29,7 +29,6 @@ public class Arvore extends JTree {
 	public Arvore(TreeModel newModel) {
 		super(newModel);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		// putClientProperty("JTree.lineStyle", "Horizontal");
 		setBorder(BorderFactory.createEmptyBorder());
 		addMouseListener(mouseListener);
 		setCellRenderer(new TreeRD());
@@ -78,7 +77,6 @@ public class Arvore extends JTree {
 	}
 
 	private MouseListener mouseListener = new MouseAdapter() {
-
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			ouvintes.forEach(o -> o.selecionadoObjeto(Arvore.this));

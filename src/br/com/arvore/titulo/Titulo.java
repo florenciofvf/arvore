@@ -52,9 +52,13 @@ public class Titulo extends Panel {
 		add(new Ctrl());
 	}
 
-	public void configMaximizarRestaurar(boolean max) {
-		tituloPopup.itemRestaurar.setSelected(!max);
-		tituloPopup.itemMaximizar.setSelected(max);
+	public void configMaximizarRestaurar(boolean maximizado) {
+		tituloPopup.itemRestaurar.setSelected(!maximizado);
+		tituloPopup.itemMaximizar.setSelected(maximizado);
+	}
+
+	public void configRLD(boolean replicarLD) {
+		tituloPopup.itemRLD.setEnabled(replicarLD);
 	}
 
 	public void adicionarOuvinte(TituloListener listener) {
@@ -274,6 +278,7 @@ public class Titulo extends Panel {
 			menuClonarEste.addSeparator();
 			menuClonarEste.add(itemAcima);
 			menuClonarEste.add(itemAbaixo);
+			itemRLD.setEnabled(false);
 
 			itemRestaurar.addActionListener(
 					e -> maximizarRestaurar(itemMaximizar.isSelected() && !itemRestaurar.isSelected()));
