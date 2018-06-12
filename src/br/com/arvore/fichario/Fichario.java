@@ -61,6 +61,12 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		if (indice != -1) {
 			Container container = (Container) getComponentAt(indice);
 			ouvintes.forEach(o -> o.containerSelecionado(container));
+
+			Titulo titulo = (Titulo) getTabComponentAt(indice);
+
+			if (titulo != null) {
+				titulo.configMaximizarRestaurar(container.isMaximizado());
+			}
 		}
 	}
 

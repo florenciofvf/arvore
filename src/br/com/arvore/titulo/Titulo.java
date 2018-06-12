@@ -52,6 +52,11 @@ public class Titulo extends Panel {
 		add(new Ctrl());
 	}
 
+	public void configMaximizarRestaurar(boolean max) {
+		tituloPopup.itemRestaurar.setSelected(!max);
+		tituloPopup.itemMaximizar.setSelected(max);
+	}
+
 	public void adicionarOuvinte(TituloListener listener) {
 		ouvintes.add(listener);
 	}
