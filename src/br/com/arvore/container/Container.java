@@ -17,10 +17,8 @@ import br.com.arvore.modelo.ModeloOrdenacao;
 import br.com.arvore.modelo.ModeloRegistro;
 import br.com.arvore.tabela.Tabela;
 import br.com.arvore.tabela.TabelaUtil;
-import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
-import br.com.arvore.util.Util;
 import br.com.arvore.util.XMLUtil;
 
 public class Container extends PanelBorder implements Layout {
@@ -151,28 +149,11 @@ public class Container extends PanelBorder implements Layout {
 
 	@Override
 	public void salvarLayout(XMLUtil xml) {
-		xml.abrirTag(Constantes.CONTAINER);
-		xml.atributo(Constantes.LOCAL_DIV, splitPane.getDividerLocation());
-		xml.atributo(Constantes.TITULO, Util.escapar(titulo));
-		xml.atributo(Constantes.MAXIMIZADO, maximizado);
-		xml.fecharTag();
-		xml.finalizarTag(Constantes.CONTAINER);
+		ContainerUtil.salvarLayout(xml, this);
 	}
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		if (obj.isContainer()) {
-			String localDiv = obj.getValorAtributo(Constantes.LOCAL_DIV);
-			String max = obj.getValorAtributo(Constantes.MAXIMIZADO);
-
-			if (Boolean.parseBoolean(max)) {
-				maximizar();
-			}
-
-			int local = Integer.parseInt(localDiv);
-			setDividerLocation(local);
-		} else {
-			throw new IllegalStateException();
-		}
+		ContainerUtil.aplicarLayout(obj, this);
 	}
 }
