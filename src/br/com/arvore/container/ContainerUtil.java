@@ -10,6 +10,10 @@ public class ContainerUtil {
 	}
 
 	public static void salvarLayout(XMLUtil xml, Container container) {
+		if (xml == null || container == null) {
+			return;
+		}
+
 		xml.abrirTag(Constantes.CONTAINER);
 		xml.atributo(Constantes.TITULO, Util.escapar(container.getTitulo()));
 		xml.atributo(Constantes.LOCAL_DIV, container.getDividerLocation());
@@ -19,6 +23,10 @@ public class ContainerUtil {
 	}
 
 	public static void aplicarLayout(Obj obj, Container container) {
+		if (obj == null || container == null) {
+			return;
+		}
+
 		if (obj.isContainer()) {
 			String localDiv = obj.getValorAtributo(Constantes.LOCAL_DIV);
 			String max = obj.getValorAtributo(Constantes.MAXIMIZADO);
