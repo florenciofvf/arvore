@@ -131,7 +131,7 @@ public class Controle extends PanelBorder implements Layout {
 		}
 
 		try {
-			container.getArvore().inflarSelecionado();
+			container.inflarSelecionado();
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("ATUALIZAR OBJETO", ex, formulario);
 		}
@@ -175,7 +175,7 @@ public class Controle extends PanelBorder implements Layout {
 		try {
 			int i = ObjetoUtil.inserirObjeto(selecionado);
 			Util.mensagem(formulario, Mensagens.getString("label.inseridos") + " (" + i + ")");
-			container.getArvore().inflarSelecionado();
+			container.inflarSelecionado();
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("INSERT OBJETO", ex, formulario);
 		}
@@ -202,7 +202,7 @@ public class Controle extends PanelBorder implements Layout {
 		try {
 			int i = ObjetoUtil.atualizarObjetos(selecionado);
 			Util.mensagem(formulario, Mensagens.getString("label.atualizados") + " (" + i + ")");
-			container.getArvore().inflarSelecionado();
+			container.inflarSelecionado();
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("UPDATE OBJETO", ex, formulario);
 		}
@@ -229,7 +229,7 @@ public class Controle extends PanelBorder implements Layout {
 		try {
 			int i = ObjetoUtil.excluirObjetos(selecionado);
 			Util.mensagem(formulario, Mensagens.getString("label.excluidos") + " (" + i + ")");
-			container.getArvore().excluirSelecionado();
+			container.excluirSelecionado();
 			selecionadoObjeto(container);
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("DELETE OBJETO", ex, formulario);
@@ -352,7 +352,7 @@ public class Controle extends PanelBorder implements Layout {
 		selecionarAba(abaSelecionada, controleSelTmp);
 
 		if (selecionado.isPesquisaPopup() || textAreaTabela.estaVazio()) {
-			container.getTabela().setModel(new ModeloOrdenacao());
+			container.setModeloOrdenacao(new ModeloOrdenacao());
 			return;
 		}
 

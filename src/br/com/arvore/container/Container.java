@@ -53,12 +53,16 @@ public class Container extends PanelBorder implements Layout {
 		ouvintes.add(listener);
 	}
 
-	public Arvore getArvore() {
-		return arvore;
+	public Objeto getObjetoSelecionado() {
+		return arvore.getObjetoSelecionado();
 	}
 
-	public Tabela getTabela() {
-		return tabela;
+	public void inflarSelecionado() throws Exception {
+		arvore.inflarSelecionado();
+	}
+
+	public void excluirSelecionado() {
+		arvore.excluirSelecionado();
 	}
 
 	private void montarLayout() {
@@ -99,8 +103,16 @@ public class Container extends PanelBorder implements Layout {
 		SwingUtilities.updateComponentTreeUI(this);
 	}
 
+	public void setModeloOrdenacao(ModeloOrdenacao modeloOrdenacao) {
+		if (maximizado || modeloOrdenacao == null) {
+			return;
+		}
+
+		tabela.setModel(modeloOrdenacao);
+	}
+
 	public void exibirRegistros(Objeto objeto) throws Exception {
-		if (maximizado) {
+		if (maximizado || objeto == null) {
 			return;
 		}
 
@@ -116,33 +128,23 @@ public class Container extends PanelBorder implements Layout {
 	}
 
 	private ArvoreListener arvoreListener = new ArvoreListener() {
-		private void checar(Arvore arvore) {
-			if (Container.this.arvore != arvore) {
-				throw new IllegalStateException();
-			}
-		}
-
 		@Override
 		public void selecionadoObjeto(Arvore arvore) {
-			checar(arvore);
 			ouvintes.forEach(o -> o.selecionadoObjeto(Container.this));
 		}
 
 		@Override
 		public void pedidoExcluirObjeto(Arvore arvore) {
-			checar(arvore);
 			ouvintes.forEach(o -> o.pedidoExcluirObjeto(Container.this));
 		}
 
 		@Override
 		public void pedidoDestacarObjeto(Arvore arvore) {
-			checar(arvore);
 			ouvintes.forEach(o -> o.pedidoDestacarObjeto(Container.this));
 		}
 
 		@Override
 		public void pedidoAtualizarObjeto(Arvore arvore) {
-			checar(arvore);
 			ouvintes.forEach(o -> o.pedidoAtualizarObjeto(Container.this));
 		}
 	};

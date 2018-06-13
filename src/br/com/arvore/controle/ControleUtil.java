@@ -27,6 +27,6 @@ public class ControleUtil {
 			return null;
 		}
 
-		return container.getArvore().getObjetoSelecionado();
+		return container.getObjetoSelecionado();
 	}
 }
