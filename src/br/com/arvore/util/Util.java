@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import br.com.arvore.comp.TextArea;
 
 public class Util {
-	private static final boolean LOG_CONSOLE = true;
+	private static final boolean LOG_CONSOLE = false;
 
 	private Util() {
 	}

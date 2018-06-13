@@ -95,15 +95,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	@Override
 	public void salvarLayout(XMLUtil xml) {
-		xml.abrirTag(Constantes.FICHARIO).atributo(Constantes.ABAS, getTabCount()).fecharTag();
-
-		for (int i = 0; i < getTabCount(); i++) {
-			Container container = (Container) getComponentAt(i);
-			container.setTitulo(getTitleAt(i));
-			container.salvarLayout(xml);
-		}
-
-		xml.finalizarTag(Constantes.FICHARIO);
+		FicharioUtil.salvarLayout(xml, this);
 	}
 
 	@Override
