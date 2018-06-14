@@ -55,6 +55,14 @@ public class Arvore extends JTree {
 		return null;
 	}
 
+	public void selecionarObjeto(Objeto objeto) {
+		if (objeto == null) {
+			return;
+		}
+
+		ArvoreUtil.selecionarObjeto(this, objeto);
+	}
+
 	public void excluirSelecionado() {
 		Objeto selecionado = getObjetoSelecionado();
 

@@ -50,4 +50,12 @@ public class ArvoreUtil {
 		arvore.setSelectionPath(null);
 		SwingUtilities.updateComponentTreeUI(arvore);
 	}
+
+	public static void selecionarObjeto(Arvore arvore, Objeto objeto) {
+		TreePath path = getTreePath(objeto);
+
+		arvore.makeVisible(path);
+		arvore.setSelectionPath(path);
+		arvore.scrollPathToVisible(path);
+	}
 }

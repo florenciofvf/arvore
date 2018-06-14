@@ -19,6 +19,7 @@ import br.com.arvore.tabela.Tabela;
 import br.com.arvore.tabela.TabelaUtil;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
+import br.com.arvore.util.Util;
 import br.com.arvore.util.XMLUtil;
 
 public class Container extends PanelBorder implements Layout {
@@ -35,6 +36,23 @@ public class Container extends PanelBorder implements Layout {
 		arvore.adicionarOuvinte(arvoreListener);
 		ouvintes = new ArrayList<>();
 		montarLayout();
+	}
+
+	public void inflar(int[] indices) {
+		if (indices == null) {
+			return;
+		}
+
+		Objeto raiz = (Objeto) arvore.getModel().getRoot();
+
+		try {
+			raiz.inflarParcial(0, indices);
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("APLICAR LAYOUT", ex, this);
+		}
+
+		Objeto objeto = raiz.getObjeto(0, indices);
+		arvore.selecionarObjeto(objeto);
 	}
 
 	public boolean isMaximizado() {

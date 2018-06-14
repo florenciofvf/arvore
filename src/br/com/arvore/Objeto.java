@@ -162,6 +162,63 @@ public class Objeto {
 		}
 	}
 
+	public void inflarParcial(int i, int[] indices) throws Exception {
+		if (Constantes.INFLAR_DESATIVADO) {
+			return;
+		}
+
+		inflarParcial();
+
+		if (i < indices.length) {
+			int pos = indices[i];
+
+			if (pos < getTotal()) {
+				Objeto obj = getObjeto(pos);
+				obj.inflarParcial(i + 1, indices);
+			}
+		}
+	}
+
+	public Objeto getObjeto(int i, int[] indices) {
+		if (i < indices.length) {
+			int pos = indices[i];
+
+			if (pos < getTotal()) {
+				Objeto obj = getObjeto(pos);
+				return obj.getObjeto(i + 1, indices);
+			}
+		}
+
+		return this;
+	}
+
+	public Integer[] getIndices() {
+		List<Integer> resp = new ArrayList<>();
+
+		Objeto objPai = pai;
+		Objeto filho = this;
+
+		while (objPai != null) {
+			int pos = indice(objPai, filho);
+			resp.add(0, pos);
+
+			filho = objPai;
+			objPai = objPai.pai;
+		}
+
+		return resp.toArray(new Integer[] {});
+	}
+
+	private int indice(Objeto pai, Objeto filho) {
+		for (int i = 0; i < pai.objetos.size(); i++) {
+			if (pai.objetos.get(i) == filho) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
 	public void inflarParcial() throws Exception {
 		if (Constantes.INFLAR_DESATIVADO) {
 			return;
