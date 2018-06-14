@@ -7,6 +7,9 @@ import java.util.Objects;
 import javax.swing.SwingUtilities;
 
 import br.com.arvore.fichario.Fichario;
+import br.com.arvore.util.Constantes;
+import br.com.arvore.util.Layout;
+import br.com.arvore.util.Obj;
 
 public class DivisorUtil {
 	private DivisorUtil() {
@@ -102,5 +105,31 @@ public class DivisorUtil {
 		}
 
 		SwingUtilities.updateComponentTreeUI(divisor);
+	}
+
+	public static void aplicarLayout(Obj obj, Divisor divisor) {
+		if (obj == null || divisor == null) {
+			return;
+		}
+
+		if (obj.isDivisor()) {
+			Obj left = obj.getFilho(0);
+			Obj right = obj.getFilho(1);
+
+			if (divisor.getLeftComponent() instanceof Layout) {
+				Layout leftLayout = (Layout) divisor.getLeftComponent();
+				leftLayout.aplicarLayout(left);
+			}
+
+			if (divisor.getRightComponent() instanceof Layout) {
+				Layout rightLayout = (Layout) divisor.getRightComponent();
+				rightLayout.aplicarLayout(right);
+			}
+
+			String localDiv = obj.getValorAtributo(Constantes.LOCAL_DIV);
+			divisor.setDividerLocation(Integer.parseInt(localDiv));
+		} else {
+			throw new IllegalStateException();
+		}
 	}
 }

@@ -59,11 +59,20 @@ public class Rotulo extends Label {
 	};
 
 	private void controleItensPopup(int indice) {
-		Container container = (Container) fichario.getComponentAt(0);
+		Container primeiro = (Container) fichario.getComponentAt(0);
 		Divisor divisor = fichario.getDivisor();
 
-		tituloPopup.itemRLD.setEnabled(fichario.getTabCount() > 1 && !container.isMaximizado());
+		int validos = 0;
+
+		for (int i = 1; i < fichario.getTabCount(); i++) {
+			Container container = (Container) fichario.getComponentAt(i);
+			if (!container.isMaximizado()) {
+				validos++;
+			}
+		}
+
 		tituloPopup.itemExcluir.setEnabled(divisor != null && divisor.getOuvinte() != null);
+		tituloPopup.itemRLD.setEnabled(!primeiro.isMaximizado() && validos > 0);
 
 		if (indice != -1) {
 			Container selecionado = (Container) fichario.getComponentAt(indice);

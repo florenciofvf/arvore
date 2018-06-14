@@ -236,21 +236,6 @@ public class Divisor extends SplitPane implements Layout {
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		if (obj.isDivisor()) {
-			Obj left = obj.getFilho(0);
-			Obj right = obj.getFilho(1);
-
-			Layout leftLayout = (Layout) leftComponent;
-			Layout rightLayout = (Layout) rightComponent;
-
-			leftLayout.aplicarLayout(left);
-			rightLayout.aplicarLayout(right);
-
-			String localDiv = obj.getValorAtributo(Constantes.LOCAL_DIV);
-			int local = Integer.parseInt(localDiv);
-			setDividerLocation(local);
-		} else {
-			throw new IllegalStateException();
-		}
+		DivisorUtil.aplicarLayout(obj, this);
 	}
 }
