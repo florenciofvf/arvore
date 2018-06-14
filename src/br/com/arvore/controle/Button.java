@@ -15,10 +15,9 @@ import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.Icon;
-import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
-public class Button extends JButton {
+public class Button extends br.com.arvore.comp.Button {
 	private static final long serialVersionUID = 1L;
 	private final Color COR_NORMAL = new Color(160, 160, 160);
 	private final Color COR_PRESS = new Color(64, 128, 255);
