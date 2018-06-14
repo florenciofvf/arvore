@@ -15,6 +15,7 @@ import br.com.arvore.comp.Popup;
 import br.com.arvore.comp.RadioButtonMenuItem;
 import br.com.arvore.container.Container;
 import br.com.arvore.fichario.Fichario;
+import br.com.arvore.util.Icones;
 import br.com.arvore.util.Util;
 
 public class Titulo extends Panel {
@@ -75,8 +76,8 @@ public class Titulo extends Panel {
 
 	protected class TituloPopup extends Popup {
 		private static final long serialVersionUID = 1L;
-		final RadioButtonMenuItem itemRestaurar = new RadioButtonMenuItem("label.restaurar", true);
-		final RadioButtonMenuItem itemMaximizar = new RadioButtonMenuItem("label.maximizar");
+		final RadioButtonMenuItem itemRestaurar = new RadioButtonMenuItem("label.restaurar", Icones.SPLIT, true);
+		final RadioButtonMenuItem itemMaximizar = new RadioButtonMenuItem("label.maximizar", Icones.ARVORE);
 		final MenuItem itemRLD = new MenuItem("label.replicar_local_divisor");
 		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
 		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");

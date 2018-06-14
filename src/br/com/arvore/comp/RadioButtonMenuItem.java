@@ -1,5 +1,6 @@
 package br.com.arvore.comp;
 
+import javax.swing.Icon;
 import javax.swing.JRadioButtonMenuItem;
 
 import br.com.arvore.util.Mensagens;
@@ -10,8 +11,16 @@ public class RadioButtonMenuItem extends JRadioButtonMenuItem {
 	public RadioButtonMenuItem() {
 	}
 
+	public RadioButtonMenuItem(String chaveRotulo, Icon icon, boolean selecionado) {
+		super(Mensagens.getString(chaveRotulo), icon, selecionado);
+	}
+
 	public RadioButtonMenuItem(String chaveRotulo, boolean selecionado) {
 		super(Mensagens.getString(chaveRotulo), selecionado);
+	}
+
+	public RadioButtonMenuItem(String chaveRotulo, Icon icon) {
+		super(Mensagens.getString(chaveRotulo), icon);
 	}
 
 	public RadioButtonMenuItem(String chaveRotulo) {
