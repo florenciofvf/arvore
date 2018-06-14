@@ -19,6 +19,7 @@ public class Icones {
 	public static final Icon LOCALIZAR = criarImagem("localizar");
 	public static final Icon COMENTARIO = criarImagem("comment");
 	public static final Icon ATUALIZAR = criarImagem("refresh");
+	public static final Icon EXCLUIR2 = criarImagem("deleted");
 	public static final Icon EXCLUIR = criarImagem("lixeira");
 	public static final Icon UPDATE = criarImagem("update");
 	public static final Icon ARVORE = criarImagem("arvore");

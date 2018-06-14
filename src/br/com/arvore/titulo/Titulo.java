@@ -78,8 +78,8 @@ public class Titulo extends Panel {
 		private static final long serialVersionUID = 1L;
 		final RadioButtonMenuItem itemRestaurar = new RadioButtonMenuItem("label.restaurar", Icones.SPLIT, true);
 		final RadioButtonMenuItem itemMaximizar = new RadioButtonMenuItem("label.maximizar", Icones.ARVORE);
+		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha", Icones.EXCLUIR2);
 		final MenuItem itemRLD = new MenuItem("label.replicar_local_divisor");
-		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha");
 		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");
 		final MenuItem itemDireito = new MenuItem("label.a_direita");
 		final MenuItem itemRenomear = new MenuItem("label.renomear");
