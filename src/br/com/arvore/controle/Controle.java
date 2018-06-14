@@ -367,21 +367,11 @@ public class Controle extends PanelBorder implements Layout {
 
 	@Override
 	public void salvarLayout(XMLUtil xml) {
-		xml.abrirFinalizarTag(Constantes.CONTROLE);
+		ControleUtil.salvarLayout(xml);
 	}
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		if (obj.isRight()) {
-			Obj filho = obj.getFilho(0);
-
-			if (filho.isControle()) {
-				selecionadoObjeto(null);
-			} else {
-				throw new IllegalStateException();
-			}
-		} else {
-			throw new IllegalStateException();
-		}
+		ControleUtil.aplicarLayout(obj, this);
 	}
 }
