@@ -57,5 +57,6 @@ public class ArvoreUtil {
 		arvore.makeVisible(path);
 		arvore.setSelectionPath(path);
 		arvore.scrollPathToVisible(path);
+		SwingUtilities.updateComponentTreeUI(arvore);
 	}
 }
