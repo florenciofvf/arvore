@@ -33,10 +33,10 @@ import br.com.arvore.xml.XML;
 
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private final MenuItem itemAplicarModelo = new MenuItem("label.aplicar_modelo", Icones.BOTTOM);
+	private final MenuItem itemSalvarModelo = new MenuItem("label.salvar_modelo", Icones.TOP);
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
-	private final MenuItem itemAplicarModelo = new MenuItem("label.aplicar_modelo");
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
-	private final MenuItem itemSalvarModelo = new MenuItem("label.salvar_modelo");
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
 	public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
 	private final Menu menuArquivo = new Menu("label.arquivo");
@@ -142,8 +142,8 @@ public class Formulario extends JFrame {
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemConexao);
 		menuArquivo.addSeparator();
-		menuArquivo.add(itemAplicarModelo);
 		menuArquivo.add(itemSalvarModelo);
+		menuArquivo.add(itemAplicarModelo);
 		menuArquivo.addSeparator();
 		menuArquivo.add(itemFechar);
 		menuBar.add(menuArquivo);
