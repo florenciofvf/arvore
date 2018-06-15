@@ -238,4 +238,9 @@ public class Divisor extends SplitPane implements Layout {
 	public void aplicarLayout(Obj obj) {
 		DivisorUtil.aplicarLayout(obj, this);
 	}
+
+	@Override
+	public void ajusteScroll() {
+		DivisorUtil.ajusteScroll(this);
+	}
 }

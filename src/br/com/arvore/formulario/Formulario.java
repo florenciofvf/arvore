@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Menu;
@@ -183,6 +184,8 @@ public class Formulario extends JFrame {
 		} catch (Exception ex) {
 			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
 		}
+
+		SwingUtilities.invokeLater(() -> divisor.ajusteScroll());
 	}
 
 	public FicharioListener getFicharioListener() {

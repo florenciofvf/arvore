@@ -98,6 +98,10 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		FicharioUtil.salvarLayout(xml, this);
 	}
 
+	public void ajusteScroll() {
+		FicharioUtil.ajusteScroll(this);
+	}
+
 	@Override
 	public void aplicarLayout(Obj obj) {
 		if (obj.isLeft()) {

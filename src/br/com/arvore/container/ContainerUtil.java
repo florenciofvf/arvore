@@ -72,7 +72,7 @@ public class ContainerUtil {
 				indices[i] = Integer.parseInt(strings[i]);
 			}
 
-			container.inflar(indices);
+			container.inflarHierarquia(indices);
 		} else {
 			throw new IllegalStateException();
 		}

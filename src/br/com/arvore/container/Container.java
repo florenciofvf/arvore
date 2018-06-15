@@ -30,29 +30,13 @@ public class Container extends PanelBorder implements Layout {
 	private final Arvore arvore;
 	private boolean maximizado;
 	private String titulo;
+	private int[] indices;
 
 	public Container(Objeto objeto) {
 		arvore = new Arvore(new ModeloArvore(objeto));
 		arvore.adicionarOuvinte(arvoreListener);
 		ouvintes = new ArrayList<>();
 		montarLayout();
-	}
-
-	public void inflar(int[] indices) {
-		if (indices == null) {
-			return;
-		}
-
-		Objeto raiz = (Objeto) arvore.getModel().getRoot();
-
-		try {
-			raiz.inflarParcial(0, indices);
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("APLICAR LAYOUT", ex, this);
-		}
-
-		Objeto objeto = raiz.getObjeto(0, indices);
-		arvore.selecionarObjeto(objeto);
 	}
 
 	public boolean isMaximizado() {
@@ -175,5 +159,31 @@ public class Container extends PanelBorder implements Layout {
 	@Override
 	public void aplicarLayout(Obj obj) {
 		ContainerUtil.aplicarLayout(obj, this);
+	}
+
+	@Override
+	public void ajusteScroll() {
+		if (indices == null) {
+			return;
+		}
+
+		Objeto raiz = (Objeto) arvore.getModel().getRoot();
+		Objeto objeto = raiz.getObjeto(0, indices);
+		arvore.selecionarObjeto(objeto);
+	}
+
+	public void inflarHierarquia(int[] indices) {
+		if (indices == null) {
+			return;
+		}
+
+		Objeto raiz = (Objeto) arvore.getModel().getRoot();
+
+		try {
+			raiz.inflarParcial(0, indices);
+			this.indices = indices;
+		} catch (Exception ex) {
+			Util.stackTraceAndMessage("APLICAR LAYOUT", ex, this);
+		}
 	}
 }

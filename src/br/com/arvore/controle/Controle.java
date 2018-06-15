@@ -374,4 +374,8 @@ public class Controle extends PanelBorder implements Layout {
 	public void aplicarLayout(Obj obj) {
 		ControleUtil.aplicarLayout(obj, this);
 	}
+
+	@Override
+	public void ajusteScroll() {
+	}
 }

@@ -132,4 +132,20 @@ public class DivisorUtil {
 			throw new IllegalStateException();
 		}
 	}
+
+	public static void ajusteScroll(Divisor divisor) {
+		if (divisor == null) {
+			return;
+		}
+
+		if (divisor.getLeftComponent() instanceof Layout) {
+			Layout leftLayout = (Layout) divisor.getLeftComponent();
+			leftLayout.ajusteScroll();
+		}
+
+		if (divisor.getRightComponent() instanceof Layout) {
+			Layout rightLayout = (Layout) divisor.getRightComponent();
+			rightLayout.ajusteScroll();
+		}
+	}
 }

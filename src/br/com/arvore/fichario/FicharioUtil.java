@@ -25,4 +25,15 @@ public class FicharioUtil {
 
 		xml.finalizarTag(Constantes.FICHARIO);
 	}
+
+	public static void ajusteScroll(Fichario fichario) {
+		if (fichario == null) {
+			return;
+		}
+
+		for (int i = 0; i < fichario.getTabCount(); i++) {
+			Container c = (Container) fichario.getComponentAt(i);
+			c.ajusteScroll();
+		}
+	}
 }
