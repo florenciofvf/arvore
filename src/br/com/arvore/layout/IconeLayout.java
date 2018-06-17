@@ -27,7 +27,8 @@ public class IconeLayout extends Button {
 	private final TituloLayout tituloLayout;
 	private final boolean clonar;
 
-	public IconeLayout(FicharioLayout ficharioLayout, TituloLayout tituloLayout, boolean clonar, List<TituloLayoutListener> ouvintes) {
+	public IconeLayout(FicharioLayout ficharioLayout, TituloLayout tituloLayout, boolean clonar,
+			List<TituloLayoutListener> ouvintes) {
 		setToolTipText(Mensagens.getString("label.fechar"));
 		setBorder(BorderFactory.createEtchedBorder());
 		setPreferredSize(new Dimension(17, 17));

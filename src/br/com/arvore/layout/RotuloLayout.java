@@ -11,25 +11,25 @@ import br.com.arvore.layout.TituloLayout.TituloPopup;
 
 public class RotuloLayout extends Label {
 	private static final long serialVersionUID = 1L;
+	private final FicharioLayout ficharioLayout;
+	private final TituloLayout tituloLayout;
 	private final TituloPopup tituloPopup;
-	private final FicharioLayout fichario;
-	private final TituloLayout titulo;
 
-	public RotuloLayout(FicharioLayout fichario, TituloLayout titulo, TituloPopup tituloPopup) {
+	public RotuloLayout(FicharioLayout ficharioLayout, TituloLayout tituloLayout, TituloPopup tituloPopup) {
 		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+		this.ficharioLayout = ficharioLayout;
+		this.tituloLayout = tituloLayout;
 		addMouseListener(mouseListener);
 		this.tituloPopup = tituloPopup;
-		this.fichario = fichario;
-		this.titulo = titulo;
 	}
 
 	private MouseListener mouseListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int indice = fichario.indexOfTabComponent(titulo);
+			int indice = ficharioLayout.indexOfTabComponent(tituloLayout);
 
 			if (indice != -1) {
-				fichario.setSelectedIndex(indice);
+				ficharioLayout.setSelectedIndex(indice);
 			}
 		};
 
@@ -49,21 +49,21 @@ public class RotuloLayout extends Label {
 			}
 
 			if (tituloPopup != null) {
-				tituloPopup.show(titulo, e.getX(), e.getY());
+				tituloPopup.show(tituloLayout, e.getX(), e.getY());
 			}
 		}
 	};
 
 	@Override
 	public String getText() {
-		if (fichario == null) {
+		if (ficharioLayout == null) {
 			return null;
 		}
 
-		int indice = fichario.indexOfTabComponent(titulo);
+		int indice = ficharioLayout.indexOfTabComponent(tituloLayout);
 
 		if (indice != -1) {
-			return fichario.getTitleAt(indice);
+			return ficharioLayout.getTitleAt(indice);
 		}
 
 		return null;

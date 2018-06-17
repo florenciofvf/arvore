@@ -24,49 +24,49 @@ public class FicharioLayout extends TabbedPane {
 	}
 
 	private void abaSelecionada() {
-//		int indice = getSelectedIndex();
-//
-//		if (indice != -1) {
-//			Container container = (Container) getComponentAt(indice);
-//			ouvintes.forEach(o -> o.containerSelecionado(container));
-//		}
+		// int indice = getSelectedIndex();
+		//
+		// if (indice != -1) {
+		// Container container = (Container) getComponentAt(indice);
+		// ouvintes.forEach(o -> o.containerSelecionado(container));
+		// }
 	}
 
 	private void notificarContainerExcluido(Container container) {
-//		ouvintes.forEach(o -> o.containerExcluido(container));
+		// ouvintes.forEach(o -> o.containerExcluido(container));
 	}
 
 	public void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
-//		objeto = objeto.clonar();
-//
-//		ObjetoUtil.inflar(objeto);
-//
-//		Container container = new Container(objeto);
-//		container.adicionarOuvinte(containerListener);
-//		addTab(chaveTitulo, container);
-//
-//		Titulo titulo = new Titulo(this, clonar);
-//		titulo.adicionarOuvinte(tituloListener);
-//		setTabComponentAt(getTabCount() - 1, titulo);
-//
-//		setDividerLocation(getTabCount() - 1);
+		// objeto = objeto.clonar();
+		//
+		// ObjetoUtil.inflar(objeto);
+		//
+		// Container container = new Container(objeto);
+		// container.adicionarOuvinte(containerListener);
+		// addTab(chaveTitulo, container);
+		//
+		// Titulo titulo = new Titulo(this, clonar);
+		// titulo.adicionarOuvinte(tituloListener);
+		// setTabComponentAt(getTabCount() - 1, titulo);
+		//
+		// setDividerLocation(getTabCount() - 1);
 	}
 
 	private TituloLayoutListener tituloListener = new TituloLayoutListener() {
 		@Override
 		public void excluirAba(int indice) {
-//			Container container = (Container) getComponentAt(indice);
-//			notificarContainerExcluido(container);
+			// Container container = (Container) getComponentAt(indice);
+			// notificarContainerExcluido(container);
 			remove(indice);
 		}
 
 		@Override
 		public void clonarAba() {
-//			try {
-//				addAba("label.objetos", raiz, false);
-//			} catch (Exception ex) {
-//				Util.stackTraceAndMessage("CLONAR ABA", ex, FicharioLayout.this);
-//			}
+			// try {
+			// addAba("label.objetos", raiz, false);
+			// } catch (Exception ex) {
+			// Util.stackTraceAndMessage("CLONAR ABA", ex, FicharioLayout.this);
+			// }
 		}
 	};
 }
