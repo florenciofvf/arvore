@@ -5,17 +5,16 @@ import java.util.List;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.TabbedPane;
-import br.com.arvore.container.Container;
 import br.com.arvore.formulario.Formulario;
 
 public class FicharioLayout extends TabbedPane {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioLayoutListener> ouvintes;
-	private final Formulario formulario;
+//	private final Formulario formulario;
 
 	public FicharioLayout(Formulario formulario) {
 		addChangeListener(e -> abaSelecionada());
-		this.formulario = formulario;
+//		this.formulario = formulario;
 		ouvintes = new ArrayList<>();
 	}
 
@@ -32,9 +31,9 @@ public class FicharioLayout extends TabbedPane {
 		// }
 	}
 
-	private void notificarContainerExcluido(Container container) {
-		// ouvintes.forEach(o -> o.containerExcluido(container));
-	}
+//	private void notificarContainerExcluido(Container container) {
+//		// ouvintes.forEach(o -> o.containerExcluido(container));
+//	}
 
 	public void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
 		// objeto = objeto.clonar();

@@ -14,7 +14,7 @@ import br.com.arvore.util.Icones;
 public class TituloLayout extends Panel {
 	private static final long serialVersionUID = 1L;
 	private final List<TituloLayoutListener> ouvintes = new ArrayList<>();
-	private final FicharioLayout ficharioLayout;
+//	private final FicharioLayout ficharioLayout;
 	private final TituloPopup tituloPopup;
 
 	public TituloLayout(FicharioLayout ficharioLayout, boolean clonar) {
@@ -23,7 +23,7 @@ public class TituloLayout extends Panel {
 		this.tituloPopup = new TituloPopup();
 		add(new RotuloLayout(ficharioLayout, this, tituloPopup));
 		add(new IconeLayout(ficharioLayout, this, clonar, ouvintes));
-		this.ficharioLayout = ficharioLayout;
+//		this.ficharioLayout = ficharioLayout;
 		setOpaque(false);
 	}
 
