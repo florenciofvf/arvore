@@ -7,32 +7,20 @@ import br.com.arvore.Objeto;
 import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.formulario.Formulario;
-import br.com.arvore.util.Util;
 
 public class FicharioLayout extends TabbedPane {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioLayoutListener> ouvintes;
 	private final Formulario formulario;
-	private final Objeto raiz;
-	private boolean left;
 
-	public FicharioLayout(Formulario formulario, Objeto raiz) {
+	public FicharioLayout(Formulario formulario) {
 		addChangeListener(e -> abaSelecionada());
 		this.formulario = formulario;
 		ouvintes = new ArrayList<>();
-		this.raiz = raiz;
 	}
 
 	public void adicionarOuvinte(FicharioLayoutListener listener) {
 		ouvintes.add(listener);
-	}
-
-	public boolean isLeft() {
-		return left;
-	}
-
-	public void setLeft(boolean left) {
-		this.left = left;
 	}
 
 	private void abaSelecionada() {
@@ -67,18 +55,18 @@ public class FicharioLayout extends TabbedPane {
 	private TituloLayoutListener tituloListener = new TituloLayoutListener() {
 		@Override
 		public void excluirAba(int indice) {
-			Container container = (Container) getComponentAt(indice);
-			notificarContainerExcluido(container);
+//			Container container = (Container) getComponentAt(indice);
+//			notificarContainerExcluido(container);
 			remove(indice);
 		}
 
 		@Override
 		public void clonarAba() {
-			try {
-				addAba("label.objetos", raiz, false);
-			} catch (Exception ex) {
-				Util.stackTraceAndMessage("CLONAR ABA", ex, FicharioLayout.this);
-			}
+//			try {
+//				addAba("label.objetos", raiz, false);
+//			} catch (Exception ex) {
+//				Util.stackTraceAndMessage("CLONAR ABA", ex, FicharioLayout.this);
+//			}
 		}
 	};
 }

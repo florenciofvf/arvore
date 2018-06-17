@@ -23,23 +23,23 @@ import br.com.arvore.util.Mensagens;
 public class IconeLayout extends Button {
 	private static final long serialVersionUID = 1L;
 	private final List<TituloLayoutListener> ouvintes;
-	private final FicharioLayout fichario;
+	private final FicharioLayout ficharioLayout;
+	private final TituloLayout tituloLayout;
 	private final boolean clonar;
-	private final TituloLayout titulo;
 
-	public IconeLayout(FicharioLayout fichario, TituloLayout titulo, boolean clonar, List<TituloLayoutListener> ouvintes) {
+	public IconeLayout(FicharioLayout ficharioLayout, TituloLayout tituloLayout, boolean clonar, List<TituloLayoutListener> ouvintes) {
 		setToolTipText(Mensagens.getString("label.fechar"));
 		setBorder(BorderFactory.createEtchedBorder());
 		setPreferredSize(new Dimension(17, 17));
+		this.ficharioLayout = ficharioLayout;
 		addActionListener(actionListener);
+		this.tituloLayout = tituloLayout;
 		addMouseListener(mouseListener);
 		setContentAreaFilled(false);
 		setUI(new BasicButtonUI());
-		this.fichario = fichario;
 		this.ouvintes = ouvintes;
 		setRolloverEnabled(true);
 		setBorderPainted(false);
-		this.titulo = titulo;
 		this.clonar = clonar;
 		setFocusable(false);
 	}
@@ -47,7 +47,7 @@ public class IconeLayout extends Button {
 	private ActionListener actionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int indice = fichario.indexOfTabComponent(titulo);
+			int indice = ficharioLayout.indexOfTabComponent(tituloLayout);
 
 			if (indice == -1) {
 				return;
