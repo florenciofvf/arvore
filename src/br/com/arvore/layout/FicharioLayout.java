@@ -42,6 +42,11 @@ public class FicharioLayout extends TabbedPane {
 		ouvintes.forEach(o -> o.containerExcluido(container));
 	}
 
+	public void setDividerLocation(int indice) {
+		ContainerLayout containerLayout = (ContainerLayout) getComponentAt(indice);
+		containerLayout.setDividerLocation();
+	}
+
 	public void addAba(boolean clonar) throws Exception {
 		ContainerLayout containerLayout = new ContainerLayout();
 		addTab("label.layout", containerLayout);
@@ -53,14 +58,14 @@ public class FicharioLayout extends TabbedPane {
 		TituloLayout tituloLayout = new TituloLayout(this, clonar);
 		tituloLayout.adicionarOuvinte(tituloLayoutListener);
 		setTabComponentAt(getTabCount() - 1, tituloLayout);
-		// setDividerLocation(getTabCount() - 1);
+		setDividerLocation(getTabCount() - 1);
 	}
 
 	private TituloLayoutListener tituloLayoutListener = new TituloLayoutListener() {
 		@Override
 		public void excluirAba(int indice) {
-			ContainerLayout container = (ContainerLayout) getComponentAt(indice);
-			notificarContainerExcluido(container);
+			ContainerLayout containerLayout = (ContainerLayout) getComponentAt(indice);
+			notificarContainerExcluido(containerLayout);
 			remove(indice);
 		}
 

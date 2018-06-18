@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import br.com.arvore.comp.SplitPane;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.fichario.Fichario;
-import br.com.arvore.formulario.Formulario;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;

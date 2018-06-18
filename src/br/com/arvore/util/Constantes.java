@@ -56,7 +56,7 @@ public class Constantes {
 	public static final String ABAS = "abas";
 	public static final String URL = "url";
 
-	public static final boolean DESENHAR_SPLIT_CONTAINER = true;
+	public static final boolean DESENHAR_SPLIT_CONTAINER = false;
 	public static final boolean INFLAR_ANTECIPADO = false;
 	public static final boolean INFLAR_DESATIVADO = false;
 	public static final byte ESTRATEGIA_SUBSTITUIR = 0;
