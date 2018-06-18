@@ -43,9 +43,6 @@ public class Formulario extends JFrame {
 	private final Controle controle;
 	private Objeto raiz;
 
-	// public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
-	// private final Divisor divisor = new Divisor();
-
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
 		ficharioLayout = new FicharioLayout(this);
@@ -95,42 +92,6 @@ public class Formulario extends JFrame {
 				abrirArquivo(file, true, true, true);
 			}
 		});
-
-		// itemAplicarModelo.addActionListener(e -> {
-		// if (raiz == null) {
-		// Util.mensagem(this,
-		// Mensagens.getString("erro.sem_raiz_para_modelo"));
-		// return;
-		// }
-		//
-		// JFileChooser fileChooser = new JFileChooser(".");
-		// int opcao = fileChooser.showOpenDialog(Formulario.this);
-		//
-		// if (opcao != JFileChooser.APPROVE_OPTION) {
-		// return;
-		// }
-		//
-		// File file = fileChooser.getSelectedFile();
-		//
-		// if (file != null) {
-		// aplicarModelo(file);
-		// }
-		// });
-
-		// itemSalvarModelo.addActionListener(e -> {
-		// JFileChooser fileChooser = new JFileChooser(".");
-		// int opcao = fileChooser.showSaveDialog(Formulario.this);
-		//
-		// if (opcao != JFileChooser.APPROVE_OPTION) {
-		// return;
-		// }
-		//
-		// File file = fileChooser.getSelectedFile();
-		//
-		// if (file != null) {
-		// salvarModelo(file);
-		// }
-		// });
 	}
 
 	private void montarLayout() {
@@ -156,42 +117,6 @@ public class Formulario extends JFrame {
 		menuBar.add(menuLAF);
 		setJMenuBar(menuBar);
 	}
-
-	// private void salvarModelo(File file) {
-	// try {
-	// XMLUtil xml = new XMLUtil(file);
-	// xml.prologo();
-	// divisor.salvarLayout(xml);
-	// xml.close();
-	// Util.mensagem(this, Mensagens.getString("label.salvo_modelo"));
-	// } catch (Exception ex) {
-	// Util.stackTraceAndMessage("SALVAR MODELO", ex, this);
-	// }
-	// }
-
-	// private void aplicarModelo(File file) {
-	// try {
-	// Obj raizObj = XML.processarObj(file);
-	//
-	// Fichario fichario = new Fichario(this, raiz);
-	// fichario.adicionarOuvinte(ficharioListener);
-	// fichario.setSize(getSizeFichario());
-	// fichario.addAba("label.objetos", raiz, true);
-	//
-	// divisor.setLeftComponent(fichario);
-	//
-	// fichario.aplicarLayout(raizObj.getFilho(0));
-	// controle.aplicarLayout(raizObj.getFilho(1));
-	//
-	// String localDiv = raizObj.getValorAtributo(Constantes.LOCAL_DIV);
-	// int local = Integer.parseInt(localDiv);
-	// divisor.setDividerLocation(local);
-	// } catch (Exception ex) {
-	// Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
-	// }
-	//
-	// SwingUtilities.invokeLater(() -> divisor.ajusteScroll());
-	// }
 
 	public FicharioListener getFicharioListener() {
 		return ficharioListener;
@@ -279,12 +204,4 @@ public class Formulario extends JFrame {
 			}
 		}
 	}
-
-	// private Dimension getSizeFichario() {
-	// return new Dimension(getWidth(), Constantes.DIV_CONTROLE);
-	// }
-
-	// public static class Pnl_padrao extends Panel {
-	// private static final long serialVersionUID = 1L;
-	// }
 }

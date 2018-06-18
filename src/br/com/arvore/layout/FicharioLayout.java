@@ -1,5 +1,6 @@
 package br.com.arvore.layout;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class FicharioLayout extends TabbedPane {
 		addTab("label.layout", containerLayout);
 
 		Fichario fichario = new Fichario(formulario.getFicharioListener(), formulario.getRaiz());
+		fichario.setSize(new Dimension(getWidth(), 0));
 		containerLayout.adicionar(fichario);
 		fichario.addAba(true);
 
