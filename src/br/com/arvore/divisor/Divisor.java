@@ -32,7 +32,7 @@ public class Divisor extends SplitPane implements Layout {
 			fichario.setLeft(true);
 		} else if (comp instanceof Divisor) {
 			((Divisor) comp).ouvinte = divisorListener;
-		} else if (comp instanceof Formulario.Pnl_padrao) {
+			// } else if (comp instanceof Formulario.Pnl_padrao) {
 		} else if (comp instanceof Controle) {
 		} else if (comp instanceof JButton) {
 		} else {
@@ -50,7 +50,7 @@ public class Divisor extends SplitPane implements Layout {
 			fichario.setLeft(false);
 		} else if (comp instanceof Divisor) {
 			((Divisor) comp).ouvinte = divisorListener;
-		} else if (comp instanceof Formulario.Pnl_padrao) {
+			// } else if (comp instanceof Formulario.Pnl_padrao) {
 		} else if (comp instanceof Controle) {
 		} else if (comp instanceof JButton) {
 		} else {

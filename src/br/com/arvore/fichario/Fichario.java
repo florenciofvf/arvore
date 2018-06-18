@@ -11,7 +11,7 @@ import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
 import br.com.arvore.divisor.Divisor;
 import br.com.arvore.divisor.DivisorClone;
-import br.com.arvore.formulario.Formulario;
+import br.com.arvore.layout.ContainerLayout;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
 import br.com.arvore.util.Constantes;
@@ -23,20 +23,16 @@ import br.com.arvore.util.XMLUtil;
 public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
-	private final Formulario formulario;
+	private ContainerLayout containerLayout;
 	private final Objeto raiz;
 	private Divisor divisor;
 	private boolean left;
 
-	public Fichario(Formulario formulario, Objeto raiz) {
+	public Fichario(FicharioListener listener, Objeto raiz) {
 		addChangeListener(e -> abaSelecionada());
-		this.formulario = formulario;
 		ouvintes = new ArrayList<>();
-		this.raiz = raiz;
-	}
-
-	public void adicionarOuvinte(FicharioListener listener) {
 		ouvintes.add(listener);
+		this.raiz = raiz;
 	}
 
 	public boolean isLeft() {
@@ -53,6 +49,14 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	public void setDivisor(Divisor divisor) {
 		this.divisor = divisor;
+	}
+
+	public ContainerLayout getContainerLayout() {
+		return containerLayout;
+	}
+
+	public void setContainerLayout(ContainerLayout containerLayout) {
+		this.containerLayout = containerLayout;
 	}
 
 	private void abaSelecionada() {
@@ -73,14 +77,14 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		ouvintes.forEach(o -> o.containerExcluido(container));
 	}
 
-	public void addAba(String chaveTitulo, Objeto objeto, boolean clonar) throws Exception {
-		objeto = objeto.clonar();
+	public void addAba(boolean clonar) throws Exception {
+		Objeto raiz = this.raiz.clonar();
 
-		ObjetoUtil.inflar(objeto);
+		ObjetoUtil.inflar(raiz);
 
-		Container container = new Container(objeto);
+		Container container = new Container(raiz);
 		container.adicionarOuvinte(containerListener);
-		addTab(chaveTitulo, container);
+		addTab("label.objetos", container);
 
 		Titulo titulo = new Titulo(this, clonar);
 		titulo.adicionarOuvinte(tituloListener);
@@ -200,7 +204,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		@Override
 		public void clonarAba() {
 			try {
-				addAba("label.objetos", raiz, false);
+				addAba(false);
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
 			}
@@ -276,13 +280,12 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	@Override
 	public Component clonar() {
-		Fichario fichario = new Fichario(formulario, raiz);
-		fichario.adicionarOuvinte(formulario.getFicharioListener());
+		Fichario fichario = new Fichario(ouvintes.get(0), raiz);
 
 		try {
-			fichario.addAba("label.objetos", raiz, true);
+			fichario.addAba(true);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, formulario);
+			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, this);
 		}
 
 		return fichario;

@@ -1,7 +1,6 @@
 package br.com.arvore.formulario;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.InputEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -11,25 +10,22 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 
 import br.com.arvore.Objeto;
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
-import br.com.arvore.comp.Panel;
+import br.com.arvore.comp.SplitPane;
 import br.com.arvore.comp.SplitPaneListener;
 import br.com.arvore.container.Container;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.divisor.Divisor;
-import br.com.arvore.fichario.Fichario;
 import br.com.arvore.fichario.FicharioListener;
+import br.com.arvore.layout.FicharioLayout;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
-import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
-import br.com.arvore.util.XMLUtil;
 import br.com.arvore.xml.XML;
 
 public class Formulario extends JFrame {
@@ -39,16 +35,20 @@ public class Formulario extends JFrame {
 	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
 	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
 	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
-	public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
 	private final Menu menuArquivo = new Menu("label.arquivo");
 	private final Menu menuLAF = new Menu("label.aparencia");
+	private final SplitPane splitPane = new SplitPane();
 	private final JMenuBar menuBar = new JMenuBar();
-	private final Divisor divisor = new Divisor();
+	private final FicharioLayout ficharioLayout;
 	private final Controle controle;
 	private Objeto raiz;
 
+	// public static final Pnl_padrao PNL_PADRAO = new Pnl_padrao();
+	// private final Divisor divisor = new Divisor();
+
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
+		ficharioLayout = new FicharioLayout(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		controle = new Controle(this);
 		setLayout(new BorderLayout());
@@ -59,6 +59,10 @@ public class Formulario extends JFrame {
 		configurar();
 	}
 
+	public Objeto getRaiz() {
+		return raiz;
+	}
+
 	private void configurar() {
 		itemFechar.addActionListener(e -> dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
 		itemConexao.addActionListener(e -> new DialogoConexao(this));
@@ -67,8 +71,8 @@ public class Formulario extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
 				abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
-				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
-				divisor.setListener(splitPaneListener);
+				splitPane.setDividerLocation(Constantes.DIV_CONTROLE);
+				splitPane.setListener(splitPaneListener);
 				controle.selecionadoObjeto(null);
 			};
 
@@ -92,47 +96,48 @@ public class Formulario extends JFrame {
 			}
 		});
 
-		itemAplicarModelo.addActionListener(e -> {
-			if (raiz == null) {
-				Util.mensagem(this, Mensagens.getString("erro.sem_raiz_para_modelo"));
-				return;
-			}
+		// itemAplicarModelo.addActionListener(e -> {
+		// if (raiz == null) {
+		// Util.mensagem(this,
+		// Mensagens.getString("erro.sem_raiz_para_modelo"));
+		// return;
+		// }
+		//
+		// JFileChooser fileChooser = new JFileChooser(".");
+		// int opcao = fileChooser.showOpenDialog(Formulario.this);
+		//
+		// if (opcao != JFileChooser.APPROVE_OPTION) {
+		// return;
+		// }
+		//
+		// File file = fileChooser.getSelectedFile();
+		//
+		// if (file != null) {
+		// aplicarModelo(file);
+		// }
+		// });
 
-			JFileChooser fileChooser = new JFileChooser(".");
-			int opcao = fileChooser.showOpenDialog(Formulario.this);
-
-			if (opcao != JFileChooser.APPROVE_OPTION) {
-				return;
-			}
-
-			File file = fileChooser.getSelectedFile();
-
-			if (file != null) {
-				aplicarModelo(file);
-			}
-		});
-
-		itemSalvarModelo.addActionListener(e -> {
-			JFileChooser fileChooser = new JFileChooser(".");
-			int opcao = fileChooser.showSaveDialog(Formulario.this);
-
-			if (opcao != JFileChooser.APPROVE_OPTION) {
-				return;
-			}
-
-			File file = fileChooser.getSelectedFile();
-
-			if (file != null) {
-				salvarModelo(file);
-			}
-		});
+		// itemSalvarModelo.addActionListener(e -> {
+		// JFileChooser fileChooser = new JFileChooser(".");
+		// int opcao = fileChooser.showSaveDialog(Formulario.this);
+		//
+		// if (opcao != JFileChooser.APPROVE_OPTION) {
+		// return;
+		// }
+		//
+		// File file = fileChooser.getSelectedFile();
+		//
+		// if (file != null) {
+		// salvarModelo(file);
+		// }
+		// });
 	}
 
 	private void montarLayout() {
-		divisor.setOrientation(Divisor.VERTICAL_SPLIT);
-		divisor.setLeftComponent(PNL_PADRAO);
-		divisor.setRightComponent(controle);
-		add(BorderLayout.CENTER, divisor);
+		splitPane.setOrientation(Divisor.VERTICAL_SPLIT);
+		splitPane.setLeftComponent(ficharioLayout);
+		splitPane.setRightComponent(controle);
+		add(BorderLayout.CENTER, splitPane);
 	}
 
 	private void montarMenu() {
@@ -152,41 +157,41 @@ public class Formulario extends JFrame {
 		setJMenuBar(menuBar);
 	}
 
-	private void salvarModelo(File file) {
-		try {
-			XMLUtil xml = new XMLUtil(file);
-			xml.prologo();
-			divisor.salvarLayout(xml);
-			xml.close();
-			Util.mensagem(this, Mensagens.getString("label.salvo_modelo"));
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("SALVAR MODELO", ex, this);
-		}
-	}
+	// private void salvarModelo(File file) {
+	// try {
+	// XMLUtil xml = new XMLUtil(file);
+	// xml.prologo();
+	// divisor.salvarLayout(xml);
+	// xml.close();
+	// Util.mensagem(this, Mensagens.getString("label.salvo_modelo"));
+	// } catch (Exception ex) {
+	// Util.stackTraceAndMessage("SALVAR MODELO", ex, this);
+	// }
+	// }
 
-	private void aplicarModelo(File file) {
-		try {
-			Obj raizObj = XML.processarObj(file);
-
-			Fichario fichario = new Fichario(this, raiz);
-			fichario.adicionarOuvinte(ficharioListener);
-			fichario.setSize(getSizeFichario());
-			fichario.addAba("label.objetos", raiz, true);
-
-			divisor.setLeftComponent(fichario);
-
-			fichario.aplicarLayout(raizObj.getFilho(0));
-			controle.aplicarLayout(raizObj.getFilho(1));
-
-			String localDiv = raizObj.getValorAtributo(Constantes.LOCAL_DIV);
-			int local = Integer.parseInt(localDiv);
-			divisor.setDividerLocation(local);
-		} catch (Exception ex) {
-			Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
-		}
-
-		SwingUtilities.invokeLater(() -> divisor.ajusteScroll());
-	}
+	// private void aplicarModelo(File file) {
+	// try {
+	// Obj raizObj = XML.processarObj(file);
+	//
+	// Fichario fichario = new Fichario(this, raiz);
+	// fichario.adicionarOuvinte(ficharioListener);
+	// fichario.setSize(getSizeFichario());
+	// fichario.addAba("label.objetos", raiz, true);
+	//
+	// divisor.setLeftComponent(fichario);
+	//
+	// fichario.aplicarLayout(raizObj.getFilho(0));
+	// controle.aplicarLayout(raizObj.getFilho(1));
+	//
+	// String localDiv = raizObj.getValorAtributo(Constantes.LOCAL_DIV);
+	// int local = Integer.parseInt(localDiv);
+	// divisor.setDividerLocation(local);
+	// } catch (Exception ex) {
+	// Util.stackTraceAndMessage("APLICAR MODELO", ex, this);
+	// }
+	//
+	// SwingUtilities.invokeLater(() -> divisor.ajusteScroll());
+	// }
 
 	public FicharioListener getFicharioListener() {
 		return ficharioListener;
@@ -259,33 +264,27 @@ public class Formulario extends JFrame {
 			}
 
 			setTitle(Mensagens.getString("label.arvore"));
-			divisor.setLeftComponent(PNL_PADRAO);
+			controle.selecionadoObjeto(null);
+			ficharioLayout.limpar();
 
 			try {
 				raiz = XML.processar(file);
-
-				Fichario fichario = new Fichario(this, raiz);
-				fichario.adicionarOuvinte(ficharioListener);
-				fichario.setSize(getSizeFichario());
-				fichario.addAba("label.objetos", raiz, true);
-
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
-				divisor.setLeftComponent(fichario);
-				controle.selecionadoObjeto(null);
-				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
+				splitPane.setDividerLocation(Constantes.DIV_CONTROLE);
+				ficharioLayout.addAba(true);
 			} catch (Exception ex) {
 				raiz = null;
-				divisor.setDividerLocation(Constantes.DIV_CONTROLE);
+				splitPane.setDividerLocation(Constantes.DIV_CONTROLE);
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}
 		}
 	}
 
-	private Dimension getSizeFichario() {
-		return new Dimension(getWidth(), Constantes.DIV_CONTROLE);
-	}
+	// private Dimension getSizeFichario() {
+	// return new Dimension(getWidth(), Constantes.DIV_CONTROLE);
+	// }
 
-	public static class Pnl_padrao extends Panel {
-		private static final long serialVersionUID = 1L;
-	}
+	// public static class Pnl_padrao extends Panel {
+	// private static final long serialVersionUID = 1L;
+	// }
 }
