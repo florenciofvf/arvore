@@ -47,9 +47,9 @@ public class Formulario extends JFrame {
 		setTitle(Mensagens.getString("label.arvore"));
 		ficharioLayout = new FicharioLayout(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		Constantes.DIV_CONTROLE = 1000;
 		controle = new Controle(this);
 		setLayout(new BorderLayout());
-		Constantes.DIV_CONTROLE = 500;
 		setSize(1000, 700);
 		montarLayout();
 		montarMenu();

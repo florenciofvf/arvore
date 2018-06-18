@@ -17,7 +17,7 @@ public class Main {
 			Util.stackTraceMessageAndException("Main", ex);
 		}
 
-		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 		Formulario formulario = new Formulario();
 		formulario.setLocationRelativeTo(null);
