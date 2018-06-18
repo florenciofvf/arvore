@@ -14,6 +14,7 @@ public class ContainerLayout extends PanelBorder {
 
 	public void adicionar(Fichario fichario) {
 		add(BorderLayout.CENTER, fichario);
+		fichario.setContainerLayout(this);
 	}
 
 	public void setDividerLocation() {

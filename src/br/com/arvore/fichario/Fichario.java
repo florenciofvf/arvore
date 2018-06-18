@@ -48,6 +48,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	public void setDivisor(Divisor divisor) {
+		containerLayout = null;
 		this.divisor = divisor;
 	}
 
@@ -57,6 +58,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	public void setContainerLayout(ContainerLayout containerLayout) {
 		this.containerLayout = containerLayout;
+		divisor = null;
 	}
 
 	private void abaSelecionada() {
