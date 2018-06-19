@@ -38,6 +38,10 @@ public class Arvore extends JTree {
 	}
 
 	public void adicionarOuvinte(ArvoreListener listener) {
+		if (listener == null) {
+			return;
+		}
+
 		ouvintes.add(listener);
 	}
 
