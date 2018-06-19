@@ -12,9 +12,38 @@ public class ContainerLayout extends PanelBorder {
 	public ContainerLayout() {
 	}
 
-	public void adicionar(Fichario fichario) {
-		add(BorderLayout.CENTER, fichario);
-		fichario.setContainerLayout(this);
+	@Override
+	public void add(Component comp, Object constraints) {
+		super.add(comp, constraints);
+
+//		if (comp instanceof Divisor) {
+//			Divisor divisor = (Divisor) comp;
+//			divisor.adicionarOuvinte(listener);
+//		} else if (comp instanceof Divisor) {
+//			Fichario fichario = (Fichario) comp;
+//			fichario.adicionarOuvinte(listener);
+//		} else {
+//			throw new IllegalStateException();
+//		}
+	}
+
+	@Override
+	public void remove(Component comp) {
+		super.remove(comp);
+
+//		if (comp instanceof Divisor) {
+//			Divisor divisor = (Divisor) comp;
+//			divisor.excluirOuvinte(listener);
+//		} else if (comp instanceof Divisor) {
+//			Fichario fichario = (Fichario) comp;
+//			fichario.excluirOuvinte(listener);
+//		} else {
+//			throw new IllegalStateException();
+//		}
+	}
+
+	public void set(Component comp) {
+		add(BorderLayout.CENTER, comp);
 	}
 
 	public void setDividerLocation() {
@@ -26,21 +55,5 @@ public class ContainerLayout extends PanelBorder {
 				fichario.setDividerLocation(0);
 			}
 		}
-	}
-
-	public void clonarRight() {
-		// TODO Auto-generated method stub
-	}
-
-	public void clonarAbaixo() {
-		// TODO Auto-generated method stub
-	}
-
-	public void clonarLeft() {
-		// TODO Auto-generated method stub
-	}
-
-	public void clonarAcima() {
-		// TODO Auto-generated method stub
 	}
 }

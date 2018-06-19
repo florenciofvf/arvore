@@ -7,8 +7,6 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 
 import br.com.arvore.comp.Label;
-import br.com.arvore.container.Container;
-import br.com.arvore.divisor.Divisor;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.titulo.Titulo.TituloPopup;
 
@@ -59,26 +57,26 @@ public class Rotulo extends Label {
 	};
 
 	private void controleItensPopup(int indice) {
-		Container primeiro = (Container) fichario.getComponentAt(0);
-		Divisor divisor = fichario.getDivisor();
-
-		int validos = 0;
-
-		for (int i = 1; i < fichario.getTabCount(); i++) {
-			Container container = (Container) fichario.getComponentAt(i);
-			if (!container.isMaximizado()) {
-				validos++;
-			}
-		}
-
-		tituloPopup.itemExcluir.setEnabled(divisor != null && divisor.getOuvinte() != null);
-		tituloPopup.itemRLD.setEnabled(!primeiro.isMaximizado() && validos > 0);
-
-		if (indice != -1) {
-			Container selecionado = (Container) fichario.getComponentAt(indice);
-			tituloPopup.itemRestaurar.setSelected(!selecionado.isMaximizado());
-			tituloPopup.itemMaximizar.setSelected(selecionado.isMaximizado());
-		}
+//		Container primeiro = (Container) fichario.getComponentAt(0);
+//		Divisor divisor = fichario.getDivisor();
+//
+//		int validos = 0;
+//
+//		for (int i = 1; i < fichario.getTabCount(); i++) {
+//			Container container = (Container) fichario.getComponentAt(i);
+//			if (!container.isMaximizado()) {
+//				validos++;
+//			}
+//		}
+//
+//		tituloPopup.itemExcluir.setEnabled(divisor != null && divisor.getOuvinte() != null);
+//		tituloPopup.itemRLD.setEnabled(!primeiro.isMaximizado() && validos > 0);
+//
+//		if (indice != -1) {
+//			Container selecionado = (Container) fichario.getComponentAt(indice);
+//			tituloPopup.itemRestaurar.setSelected(!selecionado.isMaximizado());
+//			tituloPopup.itemMaximizar.setSelected(selecionado.isMaximizado());
+//		}
 	}
 
 	@Override

@@ -30,15 +30,8 @@ import br.com.arvore.xml.XML;
 
 public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private final MenuItem itemAplicarModelo = new MenuItem("label.aplicar_modelo", Icones.BOTTOM);
-	private final MenuItem itemSalvarModelo = new MenuItem("label.salvar_modelo", Icones.TOP);
-	private final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
-	private final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
-	private final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
-	private final Menu menuArquivo = new Menu("label.arquivo");
-	private final Menu menuLAF = new Menu("label.aparencia");
 	private final SplitPane splitPane = new SplitPane();
-	private final JMenuBar menuBar = new JMenuBar();
+	private final MenuPrincipal menuPrincipal = new MenuPrincipal();
 	private final FicharioLayout ficharioLayout;
 	private final Controle controle;
 	private Objeto raiz;
@@ -50,21 +43,13 @@ public class Formulario extends JFrame {
 		Constantes.DIV_CONTROLE = 1000;
 		controle = new Controle(this);
 		setLayout(new BorderLayout());
+		setJMenuBar(menuPrincipal);
 		setSize(1000, 700);
 		montarLayout();
-		montarMenu();
 		configurar();
 	}
 
-	public Objeto getRaiz() {
-		return raiz;
-	}
-
 	private void configurar() {
-		itemFechar.addActionListener(e -> dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
-		itemConexao.addActionListener(e -> new DialogoConexao(this));
-		FormularioUtil.configMAC(this);
-
 		addWindowListener(new WindowAdapter() {
 			public void windowOpened(WindowEvent e) {
 				abrirArquivo(new File(Constantes.NOME_ARQUIVO_PADRAO), false, false, false);
@@ -77,21 +62,10 @@ public class Formulario extends JFrame {
 				FormularioUtil.fechar(Formulario.this);
 			};
 		});
+	}
 
-		itemAbrir.addActionListener(e -> {
-			JFileChooser fileChooser = new JFileChooser(".");
-			int opcao = fileChooser.showOpenDialog(Formulario.this);
-
-			if (opcao != JFileChooser.APPROVE_OPTION) {
-				return;
-			}
-
-			File file = fileChooser.getSelectedFile();
-
-			if (file != null) {
-				abrirArquivo(file, true, true, true);
-			}
-		});
+	public Objeto getRaiz() {
+		return raiz;
 	}
 
 	private void montarLayout() {
@@ -99,23 +73,6 @@ public class Formulario extends JFrame {
 		splitPane.setLeftComponent(ficharioLayout);
 		splitPane.setRightComponent(controle);
 		add(BorderLayout.CENTER, splitPane);
-	}
-
-	private void montarMenu() {
-		itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
-		FormularioUtil.menuAparencia(this, menuLAF);
-
-		menuArquivo.add(itemAbrir);
-		menuArquivo.addSeparator();
-		menuArquivo.add(itemConexao);
-		menuArquivo.addSeparator();
-		menuArquivo.add(itemSalvarModelo);
-		menuArquivo.add(itemAplicarModelo);
-		menuArquivo.addSeparator();
-		menuArquivo.add(itemFechar);
-		menuBar.add(menuArquivo);
-		menuBar.add(menuLAF);
-		setJMenuBar(menuBar);
 	}
 
 	public FicharioListener getFicharioListener() {
@@ -196,12 +153,61 @@ public class Formulario extends JFrame {
 				raiz = XML.processar(file);
 				setTitle(Mensagens.getString("label.arvore") + " - " + file.getAbsolutePath());
 				splitPane.setDividerLocation(Constantes.DIV_CONTROLE);
-				ficharioLayout.addAba(true);
+				ficharioLayout.adicionarAba(true);
 			} catch (Exception ex) {
 				raiz = null;
 				splitPane.setDividerLocation(Constantes.DIV_CONTROLE);
 				Util.stackTraceAndMessage("ABRIR ARQUIVO", ex, this);
 			}
+		}
+	}
+
+	private class MenuPrincipal extends JMenuBar {
+		private static final long serialVersionUID = 1L;
+		final MenuItem itemAplicarModelo = new MenuItem("label.aplicar_modelo", Icones.BOTTOM);
+		final MenuItem itemSalvarModelo = new MenuItem("label.salvar_modelo", Icones.TOP);
+		final MenuItem itemConexao = new MenuItem("label.conexao", Icones.BANCO);
+		final MenuItem itemFechar = new MenuItem("label.fechar", Icones.SAIR);
+		final MenuItem itemAbrir = new MenuItem("label.abrir", Icones.ABRIR);
+		final Menu menuArquivo = new Menu("label.arquivo");
+		final Menu menuLAF = new Menu("label.aparencia");
+
+		MenuPrincipal() {
+			itemAbrir.setAccelerator(KeyStroke.getKeyStroke('A', InputEvent.CTRL_MASK));
+			FormularioUtil.menuAparencia(Formulario.this, menuLAF);
+
+			menuArquivo.add(itemAbrir);
+			menuArquivo.addSeparator();
+			menuArquivo.add(itemConexao);
+			menuArquivo.addSeparator();
+			menuArquivo.add(itemSalvarModelo);
+			menuArquivo.add(itemAplicarModelo);
+			menuArquivo.addSeparator();
+			menuArquivo.add(itemFechar);
+			add(menuArquivo);
+			add(menuLAF);
+			configurar();
+		}
+
+		private void configurar() {
+			itemFechar.addActionListener(e -> dispatchEvent(new WindowEvent(Formulario.this, WindowEvent.WINDOW_CLOSING)));
+			itemConexao.addActionListener(e -> new DialogoConexao(Formulario.this));
+			FormularioUtil.configMAC(Formulario.this);
+
+			itemAbrir.addActionListener(e -> {
+				JFileChooser fileChooser = new JFileChooser(".");
+				int opcao = fileChooser.showOpenDialog(Formulario.this);
+
+				if (opcao != JFileChooser.APPROVE_OPTION) {
+					return;
+				}
+
+				File file = fileChooser.getSelectedFile();
+
+				if (file != null) {
+					abrirArquivo(file, true, true, true);
+				}
+			});
 		}
 	}
 }

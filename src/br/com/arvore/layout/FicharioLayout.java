@@ -21,7 +21,19 @@ public class FicharioLayout extends TabbedPane {
 	}
 
 	public void adicionarOuvinte(FicharioLayoutListener listener) {
+		if (listener == null) {
+			return;
+		}
+
 		ouvintes.add(listener);
+	}
+
+	public void excluirOuvinte(FicharioLayoutListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.remove(listener);
 	}
 
 	public void limpar() {
@@ -34,8 +46,8 @@ public class FicharioLayout extends TabbedPane {
 		int indice = getSelectedIndex();
 
 		if (indice != -1) {
-			ContainerLayout container = (ContainerLayout) getComponentAt(indice);
-			ouvintes.forEach(o -> o.containerSelecionado(container));
+			ContainerLayout containerLayout = (ContainerLayout) getComponentAt(indice);
+			ouvintes.forEach(o -> o.containerSelecionado(containerLayout));
 		}
 	}
 
@@ -48,16 +60,17 @@ public class FicharioLayout extends TabbedPane {
 		containerLayout.setDividerLocation();
 	}
 
-	public void addAba(boolean clonar) throws Exception {
+	public void adicionarAba(boolean principal) throws Exception {
 		ContainerLayout containerLayout = new ContainerLayout();
 		addTab("label.layout", containerLayout);
 
-		Fichario fichario = new Fichario(formulario.getFicharioListener(), formulario.getRaiz());
+		Fichario fichario = new Fichario(formulario.getRaiz());
+		fichario.adicionarOuvinte(formulario.getFicharioListener());
 		fichario.setSize(new Dimension(getWidth(), 0));
-		containerLayout.adicionar(fichario);
-		fichario.addAba(true);
+		containerLayout.set(fichario);
+		fichario.adicionarAba(true);
 
-		TituloLayout tituloLayout = new TituloLayout(this, clonar);
+		TituloLayout tituloLayout = new TituloLayout(this, principal);
 		tituloLayout.adicionarOuvinte(tituloLayoutListener);
 		setTabComponentAt(getTabCount() - 1, tituloLayout);
 		setDividerLocation(getTabCount() - 1);
@@ -74,7 +87,7 @@ public class FicharioLayout extends TabbedPane {
 		@Override
 		public void clonarAba() {
 			try {
-				addAba(false);
+				adicionarAba(false);
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("CLONAR LAYOUT", ex, FicharioLayout.this);
 			}
