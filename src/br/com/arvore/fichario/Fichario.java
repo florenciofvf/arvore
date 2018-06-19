@@ -227,6 +227,8 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 				divisor.clonarLeft(Divisor.ESQUERDO);
 			} else if (divisor != null && !left) {
 				divisor.clonarRight(Divisor.ESQUERDO);
+			} else if (containerLayout != null) {
+				containerLayout.clonarLeft();
 			}
 		}
 
@@ -236,6 +238,8 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 				divisor.clonarLeft(Divisor.DIREITO);
 			} else if (divisor != null && !left) {
 				divisor.clonarRight(Divisor.DIREITO);
+			} else if (containerLayout != null) {
+				containerLayout.clonarRight();
 			}
 		}
 
@@ -245,6 +249,8 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 				divisor.clonarLeft(Divisor.ABAIXO);
 			} else if (divisor != null && !left) {
 				divisor.clonarRight(Divisor.ABAIXO);
+			} else if (containerLayout != null) {
+				containerLayout.clonarAbaixo();
 			}
 		}
 
@@ -254,6 +260,8 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 				divisor.clonarLeft(Divisor.ACIMA);
 			} else if (divisor != null && !left) {
 				divisor.clonarRight(Divisor.ACIMA);
+			} else if (containerLayout != null) {
+				containerLayout.clonarAcima();
 			}
 		}
 	};

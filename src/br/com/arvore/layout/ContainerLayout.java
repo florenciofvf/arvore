@@ -27,4 +27,20 @@ public class ContainerLayout extends PanelBorder {
 			}
 		}
 	}
+
+	public void clonarRight() {
+		// TODO Auto-generated method stub
+	}
+
+	public void clonarAbaixo() {
+		// TODO Auto-generated method stub
+	}
+
+	public void clonarLeft() {
+		// TODO Auto-generated method stub
+	}
+
+	public void clonarAcima() {
+		// TODO Auto-generated method stub
+	}
 }
