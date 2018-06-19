@@ -6,10 +6,12 @@ import java.util.Objects;
 
 import javax.swing.SwingUtilities;
 
+import br.com.arvore.controle.Controle;
 import br.com.arvore.fichario.Fichario;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
+import br.com.arvore.util.XMLUtil;
 
 public class DivisorUtil {
 	private DivisorUtil() {
@@ -105,6 +107,42 @@ public class DivisorUtil {
 		}
 
 		SwingUtilities.updateComponentTreeUI(divisor);
+	}
+
+	public static void salvarLayout(XMLUtil xml, Divisor divisor) {
+		if (xml == null || divisor == null) {
+			return;
+		}
+
+		xml.abrirTag(Constantes.DIVISOR);
+		xml.atributo(Constantes.ORIENTACAO, divisor.isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL);
+		xml.atributo(Constantes.LOCAL_DIV, divisor.getDividerLocation());
+		xml.fecharTag();
+
+		xml.abrirTag2(Constantes.LEFT);
+
+		if (divisor.getLeftComponent() instanceof Divisor) {
+			((Divisor) divisor.getLeftComponent()).salvarLayout(xml);
+		} else if (divisor.getLeftComponent() instanceof Fichario) {
+			((Fichario) divisor.getLeftComponent()).salvarLayout(xml);
+		} else if (divisor.getLeftComponent() instanceof Controle) {
+			((Controle) divisor.getLeftComponent()).salvarLayout(xml);
+		}
+
+		xml.finalizarTag(Constantes.LEFT);
+		xml.abrirTag2(Constantes.RIGHT);
+
+		if (divisor.getRightComponent() instanceof Divisor) {
+			((Divisor) divisor.getRightComponent()).salvarLayout(xml);
+		} else if (divisor.getRightComponent() instanceof Fichario) {
+			((Fichario) divisor.getRightComponent()).salvarLayout(xml);
+		} else if (divisor.getRightComponent() instanceof Controle) {
+			((Controle) divisor.getRightComponent()).salvarLayout(xml);
+		}
+
+		xml.finalizarTag(Constantes.RIGHT);
+		xml.finalizarTag(Constantes.DIVISOR);
+
 	}
 
 	public static void aplicarLayout(Obj obj, Divisor divisor) {

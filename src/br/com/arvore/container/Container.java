@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import br.com.arvore.Objeto;
+import br.com.arvore.ObjetoUtil;
 import br.com.arvore.arvore.Arvore;
 import br.com.arvore.arvore.ArvoreListener;
 import br.com.arvore.comp.PanelBorder;
@@ -32,7 +33,9 @@ public class Container extends PanelBorder implements Layout {
 	private String titulo;
 	private int[] indices;
 
-	public Container(Objeto objeto) {
+	public Container(Objeto objeto) throws Exception {
+		ObjetoUtil.inflar(objeto);
+
 		arvore = new Arvore(new ModeloArvore(objeto));
 		arvore.adicionarOuvinte(arvoreListener);
 		ouvintes = new ArrayList<>();
@@ -52,6 +55,10 @@ public class Container extends PanelBorder implements Layout {
 	}
 
 	public void adicionarOuvinte(ContainerListener listener) {
+		if (listener == null) {
+			return;
+		}
+
 		ouvintes.add(listener);
 	}
 

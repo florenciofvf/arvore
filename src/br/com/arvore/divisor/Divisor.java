@@ -1,25 +1,49 @@
 package br.com.arvore.divisor;
 
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 
 import br.com.arvore.comp.SplitPane;
+import br.com.arvore.container.Container;
 import br.com.arvore.controle.Controle;
 import br.com.arvore.fichario.Fichario;
-import br.com.arvore.util.Constantes;
+import br.com.arvore.fichario.FicharioListener;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
 import br.com.arvore.util.XMLUtil;
 
 public class Divisor extends SplitPane implements Layout {
 	private static final long serialVersionUID = 1L;
+	private final Listener listener = new Listener();
+	private final List<DivisorListener> ouvintes;
 	private MementoDivisor mementoDivisor;
 	public static final byte ESQUERDO = 1;
 	public static final byte DIREITO = 2;
 	public static final byte ABAIXO = 3;
 	public static final byte ACIMA = 4;
-	private DivisorListener ouvinte;
+
+	public Divisor() {
+		ouvintes = new ArrayList<>();
+	}
+
+	public void adicionarOuvinte(DivisorListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.add(listener);
+	}
+
+	public void excluirOuvinte(DivisorListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.remove(listener);
+	}
 
 	@Override
 	public void setLeftComponent(Component comp) {
@@ -27,11 +51,15 @@ public class Divisor extends SplitPane implements Layout {
 
 		if (comp instanceof Fichario) {
 			Fichario fichario = (Fichario) comp;
-			fichario.setDivisor(this);
+			fichario.excluirOuvinte(listener);
+			fichario.adicionarOuvinte(listener);
 			fichario.setLeft(true);
+
 		} else if (comp instanceof Divisor) {
-			((Divisor) comp).ouvinte = divisorListener;
-			// } else if (comp instanceof Formulario.Pnl_padrao) {
+			Divisor divisor = ((Divisor) comp);
+			divisor.excluirOuvinte(listener);
+			divisor.adicionarOuvinte(listener);
+
 		} else if (comp instanceof Controle) {
 		} else if (comp instanceof JButton) {
 		} else {
@@ -45,11 +73,15 @@ public class Divisor extends SplitPane implements Layout {
 
 		if (comp instanceof Fichario) {
 			Fichario fichario = (Fichario) comp;
-			fichario.setDivisor(this);
+			fichario.excluirOuvinte(listener);
+			fichario.adicionarOuvinte(listener);
 			fichario.setLeft(false);
+
 		} else if (comp instanceof Divisor) {
-			((Divisor) comp).ouvinte = divisorListener;
-			// } else if (comp instanceof Formulario.Pnl_padrao) {
+			Divisor divisor = ((Divisor) comp);
+			divisor.excluirOuvinte(listener);
+			divisor.adicionarOuvinte(listener);
+
 		} else if (comp instanceof Controle) {
 		} else if (comp instanceof JButton) {
 		} else {
@@ -63,91 +95,74 @@ public class Divisor extends SplitPane implements Layout {
 
 		if (comp instanceof Fichario) {
 			Fichario fichario = (Fichario) comp;
-			fichario.setDivisor(null);
+			fichario.excluirOuvinte(listener);
 		} else if (comp instanceof Divisor) {
-			((Divisor) comp).ouvinte = null;
+			Divisor divisor = ((Divisor) comp);
+			divisor.excluirOuvinte(listener);
 		}
 	}
 
-	public void clonarLeft(byte disposicao) {
-		Component clone = DivisorUtil.clonarLeft(this);
-		Component left = leftComponent;
-		criarMementoDivisor();
+//	public void clonarLeft(byte disposicao) {
+//		Component clone = DivisorUtil.clonarLeft(this);
+//		Component left = leftComponent;
+//		criarMementoDivisor();
+//
+//		if (disposicao == ESQUERDO) {
+//			DivisorUtil.novoHorizontalLeft(this, left, clone, left.getSize());
+//		} else if (disposicao == DIREITO) {
+//			DivisorUtil.novoHorizontalLeft(this, clone, left, left.getSize());
+//		} else if (disposicao == ABAIXO) {
+//			DivisorUtil.novoVerticalLeft(this, clone, left, left.getSize());
+//		} else if (disposicao == ACIMA) {
+//			DivisorUtil.novoVerticalLeft(this, left, clone, left.getSize());
+//		} else {
+//			throw new IllegalStateException();
+//		}
+//
+//		restaurarMementoDivisor();
+//	}
 
-		switch (disposicao) {
-		case ESQUERDO:
-			DivisorUtil.novoHorizontalLeft(this, left, clone, left.getSize());
-			break;
-		case DIREITO:
-			DivisorUtil.novoHorizontalLeft(this, clone, left, left.getSize());
-			break;
-		case ABAIXO:
-			DivisorUtil.novoVerticalLeft(this, clone, left, left.getSize());
-			break;
-		case ACIMA:
-			DivisorUtil.novoVerticalLeft(this, left, clone, left.getSize());
-			break;
-		default:
-			throw new IllegalStateException();
-		}
-
-		restaurarMementoDivisor();
-	}
-
-	public void clonarRight(byte disposicao) {
-		Component clone = DivisorUtil.clonarRight(this);
-		Component right = rightComponent;
-		criarMementoDivisor();
-
-		switch (disposicao) {
-		case ESQUERDO:
-			DivisorUtil.novoHorizontalRight(this, right, clone, right.getSize());
-			break;
-		case DIREITO:
-			DivisorUtil.novoHorizontalRight(this, clone, right, right.getSize());
-			break;
-		case ABAIXO:
-			DivisorUtil.novoVerticalRight(this, clone, right, right.getSize());
-			break;
-		case ACIMA:
-			DivisorUtil.novoVerticalRight(this, right, clone, right.getSize());
-			break;
-		default:
-			throw new IllegalStateException();
-		}
-
-		restaurarMementoDivisor();
-	}
+//	public void clonarRight(byte disposicao) {
+//		Component clone = DivisorUtil.clonarRight(this);
+//		Component right = rightComponent;
+//		criarMementoDivisor();
+//
+//		if (disposicao == ESQUERDO) {
+//			DivisorUtil.novoHorizontalRight(this, right, clone, right.getSize());
+//		} else if (disposicao == DIREITO) {
+//			DivisorUtil.novoHorizontalRight(this, clone, right, right.getSize());
+//		} else if (disposicao == ABAIXO) {
+//			DivisorUtil.novoVerticalRight(this, clone, right, right.getSize());
+//		} else if (disposicao == ACIMA) {
+//			DivisorUtil.novoVerticalRight(this, right, clone, right.getSize());
+//		} else {
+//			throw new IllegalStateException();
+//		}
+//
+//		restaurarMementoDivisor();
+//	}
 
 	public void excluirLeft() {
-		if (ouvinte != null) {
-			remove(leftComponent);
-			ouvinte.excluidoLeft(this);
-		}
+		remove(leftComponent);
+		ouvintes.forEach(o -> o.excluidoLeft(this));
 	}
 
 	public void excluirRight() {
-		if (ouvinte != null) {
-			remove(rightComponent);
-			ouvinte.excluidoRight(this);
-		}
+		remove(rightComponent);
+		ouvintes.forEach(o -> o.excluidoRight(this));
 	}
 
-	public DivisorListener getOuvinte() {
-		return ouvinte;
-	}
-
-	private DivisorListener divisorListener = new DivisorListener() {
+	private class Listener implements DivisorListener, FicharioListener {
 		@Override
 		public void excluidoLeft(Divisor divisor) {
 			DivisorUtil.checarValido(Divisor.this, divisor);
-			Component comp = divisor.getRightComponent();
+			Component right = divisor.getRightComponent();
 			criarMementoDivisor();
 
-			if (divisor == leftComponent) {
-				setLeftComponent(comp);
-			} else if (divisor == rightComponent) {
-				setRightComponent(comp);
+			if (leftComponent == divisor) {
+				setLeftComponent(right);
+//			} else if (rightComponent == divisor) {
+//				setRightComponent(right);
 			} else {
 				throw new IllegalStateException();
 			}
@@ -159,19 +174,43 @@ public class Divisor extends SplitPane implements Layout {
 		@Override
 		public void excluidoRight(Divisor divisor) {
 			DivisorUtil.checarValido(Divisor.this, divisor);
-			Component comp = divisor.getLeftComponent();
+			Component left = divisor.getLeftComponent();
 			criarMementoDivisor();
 
-			if (divisor == leftComponent) {
-				setLeftComponent(comp);
-			} else if (divisor == rightComponent) {
-				setRightComponent(comp);
+			/*if (leftComponent == divisor) {
+				setLeftComponent(left);
+			} else*/ if (rightComponent == divisor) {
+				setRightComponent(left);
 			} else {
 				throw new IllegalStateException();
 			}
 
 			restaurarMementoDivisor();
 			DivisorUtil.setDividerLocation(Divisor.this);
+		}
+
+		@Override
+		public void pedidoAtualizarObjeto(Container container) {
+		}
+
+		@Override
+		public void pedidoDestacarObjeto(Container container) {
+		}
+
+		@Override
+		public void containerSelecionado(Container container) {
+		}
+
+		@Override
+		public void pedidoExcluirObjeto(Container container) {
+		}
+
+		@Override
+		public void selecionadoObjeto(Container container) {
+		}
+
+		@Override
+		public void containerExcluido(Container container) {
 		}
 	};
 
@@ -197,40 +236,13 @@ public class Divisor extends SplitPane implements Layout {
 		}
 	}
 
-	private boolean isHorizontal() {
+	public boolean isHorizontal() {
 		return orientation == HORIZONTAL_SPLIT;
 	}
 
 	@Override
 	public void salvarLayout(XMLUtil xml) {
-		xml.abrirTag(Constantes.DIVISOR);
-		xml.atributo(Constantes.ORIENTACAO, isHorizontal() ? Constantes.HORIZONTAL : Constantes.VERTICAL);
-		xml.atributo(Constantes.LOCAL_DIV, getDividerLocation());
-		xml.fecharTag();
-
-		xml.abrirTag2(Constantes.LEFT);
-
-		if (leftComponent instanceof Divisor) {
-			((Divisor) leftComponent).salvarLayout(xml);
-		} else if (leftComponent instanceof Fichario) {
-			((Fichario) leftComponent).salvarLayout(xml);
-		} else if (leftComponent instanceof Controle) {
-			((Controle) leftComponent).salvarLayout(xml);
-		}
-
-		xml.finalizarTag(Constantes.LEFT);
-		xml.abrirTag2(Constantes.RIGHT);
-
-		if (rightComponent instanceof Divisor) {
-			((Divisor) rightComponent).salvarLayout(xml);
-		} else if (rightComponent instanceof Fichario) {
-			((Fichario) rightComponent).salvarLayout(xml);
-		} else if (rightComponent instanceof Controle) {
-			((Controle) rightComponent).salvarLayout(xml);
-		}
-
-		xml.finalizarTag(Constantes.RIGHT);
-		xml.finalizarTag(Constantes.DIVISOR);
+		DivisorUtil.salvarLayout(xml, this);
 	}
 
 	@Override

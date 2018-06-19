@@ -5,16 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.arvore.Objeto;
-import br.com.arvore.ObjetoUtil;
 import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
-import br.com.arvore.divisor.Divisor;
 import br.com.arvore.divisor.DivisorClone;
-import br.com.arvore.layout.ContainerLayout;
 import br.com.arvore.titulo.Titulo;
 import br.com.arvore.titulo.TituloListener;
-import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
@@ -23,16 +19,29 @@ import br.com.arvore.util.XMLUtil;
 public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	private static final long serialVersionUID = 1L;
 	private final List<FicharioListener> ouvintes;
-	private ContainerLayout containerLayout;
 	private final Objeto raiz;
-	private Divisor divisor;
 	private boolean left;
 
-	public Fichario(FicharioListener listener, Objeto raiz) {
+	public Fichario(Objeto raiz) {
 		addChangeListener(e -> abaSelecionada());
 		ouvintes = new ArrayList<>();
-		ouvintes.add(listener);
 		this.raiz = raiz;
+	}
+
+	public void adicionarOuvinte(FicharioListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.add(listener);
+	}
+
+	public void excluirOuvinte(FicharioListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.remove(listener);
 	}
 
 	public boolean isLeft() {
@@ -41,24 +50,6 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	public void setLeft(boolean left) {
 		this.left = left;
-	}
-
-	public Divisor getDivisor() {
-		return divisor;
-	}
-
-	public void setDivisor(Divisor divisor) {
-		containerLayout = null;
-		this.divisor = divisor;
-	}
-
-	public ContainerLayout getContainerLayout() {
-		return containerLayout;
-	}
-
-	public void setContainerLayout(ContainerLayout containerLayout) {
-		this.containerLayout = containerLayout;
-		divisor = null;
 	}
 
 	private void abaSelecionada() {
@@ -79,24 +70,16 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		ouvintes.forEach(o -> o.containerExcluido(container));
 	}
 
-	public void addAba(boolean clonar) throws Exception {
-		Objeto raiz = this.raiz.clonar();
-
-		ObjetoUtil.inflar(raiz);
-
-		Container container = new Container(raiz);
+	public void adicionarAba(boolean principal) throws Exception {
+		Container container = new Container(raiz.clonar());
 		container.adicionarOuvinte(containerListener);
 		addTab("label.objetos", container);
 
-		Titulo titulo = new Titulo(this, clonar);
+		Titulo titulo = new Titulo(this, principal);
 		titulo.adicionarOuvinte(tituloListener);
 		setTabComponentAt(getTabCount() - 1, titulo);
 
 		setDividerLocation(getTabCount() - 1);
-	}
-
-	private void illegalStateException() {
-		throw new IllegalStateException();
 	}
 
 	@Override
@@ -110,78 +93,10 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	@Override
 	public void aplicarLayout(Obj obj) {
-		if (obj.isLeft()) {
-			Obj filho = obj.getFilho(0);
-
-			if (filho.isFichario()) {
-				String abas = filho.getValorAtributo(Constantes.ABAS);
-				int total = Integer.parseInt(abas);
-
-				for (int i = 1; i < total; i++) {
-					tituloListener.clonarAba();
-				}
-
-				for (int i = 0; i < total; i++) {
-					String titulo = filho.getFilho(i).getValorAtributo(Constantes.TITULO);
-					Container container = (Container) getComponentAt(i);
-					container.aplicarLayout(filho.getFilho(i));
-					setTitleAt(i, titulo);
-				}
-			} else if (filho.isDivisor()) {
-				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
-
-				if (Constantes.VERTICAL.equals(orientacao)) {
-					tituloListener.cloneAcima();
-					divisor.aplicarLayout(filho);
-				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
-					tituloListener.cloneDireito();
-					divisor.aplicarLayout(filho);
-				} else {
-					illegalStateException();
-				}
-			} else {
-				illegalStateException();
-			}
-
-		} else if (obj.isRight()) {
-			Obj filho = obj.getFilho(0);
-
-			if (filho.isFichario()) {
-				String abas = filho.getValorAtributo(Constantes.ABAS);
-				int total = Integer.parseInt(abas);
-
-				for (int i = 1; i < total; i++) {
-					tituloListener.clonarAba();
-				}
-
-				for (int i = 0; i < total; i++) {
-					String titulo = filho.getFilho(i).getValorAtributo(Constantes.TITULO);
-					Container container = (Container) getComponentAt(i);
-					container.aplicarLayout(filho.getFilho(i));
-					setTitleAt(i, titulo);
-				}
-			} else if (filho.isDivisor()) {
-				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
-
-				if (Constantes.VERTICAL.equals(orientacao)) {
-					tituloListener.cloneAcima();
-					divisor.aplicarLayout(filho);
-				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
-					tituloListener.cloneDireito();
-					divisor.aplicarLayout(filho);
-				} else {
-					illegalStateException();
-				}
-			} else {
-				illegalStateException();
-			}
-
-		} else {
-			illegalStateException();
-		}
+		FicharioUtil.aplicarLayout(obj, this);
 	}
 
-	private TituloListener tituloListener = new TituloListener() {
+	protected TituloListener tituloListener = new TituloListener() {
 		public void selecionarObjeto() {
 			abaSelecionada();
 		};
@@ -206,7 +121,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		@Override
 		public void clonarAba() {
 			try {
-				addAba(false);
+				adicionarAba(false);
 			} catch (Exception ex) {
 				Util.stackTraceAndMessage("CLONAR ABA", ex, Fichario.this);
 			}
@@ -214,55 +129,55 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 		@Override
 		public void excluirFichario() {
-			if (divisor != null && left) {
-				divisor.excluirLeft();
-			} else if (divisor != null && !left) {
-				divisor.excluirRight();
-			}
+//			if (divisor != null && left) {
+//				divisor.excluirLeft();
+//			} else if (divisor != null && !left) {
+//				divisor.excluirRight();
+//			}
 		}
 
 		@Override
 		public void cloneEsquerdo() {
-			if (divisor != null && left) {
-				divisor.clonarLeft(Divisor.ESQUERDO);
-			} else if (divisor != null && !left) {
-				divisor.clonarRight(Divisor.ESQUERDO);
-			} else if (containerLayout != null) {
-				containerLayout.clonarLeft();
-			}
+//			if (divisor != null && left) {
+//				divisor.clonarLeft(Divisor.ESQUERDO);
+//			} else if (divisor != null && !left) {
+//				divisor.clonarRight(Divisor.ESQUERDO);
+//			} else if (containerLayout != null) {
+//				containerLayout.clonarLeft();
+//			}
 		}
 
 		@Override
 		public void cloneDireito() {
-			if (divisor != null && left) {
-				divisor.clonarLeft(Divisor.DIREITO);
-			} else if (divisor != null && !left) {
-				divisor.clonarRight(Divisor.DIREITO);
-			} else if (containerLayout != null) {
-				containerLayout.clonarRight();
-			}
+//			if (divisor != null && left) {
+//				divisor.clonarLeft(Divisor.DIREITO);
+//			} else if (divisor != null && !left) {
+//				divisor.clonarRight(Divisor.DIREITO);
+//			} else if (containerLayout != null) {
+//				containerLayout.clonarRight();
+//			}
 		}
 
 		@Override
 		public void cloneAbaixo() {
-			if (divisor != null && left) {
-				divisor.clonarLeft(Divisor.ABAIXO);
-			} else if (divisor != null && !left) {
-				divisor.clonarRight(Divisor.ABAIXO);
-			} else if (containerLayout != null) {
-				containerLayout.clonarAbaixo();
-			}
+//			if (divisor != null && left) {
+//				divisor.clonarLeft(Divisor.ABAIXO);
+//			} else if (divisor != null && !left) {
+//				divisor.clonarRight(Divisor.ABAIXO);
+//			} else if (containerLayout != null) {
+//				containerLayout.clonarAbaixo();
+//			}
 		}
 
 		@Override
 		public void cloneAcima() {
-			if (divisor != null && left) {
-				divisor.clonarLeft(Divisor.ACIMA);
-			} else if (divisor != null && !left) {
-				divisor.clonarRight(Divisor.ACIMA);
-			} else if (containerLayout != null) {
-				containerLayout.clonarAcima();
-			}
+//			if (divisor != null && left) {
+//				divisor.clonarLeft(Divisor.ACIMA);
+//			} else if (divisor != null && !left) {
+//				divisor.clonarRight(Divisor.ACIMA);
+//			} else if (containerLayout != null) {
+//				containerLayout.clonarAcima();
+//			}
 		}
 	};
 
@@ -290,12 +205,12 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 	@Override
 	public Component clonar() {
-		Fichario fichario = new Fichario(ouvintes.get(0), raiz);
+		Fichario fichario = new Fichario(raiz);
 
 		try {
-			fichario.addAba(true);
+			fichario.adicionarAba(true);
 		} catch (Exception ex) {
-			Util.stackTraceAndMessage("CRIAR ESPELHO", ex, this);
+			Util.stackTraceAndMessage("CRIAR CLONE", ex, this);
 		}
 
 		return fichario;
