@@ -55,7 +55,7 @@ public class FicharioUtil {
 				int total = Integer.parseInt(abas);
 
 				for (int i = 1; i < total; i++) {
-					fichario.tituloListener.clonarAba();
+					fichario.tituloListener.clonarAba(null);
 				}
 
 				for (int i = 0; i < total; i++) {
@@ -68,10 +68,10 @@ public class FicharioUtil {
 				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
 
 				if (Constantes.VERTICAL.equals(orientacao)) {
-					fichario.tituloListener.cloneAcima();
+					fichario.tituloListener.cloneAcima(null);
 					// TODO divisor.aplicarLayout(filho);
 				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
-					fichario.tituloListener.cloneDireito();
+					fichario.tituloListener.cloneDireito(null);
 					// TODO divisor.aplicarLayout(filho);
 				} else {
 					illegalStateException();
@@ -88,7 +88,7 @@ public class FicharioUtil {
 				int total = Integer.parseInt(abas);
 
 				for (int i = 1; i < total; i++) {
-					fichario.tituloListener.clonarAba();
+					fichario.tituloListener.clonarAba(null);
 				}
 
 				for (int i = 0; i < total; i++) {
@@ -101,10 +101,10 @@ public class FicharioUtil {
 				String orientacao = filho.getValorAtributo(Constantes.ORIENTACAO);
 
 				if (Constantes.VERTICAL.equals(orientacao)) {
-					fichario.tituloListener.cloneAcima();
+					fichario.tituloListener.cloneAcima(null);
 					// TODO divisor.aplicarLayout(filho);
 				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
-					fichario.tituloListener.cloneDireito();
+					fichario.tituloListener.cloneDireito(null);
 					// TODO divisor.aplicarLayout(filho);
 				} else {
 					illegalStateException();
