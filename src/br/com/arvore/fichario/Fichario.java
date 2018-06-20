@@ -94,19 +94,22 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	protected TituloListener tituloListener = new TituloListener() {
-//		@Override
-//		public void selecionarObjeto(Titulo titulo) {
-//			abaSelecionada();
-//		};
+		// @Override
+		// public void selecionarObjeto(Titulo titulo) {
+		// abaSelecionada();
+		// };
 
 		@Override
-		public void restaurar(Titulo titulo) {}
+		public void restaurar(Titulo titulo) {
+		}
 
 		@Override
-		public void maximizar(Titulo titulo) {}
+		public void maximizar(Titulo titulo) {
+		}
 
 		@Override
-		public void renomear(Titulo titulo) {}
+		public void renomear(Titulo titulo) {
+		}
 
 		@Override
 		public void clonarLocalDivisor(Titulo titulo) {

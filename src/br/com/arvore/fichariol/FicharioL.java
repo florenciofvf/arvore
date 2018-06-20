@@ -78,22 +78,26 @@ public class FicharioL extends TabbedPane {
 	}
 
 	protected TituloListener tituloListener = new TituloListener() {
-//		@Override
-//		public void selecionarObjeto(Titulo titulo) {
-//			abaSelecionada();
-//		};
+		// @Override
+		// public void selecionarObjeto(Titulo titulo) {
+		// abaSelecionada();
+		// };
 
 		@Override
-		public void restaurar(Titulo titulo) {}
+		public void restaurar(Titulo titulo) {
+		}
 
 		@Override
-		public void maximizar(Titulo titulo) {}
+		public void maximizar(Titulo titulo) {
+		}
 
 		@Override
-		public void renomear(Titulo titulo) {}
+		public void renomear(Titulo titulo) {
+		}
 
 		@Override
-		public void clonarLocalDivisor(Titulo titulo) {}
+		public void clonarLocalDivisor(Titulo titulo) {
+		}
 
 		@Override
 		public void excluirAba(Titulo titulo) {
@@ -113,14 +117,23 @@ public class FicharioL extends TabbedPane {
 		}
 
 		@Override
-		public void excluirFichario(Titulo titulo) {}
+		public void excluirFichario(Titulo titulo) {
+		}
+
 		@Override
-		public void cloneEsquerdo(Titulo titulo) {}
+		public void cloneEsquerdo(Titulo titulo) {
+		}
+
 		@Override
-		public void cloneDireito(Titulo titulo) {}
+		public void cloneDireito(Titulo titulo) {
+		}
+
 		@Override
-		public void cloneAbaixo(Titulo titulo) {}
+		public void cloneAbaixo(Titulo titulo) {
+		}
+
 		@Override
-		public void cloneAcima(Titulo titulo) {}
+		public void cloneAcima(Titulo titulo) {
+		}
 	};
 }
