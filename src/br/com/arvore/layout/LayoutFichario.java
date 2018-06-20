@@ -46,8 +46,8 @@ public class LayoutFichario extends TabbedPane {
 		int indice = getSelectedIndex();
 
 		if (indice != -1) {
-			LayoutContainer containerLayout = (LayoutContainer) getComponentAt(indice);
-			ouvintes.forEach(o -> o.containerSelecionado(containerLayout));
+			LayoutContainer container = (LayoutContainer) getComponentAt(indice);
+			ouvintes.forEach(o -> o.containerSelecionado(container));
 		}
 	}
 
@@ -56,31 +56,31 @@ public class LayoutFichario extends TabbedPane {
 	}
 
 	public void setDividerLocation(int indice) {
-		LayoutContainer containerLayout = (LayoutContainer) getComponentAt(indice);
-		containerLayout.setDividerLocation();
+		LayoutContainer container = (LayoutContainer) getComponentAt(indice);
+		container.setDividerLocation();
 	}
 
 	public void adicionarAba(boolean principal) throws Exception {
-		LayoutContainer containerLayout = new LayoutContainer();
-		addTab("label.layout", containerLayout);
+		LayoutContainer container = new LayoutContainer();
+		addTab("label.layout", container);
 
 		Fichario fichario = new Fichario(formulario.getRaiz());
 		fichario.adicionarOuvinte(formulario.getFicharioListener());
 		fichario.setSize(new Dimension(getWidth(), 0));
-		containerLayout.set(fichario);
 		fichario.adicionarAba(true);
+		container.set(fichario);
 
-		TituloLayout tituloLayout = new TituloLayout(this, principal);
-		tituloLayout.adicionarOuvinte(tituloLayoutListener);
-		setTabComponentAt(getTabCount() - 1, tituloLayout);
+		TituloLayout titulo = new TituloLayout(this, principal);
+		setTabComponentAt(getTabCount() - 1, titulo);
+		titulo.adicionarOuvinte(tituloListener);
 		setDividerLocation(getTabCount() - 1);
 	}
 
-	private LayoutTituloListener tituloLayoutListener = new LayoutTituloListener() {
+	private LayoutTituloListener tituloListener = new LayoutTituloListener() {
 		@Override
 		public void excluirAba(int indice) {
-			LayoutContainer containerLayout = (LayoutContainer) getComponentAt(indice);
-			notificarContainerExcluido(containerLayout);
+			LayoutContainer container = (LayoutContainer) getComponentAt(indice);
+			notificarContainerExcluido(container);
 			remove(indice);
 		}
 
