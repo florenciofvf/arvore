@@ -1,4 +1,4 @@
-package br.com.arvore.fichario;
+package br.com.arvore.rotulo;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

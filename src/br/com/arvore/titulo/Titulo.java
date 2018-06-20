@@ -1,4 +1,4 @@
-package br.com.arvore.fichario;
+package br.com.arvore.titulo;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -12,6 +12,10 @@ import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.Popup;
 import br.com.arvore.comp.RadioButtonMenuItem;
+import br.com.arvore.icone.Icone;
+import br.com.arvore.icone.IconeListener;
+import br.com.arvore.rotulo.Rotulo;
+import br.com.arvore.rotulo.RotuloListener;
 import br.com.arvore.util.Icones;
 
 public class Titulo extends Panel {

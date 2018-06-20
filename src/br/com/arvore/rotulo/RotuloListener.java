@@ -1,4 +1,4 @@
-package br.com.arvore.fichario;
+package br.com.arvore.rotulo;
 
 public interface RotuloListener {
 	public void exibirPopup(Rotulo rotulo, int x, int y);

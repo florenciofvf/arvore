@@ -1,4 +1,4 @@
-package br.com.arvore.fichario;
+package br.com.arvore.titulo;
 
 public interface TituloListener {
 	public void clonarLocalDivisor(Titulo titulo);

@@ -1,4 +1,4 @@
-package br.com.arvore.fichario;
+package br.com.arvore.icone;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -27,7 +27,7 @@ public class Icone extends Button {
 	private final boolean principal;
 
 	public Icone(boolean principal) {
-		setToolTipText(Mensagens.getString("label.fechar"));
+		setToolTipText(principal ? Mensagens.getString("label.clonar") : Mensagens.getString("label.fechar"));
 		setBorder(BorderFactory.createEtchedBorder());
 		setPreferredSize(new Dimension(17, 17));
 		addActionListener(actionListener);

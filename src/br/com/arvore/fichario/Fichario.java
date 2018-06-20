@@ -9,6 +9,8 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
 import br.com.arvore.divisor.DivisorClone;
+import br.com.arvore.titulo.Titulo;
+import br.com.arvore.titulo.TituloListener;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Obj;

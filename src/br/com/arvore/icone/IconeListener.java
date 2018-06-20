@@ -1,4 +1,4 @@
-package br.com.arvore.fichario;
+package br.com.arvore.icone;
 
 public interface IconeListener {
 	public void excluirAba(Icone icone);
