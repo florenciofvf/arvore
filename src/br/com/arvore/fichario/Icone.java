@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -22,26 +23,34 @@ import br.com.arvore.util.Mensagens;
 
 public class Icone extends Button {
 	private static final long serialVersionUID = 1L;
-	private final List<TituloListener> ouvintes;
+	private final List<IconeListener> ouvintes;
 	private final Fichario fichario;
-	private final boolean clonar;
+	private final boolean principal;
 	private final Titulo titulo;
 
-	public Icone(Fichario fichario, Titulo titulo, boolean clonar, List<TituloListener> ouvintes) {
+	public Icone(Fichario fichario, Titulo titulo, boolean principal) {
 		setToolTipText(Mensagens.getString("label.fechar"));
 		setBorder(BorderFactory.createEtchedBorder());
 		setPreferredSize(new Dimension(17, 17));
 		addActionListener(actionListener);
 		addMouseListener(mouseListener);
+		ouvintes = new ArrayList<>();
 		setContentAreaFilled(false);
 		setUI(new BasicButtonUI());
+		this.principal = principal;
 		this.fichario = fichario;
-		this.ouvintes = ouvintes;
 		setRolloverEnabled(true);
 		setBorderPainted(false);
 		this.titulo = titulo;
-		this.clonar = clonar;
 		setFocusable(false);
+	}
+
+	public void adicionarOuvinte(IconeListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.add(listener);
 	}
 
 	private ActionListener actionListener = new ActionListener() {
@@ -53,10 +62,10 @@ public class Icone extends Button {
 				return;
 			}
 
-			if (!clonar) {
+			if (!principal) {
 				ouvintes.forEach(o -> o.excluirAba(indice));
 			} else {
-				ouvintes.forEach(TituloListener::clonarAba);
+				ouvintes.forEach(IconeListener::clonarAba);
 			}
 		}
 	};
@@ -107,7 +116,7 @@ public class Icone extends Button {
 		int deltaX = 8;
 		int delta = 6;
 
-		if (!clonar) {
+		if (!principal) {
 			g2.drawLine(delta, delta, getWidth() - delta - 1, getHeight() - delta - 1);
 			g2.drawLine(delta, getHeight() - delta - 1, getWidth() - delta - 1, delta);
 		} else {

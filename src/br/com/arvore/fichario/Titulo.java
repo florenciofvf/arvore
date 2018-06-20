@@ -22,18 +22,25 @@ public class Titulo extends Panel {
 	private final List<TituloListener> ouvintes = new ArrayList<>();
 	private final TituloPopup tituloPopup;
 	private final Fichario fichario;
+	private final Icone icone;
 
-	public Titulo(Fichario fichario, boolean clonar) {
+	public Titulo(Fichario fichario, boolean principal) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-		this.tituloPopup = new TituloPopup(clonar);
+		this.tituloPopup = new TituloPopup(principal);
 		add(new Rotulo(fichario, this, tituloPopup));
-		add(new Icone(fichario, this, clonar, ouvintes));
+		icone = new Icone(fichario, this, principal);
+		icone.adicionarOuvinte(iconeListener);
+		add(icone);
 		this.fichario = fichario;
 		setOpaque(false);
 	}
 
 	public void adicionarOuvinte(TituloListener listener) {
+		if (listener == null) {
+			return;
+		}
+
 		ouvintes.add(listener);
 	}
 
@@ -72,6 +79,16 @@ public class Titulo extends Panel {
 
 		ouvintes.forEach(TituloListener::selecionarObjeto);
 	}
+
+	private IconeListener iconeListener = new IconeListener() {
+		@Override
+		public void excluirAba(int indice) {
+		}
+
+		@Override
+		public void clonarAba() {
+		}
+	};
 
 	protected class TituloPopup extends Popup {
 		private static final long serialVersionUID = 1L;
