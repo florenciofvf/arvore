@@ -1,21 +1,21 @@
 package br.com.arvore.fichario;
 
 public interface TituloListener {
-	public void excluirAba(int indice);
+	public void clonarLocalDivisor(Titulo titulo);
 
-	public void clonarLocalDivisor();
+	public void selecionarObjeto(Titulo titulo);
 
-	public void selecionarObjeto();
+	public void excluirFichario(Titulo titulo);
 
-	public void excluirFichario();
+	public void cloneEsquerdo(Titulo titulo);
 
-	public void cloneEsquerdo();
+	public void cloneDireito(Titulo titulo);
 
-	public void cloneDireito();
+	public void cloneAbaixo(Titulo titulo);
 
-	public void cloneAbaixo();
+	public void cloneAcima(Titulo titulo);
 
-	public void cloneAcima();
+	public void excluirAba(Titulo titulo);
 
-	public void clonarAba();
+	public void clonarAba(Titulo titulo);
 }

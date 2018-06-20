@@ -1,7 +1,7 @@
 package br.com.arvore.fichario;
 
 public interface IconeListener {
-	public void excluirAba(int indice);
+	public void excluirAba(Icone icone);
 
-	public void clonarAba();
+	public void clonarAba(Icone icone);
 }

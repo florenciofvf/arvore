@@ -24,11 +24,9 @@ import br.com.arvore.util.Mensagens;
 public class Icone extends Button {
 	private static final long serialVersionUID = 1L;
 	private final List<IconeListener> ouvintes;
-	private final Fichario fichario;
 	private final boolean principal;
-	private final Titulo titulo;
 
-	public Icone(Fichario fichario, Titulo titulo, boolean principal) {
+	public Icone(boolean principal) {
 		setToolTipText(Mensagens.getString("label.fechar"));
 		setBorder(BorderFactory.createEtchedBorder());
 		setPreferredSize(new Dimension(17, 17));
@@ -38,10 +36,8 @@ public class Icone extends Button {
 		setContentAreaFilled(false);
 		setUI(new BasicButtonUI());
 		this.principal = principal;
-		this.fichario = fichario;
 		setRolloverEnabled(true);
 		setBorderPainted(false);
-		this.titulo = titulo;
 		setFocusable(false);
 	}
 
@@ -56,16 +52,10 @@ public class Icone extends Button {
 	private ActionListener actionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int indice = fichario.indexOfTabComponent(titulo);
-
-			if (indice == -1) {
-				return;
-			}
-
 			if (!principal) {
-				ouvintes.forEach(o -> o.excluirAba(indice));
+				ouvintes.forEach(o -> o.excluirAba(Icone.this));
 			} else {
-				ouvintes.forEach(IconeListener::clonarAba);
+				ouvintes.forEach(o -> o.clonarAba(Icone.this));
 			}
 		}
 	};

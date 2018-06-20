@@ -95,11 +95,11 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	protected TituloListener tituloListener = new TituloListener() {
-		public void selecionarObjeto() {
+		public void selecionarObjeto(Titulo titulo) {
 			abaSelecionada();
 		};
 
-		public void clonarLocalDivisor() {
+		public void clonarLocalDivisor(Titulo titulo) {
 			Container container = (Container) getComponentAt(0);
 			int localizacao = container.getDividerLocation();
 
@@ -110,14 +110,15 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		};
 
 		@Override
-		public void excluirAba(int indice) {
+		public void excluirAba(Titulo titulo) {
+			int indice = indexOfTabComponent(titulo);
 			Container container = (Container) getComponentAt(indice);
 			notificarContainerExcluido(container);
 			remove(indice);
 		}
 
 		@Override
-		public void clonarAba() {
+		public void clonarAba(Titulo titulo) {
 			try {
 				adicionarAba(false);
 			} catch (Exception ex) {
@@ -126,7 +127,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		}
 
 		@Override
-		public void excluirFichario() {
+		public void excluirFichario(Titulo titulo) {
 			// if (divisor != null && left) {
 			// divisor.excluirLeft();
 			// } else if (divisor != null && !left) {
@@ -135,7 +136,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		}
 
 		@Override
-		public void cloneEsquerdo() {
+		public void cloneEsquerdo(Titulo titulo) {
 			// if (divisor != null && left) {
 			// divisor.clonarLeft(Divisor.ESQUERDO);
 			// } else if (divisor != null && !left) {
@@ -146,7 +147,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		}
 
 		@Override
-		public void cloneDireito() {
+		public void cloneDireito(Titulo titulo) {
 			// if (divisor != null && left) {
 			// divisor.clonarLeft(Divisor.DIREITO);
 			// } else if (divisor != null && !left) {
@@ -157,7 +158,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		}
 
 		@Override
-		public void cloneAbaixo() {
+		public void cloneAbaixo(Titulo titulo) {
 			// if (divisor != null && left) {
 			// divisor.clonarLeft(Divisor.ABAIXO);
 			// } else if (divisor != null && !left) {
@@ -168,7 +169,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		}
 
 		@Override
-		public void cloneAcima() {
+		public void cloneAcima(Titulo titulo) {
 			// if (divisor != null && left) {
 			// divisor.clonarLeft(Divisor.ACIMA);
 			// } else if (divisor != null && !left) {

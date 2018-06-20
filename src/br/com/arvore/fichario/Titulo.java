@@ -29,7 +29,7 @@ public class Titulo extends Panel {
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		this.tituloPopup = new TituloPopup(principal);
 		add(new Rotulo(fichario, this, tituloPopup));
-		icone = new Icone(fichario, this, principal);
+		icone = new Icone(principal);
 		icone.adicionarOuvinte(iconeListener);
 		add(icone);
 		this.fichario = fichario;
@@ -77,16 +77,16 @@ public class Titulo extends Panel {
 			container.restaurar();
 		}
 
-		ouvintes.forEach(TituloListener::selecionarObjeto);
+		ouvintes.forEach(o -> o.selecionarObjeto(Titulo.this));
 	}
 
 	private IconeListener iconeListener = new IconeListener() {
 		@Override
-		public void excluirAba(int indice) {
+		public void excluirAba(Icone icone) {
 		}
 
 		@Override
-		public void clonarAba() {
+		public void clonarAba(Icone icone) {
 		}
 	};
 
@@ -129,12 +129,12 @@ public class Titulo extends Panel {
 			menuClonarEste.add(itemAbaixo);
 			itemRLD.setEnabled(false);
 
-			itemExcluir.addActionListener(e -> ouvintes.forEach(TituloListener::excluirFichario));
-			itemEsquerdo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneEsquerdo));
-			itemRLD.addActionListener(e -> ouvintes.forEach(TituloListener::clonarLocalDivisor));
-			itemDireito.addActionListener(e -> ouvintes.forEach(TituloListener::cloneDireito));
-			itemAbaixo.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAbaixo));
-			itemAcima.addActionListener(e -> ouvintes.forEach(TituloListener::cloneAcima));
+			itemExcluir.addActionListener(e -> ouvintes.forEach(o -> o.excluirFichario(Titulo.this)));
+			itemEsquerdo.addActionListener(e -> ouvintes.forEach(o -> o.cloneEsquerdo(Titulo.this)));
+			itemRLD.addActionListener(e -> ouvintes.forEach(o -> o.clonarLocalDivisor(Titulo.this)));
+			itemDireito.addActionListener(e -> ouvintes.forEach(o -> o.cloneDireito(Titulo.this)));
+			itemAbaixo.addActionListener(e -> ouvintes.forEach(o -> o.cloneAbaixo(Titulo.this)));
+			itemAcima.addActionListener(e -> ouvintes.forEach(o -> o.cloneAcima(Titulo.this)));
 			itemRestaurar.addActionListener(e -> maximizarRestaurar());
 			itemMaximizar.addActionListener(e -> maximizarRestaurar());
 			itemRenomear.addActionListener(e -> renomear());
