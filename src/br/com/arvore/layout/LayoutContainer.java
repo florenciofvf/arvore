@@ -6,10 +6,10 @@ import java.awt.Component;
 import br.com.arvore.comp.PanelBorder;
 import br.com.arvore.fichario.Fichario;
 
-public class ContainerLayout extends PanelBorder {
+public class LayoutContainer extends PanelBorder {
 	private static final long serialVersionUID = 1L;
 
-	public ContainerLayout() {
+	public LayoutContainer() {
 	}
 
 	@Override

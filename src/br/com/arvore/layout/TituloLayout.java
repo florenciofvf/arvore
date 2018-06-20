@@ -13,21 +13,21 @@ import br.com.arvore.util.Icones;
 
 public class TituloLayout extends Panel {
 	private static final long serialVersionUID = 1L;
-	private final List<TituloLayoutListener> ouvintes = new ArrayList<>();
+	private final List<LayoutTituloListener> ouvintes = new ArrayList<>();
 	// private final FicharioLayout ficharioLayout;
 	private final TituloPopup tituloPopup;
 
-	public TituloLayout(FicharioLayout ficharioLayout, boolean clonar) {
+	public TituloLayout(LayoutFichario ficharioLayout, boolean clonar) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 		this.tituloPopup = new TituloPopup();
-		add(new RotuloLayout(ficharioLayout, this, tituloPopup));
-		add(new IconeLayout(ficharioLayout, this, clonar, ouvintes));
+//		add(new RotuloLayout(ficharioLayout, this, tituloPopup));
+//		add(new IconeLayout(ficharioLayout, this, clonar, ouvintes));
 		// this.ficharioLayout = ficharioLayout;
 		setOpaque(false);
 	}
 
-	public void adicionarOuvinte(TituloLayoutListener listener) {
+	public void adicionarOuvinte(LayoutTituloListener listener) {
 		ouvintes.add(listener);
 	}
 

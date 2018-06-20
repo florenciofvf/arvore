@@ -21,7 +21,7 @@ import br.com.arvore.controle.Controle;
 import br.com.arvore.dialogo.DialogoConexao;
 import br.com.arvore.divisor.Divisor;
 import br.com.arvore.fichario.FicharioListener;
-import br.com.arvore.layout.FicharioLayout;
+import br.com.arvore.layout.LayoutFichario;
 import br.com.arvore.util.Constantes;
 import br.com.arvore.util.Icones;
 import br.com.arvore.util.Mensagens;
@@ -32,13 +32,13 @@ public class Formulario extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final SplitPane splitPane = new SplitPane();
 	private final MenuPrincipal menuPrincipal = new MenuPrincipal();
-	private final FicharioLayout ficharioLayout;
+	private final LayoutFichario ficharioLayout;
 	private final Controle controle;
 	private Objeto raiz;
 
 	public Formulario() {
 		setTitle(Mensagens.getString("label.arvore"));
-		ficharioLayout = new FicharioLayout(this);
+		ficharioLayout = new LayoutFichario(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Constantes.DIV_CONTROLE = 1000;
 		controle = new Controle(this);

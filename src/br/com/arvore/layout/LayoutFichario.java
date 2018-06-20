@@ -9,18 +9,18 @@ import br.com.arvore.fichario.Fichario;
 import br.com.arvore.formulario.Formulario;
 import br.com.arvore.util.Util;
 
-public class FicharioLayout extends TabbedPane {
+public class LayoutFichario extends TabbedPane {
 	private static final long serialVersionUID = 1L;
-	private final List<FicharioLayoutListener> ouvintes;
+	private final List<LayoutFicharioListener> ouvintes;
 	private final Formulario formulario;
 
-	public FicharioLayout(Formulario formulario) {
+	public LayoutFichario(Formulario formulario) {
 		addChangeListener(e -> abaSelecionada());
 		this.formulario = formulario;
 		ouvintes = new ArrayList<>();
 	}
 
-	public void adicionarOuvinte(FicharioLayoutListener listener) {
+	public void adicionarOuvinte(LayoutFicharioListener listener) {
 		if (listener == null) {
 			return;
 		}
@@ -28,7 +28,7 @@ public class FicharioLayout extends TabbedPane {
 		ouvintes.add(listener);
 	}
 
-	public void excluirOuvinte(FicharioLayoutListener listener) {
+	public void excluirOuvinte(LayoutFicharioListener listener) {
 		if (listener == null) {
 			return;
 		}
@@ -46,22 +46,22 @@ public class FicharioLayout extends TabbedPane {
 		int indice = getSelectedIndex();
 
 		if (indice != -1) {
-			ContainerLayout containerLayout = (ContainerLayout) getComponentAt(indice);
+			LayoutContainer containerLayout = (LayoutContainer) getComponentAt(indice);
 			ouvintes.forEach(o -> o.containerSelecionado(containerLayout));
 		}
 	}
 
-	private void notificarContainerExcluido(ContainerLayout container) {
+	private void notificarContainerExcluido(LayoutContainer container) {
 		ouvintes.forEach(o -> o.containerExcluido(container));
 	}
 
 	public void setDividerLocation(int indice) {
-		ContainerLayout containerLayout = (ContainerLayout) getComponentAt(indice);
+		LayoutContainer containerLayout = (LayoutContainer) getComponentAt(indice);
 		containerLayout.setDividerLocation();
 	}
 
 	public void adicionarAba(boolean principal) throws Exception {
-		ContainerLayout containerLayout = new ContainerLayout();
+		LayoutContainer containerLayout = new LayoutContainer();
 		addTab("label.layout", containerLayout);
 
 		Fichario fichario = new Fichario(formulario.getRaiz());
@@ -76,10 +76,10 @@ public class FicharioLayout extends TabbedPane {
 		setDividerLocation(getTabCount() - 1);
 	}
 
-	private TituloLayoutListener tituloLayoutListener = new TituloLayoutListener() {
+	private LayoutTituloListener tituloLayoutListener = new LayoutTituloListener() {
 		@Override
 		public void excluirAba(int indice) {
-			ContainerLayout containerLayout = (ContainerLayout) getComponentAt(indice);
+			LayoutContainer containerLayout = (LayoutContainer) getComponentAt(indice);
 			notificarContainerExcluido(containerLayout);
 			remove(indice);
 		}
@@ -89,7 +89,7 @@ public class FicharioLayout extends TabbedPane {
 			try {
 				adicionarAba(false);
 			} catch (Exception ex) {
-				Util.stackTraceAndMessage("CLONAR LAYOUT", ex, FicharioLayout.this);
+				Util.stackTraceAndMessage("CLONAR LAYOUT", ex, LayoutFichario.this);
 			}
 		}
 	};
