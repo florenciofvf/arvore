@@ -9,8 +9,6 @@ import br.com.arvore.comp.TabbedPane;
 import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
 import br.com.arvore.divisor.DivisorClone;
-import br.com.arvore.titulo.Titulo;
-import br.com.arvore.titulo.TituloListener;
 import br.com.arvore.util.Layout;
 import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
@@ -129,55 +127,55 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 
 		@Override
 		public void excluirFichario() {
-//			if (divisor != null && left) {
-//				divisor.excluirLeft();
-//			} else if (divisor != null && !left) {
-//				divisor.excluirRight();
-//			}
+			// if (divisor != null && left) {
+			// divisor.excluirLeft();
+			// } else if (divisor != null && !left) {
+			// divisor.excluirRight();
+			// }
 		}
 
 		@Override
 		public void cloneEsquerdo() {
-//			if (divisor != null && left) {
-//				divisor.clonarLeft(Divisor.ESQUERDO);
-//			} else if (divisor != null && !left) {
-//				divisor.clonarRight(Divisor.ESQUERDO);
-//			} else if (containerLayout != null) {
-//				containerLayout.clonarLeft();
-//			}
+			// if (divisor != null && left) {
+			// divisor.clonarLeft(Divisor.ESQUERDO);
+			// } else if (divisor != null && !left) {
+			// divisor.clonarRight(Divisor.ESQUERDO);
+			// } else if (containerLayout != null) {
+			// containerLayout.clonarLeft();
+			// }
 		}
 
 		@Override
 		public void cloneDireito() {
-//			if (divisor != null && left) {
-//				divisor.clonarLeft(Divisor.DIREITO);
-//			} else if (divisor != null && !left) {
-//				divisor.clonarRight(Divisor.DIREITO);
-//			} else if (containerLayout != null) {
-//				containerLayout.clonarRight();
-//			}
+			// if (divisor != null && left) {
+			// divisor.clonarLeft(Divisor.DIREITO);
+			// } else if (divisor != null && !left) {
+			// divisor.clonarRight(Divisor.DIREITO);
+			// } else if (containerLayout != null) {
+			// containerLayout.clonarRight();
+			// }
 		}
 
 		@Override
 		public void cloneAbaixo() {
-//			if (divisor != null && left) {
-//				divisor.clonarLeft(Divisor.ABAIXO);
-//			} else if (divisor != null && !left) {
-//				divisor.clonarRight(Divisor.ABAIXO);
-//			} else if (containerLayout != null) {
-//				containerLayout.clonarAbaixo();
-//			}
+			// if (divisor != null && left) {
+			// divisor.clonarLeft(Divisor.ABAIXO);
+			// } else if (divisor != null && !left) {
+			// divisor.clonarRight(Divisor.ABAIXO);
+			// } else if (containerLayout != null) {
+			// containerLayout.clonarAbaixo();
+			// }
 		}
 
 		@Override
 		public void cloneAcima() {
-//			if (divisor != null && left) {
-//				divisor.clonarLeft(Divisor.ACIMA);
-//			} else if (divisor != null && !left) {
-//				divisor.clonarRight(Divisor.ACIMA);
-//			} else if (containerLayout != null) {
-//				containerLayout.clonarAcima();
-//			}
+			// if (divisor != null && left) {
+			// divisor.clonarLeft(Divisor.ACIMA);
+			// } else if (divisor != null && !left) {
+			// divisor.clonarRight(Divisor.ACIMA);
+			// } else if (containerLayout != null) {
+			// containerLayout.clonarAcima();
+			// }
 		}
 	};
 

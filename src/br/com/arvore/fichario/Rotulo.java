@@ -1,4 +1,4 @@
-package br.com.arvore.titulo;
+package br.com.arvore.fichario;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -7,8 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 
 import br.com.arvore.comp.Label;
-import br.com.arvore.fichario.Fichario;
-import br.com.arvore.titulo.Titulo.TituloPopup;
+import br.com.arvore.fichario.Titulo.TituloPopup;
 
 public class Rotulo extends Label {
 	private static final long serialVersionUID = 1L;
@@ -57,26 +56,28 @@ public class Rotulo extends Label {
 	};
 
 	private void controleItensPopup(int indice) {
-//		Container primeiro = (Container) fichario.getComponentAt(0);
-//		Divisor divisor = fichario.getDivisor();
-//
-//		int validos = 0;
-//
-//		for (int i = 1; i < fichario.getTabCount(); i++) {
-//			Container container = (Container) fichario.getComponentAt(i);
-//			if (!container.isMaximizado()) {
-//				validos++;
-//			}
-//		}
-//
-//		tituloPopup.itemExcluir.setEnabled(divisor != null && divisor.getOuvinte() != null);
-//		tituloPopup.itemRLD.setEnabled(!primeiro.isMaximizado() && validos > 0);
-//
-//		if (indice != -1) {
-//			Container selecionado = (Container) fichario.getComponentAt(indice);
-//			tituloPopup.itemRestaurar.setSelected(!selecionado.isMaximizado());
-//			tituloPopup.itemMaximizar.setSelected(selecionado.isMaximizado());
-//		}
+		// Container primeiro = (Container) fichario.getComponentAt(0);
+		// Divisor divisor = fichario.getDivisor();
+		//
+		// int validos = 0;
+		//
+		// for (int i = 1; i < fichario.getTabCount(); i++) {
+		// Container container = (Container) fichario.getComponentAt(i);
+		// if (!container.isMaximizado()) {
+		// validos++;
+		// }
+		// }
+		//
+		// tituloPopup.itemExcluir.setEnabled(divisor != null &&
+		// divisor.getOuvinte() != null);
+		// tituloPopup.itemRLD.setEnabled(!primeiro.isMaximizado() && validos >
+		// 0);
+		//
+		// if (indice != -1) {
+		// Container selecionado = (Container) fichario.getComponentAt(indice);
+		// tituloPopup.itemRestaurar.setSelected(!selecionado.isMaximizado());
+		// tituloPopup.itemMaximizar.setSelected(selecionado.isMaximizado());
+		// }
 	}
 
 	@Override

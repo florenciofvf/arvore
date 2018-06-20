@@ -1,4 +1,4 @@
-package br.com.arvore.titulo;
+package br.com.arvore.fichario;
 
 public interface TituloListener {
 	public void excluirAba(int indice);

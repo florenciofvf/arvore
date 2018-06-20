@@ -102,45 +102,45 @@ public class Divisor extends SplitPane implements Layout {
 		}
 	}
 
-//	public void clonarLeft(byte disposicao) {
-//		Component clone = DivisorUtil.clonarLeft(this);
-//		Component left = leftComponent;
-//		criarMementoDivisor();
-//
-//		if (disposicao == ESQUERDO) {
-//			DivisorUtil.novoHorizontalLeft(this, left, clone, left.getSize());
-//		} else if (disposicao == DIREITO) {
-//			DivisorUtil.novoHorizontalLeft(this, clone, left, left.getSize());
-//		} else if (disposicao == ABAIXO) {
-//			DivisorUtil.novoVerticalLeft(this, clone, left, left.getSize());
-//		} else if (disposicao == ACIMA) {
-//			DivisorUtil.novoVerticalLeft(this, left, clone, left.getSize());
-//		} else {
-//			throw new IllegalStateException();
-//		}
-//
-//		restaurarMementoDivisor();
-//	}
+	// public void clonarLeft(byte disposicao) {
+	// Component clone = DivisorUtil.clonarLeft(this);
+	// Component left = leftComponent;
+	// criarMementoDivisor();
+	//
+	// if (disposicao == ESQUERDO) {
+	// DivisorUtil.novoHorizontalLeft(this, left, clone, left.getSize());
+	// } else if (disposicao == DIREITO) {
+	// DivisorUtil.novoHorizontalLeft(this, clone, left, left.getSize());
+	// } else if (disposicao == ABAIXO) {
+	// DivisorUtil.novoVerticalLeft(this, clone, left, left.getSize());
+	// } else if (disposicao == ACIMA) {
+	// DivisorUtil.novoVerticalLeft(this, left, clone, left.getSize());
+	// } else {
+	// throw new IllegalStateException();
+	// }
+	//
+	// restaurarMementoDivisor();
+	// }
 
-//	public void clonarRight(byte disposicao) {
-//		Component clone = DivisorUtil.clonarRight(this);
-//		Component right = rightComponent;
-//		criarMementoDivisor();
-//
-//		if (disposicao == ESQUERDO) {
-//			DivisorUtil.novoHorizontalRight(this, right, clone, right.getSize());
-//		} else if (disposicao == DIREITO) {
-//			DivisorUtil.novoHorizontalRight(this, clone, right, right.getSize());
-//		} else if (disposicao == ABAIXO) {
-//			DivisorUtil.novoVerticalRight(this, clone, right, right.getSize());
-//		} else if (disposicao == ACIMA) {
-//			DivisorUtil.novoVerticalRight(this, right, clone, right.getSize());
-//		} else {
-//			throw new IllegalStateException();
-//		}
-//
-//		restaurarMementoDivisor();
-//	}
+	// public void clonarRight(byte disposicao) {
+	// Component clone = DivisorUtil.clonarRight(this);
+	// Component right = rightComponent;
+	// criarMementoDivisor();
+	//
+	// if (disposicao == ESQUERDO) {
+	// DivisorUtil.novoHorizontalRight(this, right, clone, right.getSize());
+	// } else if (disposicao == DIREITO) {
+	// DivisorUtil.novoHorizontalRight(this, clone, right, right.getSize());
+	// } else if (disposicao == ABAIXO) {
+	// DivisorUtil.novoVerticalRight(this, clone, right, right.getSize());
+	// } else if (disposicao == ACIMA) {
+	// DivisorUtil.novoVerticalRight(this, right, clone, right.getSize());
+	// } else {
+	// throw new IllegalStateException();
+	// }
+	//
+	// restaurarMementoDivisor();
+	// }
 
 	public void excluirLeft() {
 		remove(leftComponent);
@@ -161,8 +161,8 @@ public class Divisor extends SplitPane implements Layout {
 
 			if (leftComponent == divisor) {
 				setLeftComponent(right);
-//			} else if (rightComponent == divisor) {
-//				setRightComponent(right);
+				// } else if (rightComponent == divisor) {
+				// setRightComponent(right);
 			} else {
 				throw new IllegalStateException();
 			}
@@ -177,9 +177,9 @@ public class Divisor extends SplitPane implements Layout {
 			Component left = divisor.getLeftComponent();
 			criarMementoDivisor();
 
-			/*if (leftComponent == divisor) {
-				setLeftComponent(left);
-			} else*/ if (rightComponent == divisor) {
+			/*
+			 * if (leftComponent == divisor) { setLeftComponent(left); } else
+			 */ if (rightComponent == divisor) {
 				setRightComponent(left);
 			} else {
 				throw new IllegalStateException();

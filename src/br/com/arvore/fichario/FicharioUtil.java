@@ -69,10 +69,10 @@ public class FicharioUtil {
 
 				if (Constantes.VERTICAL.equals(orientacao)) {
 					fichario.tituloListener.cloneAcima();
-					//TODO divisor.aplicarLayout(filho);
+					// TODO divisor.aplicarLayout(filho);
 				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
 					fichario.tituloListener.cloneDireito();
-					//TODO divisor.aplicarLayout(filho);
+					// TODO divisor.aplicarLayout(filho);
 				} else {
 					illegalStateException();
 				}
@@ -102,10 +102,10 @@ public class FicharioUtil {
 
 				if (Constantes.VERTICAL.equals(orientacao)) {
 					fichario.tituloListener.cloneAcima();
-					//TODO divisor.aplicarLayout(filho);
+					// TODO divisor.aplicarLayout(filho);
 				} else if (Constantes.HORIZONTAL.equals(orientacao)) {
 					fichario.tituloListener.cloneDireito();
-					//TODO divisor.aplicarLayout(filho);
+					// TODO divisor.aplicarLayout(filho);
 				} else {
 					illegalStateException();
 				}

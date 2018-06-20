@@ -190,7 +190,8 @@ public class Formulario extends JFrame {
 		}
 
 		private void configurar() {
-			itemFechar.addActionListener(e -> dispatchEvent(new WindowEvent(Formulario.this, WindowEvent.WINDOW_CLOSING)));
+			itemFechar.addActionListener(
+					e -> dispatchEvent(new WindowEvent(Formulario.this, WindowEvent.WINDOW_CLOSING)));
 			itemConexao.addActionListener(e -> new DialogoConexao(Formulario.this));
 			FormularioUtil.configMAC(Formulario.this);
 

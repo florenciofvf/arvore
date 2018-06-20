@@ -16,30 +16,30 @@ public class ContainerLayout extends PanelBorder {
 	public void add(Component comp, Object constraints) {
 		super.add(comp, constraints);
 
-//		if (comp instanceof Divisor) {
-//			Divisor divisor = (Divisor) comp;
-//			divisor.adicionarOuvinte(listener);
-//		} else if (comp instanceof Divisor) {
-//			Fichario fichario = (Fichario) comp;
-//			fichario.adicionarOuvinte(listener);
-//		} else {
-//			throw new IllegalStateException();
-//		}
+		// if (comp instanceof Divisor) {
+		// Divisor divisor = (Divisor) comp;
+		// divisor.adicionarOuvinte(listener);
+		// } else if (comp instanceof Divisor) {
+		// Fichario fichario = (Fichario) comp;
+		// fichario.adicionarOuvinte(listener);
+		// } else {
+		// throw new IllegalStateException();
+		// }
 	}
 
 	@Override
 	public void remove(Component comp) {
 		super.remove(comp);
 
-//		if (comp instanceof Divisor) {
-//			Divisor divisor = (Divisor) comp;
-//			divisor.excluirOuvinte(listener);
-//		} else if (comp instanceof Divisor) {
-//			Fichario fichario = (Fichario) comp;
-//			fichario.excluirOuvinte(listener);
-//		} else {
-//			throw new IllegalStateException();
-//		}
+		// if (comp instanceof Divisor) {
+		// Divisor divisor = (Divisor) comp;
+		// divisor.excluirOuvinte(listener);
+		// } else if (comp instanceof Divisor) {
+		// Fichario fichario = (Fichario) comp;
+		// fichario.excluirOuvinte(listener);
+		// } else {
+		// throw new IllegalStateException();
+		// }
 	}
 
 	public void set(Component comp) {

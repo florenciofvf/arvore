@@ -1,4 +1,4 @@
-package br.com.arvore.titulo;
+package br.com.arvore.fichario;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -18,7 +18,6 @@ import javax.swing.BorderFactory;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import br.com.arvore.comp.Button;
-import br.com.arvore.fichario.Fichario;
 import br.com.arvore.util.Mensagens;
 
 public class Icone extends Button {
