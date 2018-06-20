@@ -3,34 +3,36 @@ package br.com.arvore.fichario;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 
 import br.com.arvore.comp.Label;
-import br.com.arvore.fichario.Titulo.TituloPopup;
 
 public class Rotulo extends Label {
 	private static final long serialVersionUID = 1L;
-	private final TituloPopup tituloPopup;
-	private final Fichario fichario;
-	private final Titulo titulo;
+	private final List<RotuloListener> ouvintes;
 
-	public Rotulo(Fichario fichario, Titulo titulo, TituloPopup tituloPopup) {
+	public Rotulo(String text) {
 		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
 		addMouseListener(mouseListener);
-		this.tituloPopup = tituloPopup;
-		this.fichario = fichario;
-		this.titulo = titulo;
+		ouvintes = new ArrayList<>();
+		setText(text);
+	}
+
+	public void adicionarOuvinte(RotuloListener listener) {
+		if (listener == null) {
+			return;
+		}
+
+		ouvintes.add(listener);
 	}
 
 	private MouseListener mouseListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			int indice = fichario.indexOfTabComponent(titulo);
-
-			if (indice != -1) {
-				fichario.setSelectedIndex(indice);
-			}
+			ouvintes.forEach(o -> o.selecionarTitulo(Rotulo.this));
 		};
 
 		@Override
@@ -48,50 +50,7 @@ public class Rotulo extends Label {
 				return;
 			}
 
-			if (tituloPopup != null) {
-				controleItensPopup(fichario.indexOfTabComponent(titulo));
-				tituloPopup.show(titulo, e.getX(), e.getY());
-			}
+			ouvintes.forEach(o -> o.exibirPopup(Rotulo.this, e.getX(), e.getY()));
 		}
 	};
-
-	private void controleItensPopup(int indice) {
-		// Container primeiro = (Container) fichario.getComponentAt(0);
-		// Divisor divisor = fichario.getDivisor();
-		//
-		// int validos = 0;
-		//
-		// for (int i = 1; i < fichario.getTabCount(); i++) {
-		// Container container = (Container) fichario.getComponentAt(i);
-		// if (!container.isMaximizado()) {
-		// validos++;
-		// }
-		// }
-		//
-		// tituloPopup.itemExcluir.setEnabled(divisor != null &&
-		// divisor.getOuvinte() != null);
-		// tituloPopup.itemRLD.setEnabled(!primeiro.isMaximizado() && validos >
-		// 0);
-		//
-		// if (indice != -1) {
-		// Container selecionado = (Container) fichario.getComponentAt(indice);
-		// tituloPopup.itemRestaurar.setSelected(!selecionado.isMaximizado());
-		// tituloPopup.itemMaximizar.setSelected(selecionado.isMaximizado());
-		// }
-	}
-
-	@Override
-	public String getText() {
-		if (fichario == null) {
-			return null;
-		}
-
-		int indice = fichario.indexOfTabComponent(titulo);
-
-		if (indice != -1) {
-			return fichario.getTitleAt(indice);
-		}
-
-		return null;
-	}
 }

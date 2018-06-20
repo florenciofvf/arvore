@@ -6,34 +6,33 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.SwingUtilities;
 
 import br.com.arvore.comp.Menu;
 import br.com.arvore.comp.MenuItem;
 import br.com.arvore.comp.Panel;
 import br.com.arvore.comp.Popup;
 import br.com.arvore.comp.RadioButtonMenuItem;
-import br.com.arvore.container.Container;
 import br.com.arvore.util.Icones;
-import br.com.arvore.util.Util;
 
 public class Titulo extends Panel {
 	private static final long serialVersionUID = 1L;
-	private final List<TituloListener> ouvintes = new ArrayList<>();
+	private final List<TituloListener> ouvintes;
 	private final TituloPopup tituloPopup;
-	private final Fichario fichario;
+	private final Rotulo rotulo;
 	private final Icone icone;
 
-	public Titulo(Fichario fichario, boolean principal) {
+	public Titulo(String text, boolean principal) {
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
-		this.tituloPopup = new TituloPopup(principal);
-		add(new Rotulo(fichario, this, tituloPopup));
+		tituloPopup = new TituloPopup(principal);
+		ouvintes = new ArrayList<>();
 		icone = new Icone(principal);
+		rotulo = new Rotulo(text);
+		rotulo.adicionarOuvinte(rotuloListener);
 		icone.adicionarOuvinte(iconeListener);
-		add(icone);
-		this.fichario = fichario;
 		setOpaque(false);
+		add(rotulo);
+		add(icone);
 	}
 
 	public void adicionarOuvinte(TituloListener listener) {
@@ -44,41 +43,25 @@ public class Titulo extends Panel {
 		ouvintes.add(listener);
 	}
 
-	private void renomear() {
-		int indice = fichario.indexOfTabComponent(this);
-
-		if (indice == -1) {
-			return;
-		}
-
-		String novo = Util.getStringInput(this, fichario.getTitleAt(indice));
-
-		if (Util.estaVazio(novo)) {
-			return;
-		}
-
-		fichario.setTitleAt(indice, novo);
-		SwingUtilities.updateComponentTreeUI(fichario);
-	}
-
 	private void maximizarRestaurar() {
-		int indice = fichario.indexOfTabComponent(this);
-
-		if (indice == -1) {
-			return;
-		}
-
 		boolean maximizar = tituloPopup.itemMaximizar.isSelected() && !tituloPopup.itemRestaurar.isSelected();
-		Container container = (Container) fichario.getComponentAt(indice);
 
 		if (maximizar) {
-			container.maximizar();
+			ouvintes.forEach(o -> o.maximizar(Titulo.this));
 		} else {
-			container.restaurar();
+			ouvintes.forEach(o -> o.restaurar(Titulo.this));
+		}
+	}
+
+	private RotuloListener rotuloListener = new RotuloListener() {
+		@Override
+		public void selecionarTitulo(Rotulo rotulo) {
 		}
 
-		ouvintes.forEach(o -> o.selecionarObjeto(Titulo.this));
-	}
+		@Override
+		public void exibirPopup(Rotulo rotulo, int x, int y) {
+		}
+	};
 
 	private IconeListener iconeListener = new IconeListener() {
 		@Override
@@ -90,12 +73,12 @@ public class Titulo extends Panel {
 		}
 	};
 
-	protected class TituloPopup extends Popup {
+	private class TituloPopup extends Popup {
 		private static final long serialVersionUID = 1L;
 		final RadioButtonMenuItem itemRestaurar = new RadioButtonMenuItem("label.restaurar", Icones.SPLIT, true);
 		final RadioButtonMenuItem itemMaximizar = new RadioButtonMenuItem("label.maximizar", Icones.ARVORE);
 		final MenuItem itemExcluir = new MenuItem("label.excluir_ficha", Icones.EXCLUIR2);
-		final MenuItem itemRLD = new MenuItem("label.replicar_local_divisor");
+		final MenuItem itemReplicarLD = new MenuItem("label.replicar_local_divisor");
 		final MenuItem itemEsquerdo = new MenuItem("label.a_esquerda");
 		final MenuItem itemDireito = new MenuItem("label.a_direita");
 		final MenuItem itemRenomear = new MenuItem("label.renomear");
@@ -103,8 +86,8 @@ public class Titulo extends Panel {
 		final MenuItem itemAbaixo = new MenuItem("label.abaixo");
 		final MenuItem itemAcima = new MenuItem("label.acima");
 
-		public TituloPopup(boolean clonar) {
-			if (clonar) {
+		public TituloPopup(boolean principal) {
+			if (principal) {
 				add(menuClonarEste);
 				addSeparator();
 				add(itemRenomear);
@@ -114,7 +97,7 @@ public class Titulo extends Panel {
 				add(itemRestaurar);
 				add(itemMaximizar);
 				addSeparator();
-				add(itemRLD);
+				add(itemReplicarLD);
 			} else {
 				add(itemRenomear);
 				addSeparator();
@@ -127,17 +110,17 @@ public class Titulo extends Panel {
 			menuClonarEste.addSeparator();
 			menuClonarEste.add(itemAcima);
 			menuClonarEste.add(itemAbaixo);
-			itemRLD.setEnabled(false);
+			itemReplicarLD.setEnabled(false);
 
+			itemReplicarLD.addActionListener(e -> ouvintes.forEach(o -> o.clonarLocalDivisor(Titulo.this)));
 			itemExcluir.addActionListener(e -> ouvintes.forEach(o -> o.excluirFichario(Titulo.this)));
 			itemEsquerdo.addActionListener(e -> ouvintes.forEach(o -> o.cloneEsquerdo(Titulo.this)));
-			itemRLD.addActionListener(e -> ouvintes.forEach(o -> o.clonarLocalDivisor(Titulo.this)));
 			itemDireito.addActionListener(e -> ouvintes.forEach(o -> o.cloneDireito(Titulo.this)));
 			itemAbaixo.addActionListener(e -> ouvintes.forEach(o -> o.cloneAbaixo(Titulo.this)));
+			itemRenomear.addActionListener(e -> ouvintes.forEach(o -> o.renomear(Titulo.this)));
 			itemAcima.addActionListener(e -> ouvintes.forEach(o -> o.cloneAcima(Titulo.this)));
 			itemRestaurar.addActionListener(e -> maximizarRestaurar());
 			itemMaximizar.addActionListener(e -> maximizarRestaurar());
-			itemRenomear.addActionListener(e -> renomear());
 
 			ButtonGroup grupo = new ButtonGroup();
 			grupo.add(itemMaximizar);

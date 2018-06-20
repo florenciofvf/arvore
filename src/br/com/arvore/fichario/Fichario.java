@@ -10,6 +10,7 @@ import br.com.arvore.container.Container;
 import br.com.arvore.container.ContainerListener;
 import br.com.arvore.divisor.DivisorClone;
 import br.com.arvore.util.Layout;
+import br.com.arvore.util.Mensagens;
 import br.com.arvore.util.Obj;
 import br.com.arvore.util.Util;
 import br.com.arvore.util.XMLUtil;
@@ -73,7 +74,7 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		container.adicionarOuvinte(containerListener);
 		addTab("label.objetos", container);
 
-		Titulo titulo = new Titulo(this, principal);
+		Titulo titulo = new Titulo(Mensagens.getString("label.objetos"), principal);
 		titulo.adicionarOuvinte(tituloListener);
 		setTabComponentAt(getTabCount() - 1, titulo);
 
@@ -95,10 +96,21 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	protected TituloListener tituloListener = new TituloListener() {
-		public void selecionarObjeto(Titulo titulo) {
-			abaSelecionada();
-		};
+//		@Override
+//		public void selecionarObjeto(Titulo titulo) {
+//			abaSelecionada();
+//		};
 
+		public void restaurar(Titulo titulo) {
+		}
+
+		public void maximizar(Titulo titulo) {
+		}
+
+		public void renomear(Titulo titulo) {
+		}
+
+		@Override
 		public void clonarLocalDivisor(Titulo titulo) {
 			Container container = (Container) getComponentAt(0);
 			int localizacao = container.getDividerLocation();
