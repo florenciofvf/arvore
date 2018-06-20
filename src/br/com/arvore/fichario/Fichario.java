@@ -67,18 +67,14 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 		container.setDividerLocation(getWidth() / 2);
 	}
 
-	private void notificarContainerExcluido(Container container) {
-		ouvintes.forEach(o -> o.containerExcluido(container));
-	}
-
 	public void adicionarAba(boolean principal) throws Exception {
 		Container container = new Container(raiz.clonar());
 		container.adicionarOuvinte(containerListener);
 		addTab("label.objetos", container);
 
 		Titulo titulo = new Titulo(Mensagens.getString("label.objetos"), principal);
-		titulo.adicionarOuvinte(tituloListener);
 		setTabComponentAt(getTabCount() - 1, titulo);
+		titulo.adicionarOuvinte(tituloListener);
 
 		setDividerLocation(getTabCount() - 1);
 	}
@@ -103,14 +99,14 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 //			abaSelecionada();
 //		};
 
-		public void restaurar(Titulo titulo) {
-		}
+		@Override
+		public void restaurar(Titulo titulo) {}
 
-		public void maximizar(Titulo titulo) {
-		}
+		@Override
+		public void maximizar(Titulo titulo) {}
 
-		public void renomear(Titulo titulo) {
-		}
+		@Override
+		public void renomear(Titulo titulo) {}
 
 		@Override
 		public void clonarLocalDivisor(Titulo titulo) {
@@ -121,14 +117,14 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 				Container c = (Container) getComponentAt(i);
 				c.setDividerLocation(localizacao);
 			}
-		};
+		}
 
 		@Override
 		public void excluirAba(Titulo titulo) {
 			int indice = indexOfTabComponent(titulo);
 			Container container = (Container) getComponentAt(indice);
-			notificarContainerExcluido(container);
 			remove(indice);
+			ouvintes.forEach(o -> o.containerExcluido(container));
 		}
 
 		@Override
