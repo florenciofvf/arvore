@@ -11,6 +11,8 @@ public interface TituloListener {
 
 	public void cloneAbaixo(Titulo titulo);
 
+	public void selecionar(Titulo titulo);
+
 	public void cloneAcima(Titulo titulo);
 
 	public void excluirAba(Titulo titulo);

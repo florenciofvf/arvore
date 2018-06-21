@@ -78,6 +78,11 @@ public class FicharioL extends TabbedPane {
 	}
 
 	protected TituloListener tituloListener = new TituloListener() {
+		public void selecionar(Titulo titulo) {
+			int indice = indexOfTabComponent(titulo);
+			setSelectedIndex(indice);
+		};
+
 		// @Override
 		// public void selecionarObjeto(Titulo titulo) {
 		// abaSelecionada();

@@ -60,6 +60,7 @@ public class Titulo extends Panel {
 	private RotuloListener rotuloListener = new RotuloListener() {
 		@Override
 		public void selecionarTitulo(Rotulo rotulo) {
+			ouvintes.forEach(o -> o.selecionar(Titulo.this));
 		}
 
 		@Override

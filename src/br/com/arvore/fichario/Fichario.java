@@ -94,6 +94,11 @@ public class Fichario extends TabbedPane implements DivisorClone, Layout {
 	}
 
 	protected TituloListener tituloListener = new TituloListener() {
+		public void selecionar(Titulo titulo) {
+			int indice = indexOfTabComponent(titulo);
+			setSelectedIndex(indice);
+		};
+
 		// @Override
 		// public void selecionarObjeto(Titulo titulo) {
 		// abaSelecionada();
