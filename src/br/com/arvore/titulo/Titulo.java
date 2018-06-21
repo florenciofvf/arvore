@@ -70,10 +70,12 @@ public class Titulo extends Panel {
 	private IconeListener iconeListener = new IconeListener() {
 		@Override
 		public void excluirAba(Icone icone) {
+			ouvintes.forEach(o -> o.excluirAba(Titulo.this));
 		}
 
 		@Override
 		public void clonarAba(Icone icone) {
+			ouvintes.forEach(o -> o.clonarAba(Titulo.this));
 		}
 	};
 
